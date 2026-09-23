@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "opentimestamps-client>=0.7.2",
+    "typesafe-sdk>=0.7.1",
 ]
 
 [project.scripts]
