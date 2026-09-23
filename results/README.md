@@ -12,3 +12,16 @@ the ledger is the claim.
   "alternative minimum taxable income". Positivity is unaffected; the
   `by_phrase` counts undercount it. Left as registered; a v2 would use
   overlapping matches.
+
+## Files
+
+- `amt-baseline-v1-<edition>.jsonl` — keyword + citation baseline, per section.
+- `amt-jev-v1-<edition>.jsonl` — the AMT lens, per section: label from the
+  strongest chunk, that chunk's probabilities, all chunk labels, request ids.
+- `amt-jev-v1-<edition>.partial.jsonl` — the raw per-call record the run
+  resumes from: one line per Jev call (or refusal), in completion order.
+  Keys written before budgets were added (`vol#ord#sha#k`) are read as
+  budget 40000. 35 chunks were refused as `max_tokens_exceeded` (21 in
+  1997, 14 in 2025) and their sections re-split at a smaller budget.
+- **amt-jev v1 note**: `confidence` is TypeSafe's (n·p_max − 1)/(n − 1),
+  not a top-two margin, and probabilities are rounded to 2 decimals.
