@@ -1,0 +1,21 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 402(a)(2): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 213(g)(3): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 1305: NO SUCH SECTION in the Code at 119-4
+- section 401(a): in force at 119-4 (March 2025)
+- section 403(a): in force at 119-4 (March 2025)
+- section 403(a)(2): in force at 119-4 (March 2025)
+- section 72(m)(5): in force at 119-4 (March 2025)
+- section 501(a): in force at 119-4 (March 2025)
+- section 401(h): in force at 119-4 (March 2025)
+- section 72(m)(7): in force at 119-4 (March 2025)
+- section 404: in force at 119-4 (March 2025)
+- section 72: in force at 119-4 (March 2025)
+- section 72(e)(3): in force at 119-4 (March 2025)
+- section 1301: in force at 119-4 (March 2025)
+- section 151: in force at 119-4 (March 2025)
+- section 1: in force at 119-4 (March 2025)
+- section 3: in force at 119-4 (March 2025)
+- section 31: in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

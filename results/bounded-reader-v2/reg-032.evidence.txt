@@ -1,0 +1,12 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 960(c)(1): in force at 119-4 (March 2025); NUMBER RESTRUCTURED since 1997: in 1997 section 960 was 'Special rules for foreign tax credit'; in 2025 it is 'Deemed paid credit for subpart F inclusions'
+- section 960(a): in force at 119-4 (March 2025); NUMBER RESTRUCTURED since 1997: in 1997 section 960 was 'Special rules for foreign tax credit'; in 2025 it is 'Deemed paid credit for subpart F inclusions'
+- section 951A(a): in force at 119-4 (March 2025); heading changed Sept 2026: 'Global intangible low-taxed income included in gross income of United States shareholders' -> 'Net CFC tested income included in gross income of United States shareholders'
+- section 6401: in force at 119-4 (March 2025)
+- section 951(a): in force at 119-4 (March 2025)
+- section 78: in force at 119-4 (March 2025)
+- section 959(a)(1): in force at 119-4 (March 2025)
+- section 901: in force at 119-4 (March 2025)
+- section 904: in force at 119-4 (March 2025)
+Text-dating check: not assessed.
