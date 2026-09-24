@@ -54,3 +54,6 @@ the ledger is the claim.
   over the 1,675 fossil-candidate sections: section label (current >
   historical > no_rules), the deciding chunk's probabilities, each section's
   citation and broken counts. Ledger: obs-0132.
+- `currency-audit-v1-2025.jsonl` — blind hand labels for 60 stratified
+  sections plus the 14 AMT fossils, both passes and the adjudication.
+  Ledger: obs-0133. Scorecard: docs/currency-scorecard.md.
