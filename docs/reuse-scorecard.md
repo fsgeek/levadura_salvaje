@@ -81,3 +81,46 @@ replaced, not moved: 73 of the 110 heading changes. The biggest block is
 §951A's other subsections, rewritten in place when GILTI became net CFC
 tested income. Moves are the minority, but they are the dangerous kind,
 because an existence check passes them.
+
+## Addendum: 28 years of reuse, 1997 to 2025 (obs-0143, obs-0144)
+
+*Predictions: [predictions/2026-09-24-reuse-28y-claude.md](../predictions/2026-09-24-reuse-28y-claude.md).
+This compares section headings in force in both GPO USCODE-1996 (through
+1997-01-06) and USLM 119-4 (1,623 sections). A reuse candidate is a pair
+whose heading word sets have Jaccard < 0.2.*
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| U1 | reused section numbers: 40 (15-120) | 48 | **pass** |
+| U2 | 2025 sections identical to 1997 that cite one: 20 (5-60) | 12 | **pass** |
+| U3 | healthy 2025 sections (no broken citation) citing one: 3% (1-8) | 4.1% (184/4,483) | **pass** |
+
+A blind classification (obs-0144; two readers who checked both statutes'
+texts, 7 disagreements adjudicated) sorts the 48:
+
+- **31 reuse, a different subject.** Old cross-reference slots became
+  substantive law: §221 is now student-loan interest, §7436 Tax Court
+  employment-status cases, §1061 carried interest. §59A went from the
+  Superfund environmental tax to the 2017 BEAT. The alcohol occupational-tax
+  block (§§5111-5132) was emptied and refilled with drawback and
+  recordkeeping rules. PFIC rules swapped places between §§1296 and 1297.
+- **11 restructure, same area but old citations reach different rules.**
+  The TEFRA partnership-audit block (§§6223-6233) was rebuilt in 2015 as the
+  BBA regime, §960 was rewritten in 2017, and §§6111-6112 in 2004.
+- **6 rename, same subject.** §220 medical savings accounts became Archer
+  MSAs, and §743 was extended.
+
+**293 sections of the 2025 CFR cite a section number that was reused or
+restructured since 1997, and 147 of them have no broken citation at all.**
+An existence check, the ledger's main instrument until now, calls those 147
+healthy. Some are healthy: a new regulation citing the new §59A is correct.
+The ones to worry about are those whose text predates the change. Ten are
+byte-identical to their 1997 text, among them §1.35-2 and §1.1402(a)-5 citing
+§35, and §301.6231(a)(7)-2 citing TEFRA's §6231. The rest were amended
+since, and whether the amendment caught up with the new meaning is the next
+question.
+
+The bounded-reader test (obs-0142) missed a dead §1.683-1 whose citation
+resolved through reuse. This instrument is the kind of evidence that would
+have flagged it. §683 itself was reused before 1997, so this window doesn't
+catch it. Neither does it catch §39. Both need an older statute.
