@@ -5,6 +5,12 @@ a blind survey of 240 random 2025 sections. Section references (§N) point
 there. Each record's ``path`` is a Code section plus its designators in
 order (``56/b/1/A``), checked against USLM as ``/us/usc/t26/s`` + path.
 
+v2 adds three forms found by the blind audit of v1: citations qualified by
+or prefixed with another statute's acronym or name ("of ERISA", "of TRA",
+"ERISA section 4044", "PHS Act section 2793"); "of such Code" when the
+nearest Code named before it is the 1939 Code; and sibling designators that
+belong to "... of this section", which are dropped.
+
 Known departures from the spec: the GLOSS skip uses a balanced-parenthesis
 scan (any depth) rather than the spec's one-level regex, and section ranges
 are resolved by their endpoints only (the interior is not enumerated here or
@@ -13,7 +19,7 @@ by the checker).
 
 import re
 
-VERSION = "1"
+VERSION = "2"
 
 # --- §1 normalization -------------------------------------------------------
 
@@ -138,12 +144,16 @@ BARE_REJECT = re.compile(r"\s?\.\d|,\d|\s?-\s?\d| U\.S\.C\.| Stat\.| CFR| FR\b"
                          r"|\s+(?:percent|days|months|years|dollars)\b")
 INVERTED = re.compile(r"\b(?:sub)?(?:section|paragraph|subparagraph|clause|subclause)s?\s+(?=\()")
 
+_CODE_ACRONYMS = r"(?:IRC|FICA|FUTA|SECA|RRTA)\b"
+# v2: a head directly after another statute's name ("ERISA section", "PHS Act section")
+OTHER_PREFIX = re.compile(rf"\b(?:(?!{_CODE_ACRONYMS})[A-Z]{{2,}}[A-Za-z]*|Act)\s+$")
 _ACT = (r"of (?:title [IVXLC\d]+ of )?(?:the )?[A-Z][\w.'&-]*\s+"
         r"(?:(?:[A-Z][\w.'&-]*|of|and|for|the|\d{4})\s+)*Act\b")
 EXCLUDE = re.compile(
     r"(?:of the Internal Revenue Code of 1939|,\s*(?:the )?Internal Revenue Code of 1939"
     rf"|{_ACT}|of the Act\b|of (?:Public Law|Pub\. ?L\.)|of the Revised Statutes"
-    r"|of title (?!26\b)\d+ of the United States Code|of the convention|of the treaty)")
+    r"|of title (?!26\b)\d+ of the United States Code|of the convention|of the treaty"
+    rf"|of (?:the )?(?!{_CODE_ACRONYMS})[A-Z]{{2,}}[A-Za-z0-9]*\b)")  # v2: "of ERISA", "of TRA"
 CHAPTER_SKIP = re.compile(r",?\s*(?:and|or)\s+(?:chapter|subchapter|title|part)\s+[\wIVXLC]+\s+")
 CODE_1954 = re.compile(r"\s*(?:of (?:the )?Internal Revenue Code of 1954|,\s*(?:the )?Internal Revenue Code of 1954)")
 HISTORICAL_AFTER = re.compile(
@@ -258,6 +268,7 @@ def _continue(text: str, g: _Group) -> _Group:
         if sib := _siblings(text, q, prev):  # (a)
             toks, levels, end, flags = sib
             g.items.append(_item(prev["section"], toks, levels, (q, end), "continuation", flags))
+            g.items[-1]["_sibling"] = True
             g.end = end
             continue
         s = SECNUM.match(text, q)  # (b)
@@ -337,6 +348,14 @@ def _qualify(text: str, items: list, start: int, end: int) -> bool:
     while (q := skip_parens(text, p)) != p:
         p = q
     tail = text[p:]
+    if re.match(r"\s*of such Code\b", tail):  # v2: which Code "such Code" is
+        named = re.findall(r"Internal Revenue Code of (\d{4})", text[:start])
+        if named and named[-1] == "1939":
+            return False
+    if re.match(r"\s*of this section\b", tail):  # v2: siblings belong to the regulation
+        items[:] = [it for it in items if not it.get("_sibling")]
+        if not items:
+            return False
     ch = CHAPTER_SKIP.match(tail)
     if EXCLUDE.match(tail.lstrip()) or (ch and EXCLUDE.match(tail[ch.end():])):
         return False
@@ -386,6 +405,8 @@ def extract(text: str, part: str | None = None, reg_id: str | None = None,
     for m in HEAD.finditer(text):
         if m.end() in consumed or m.start() in consumed:
             continue
+        if m.group(0).lower().startswith("section") and OTHER_PREFIX.search(text[:m.start()]):
+            continue  # v2
         g, _ = _parse_group(text, m)
         if not g or not g.items:
             continue
@@ -430,4 +451,5 @@ def extract(text: str, part: str | None = None, reg_id: str | None = None,
     for r in keep:
         r["flags"] = sorted(r["flags"])
         r.pop("levels", None)
+        r.pop("_sibling", None)
     return keep

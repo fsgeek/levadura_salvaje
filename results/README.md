@@ -42,3 +42,8 @@ the ledger is the claim.
   of them read as absent-section; range identifiers whose endpoint has a
   dash suffix (`s1400L...1400U–3`) were skipped, so those sections read as
   absent-section, not repealed.
+- `cfr-usc-citations-v2-2025.jsonl` — the same with extractor v2 and
+  resolver v2 (en-dash and range fixes). Ledger: obs-0129, obs-0130.
+- `fossil-audit-v1-2025.jsonl` — the blind audit of v1: 100 broken and 30
+  control occurrences, both passes, adjudications, and final judgments.
+  Ledger: obs-0128. Scorecard: docs/fossil-scorecard.md.

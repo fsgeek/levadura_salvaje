@@ -17,19 +17,22 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-SECTION = re.compile(r"^(\d+)([A-Z]*)$")
+VERSION = "2"
+SECTION = re.compile(r"^(\d+)([A-Z]*)(?:-(\d+))?$")
+DASHES = str.maketrans({"\u2013": "-", "\u2014": "-", "\u2011": "-"})
 
 
-def section_key(no: str) -> tuple[int, str] | None:
+def section_key(no: str) -> tuple[int, str, int] | None:
+    """Sort key for a section number: 1400Z-2 -> (1400, "Z", 2)."""
     m = SECTION.match(no)
-    return (int(m.group(1)), m.group(2)) if m else None
+    return (int(m.group(1)), m.group(2), int(m.group(3) or 0)) if m else None
 
 
 @dataclass
 class Statute:
     release_point: str
     status: dict[str, str | None] = field(default_factory=dict)  # "56/b/1" -> status
-    ranges: list[tuple[tuple[int, str], tuple[int, str], str | None]] = field(default_factory=list)
+    ranges: list[tuple[tuple[int, str, int], tuple[int, str, int], str | None]] = field(default_factory=list)
 
     @classmethod
     def load(cls, release_point: str, results: Path | None = None) -> "Statute":
@@ -37,7 +40,8 @@ class Statute:
         st = cls(release_point)
         for line in path.read_text().splitlines():
             p = json.loads(line)
-            head, *rest = p["path"].split("/")
+            # USLM writes 1400Z\u20132 with an en dash; the CFR writes 1400Z-2 (v1 bug).
+            head, *rest = p["path"].translate(DASHES).split("/")
             sec = head[1:]  # drop the leading "s"
             if "..." in sec:
                 lo, hi = (section_key(x) for x in sec.split("..."))
@@ -51,7 +55,7 @@ class Statute:
         return st
 
     def resolve(self, path: str) -> dict:
-        sec, *subs = path.split("/")
+        sec, *subs = path.translate(DASHES).split("/")
         if sec not in self.status:
             k = section_key(sec)
             for lo, hi, status in self.ranges:

@@ -20,6 +20,7 @@ from pathlib import Path
 
 from levadura_salvaje import citations
 from levadura_salvaje.ledger import LEDGER, append, verify
+from levadura_salvaje import resolve
 from levadura_salvaje.resolve import Statute
 from levadura_salvaje.sections import sections
 
@@ -110,7 +111,8 @@ def main() -> None:
             "observed_at_note": f"the 2025 CFR's dominant volume date, read against 26 USC as of release "
                                 f"point {rp}; the pairing, not either text alone, is what is observed",
             "instrument": {
-                "name": "scripts/measure_fossils.py", "version": "1",
+                "name": "scripts/measure_fossils.py", "version": citations.VERSION,
+                "resolver": f"levadura_salvaje.resolve v{getattr(resolve, 'VERSION', '1')}",
                 "extractor": f"levadura_salvaje.citations v{citations.VERSION} "
                              "(docs/citation-extractor-spec.md)",
                 "method": "extract Code citations per section; resolve each path against the USLM "

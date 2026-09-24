@@ -131,3 +131,23 @@ def test_flags():
                                   "26 U.S.C. 7805)")["7805"]["flags"]
     assert extract("subparagraph (B) of such section")[0]["kind"] == "anaphor"
     assert "toc" in extract("section 56(a) adjustments", reg_id="1.56-0")[0]["flags"]
+
+
+# v2: forms found by the blind audit of v1 (docs/fossil-scorecard.md)
+V2_CASES = [
+    ("effective date provisions set forth in section 31(g) (2), (3), and (4) of TRA will not", []),
+    ("notice must be provided under section 204(h) of ERISA before", []),
+    ("as described in ERISA section 4044 and in section 411(d)(6)", ["411/d/6"]),
+    ("under PHS Act section 2793 and Code section 9815", ["9815"]),
+    ("in a transaction to which the Internal Revenue Code of 1939 applied and the basis thereof was "
+     "prescribed by section 113(a) (6), (7), (8), (13) of such Code, then", []),
+    ("under section 1016(a) of such Code", ["1016/a"]),
+    ("within the meaning of section 199A(d)(2) or (b)(1)(vi) and (b)(2)(vii) of this section. (x)",
+     ["199A/d/2"]),
+    ("the tax imposed by section 3402 of this section", ["3402"]),
+]
+
+
+@pytest.mark.parametrize("text,expected", V2_CASES)
+def test_v2_audit_forms(text, expected):
+    assert [r["path"] for r in extract(text)] == expected
