@@ -47,3 +47,6 @@ the ledger is the claim.
 - `fossil-audit-v1-2025.jsonl` — the blind audit of v1: 100 broken and 30
   control occurrences, both passes, adjudications, and final judgments.
   Ledger: obs-0128. Scorecard: docs/fossil-scorecard.md.
+- `usc26-reuse-119-4-119-110.jsonl` — identifiers whose heading changed, or
+  that are in force at 119-110 but absent or repealed at 119-4, with both
+  headings. Ledger: obs-0131. Scorecard: docs/reuse-scorecard.md.
