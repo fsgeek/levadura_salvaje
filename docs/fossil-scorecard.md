@@ -123,3 +123,24 @@ cover them. v2 has **not** been audited. Its error rate is unknown, not
 - The candidate next lens is still "is this fossil still operative?" The
   population is now concrete: 1,675 sections with at least one broken
   citation.
+
+## Addendum: audit of v2 (obs-0134)
+
+Same protocol, new seed, 100 v2-broken and 30 v2-resolving occurrences.
+**94 of 100 confirmed genuinely broken** (v1: 82). 29 of 30 controls hold.
+The two passes disagreed on 2 items.
+
+- **An artifact of the audit, not the extractor:** interior items of an
+  expanded range ("section 3121(a)(1) through (20)") were shown to readers
+  with the range endpoint's span, so readers judged the endpoint. That
+  affected 5 items. One of them flips: §3121(a)(3) is repealed, §3121(a)(20)
+  is in force. Judged on their own paths, 95/100.
+- **Residual extractor errors (3):** "section 31(g)(20)(B) of TRA" and "Act
+  sections" still get through when the qualifier sits after a designator
+  chain, and a table cell "0 (h)" reads as a citation.
+- **A resolver limit (1):** §3231(e)(1)(iii) is an inline clause that USLM
+  gives no identifier, so it reads as absent.
+- **The failing control is number reuse:** a citation of the 1954 Code's §39
+  (gasoline and lubricating oil) resolves to today's §39 (carrybacks of the
+  general business credit). The reuse scorecard predicted exactly this kind
+  of silent success.
