@@ -79,3 +79,6 @@ the ledger is the claim.
   CFR's Code citations resolved against it. Ledger: obs-0139.
 - `fossil-audit-v2-1997.jsonl` — blind audit of 1997 citations against the
   GPO statute. Ledger: obs-0140. Scorecard: docs/fossils-1997-scorecard.md.
+- `cfr-fossil-turnover-1997-2025.jsonl` — fate of each 1997 fossil
+  candidate and origin of each 2025 one, by uniquely numbered sections.
+  Ledger: obs-0141.
