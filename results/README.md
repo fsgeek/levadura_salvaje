@@ -57,3 +57,5 @@ the ledger is the claim.
 - `currency-audit-v1-2025.jsonl` — blind hand labels for 60 stratified
   sections plus the 14 AMT fossils, both passes and the adjudication.
   Ledger: obs-0133. Scorecard: docs/currency-scorecard.md.
+- `fossil-audit-v2-2025.jsonl` — blind audit of the v2 extractor and
+  resolver, same protocol as v1. Ledger: obs-0134.
