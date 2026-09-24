@@ -50,3 +50,10 @@ the ledger is the claim.
 - `usc26-reuse-119-4-119-110.jsonl` — identifiers whose heading changed, or
   that are in force at 119-110 but absent or repealed at 119-4, with both
   headings. Ledger: obs-0131. Scorecard: docs/reuse-scorecard.md.
+- `currency-jev-v1-2025.jsonl` (+ `.partial.jsonl`) — the currency lens
+  over the 1,675 fossil-candidate sections: section label (current >
+  historical > no_rules), the deciding chunk's probabilities, each section's
+  citation and broken counts. Ledger: obs-0132.
+- `currency-audit-v1-2025.jsonl` — blind hand labels for 60 stratified
+  sections plus the 14 AMT fossils, both passes and the adjudication.
+  Ledger: obs-0133. Scorecard: docs/currency-scorecard.md.
