@@ -86,3 +86,8 @@ the ledger is the claim.
   60 sections: panel ground truth, Haiku 4.5 readers without (A) and with
   (B) the ledger's evidence packet. Ledger: obs-0142. Scorecard:
   docs/bounded-reader-scorecard.md.
+- `usc26-reuse-1997-2025.jsonl` — section headings 1997 vs 2025 with Jaccard
+  (pairs below 0.5; reused = below 0.2); `cfr-cites-reused-1997-2025.jsonl`
+  — 2025 CFR sections citing a reused section; ledger obs-0143.
+  `usc26-reuse-1997-2025-classified.jsonl` — blind reuse/restructure/rename
+  labels; ledger obs-0144.
