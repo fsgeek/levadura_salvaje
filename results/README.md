@@ -64,3 +64,8 @@ the ledger is the claim.
   no_rules). Ledger: obs-0135.
 - `dated-audit-v1-2025.jsonl` — blind hand labels for 60 sections, 20 per
   dated-lens label. Ledger: obs-0136. Scorecard: docs/dated-scorecard.md.
+- `usc26-moves-119-4-119-110.jsonl` — each heading-changed identifier
+  classified as move, ambiguous or replaced, with its new position.
+  `cfr-moved-citations-v2-2025.jsonl` — every 2025 CFR citation through a
+  moved provision, with the path it cites and where that rule is now.
+  Ledger: obs-0137.
