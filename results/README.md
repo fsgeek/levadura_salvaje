@@ -59,3 +59,6 @@ the ledger is the claim.
   Ledger: obs-0133. Scorecard: docs/currency-scorecard.md.
 - `fossil-audit-v2-2025.jsonl` — blind audit of the v2 extractor and
   resolver, same protocol as v1. Ledger: obs-0134.
+- `dated-jev-v1-2025.jsonl` (+ `.partial.jsonl`) — the dated-period lens
+  over the 1,675 fossil candidates (names_ended_period > silent >
+  no_rules). Ledger: obs-0135.
