@@ -25,3 +25,6 @@ the ledger is the claim.
   1997, 14 in 2025) and their sections re-split at a smaller budget.
 - **amt-jev v1 note**: `confidence` is TypeSafe's (n·p_max − 1)/(n − 1),
   not a top-two margin, and probabilities are rounded to 2 decimals.
+- `jev-repeat-v1.jsonl` — every wire state (header + chunk text, by sha256)
+  the AMT lens sent to Jev more than once, with each call's label and
+  probabilities and the widest per-label spread. Ledger: obs-0122.
