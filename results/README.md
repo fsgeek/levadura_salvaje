@@ -34,3 +34,16 @@ the ledger is the claim.
   obs-0123 (119-4), obs-0124 (119-110), obs-0125 (the diff).
   Repealed runs of sections share one element with a range identifier,
   e.g. `/us/usc/t26/s4471...4474`; readers must expand these.
+- `cfr-usc-citations-v1-2025.jsonl` — every Code citation the v1 extractor
+  found in each 2025 CFR section, with its outcome against 26 USC at 119-4
+  and 119-110. Ledger: obs-0126 (119-4), obs-0127 (119-110).
+  **Known v1 resolver bugs** (found after the run, fixed in v2): USLM writes
+  section numbers like 1400Z–2 with an en dash, so hyphenated CFR citations
+  of them read as absent-section; range identifiers whose endpoint has a
+  dash suffix (`s1400L...1400U–3`) were skipped, so those sections read as
+  absent-section, not repealed.
+- `cfr-usc-citations-v2-2025.jsonl` — the same with extractor v2 and
+  resolver v2 (en-dash and range fixes). Ledger: obs-0129, obs-0130.
+- `fossil-audit-v1-2025.jsonl` — the blind audit of v1: 100 broken and 30
+  control occurrences, both passes, adjudications, and final judgments.
+  Ledger: obs-0128. Scorecard: docs/fossil-scorecard.md.
