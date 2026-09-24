@@ -77,3 +77,5 @@ the ledger is the claim.
   USLM on 98.2% of paths (recall) and 99.3% (precision) when the reader is
   run on the GPO 2023 edition. `cfr-usc-citations-v2-1997.jsonl` — the 1997
   CFR's Code citations resolved against it. Ledger: obs-0139.
+- `fossil-audit-v2-1997.jsonl` — blind audit of 1997 citations against the
+  GPO statute. Ledger: obs-0140. Scorecard: docs/fossils-1997-scorecard.md.
