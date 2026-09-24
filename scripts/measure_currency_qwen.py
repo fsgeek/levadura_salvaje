@@ -14,6 +14,8 @@ when every chunk is answered.
 
 Usage (inside the lease, with the server up):
   uv run python scripts/measure_currency_qwen.py http://127.0.0.1:8091
+then, outside the lease, on the branch that should carry the entry:
+  uv run python scripts/measure_currency_qwen.py record
 """
 
 import hashlib
@@ -116,6 +118,11 @@ def main() -> None:
                      "sha256": s["sha256"], "label": label, "chunk_labels": [p["label"] for p in parts],
                      "jev_label": j["label"]})
     FINAL.write_text("".join(json.dumps(r, sort_keys=True) + "\n" for r in rows))
+    print(f"wrote {FINAL}; record it with: uv run python scripts/measure_currency_qwen.py record")
+
+
+def record() -> None:
+    rows = [json.loads(l) for l in FINAL.read_text().splitlines()]
     agree = sum(r["label"] == r["jev_label"] for r in rows)
     jev_entry = [rec["id"] for rec in map(json.loads, LEDGER.read_text().splitlines())
                  if rec["quantity"] == "currency_lens_section_labels"]
@@ -149,4 +156,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    record() if sys.argv[1:] == ["record"] else main()
