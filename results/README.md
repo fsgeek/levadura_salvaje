@@ -62,3 +62,5 @@ the ledger is the claim.
 - `dated-jev-v1-2025.jsonl` (+ `.partial.jsonl`) — the dated-period lens
   over the 1,675 fossil candidates (names_ended_period > silent >
   no_rules). Ledger: obs-0135.
+- `dated-audit-v1-2025.jsonl` — blind hand labels for 60 sections, 20 per
+  dated-lens label. Ledger: obs-0136. Scorecard: docs/dated-scorecard.md.
