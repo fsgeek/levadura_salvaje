@@ -28,3 +28,9 @@ the ledger is the claim.
 - `jev-repeat-v1.jsonl` — every wire state (header + chunk text, by sha256)
   the AMT lens sent to Jev more than once, with each call's label and
   probabilities and the widest per-label spread. Ledger: obs-0122.
+- `usc26-provisions-<release point>.jsonl` — every identified provision of
+  26 USC (section down to subitem): identifier, level, status, heading,
+  character count, and sha256 of its text without notes. Ledger:
+  obs-0123 (119-4), obs-0124 (119-110), obs-0125 (the diff).
+  Repealed runs of sections share one element with a range identifier,
+  e.g. `/us/usc/t26/s4471...4474`; readers must expand these.
