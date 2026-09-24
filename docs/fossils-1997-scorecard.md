@@ -54,3 +54,35 @@ flagged), the true 1997 share would be a little lower than measured.
 Corrected the same way, 2025 barely moves (94%). The stationarity claim
 survives either way: roughly one cited section in five and one regulation
 in four, then and now.
+
+## Addendum: turnover (obs-0141)
+
+*Predictions: [predictions/2026-09-24-fossil-turnover-claude.md](../predictions/2026-09-24-fossil-turnover-claude.md).
+Sections are paired by number, using only numbers that occur once in each
+edition (3,759 in 1997, 6,136 in 2025).*
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| T1 | 1997 fossils whose number is gone by 2025: 20% (8-35) | 15.8% (180/1,137) | **pass** |
+| T2 | surviving 1997 fossils still fossils: 75% (60-90) | 84.2% (806/957) | **pass** |
+| T3 | 2025 fossils inherited from 1997: 55% (40-70) | 48.1% (806/1,675) | **pass** |
+| T4 | 2025 fossils with numbers new since 1997: 15% (5-25) | 39.5% (662/1,675) | **fail** |
+| T5 | 2025 fossils that turned (present in 1997, not a fossil then): 25% (12-40) | 12.4% (207/1,675) | **pass** |
+
+**T4 is inflated by the 1997 source, and it fails as registered anyway.**
+Of the 662 "new" numbers, 110 exist in 1997 but repeat there, so the
+pairing excluded them. Another 135 fall in the section ranges of 1997
+volumes 3 and 6, which are missing from the GovInfo zip. Volume 17 is
+missing too and its range can't be bounded from the neighbours. At most 417
+(24.9%) are new, right at the top of the predicted range. That adjusted
+figure is post hoc and does not change the verdict.
+
+**How the stationary rate is maintained.** Fossils mostly *persist*: 84% of
+1997 fossils that still exist in 2025 are still fossils, and they make up
+nearly half of 2025's load. **615 of those 806 had their text amended between
+the two editions and kept their dead citations.** Being edited does not
+clean a regulation. Deaths come mostly from removal (180 numbers gone) and
+from cures (151 present but no longer candidates, 133 of them with changed
+text). Births come from new sections that cite already-dead or soon-dead
+statute, and from 207 sections the statute moved under (171 of them also
+edited, so their own amendments sometimes introduced the dead cite).
