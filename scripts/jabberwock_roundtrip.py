@@ -48,6 +48,21 @@ def main() -> None:
         register_normalizer(wabe, lambda g: g.strip())
 
     entries = [json.loads(line) for line in LEDGER.read_text().splitlines()]
+    edition_source = {e["population"]["edition"]: e["population"]["source"]
+                      for e in entries if {"edition", "source"} <= e["population"].keys()}
+
+    def subject_of(pop: dict) -> str:
+        """What an entry measured. Later instruments name a volume by edition, not URL,
+        and derived measurements name the results file they summarize."""
+        if "source" in pop:
+            base = pop["source"]
+        elif "edition" in pop:
+            base = edition_source[pop["edition"]]
+        elif "release_points" in pop:
+            return f"{pop['title']}@{'..'.join(pop['release_points'])}"
+        else:
+            return pop["results_file"]
+        return base + (f"#{pop['volume_file']}" if "volume_file" in pop else "")
     db = Path(tempfile.mkdtemp()) / "jabberwock.duckdb"
     b = Brillig(DuckDBActivityStreamStore(db))
     b.bootstrap()
@@ -68,13 +83,13 @@ def main() -> None:
         instrument = entity_for("levadura.instrument", key, "instrument")
 
         pop = e["population"]
-        source = pop["source"] + (f"#{pop['volume_file']}" if "volume_file" in pop else "")
+        source = subject_of(pop)
         subject = entity_for("levadura.source", source, "population")
         if pop.get("sha256"):
             if not hasattr(b.galumph("sha256", pop["sha256"]), "jabberwock"):
                 b.slithy(subject, "sha256", pop["sha256"])
 
-        if "edition" in pop:
+        if "edition" in pop and "source" in pop:  # structure entries place a volume in its edition
             ed = editions.get(pop["edition"])
             if ed is None:
                 ed = editions[pop["edition"]] = entity_for(
@@ -97,9 +112,7 @@ def main() -> None:
     # Read back through the fold, never through what we just wrote.
     mismatches = 0
     for e in entries:
-        pop = e["population"]
-        source = pop["source"] + (f"#{pop['volume_file']}" if "volume_file" in pop else "")
-        view = b.galumph("levadura.source", source)
+        view = b.galumph("levadura.source", subject_of(e["population"]))
         vid = str(uuid5(NS, e["id"]))
         (v,) = [v for v in view.vorpals if str(v.id) == vid]
         rebuilt = {**v.snicker_snack, "quantity": v.tulgey,
