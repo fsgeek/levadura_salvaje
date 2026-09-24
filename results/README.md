@@ -69,3 +69,5 @@ the ledger is the claim.
   `cfr-moved-citations-v2-2025.jsonl` — every 2025 CFR citation through a
   moved provision, with the path it cites and where that rule is now.
   Ledger: obs-0137.
+- `cfr-fossil-age-v2-2025.jsonl` — every citation of a repealed section
+  with the year it was repealed. Ledger: obs-0138.
