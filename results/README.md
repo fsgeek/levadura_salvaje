@@ -82,3 +82,7 @@ the ledger is the claim.
 - `cfr-fossil-turnover-1997-2025.jsonl` — fate of each 1997 fossil
   candidate and origin of each 2025 one, by uniquely numbered sections.
   Ledger: obs-0141.
+- `bounded-reader-v1-2025.jsonl` and `bounded-reader-v1/*.evidence.txt` —
+  60 sections: panel ground truth, Haiku 4.5 readers without (A) and with
+  (B) the ledger's evidence packet. Ledger: obs-0142. Scorecard:
+  docs/bounded-reader-scorecard.md.

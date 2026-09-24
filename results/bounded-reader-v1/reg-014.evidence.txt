@@ -1,0 +1,21 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 803(c): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 818(e)(4): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 818(e)(3): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 818(e)(3)(A): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 6016: REPEALED (section repealed 1968)
+- section 818(e)(3)(B): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 6152(c): REPEALED (section repealed 1986)
+- section 6152(a): REPEALED (section repealed 1986)
+- section 804(b): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 818(e): in force at 119-4 (March 2025)
+- section 818(a): in force at 119-4 (March 2025)
+- section 803(b): in force at 119-4 (March 2025)
+- section 818(e)(2): in force at 119-4 (March 2025)
+- section 6655: in force at 119-4 (March 2025)
+- section 6502(a)(1): in force at 119-4 (March 2025)
+- section 381(c)(22): in force at 119-4 (March 2025)
+- section 818(e)(1): in force at 119-4 (March 2025)
+- section 805: in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

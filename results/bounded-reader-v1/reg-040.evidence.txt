@@ -1,0 +1,11 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 503(a)(1)(B): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 503(e): in force at 119-4 (March 2025)
+- section 503(b)(1): in force at 119-4 (March 2025)
+- section 503(a)(1): in force at 119-4 (March 2025)
+- section 503(b): in force at 119-4 (March 2025)
+- section 1011: in force at 119-4 (March 2025)
+- section 401(a): in force at 119-4 (March 2025)
+- section 503(f): in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.

@@ -1,0 +1,16 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 1101: REPEALED (section repealed ?)
+- section 1103: REPEALED (section repealed ?)
+- section 6158: REPEALED (section repealed 1990)
+- section 1103(g): REPEALED (section repealed ?)
+- section 1101(b)(1): REPEALED (section repealed ?)
+- section 4(a)(2): REPEALED (section repealed 1976)
+- section 1101(e): REPEALED (section repealed ?)
+- section 6158(c)(2): REPEALED (section repealed 1990)
+- section 1101(a)(1)(B): REPEALED (section repealed ?)
+- section 1101(b)(1)(B): REPEALED (section repealed ?)
+- section 1101(c)(2)(C): REPEALED (section repealed ?)
+- section 1101(c)(3)(C): REPEALED (section repealed ?)
+- section 6158(a): REPEALED (section repealed 1990)
+Text-dating check: the text limits none of its rules to an ended period.

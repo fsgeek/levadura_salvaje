@@ -1,0 +1,14 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 412(c)(8): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 411(a): in force at 119-4 (March 2025)
+- section 411: in force at 119-4 (March 2025)
+- section 401(a)(4): in force at 119-4 (March 2025)
+- section 411(a)(3)(D): in force at 119-4 (March 2025)
+- section 401(a)(11): in force at 119-4 (March 2025)
+- section 411(a)(3)(B): in force at 119-4 (March 2025)
+- section 401(a)(19): in force at 119-4 (March 2025)
+- section 414(f): in force at 119-4 (March 2025)
+- section 401(m)(4)(A): in force at 119-4 (March 2025)
+- section 411(a)(2)(A): in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.
