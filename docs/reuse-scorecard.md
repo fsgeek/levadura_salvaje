@@ -56,3 +56,28 @@ letter that now means something else.
   their new position would catch the moves, and is the obvious v2.
 - One window only: March 2025 to September 2026. We have no statute for
   1997.
+
+## Addendum: where the re-lettered provisions went (obs-0137)
+
+*Predictions: [predictions/2026-09-24-moves-claude.md](../predictions/2026-09-24-moves-claude.md).*
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| L1 | heading changes that are moves: 35% (15-60) | 33.6% (37/110) | **pass** |
+| L2 | citations through a moved provision: 45% (20-70) | 17.7% (134/756) | **fail** |
+| L3 | §951A ≥ half of move-affected citations (point 70%) | 70.1% (94/134) | **pass** |
+
+A move is an old heading found at exactly one other identifier under the
+same parent. The 37 moves include §951A(c) → (b) ("net CFC tested income"),
+§4968(b)-(d) → (c), (f), (g), the §45X(c)(6)(R)-(Z) run, which shifted one
+letter to make room, §163(j)(10)-(11) → (12)-(13), and §7508A(c) → (d). For
+132 of the 134 affected CFR citations the rule still exists at its new
+address, recorded in `results/cfr-moved-citations-v2-2025.jsonl`. A reader
+following the old citation finds a different rule. A reader following the
+map finds the right one.
+
+L2 fails because most of the 756 citations go through provisions that were
+replaced, not moved: 73 of the 110 heading changes. The biggest block is
+§951A's other subsections, rewritten in place when GILTI became net CFC
+tested income. Moves are the minority, but they are the dangerous kind,
+because an existence check passes them.
