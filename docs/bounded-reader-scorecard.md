@@ -77,3 +77,52 @@ less than I thought: most dead citations sit inside live rules. The
 evidence that would help most next is the kind the ledger doesn't collect
 yet: whether a cited number *means the same thing* now (reuse), and whether
 the program a rule serves still exists.
+
+## v2: the circularity removed (obs-0145)
+
+*Predictions: [predictions/2026-09-24-bounded-reader-v2-claude.md](../predictions/2026-09-24-bounded-reader-v2-claude.md).
+120 fresh sections, disjoint from v1. **The panel never saw the evidence
+packet.** It judged from the text, both statutes (1997 and 2025) and its own
+knowledge. The packet adds 28-year reuse flags. There is a new stratum:
+reuse-exposed sections (no broken citation, but citing a number reused or
+restructured since 1997).*
+
+| stratum | truly operates | A (text) | B (text + packet) |
+|---|---|---|---|
+| unmarked fossils | 22/30 | 22/30 | **28/30** |
+| dated fossils | 18/30 | 22/30 | **26/30** |
+| controls | 24/30 | 26/30 | 26/30 |
+| reuse-exposed | 29/30 | 29/30 | 29/30 |
+| **all** | 93/120 | **99 (82.5%)** | **109 (90.8%)** |
+
+**B fixes 13 sections for 3 new errors, exact McNemar p = 0.021.** With the
+circularity gone, the v1 result replicates almost exactly (+8.3 points
+both times) and is now significant.
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| V1 | B − A overall ≥ +5 (point +7) | +8.3 | **pass** |
+| V2 | B − A on reuse-exposed ≥ +10 | 0 | **fail** |
+| V3 | reuse-exposed that don't operate: 20% (8-35) | 3.3% (1/30) | **fail** |
+| V4 | B on controls ≥ A − 5 | 0 | **pass** |
+| V5 | unmarked fossils that operate: 65% (50-80) | 73% | **pass** |
+
+**Reuse exposure is mostly harmless.** 29 of 30 reuse-exposed sections still
+operate. A regulation citing a reused number usually cites its *new*
+meaning, because it was written or updated after the change: the BBA
+partnership regulations cite the new §6223, and the BEAT regulations cite
+the new §59A. The ten 1997-identical citers in obs-0143 are the dangerous
+minority, and a random draw from the 94 exposed sections rarely hits them.
+So the reuse flags had nothing to fix here (V2, V3).
+
+**Where the evidence helps is the fossils.** 11 of the 13 fixes are fossil
+candidates the text reader called alive and the panel calls dead:
+§1.826-3, §1.1342-1, §1.812-6, §1.802-3, §301.6223(f)-1 (TEFRA),
+§1.965-6, and others. The 3 new errors are fossils the packet made look
+dead while a rule still operates (§1.167(l)-3, §1.267(d)-2), plus one
+control.
+
+**For the thesis:** twice now, on 180 sections in total, a small reader with
+a ~2,000-character slice of an external ledger beats the same reader
+without it by 8 points. The whole gain comes from exactly the sections the
+ledger was built to see. Nothing is lost on healthy ones.

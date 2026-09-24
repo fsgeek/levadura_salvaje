@@ -1,0 +1,18 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 6653(b): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 6110(h): in force at 119-4 (March 2025)
+- section 6110: in force at 119-4 (March 2025)
+- section 6104: in force at 119-4 (March 2025)
+- section 6110(l)(1): in force at 119-4 (March 2025)
+- section 6110(d)(3): in force at 119-4 (March 2025)
+- section 6110(f)(4): in force at 119-4 (March 2025)
+- section 6861: in force at 119-4 (March 2025)
+- section 6851: in force at 119-4 (March 2025)
+- section 7429: in force at 119-4 (March 2025)
+- section 412: in force at 119-4 (March 2025)
+- section 442: in force at 119-4 (March 2025)
+- section 446(e): in force at 119-4 (March 2025)
+- section 706: in force at 119-4 (March 2025)
+- section 6110(j): in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

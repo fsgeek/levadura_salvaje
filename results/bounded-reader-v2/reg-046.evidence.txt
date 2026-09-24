@@ -1,0 +1,31 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 1296(a): in force at 119-4 (March 2025); NUMBER REUSED since 1997: in 1997 section 1296 was 'Passive foreign investment company'; in 2025 it is 'Election of mark to market for marketable stock'
+- section 1296: in force at 119-4 (March 2025); NUMBER REUSED since 1997: in 1997 section 1296 was 'Passive foreign investment company'; in 2025 it is 'Election of mark to market for marketable stock'
+- section 1298(f): in force at 119-4 (March 2025)
+- section 671: in force at 119-4 (March 2025)
+- section 678: in force at 119-4 (March 2025)
+- section 7701(a)(30)(E): in force at 119-4 (March 2025)
+- section 1291(b): in force at 119-4 (March 2025)
+- section 1291(a)(2): in force at 119-4 (March 2025)
+- section 1293(a): in force at 119-4 (March 2025)
+- section 1294: in force at 119-4 (March 2025)
+- section 1295: in force at 119-4 (March 2025)
+- section 7701(a)(31)(A): in force at 119-4 (March 2025)
+- section 7701(a)(31)(B): in force at 119-4 (March 2025)
+- section 501(a): in force at 119-4 (March 2025)
+- section 501(c): in force at 119-4 (March 2025)
+- section 501(d): in force at 119-4 (March 2025)
+- section 401(a): in force at 119-4 (March 2025)
+- section 511(a)(2)(B): in force at 119-4 (March 2025)
+- section 403(b): in force at 119-4 (March 2025)
+- section 457(b): in force at 119-4 (March 2025)
+- section 7701(a)(37): in force at 119-4 (March 2025)
+- section 529: in force at 119-4 (March 2025)
+- section 530: in force at 119-4 (March 2025)
+- section 1291: in force at 119-4 (March 2025)
+- section 1298(a): in force at 119-4 (March 2025)
+- section 1298(a)(2)(B): in force at 119-4 (March 2025)
+- section 6114: in force at 119-4 (March 2025)
+- ... and 3 more cited provisions in force, no flags
+Text-dating check: not assessed.

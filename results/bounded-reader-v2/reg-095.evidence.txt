@@ -1,0 +1,39 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 802(a)(1): NO SUCH SECTION in the Code at 119-4
+- section 802(b): NO SUCH SECTION in the Code at 119-4
+- section 1551: REPEALED (section repealed 2098)
+- section 802(a)(3): NO SUCH SECTION in the Code at 119-4
+- section 802(b)(3): NO SUCH SECTION in the Code at 119-4
+- section 802(a)(2): NO SUCH SECTION in the Code at 119-4
+- section 804(b): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 809(b): REPEALED (section repealed 2004)
+- section 1201(a): REPEALED (section repealed 2096)
+- section 244: REPEALED (section repealed 2014)
+- section 809(a)(3): REPEALED (section repealed 2004)
+- section 804(a)(5): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 809(d)(8)(B): REPEALED (section repealed 2004)
+- section 809(f): REPEALED (section repealed 2004)
+- section 802: NO SUCH SECTION in the Code at 119-4
+- section 820: NO SUCH SECTION in the Code at 119-4
+- section 802(a): NO SUCH SECTION in the Code at 119-4
+- section 1562(a)(1): REPEALED (section repealed 1969)
+- section 1562: REPEALED (section repealed 1969)
+- section 801(a): in force at 119-4 (March 2025)
+- section 6001: in force at 119-4 (March 2025)
+- section 11: in force at 119-4 (March 2025)
+- section 11(b): in force at 119-4 (March 2025)
+- section 11(c): in force at 119-4 (March 2025)
+- section 11(d): in force at 119-4 (March 2025)
+- section 269: in force at 119-4 (March 2025)
+- section 1222(7): in force at 119-4 (March 2025)
+- section 1222(6): in force at 119-4 (March 2025)
+- section 1222(5): in force at 119-4 (March 2025)
+- section 1222(8): in force at 119-4 (March 2025)
+- section 817: in force at 119-4 (March 2025)
+- section 170: in force at 119-4 (March 2025)
+- section 243: in force at 119-4 (March 2025)
+- section 245: in force at 119-4 (March 2025)
+- section 881: in force at 119-4 (March 2025)
+- section 801: in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.
