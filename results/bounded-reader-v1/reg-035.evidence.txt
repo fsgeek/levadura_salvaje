@@ -1,0 +1,12 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 708(b)(1)(B): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 7704(b): in force at 119-4 (March 2025)
+- section 851: in force at 119-4 (March 2025)
+- section 856: in force at 119-4 (March 2025)
+- section 732: in force at 119-4 (March 2025)
+- section 267(c)(4): in force at 119-4 (March 2025)
+- section 401(a): in force at 119-4 (March 2025)
+- section 267(b): in force at 119-4 (March 2025)
+- section 707(b)(1): in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.

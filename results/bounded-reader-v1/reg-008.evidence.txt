@@ -1,0 +1,22 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 7651(5)(B): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 934(a): in force at 119-4 (March 2025)
+- section 934(b): in force at 119-4 (March 2025)
+- section 934(b)(1): in force at 119-4 (March 2025)
+- section 934(b)(2): in force at 119-4 (March 2025)
+- section 932(a): in force at 119-4 (March 2025)
+- section 901(a): in force at 119-4 (March 2025)
+- section 901: in force at 119-4 (March 2025)
+- section 934(b)(3): in force at 119-4 (March 2025)
+- section 958: in force at 119-4 (March 2025)
+- section 906: in force at 119-4 (March 2025)
+- section 861: in force at 119-4 (March 2025)
+- section 865: in force at 119-4 (March 2025)
+- section 937(b): in force at 119-4 (March 2025)
+- section 934: in force at 119-4 (March 2025)
+- section 932(b): in force at 119-4 (March 2025)
+- section 871(a): in force at 119-4 (March 2025)
+- section 934(b)(3)(B): in force at 119-4 (March 2025)
+- section 7701(a)(30)(A): in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.

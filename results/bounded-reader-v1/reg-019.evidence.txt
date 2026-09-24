@@ -1,0 +1,8 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 4996(b)(8)(C): NO SUCH SECTION in the Code at 119-4
+- section 4993(d)(1)(B): NO SUCH SECTION in the Code at 119-4
+- section 193: in force at 119-4 (March 2025)
+- section 263(c): in force at 119-4 (March 2025)
+- section 7805: in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.

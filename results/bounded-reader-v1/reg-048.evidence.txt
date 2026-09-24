@@ -1,0 +1,27 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 412(g): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 405(a): REPEALED (section repealed 1984)
+- section 412(b)(2)(D): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(b)(3)(D): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(b)(2)(B)(v): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(b)(3)(B)(iii): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(b)(2)(B)(ii): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(b)(2)(B)(iii): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(b)(3)(B)(i): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 412(c)(9): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 404(a)(1)(A): in force at 119-4 (March 2025)
+- section 404(a): in force at 119-4 (March 2025)
+- section 404: in force at 119-4 (March 2025)
+- section 404(a)(1)(A)(iii): in force at 119-4 (March 2025)
+- section 404(a)(1)(A)(i): in force at 119-4 (March 2025)
+- section 404(a)(1)(A)(ii): in force at 119-4 (March 2025)
+- section 446(e): in force at 119-4 (March 2025)
+- section 412: in force at 119-4 (March 2025)
+- section 401(a): in force at 119-4 (March 2025)
+- section 403(a): in force at 119-4 (March 2025)
+- section 412(b)(3): in force at 119-4 (March 2025)
+- section 412(a): in force at 119-4 (March 2025)
+- section 404(a)(6): in force at 119-4 (March 2025)
+- section 404(a)(1)(D): in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

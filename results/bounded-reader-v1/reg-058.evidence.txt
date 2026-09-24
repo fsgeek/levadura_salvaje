@@ -1,0 +1,8 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 4073(c): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 4071: in force at 119-4 (March 2025)
+- section 4071(b): in force at 119-4 (March 2025)
+- section 4071(c): in force at 119-4 (March 2025)
+- section 7805: in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

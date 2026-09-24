@@ -1,0 +1,13 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025:
+- section 2102(c): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 2056A: in force at 119-4 (March 2025)
+- section 2056A(b)(12): in force at 119-4 (March 2025)
+- section 6081: in force at 119-4 (March 2025)
+- section 2056A(b)(1)(A): in force at 119-4 (March 2025)
+- section 2056A(b)(1): in force at 119-4 (March 2025)
+- section 2001(b)(1)(B): in force at 119-4 (March 2025)
+- section 2501: in force at 119-4 (March 2025)
+- section 2010: in force at 119-4 (March 2025)
+- section 2505: in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.
