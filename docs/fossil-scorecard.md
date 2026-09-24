@@ -144,3 +144,23 @@ The two passes disagreed on 2 items.
   (gasoline and lubricating oil) resolves to today's §39 (carrybacks of the
   general business credit). The reuse scorecard predicted exactly this kind
   of silent success.
+
+## Addendum: how long the dead citations have been dead (obs-0138)
+
+*Predictions: [predictions/2026-09-24-fossil-age-claude.md](../predictions/2026-09-24-fossil-age-claude.md).
+The repeal year is the latest date in the repealed section element's USLM
+heading, covering 5,222 occurrences and 189 distinct sections, all dated.*
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| A1 | median repeal year over occurrences: 1990 (1980-2005) | 2000 | **pass** |
+| A2 | repealed by 2005: 60% (40-80) | 61.5% | **pass** |
+| A3 | repealed in 2017: 20% (8-35) | 27.2% | **pass** |
+| A4 | most common decade among distinct sections: 1970s | 2010s (47; 1980s 42, 1970s 40) | **fail** |
+
+**Death is spread across seventy years.** By occurrence, the heaviest
+decade is the 2010s (2,008, mostly the 2017 act), then the 1980s (1,104).
+The oldest fossils are §452 (prepaid income) and §462 (reserves for
+estimated expenses). Both were enacted in 1954 and repealed retroactively in
+1955, and the 2025 CFR still cites them 126 times. The deadwood never gets
+cleared: each major tax act adds a layer, and the layers stay.
