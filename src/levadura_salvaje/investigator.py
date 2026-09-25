@@ -161,28 +161,29 @@ def read_log(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
-def snapshot(backend, live_log: Path, after_cycle: int, probe_log: Path | None):
+def snapshot(backend, live_log: Path, after_cycle: int, probe_log: Path | None, model: str = "stub"):
     """A disposable session carrying the state *produced* by ``after_cycle``.
 
     ``seed_history(records, c)`` rebuilds the state going *into* cycle c, so
     the state after wake c is ``c + 1`` (review 3).
     """
-    s = session(backend, probe_log)
+    s = session(backend, probe_log, model=model)
     s.seed_history(read_log(live_log), after_cycle + 1)
     return s
 
 
 def run_probe(payload: dict, backend=None) -> dict:
     """One probe, meant to run in its own process (see ``probe_in_subprocess``)."""
+    model = (payload.get("backend") or {}).get("model", "stub")
     backend = backend or make_backend(payload["backend"])
     reseed(*payload["seed_parts"])
     world, probe, epoch = payload["world"], payload["probe"], payload["epoch"]
     probe = {**probe, "field": tuple(probe["field"])}
     probe_log = Path(payload["probe_log"]) if payload.get("probe_log") else None
     if payload["persistent"]:
-        s = snapshot(backend, Path(payload["live_log"]), payload["after_cycle"], probe_log)
+        s = snapshot(backend, Path(payload["live_log"]), payload["after_cycle"], probe_log, model)
     else:
-        s = session(backend, probe_log)
+        s = session(backend, probe_log, model=model)
     message = probe_message(probe)
     if payload["in_context"]:
         message = wake_message(world, epoch, True) + "\n\n" + message
