@@ -85,7 +85,9 @@ def _field(value, field: tuple):
         return _MISSING
 
 
-def _valid(given: dict) -> bool:
+def _valid(given) -> bool:
+    if not isinstance(given, dict):
+        return False
     if set(given) == {"abstain"}:
         return given["abstain"] is True
     if not isinstance(given.get("source_id"), str):
@@ -97,7 +99,7 @@ def _valid(given: dict) -> bool:
 
 
 def score(world: Sequence[dict], epoch: int, quantity: str, population: str,
-          observed_at: str | None, given: dict, field: tuple = ()) -> dict:
+          observed_at: str | None, given, field: tuple = ()) -> dict:
     """Score a typed answer on separate dimensions.
 
     status: abstain, invalid (wrong shape or type) or answered.

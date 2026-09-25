@@ -188,16 +188,22 @@ def plant(world: Sequence[dict], seed: int, last_epoch: int = len(LEDGER_EPOCH_E
     rng.shuffle(kinds)
     # the last event must still get its +3 probe
     epochs = sorted(rng.sample(range(FIRST_EVENT_EPOCH, last_epoch - max(LAGS) + 1), len(kinds)))
-    used: set[str] = set()
+    # identities (quantity, population) an event or a control has claimed; a
+    # control must never share one with any event, or the event treats it
+    touched: set[tuple] = set()
     events, probes = [], []
 
-    def candidates(before: int, epoch: int | None = None):
-        return [r for r in world if r["id"] not in used and _numeric_paths(r["value"])
-                and (r["epoch"] < before if epoch is None else r["epoch"] == epoch)]
+    def eligible(r):
+        return (r["quantity"], r["population"]) not in touched and _numeric_paths(r["value"])
 
-    for n, (kind, epoch) in enumerate(zip(kinds, epochs)):
-        target = rng.choice(candidates(epoch))
-        used.add(target["id"])
+    def controls_for(target):
+        return [r for r in world if r["epoch"] == target["epoch"] and eligible(r)
+                and (r["quantity"], r["population"]) != (target["quantity"], target["population"])]
+
+    for kind, epoch in zip(kinds, epochs):
+        targets = [r for r in world if r["epoch"] < epoch and eligible(r) and controls_for(r)]
+        target = rng.choice(targets)
+        touched.add((target["quantity"], target["population"]))
         field = rng.choice(_numeric_paths(target["value"]))
         new = {k: target[k] for k in ("quantity", "population", "observed_at", "instrument", "derived_from")}
         new.update(id=f"w-{len(world) + len(events) + 1:04d}", epoch=epoch, event=kind,
@@ -220,8 +226,8 @@ def plant(world: Sequence[dict], seed: int, last_epoch: int = len(LEDGER_EPOCH_E
             else:
                 new["supersedes"] = target["id"]
         events.append(new)
-        control = rng.choice(candidates(epoch, target["epoch"]) or candidates(epoch))
-        used.add(control["id"])
+        control = rng.choice(controls_for(target))
+        touched.add((control["quantity"], control["population"]))
         cfield = rng.choice(_numeric_paths(control["value"]))
         for lag in LAGS:
             if epoch + lag > last_epoch:

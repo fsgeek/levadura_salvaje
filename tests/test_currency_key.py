@@ -80,6 +80,7 @@ def test_withdrawal_scoring():
     {"value": 10},
     {"abstain": False},
     {"value": 10, "source_id": "w-01", "extra": 1},
+    None, 12, [], "10",                             # valid JSON, not answers (review 4)
 ])
 def test_malformed_answers_are_invalid_not_scored(given):
     assert score(WORLD, 5, "Q1", "P1", "t1", given) == S("invalid")

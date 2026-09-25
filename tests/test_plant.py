@@ -9,8 +9,9 @@ from levadura_salvaje.worlds import generate, ledger_epochs, plant
 REAL = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
 
 
-# 57, 91 and 96 plant a repeat on an identity with several observations
-@pytest.fixture(params=[0, 1, 2, 57, 91, 96])
+# 57, 91 and 96 plant a repeat on an identity with several observations;
+# 3 and 8 produced treated or mismatched controls before review 4
+@pytest.fixture(params=[0, 1, 2, 3, 8, 57, 91, 96])
 def planted(request):
     base = generate(REAL, ledger_epochs(REAL), seed=request.param)
     return plant(base, seed=request.param)
@@ -82,3 +83,21 @@ def test_a_repeat_becomes_the_latest_observation(planted):
     assert max(r["observed_at"] for r in same) == rep["observed_at"]
     p = next(p for p in probes if p["event_id"] == rep["id"] and not p["control"])
     assert answer(world, p["epoch"], p["quantity"], p["population"], None, p["field"])["source_id"] == rep["id"]
+
+
+def test_controls_are_untouched_and_from_the_targets_epoch(planted):
+    # review 4: a repeat and its control shared an identity (seed 8), and a
+    # control fell back to another epoch (seed 3)
+    world, probes = planted
+    by_id = {r["id"]: r for r in world}
+    events = [r for r in world if r.get("event")]
+    claimed = {(r["quantity"], r["population"]) for r in events}
+    for p in probes:
+        if not p["control"]:
+            continue
+        ev = by_id[p["event_id"]]
+        tgt = by_id[next(q["target_id"] for q in probes if q["event_id"] == ev["id"] and not q["control"])]
+        assert by_id[p["target_id"]]["epoch"] == tgt["epoch"]
+        assert (p["quantity"], p["population"]) not in claimed
+        first = answer(world, ev["epoch"] - 1, p["quantity"], p["population"], p["observed_at"], p["field"])
+        assert answer(world, p["epoch"], p["quantity"], p["population"], p["observed_at"], p["field"]) == first

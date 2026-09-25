@@ -1,11 +1,12 @@
 # Memory or instrument? A record-currency feasibility pilot
 
-*2026-09-25, draft 4. Drafts 1–3 and their adversarial reviews (Codex):
+*2026-09-25, draft 5. Drafts 1–4 and their adversarial reviews (Codex):
 [draft 1](investigator-design-draft-1.md) / [review 1](investigator-design-review-1.md),
 [draft 2](investigator-design-draft-2.md) / [review 2](investigator-design-review-2.md),
-[draft 3](investigator-design-draft-3.md) / [review 3](investigator-design-review-3.md).
-Review 3 said yes for feasibility after a list of minimum changes. This
-draft makes them, and the code is at `src/levadura_salvaje/{worlds,currency_key}.py`.*
+[draft 3](investigator-design-draft-3.md) / [review 3](investigator-design-review-3.md),
+[draft 4](investigator-design-draft-4.md) / [review 4](investigator-design-review-4.md).
+Review 4 found no CRITICAL issue and said to proceed after three HIGH fixes, which this
+draft and the code make. The code is at `src/levadura_salvaje/{worlds,currency_key,ledger_tool}.py`.*
 
 ## What this is, and is not
 
@@ -55,6 +56,11 @@ It also gives crude variance estimates for a later confirmatory design.
 - **Probes:** each event is probed at lags 0, +1 and +3. Each gets a
   matched control, an untouched entry from the target's epoch, probed at the
   same epochs. Every arm in a world gets the identical probe list.
+- **Controls are untouched** (review 4). A target is eligible only if a
+  control exists in its own epoch. No control shares a quantity and population
+  with any event, since a "latest observation" probe would otherwise be
+  treated. Tests assert that each control's answer is unchanged across all its
+  probe epochs, and a sweep of seeds 0–399 finds no treated control.
 
 ## Semantics and scoring (implemented: `currency_key`)
 
@@ -66,8 +72,9 @@ A measurement identity is (quantity, population, observed_at).
 - Derived entries are untouched when their inputs change.
 
 A probe names one numeric field by key path. Answers are
-`{value, source_id}`, `{withdrawn, source_id}` or `{abstain}`, and anything else
-is **invalid**. Scoring has separate dimensions, with typed equality (a
+`{value, source_id}`, `{withdrawn, source_id}` or `{abstain}`. Anything else,
+including unparseable output and JSON that isn't an object, is
+**invalid** and stays in the denominator. Scoring has separate dimensions, with typed equality (a
 boolean never matches a number):
 
 - **value:** current, obsolete (matches only a replaced entry's field) or other;
@@ -117,10 +124,16 @@ hand-worked world (`tests/test_currency_key.py`).
   `random` (`_pick_memory`). Each probe runs in **its own subprocess**, so it
   can't advance the live run's draws. The live run reseeds `random` before
   every wake from (world, arm, epoch), so its draws are reproducible.
-- **Verification before the pilot:** a stub backend (no model) runs one world
-  with probing and without. The live logs' `memory_injection` sequences and
-  prior-state hashes must be identical. The continuing log is also hashed
-  around every probe.
+- **Probe seeds are frozen:** each probe subprocess seeds `random` from
+  (world, arm, epoch, probe index).
+- **Gates before any model run**, using a stub backend with no model:
+  1. *Non-interference:* one world run with probing and without. The live
+     logs' `memory_injection` sequences and prior-state hashes must be
+     identical, and the continuing log is hashed around every probe.
+  2. *Snapshot fidelity* (review 3, review 4): with involuntary memory forced
+     identical (`force_memory`), a snapshot's rendered model input (system
+     prompt, carried state, prior-state history) must equal what the live
+     session would render for its next wake.
 
 ## Measures of instrument use (review 3, CRITICAL)
 
@@ -130,11 +143,12 @@ its place, reported for **every** arm and **descriptively only**:
 
 - **no probe-time ledger call**: the answer was given without calling the
   ledger tool in that probe session;
-- **endorsed-then-obsolete**: in a P arm, a probe after a replacement returns
-  the obsolete value, *and* that exact value (typed) appears in the arm's
-  continuing state at a cycle before the replacement was revealed. This is
-  the only form in which "held an obsolete value" is reported, and it is
-  still not a causal claim.
+- **prior numeric occurrence**: in a P arm, a probe after a replacement
+  returns the obsolete value, *and* that exact value (typed) occurs somewhere
+  in the continuing state before the replacement was revealed. Occurrence is
+  not endorsement: it may be a counter, another measurement, or a rejected
+  value (review 4). The pilot claims nothing about what the arm "held" or
+  "believed".
 
 ## Size and cost
 
