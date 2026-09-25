@@ -215,9 +215,14 @@ def make_backend(spec: dict | None):
         return StubBackend()
     from hamutay.taste_open import OpenAITasteBackend
 
+    # attribute every call to this project and experiment on OpenRouter's side,
+    # as Hamut'ay's own CLI does for its traffic (taste_open.py ~4607)
+    headers = {"X-Title": f"levadura-salvaje/{spec.get('experiment', 'pilot-v1')}",
+               "HTTP-Referer": "https://github.com/fsgeek/levadura_salvaje"}
     return OpenAITasteBackend(base_url="https://openrouter.ai/api/v1",
                               api_key=os.environ["OPENROUTER_API_KEY"],
-                              max_tokens=MAX_OUTPUT_TOKENS, provider_name="openrouter")
+                              max_tokens=MAX_OUTPUT_TOKENS, provider_name="openrouter",
+                              extra_headers=headers)
 
 
 def probe_in_subprocess(payload: dict) -> dict:
