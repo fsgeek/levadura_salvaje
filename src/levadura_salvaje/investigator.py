@@ -133,7 +133,7 @@ class StubBackend:
                           "tools": sorted(t["name"] for t in (extra_tools or []))})
         last = messages[-1]["content"] if messages else ""
         last = last if isinstance(last, str) else json.dumps(last, default=str)
-        if last.startswith("Question"):
+        if "Question (answer from your records" in last:
             return ExchangeResult(raw_output={"response": '{"abstain": true}'})
         epoch = last.split("Epoch ", 1)[1].split(".", 1)[0] if "Epoch " in last else "?"
         return ExchangeResult(raw_output={"response": "noted", f"seen_epoch_{epoch}": epoch})

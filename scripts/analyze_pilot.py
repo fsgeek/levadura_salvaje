@@ -64,7 +64,8 @@ def main(run: Path) -> None:
             for lag in (0, 1, 3):
                 ev = [r for r in rs if r["kind"] == kind and r["lag"] == lag and not r["control"]]
                 ct = [r for r in rs if r["kind"] == kind and r["lag"] == lag and r["control"]]
-                cells.append(f"{kind[:7]}+{lag} {rate(ev, acc):.2f}({rate(ct, acc):.2f})")
+                label = {"replace": "repl", "replace_equal": "eq", "withdraw": "wdr", "repeat": "rep"}[kind]
+                cells.append(f"{label}+{lag} {rate(ev, acc):.2f}({rate(ct, acc):.2f})")
         print(f"{arm:5} " + "  ".join(cells))
     print("\npaired between-world differences in accuracy (mean, sd, worlds)")
     per_world = defaultdict(dict)
