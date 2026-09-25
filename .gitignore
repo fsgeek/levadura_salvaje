@@ -7,3 +7,7 @@ dist/
 build/
 data/
 .venv-minagi/
+# pilot raw taste_open logs: archived as a signed-tag release asset, not in git
+results/pilot-*/**/live.jsonl
+results/pilot-*/**/probe[0-9]*.jsonl
+results/pilot-*/**/wake[0-9]*.jsonl
