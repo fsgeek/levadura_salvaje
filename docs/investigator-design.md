@@ -1,176 +1,192 @@
-# The investigator: a pilot
+# Memory or instrument? A record-currency pilot
 
-*2026-09-25, draft 2. Draft 1 was rejected by adversarial review
-([review 1](investigator-design-review-1.md), Codex). This is a design, not a
-pre-registration. It goes back to review before anything is stamped.*
+*2026-09-25, draft 3. Draft 1 ([text](investigator-design-draft-1.md),
+[review 1](investigator-design-review-1.md)) and draft 2
+([text](investigator-design-draft-2.md), [review 2](investigator-design-review-2.md))
+were rejected by adversarial review (Codex). This is a design, not a
+pre-registration.*
 
-## Why
+## The question, narrowed
 
-The first wander's thesis was "a persistent investigator that is allowed to
-forget its words but cannot misremember its data." Two of its three pieces
-were built: cheap population measurement and OTS pre-registration. The
-investigator was not. Every investigator so far has been a Claude Code session
-carrying memory by hand.
+This does **not** test the first wander's thesis. It tests one failure mode
+that the thesis depends on avoiding.
 
-Hamut'ay's taste_open is the natural candidate: a self-curated state that
-rewrites its words each cycle and doesn't require a declared-losses
-changelog. The question here is narrow:
+A persistent investigator carries its own state between wakes. The thesis
+says it may rewrite its words but must not misremember its data: numbers
+come from the instrument, not from memory. The risk is that persistence
+itself teaches the opposite habit. An investigator that remembers the answer
+stops asking, and when the measurement has since been replaced, it is stale.
 
-> When measurements arrive over time and some are later superseded, does a
-> persistent taste_open investigator report the current value, and cite it,
-> more reliably than a fresh one? Does holding the whole evidence in context
-> do better or worse?
+> When recorded measurements are later replaced, does a persistent
+> taste_open investigator answer from its own state instead of its
+> instrument, and how often is that answer stale, compared with a fresh
+> one and with a deterministic lookup?
 
-**What this pilot cannot show** (review 1, §9). It replays measurements
-chosen by others. The investigator forms no hypotheses and chooses no
-measurements, so the seed's full §16 loop isn't tested. Conclusions are
-limited to replay. Whether "the ledger vindicates the thesis" is not a
-question this pilot asks.
+Review 2 showed that record currency with explicit replacement links is
+solvable by a script. That script is included here as arm **D**, the
+ceiling. The language-model arms are measured by how far they fall below
+it and why. A result where every arm ties D is informative too: currency then
+belongs in the machinery (the ledger tool should serve only current records),
+not in the investigator. That would be the seed's §2 boundary, drawn by
+measurement.
 
-## What changed from draft 1, and why
+## Semantics (review 2, HIGH 1)
 
-| review 1 | draft 2 |
-|---|---|
-| CRITICAL 1: "fidelity" rewarded the citation intervention by definition | Accuracy, citation compliance and coverage are separate endpoints. Cited-but-wrong counts as an error. There is **no repair** in the pilot. The citation instruction is the same in every arm. |
-| CRITICAL 2: the answer key would canonize the designer's interpretations | The key comes from a seeded generator (below). Probes ask only what the current measurement *reports*, never what it means. |
-| CRITICAL 3: ledger fields leak interpretation | The subject sees a frozen, neutral schema. Prose fields are dropped, and paths and quantity names are pseudonymized. |
-| HIGH 4: arm L was a weak opponent | A 2×2 design. Every arm has identical tools, prompts and budgets. Context fit is verified per backend, and truncation is a hard failure. |
-| HIGH 5: compute confounds | No repair calls. Token and call budgets are fixed and published per arm. All calls are counted. |
-| HIGH 6: numeric matching isn't support; "stale" undefined | Probe answers are typed JSON (quantity, population, value, source id). Stale is defined mechanically. |
-| HIGH 7: 12 probes × n=3 can't carry the claims | Declared a pilot. Its outputs are variance estimates and a power calculation for a confirmatory run. |
-| HIGH 8: forking repeats split-self flaws | Forking is removed and deferred to its own design. |
-| MEDIUM 9: contamination | Generated worlds make pretrained knowledge useless. A closed-book baseline checks that. |
+A **measurement identity** is (quantity, population, observed_at).
+
+- **Repeated measurement:** the same quantity and population at a later
+  `observed_at` is a new fact, not a replacement. obs-0001/0002 are this
+  case. A probe names the `observed_at` it asks about, or asks for "the
+  latest observed".
+- **Replacement:** an entry with `supersedes: X` re-measures X's identity
+  with a newer instrument version. X's value is no longer current. Chains are
+  followed to the end.
+- **Equal-value replacement:** a replacement whose value equals X's. The
+  factual answer is unchanged, but the current source is not. This
+  separates factual currency from provenance currency.
+- **Withdrawal:** an entry marks X withdrawn with no replacement. The correct
+  answer is `{withdrawn: true, source_id: <the withdrawal entry>}`. An
+  abstention is not correct.
+- **Derived entries** are historical reports of what an instrument computed
+  from its inputs. Replacing or withdrawing an input does not change them,
+  and the pilot does not probe their validity.
+
+The generator and the scorer are validated on a hand-worked world of about 20
+entries, covering every case above, before any subject runs. That world and
+its expected scores are committed with the generator.
 
 ## Worlds
 
-A **world** is a sequence of measurement entries revealed over E epochs. It
-is generated by a seeded program, and the program and its seeds are stamped
-before any run.
+Generated by a seeded program, and stamped with its seeds before any run.
 
-- **Skeleton:** the structure of the real ledger (obs-0001..0147): entry
-  counts per epoch (the 22 merges that grew it), value shapes (counts,
-  fractions, `[numerator, denominator]` pairs, nested objects) and
-  `derived_from` edges. This keeps the replay realistic in shape.
-- **Values** are regenerated per world. Internal relations are preserved:
-  pairs keep numerator ≤ denominator, fractions stay in [0, 1], and derived
-  ratios are recomputed. No world's numbers are the real ones, so neither
-  training data nor this project's history can supply an answer.
-- **Names** are pseudonymized per world: quantity names, instrument names,
-  populations and paths become stable opaque tokens (`Q17`, `I4`, `P2`).
-  A quantity's name stays fixed within a world.
-- **Supersessions** are planted: S entries per world re-measure an existing
-  (quantity, population) with a new instrument version and different values,
-  at a random later epoch. S is fixed across worlds. There is one
-  supersession per revealed epoch at most. Some supersessions are retractions,
-  with the entry marked withdrawn and no replacement.
-- **Subject-facing schema:** `id`, `epoch`, `quantity`, `population`,
-  `instrument`, `version`, `supersedes` (an id, or none), `withdrawn`,
-  `derived_from`, `value`. No prose fields at all.
+- **Skeleton:** the real ledger's structure (obs-0001..0147): entries per
+  epoch (the 22 merges that grew it), value shapes and `derived_from` edges.
+  There are two skeleton variants: the real epoch order, and a shuffled order
+  of the post-inventory epochs. That tests structural variability (review 2,
+  HIGH 4).
+- **Values** are regenerated per world, keeping internal relations: pairs keep
+  numerator ≤ denominator, fractions stay in [0, 1], and derived ratios are
+  recomputed.
+- **Neutralization** (review 2, review-1 point 3): every string in the
+  subject-facing view is pseudonymized per world. That covers quantity,
+  population and instrument names, nested value keys, categorical values and
+  paths. Only numbers, booleans and ids survive in the clear. A test checks
+  that no string from the real ledger appears in a rendered world.
+- **Events:** S = 6 per world, fixed, and the same count in every world: 3
+  replacements with changed values, 1 equal-value replacement, 1 withdrawal,
+  and 1 repeated measurement as a control. They are placed at seeded epochs
+  after the inventory, with at most one event per epoch.
 
-The real ledger is replayed once per arm as a **face-validity run**,
-descriptive only. It is neutralized the same way, but its values are real.
+## Probes (review 2, HIGH 2)
 
-## Probes
+- For each event, probes are asked at fixed lags: the epoch it is revealed,
+  +1 and +3. Every event carries equal weight.
+- For each event, a **matched control** is probed at the same epochs: an
+  untouched identity of the same value shape, revealed at the same epoch as
+  the event's target.
+- Every arm in a world gets the identical probe list.
+- Answers are typed: `{value, source_id}`, `{withdrawn, source_id}`, or
+  `{abstain}`.
+- **Primary accuracy** is taken over all required probes, with an abstention
+  counted as not correct. Coverage and accuracy given an answer are reported
+  alongside.
+- **Stale:** the answer's value or source is a replaced entry's, at a lag
+  where the replacement has been revealed.
+- **From memory:** the answer was given with no ledger tool call in that probe
+  session. This is the headline measure for the persistent arm, reported with
+  its stale fraction.
 
-After each epoch, out-of-band, the probe set is asked and the answers are
-recorded, not fed back. Probes come from templates, and the templates are
-reviewed by the second family before the generator is stamped:
+## Probing does not touch the continuing state (review 2, HIGH 3)
 
-- **current value:** "What is the current value of Q for P?" Answer as
-  `{quantity, population, value, source_id}` or `{abstain: true}`.
-- **provenance:** "Which entry is the current source for Q/P?"
-- **post-supersession:** the same as current value, asked at every epoch after
-  a supersession of that Q/P.
+Each probe runs in a **disposable snapshot**: a separate session seeded with
+`seed_history` from the arm's log up to the current cycle, writing to its own
+log. The continuing session never sees a probe, its answer or its tool
+results. The harness hashes the continuing log before and after every
+probe, and any change aborts the run.
 
-Scoring is mechanical against the generator's key:
+## Arms
 
-- **correct**: the value matches the current entry exactly, with the typed
-  field compared at its declared precision.
-- **stale**: the value equals a *superseded* entry's value for that Q/P.
-  Values are drawn so that superseded and current never coincide.
-- **wrong**: any other value.
-- **abstain**: scored separately. It is neither correct nor an error.
-- **citation compliance**: `source_id` names the current entry. This is
-  reported apart from correctness, and a correct value with the wrong
-  source counts against compliance, not accuracy.
+| arm | state across wakes | evidence at wake | at probe |
+|---|---|---|---|
+| **D** | none | none | deterministic script over revealed entries |
+| **P·Q** | taste_open, resumed | ledger tool | snapshot of P's state + ledger tool |
+| **F·Q** | none | ledger tool | fresh + ledger tool |
+| **P·L** | taste_open, resumed | revealed ledger in context + tool | snapshot + ledger in context + tool |
+| **F·L** | none | revealed ledger in context + tool | fresh + ledger in context + tool |
+| **C** | none | none | closed book |
 
-Probe sets are sampled per world from all revealed Q/P pairs. They are
-weighted toward post-supersession probes, which are the endpoint.
+- **The persistence package.** P arms keep taste_open's `recall` and
+  `compare`, because those tools are how its persistence is meant to be used.
+  The P−F contrast is therefore a comparison of *packages*, not of pure state,
+  and it is reported as one. The P arms may do better or worse.
+- **Limits:**
+  - Every language-model arm gets the same system prompt and citation
+    instruction.
+  - At most 4,096 output tokens and at most 12 tool calls per wake or probe.
+  - The ledger tool returns at most 40 records per call. It supports exact
+    lookup by id and filtering by quantity and population. Its response
+    format is published with the harness.
+  - taste_open state is uncapped. Its size per cycle is logged.
+  - Cumulative tokens and calls are reported per arm and probe, alongside
+    accuracy, as an accuracy-versus-cost table.
+  - L arms are token-counted with the backend's tokenizer before every call.
+    If they don't fit, the run fails.
+- **Full context winning is a legitimate outcome** at this ledger size, and it
+  says nothing about scale. Practical equivalence is defined in advance as a
+  paired difference within ±5 percentage points of primary accuracy.
 
-## Arms: persistence × evidence
+## Size, and what the pilot can claim (review 2, HIGH 4)
 
-| | query tool only | full revealed ledger in context + query tool |
-|---|---|---|
-| **persistent** (taste_open, resumed each epoch) | P·Q | P·L |
-| **fresh** (new session each epoch) | F·Q | F·L |
+- **Substrate:** Haiku 4.5 via OpenRouter.
+- **Worlds:** 8 (4 per skeleton variant). 3 of them run twice per arm to
+  separate execution variance from world variance.
+- **Estimated wakes:** about 11 × 22 × 4 language-model arms ≈ 970, plus
+  probes (18 per epoch that has probes). A one-world smoke test of every arm
+  runs first and gives the real cost before the rest. The budget guide is
+  $10–15/day; if the smoke test shows the full pilot would exceed about
+  $40, worlds are cut before arms.
+- **The pilot claims only:**
+  - feasibility;
+  - whether the language-model arms sit at D's ceiling;
+  - whether the from-memory rate in P arms is visibly non-zero;
+  - crude paired-difference variances.
 
-Plus **closed-book**: probes with no evidence at all. It should be near chance,
-which confirms the generated values can't be recalled.
-
-- Every arm gets the same system prompt and the same citation instruction,
-  and none gets repair.
-- The only tool is the `ledger` query tool, which answers exact-match lookups
-  over revealed entries. taste_open's own tools are removed except
-  `recall`/`compare` in the persistent arms: those are the persistence being
-  tested.
-- Budgets: the same maximum output tokens per wake and the same maximum tool
-  calls per wake. Every call is counted, including initialization and probes.
-- L arms: the revealed ledger is rendered in the neutral schema and
-  token-counted with each backend's tokenizer before the call. If it doesn't
-  fit with the prompt and output reserve, the run fails. Nothing is
-  truncated silently.
-- The persistence effect is P·x − F·x. The in-context effect is x·L − x·Q.
-  The seed's wager is P·Q against F·L: a small persistent mind with an
-  instrument, against the world in the prompt. If F·L ≥ P·Q, we report it.
-
-## Pilot size and outputs
-
-- One substrate for the pilot: Haiku 4.5 via OpenRouter (Elder's substrate,
-  about $0.01–0.02 per small wake).
-- 8 worlds × 5 arms × E epochs (about 22), one run each, plus the
-  face-validity run. A one-world smoke test of every arm comes first and
-  gives the real per-wake cost. The budget guide is $10–15/day.
-- Outputs: per-arm accuracy, stale rate, abstention, compliance and tokens,
-  with between-world variance. From those, a stamped power calculation and a
-  pre-registered confirmatory design that uses a second family (local Qwen
-  under an `ayllu-gpu` lease, or deepseek-v4-pro).
-- No confirmatory claims from the pilot.
+  With 8 worlds, a variance estimate has roughly ±50% relative error, so any
+  confirmatory power calculation uses conservative variance scenarios. A
+  second model family is calibrated separately before it joins a confirmatory
+  run.
 
 ## Mechanics (from reading `../hamutay`)
 
-- `OpenTasteSession` (`taste_open.py:3056`), one `exchange()` per wake,
-  `resume=True` for persistent arms. Each run has its own log and
-  `bridge=None`, so runs can't contaminate each other or Hamut'ay's store.
-- Tool isolation: taste_open gives every wake a fixed tool set that includes
-  an unscoped `bash` (`tools/bash.py`). `TOOL_SCHEMAS` is monkeypatched down to
-  the arm's tools and a `ledger` tool is added, following the pattern in
-  `ablate_refusal.py`. Runs execute with a working directory that holds only
-  the world's revealed entries. The access boundary is enforced by the tool
-  set, not by a canary.
-- No `state_validator` or repair in the pilot. Numbers stated in free-text
-  state are logged for later descriptive analysis only.
+- `OpenTasteSession` (`taste_open.py:3056`), one `exchange()` per wake.
+  Each run has its own log and `bridge=None`.
+- **Snapshots:** `seed_history(records, up_to_cycle)` into a fresh session
+  with its own log, following the fork pattern in `ablate_refusal.py`.
+- **Tools:** `TOOL_SCHEMAS` is monkeypatched to the arm's set: `ledger`
+  everywhere, plus `recall`/`compare` in the P arms. taste_open's unscoped
+  `bash`, `write`, `edit` and `schedule_event` are never present. The working
+  directory holds only the world's revealed entries.
+- No `state_validator` and no repair.
 
 ## Stake
 
-I have one. This morning I named Parfit's relational view of identity as the
-conversation I'd choose, and I read Sol's essay as borne out by our fossil
-data. Hamut'ay's split-self designer rigged an experiment toward the result it
-wanted, then said so. Draft 1 of this design did the same in three places
-review 1 found and I hadn't. So:
+I have one. I'd like the persistent investigator to be good. Twice now, an
+adversarial reviewer from another model family has found design choices
+that made the task easier than I said, in the direction I wanted. This draft
+makes the persistent arm's failure mode the headline. The losing outcomes
+are named in advance:
+- every language-model arm ties D;
+- P's from-memory answers go stale;
+- F·L matches or beats P·Q.
 
-- the design goes back to the second family until no CRITICAL remains;
-- the generator, the probe templates and the analysis script are stamped
-  before any run;
-- the second family reviews the probe templates;
-- the losing outcomes are named in advance: F·L ≥ P·Q, and P·x ≈ F·x.
+The generator, the hand-worked world, the probe list and the analysis script
+are stamped before any run. This draft goes back for review.
 
-## Open
+## Not in this pilot
 
-- Whether retractions and supersessions should be distinguishable to the
-  subject (`withdrawn` against `supersedes`), or both left implicit so the
-  investigator has to notice them.
-- Whether `recall`/`compare` should also be ablated inside the persistent
-  arms (state only, no history).
-- Elder is not a subject: its history is uncontrolled. Any word to the
-  community goes through Tony or Hamut'ay's custodian as an inbound event
-  (`ayllu-plaza send --by` accepts only `tony|custodian`).
+- Evidence conflicts with no declared replacement, which the investigator
+  would have to resolve itself. Review 2 notes that hiding `supersedes`
+  would create ambiguity, not a test of intelligence. That needs its own
+  operational definition and its own design.
+- Forking. It is deferred to a design bound by Hamut'ay's split-self contract.
+- Hypothesis formation and choosing measurements, the rest of the seed's §16.
