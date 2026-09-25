@@ -10,7 +10,7 @@ world at a time: ``--worlds 1``, ..., and ``--worlds 0 --run 1``.
 Usage:
     uv run --with-editable ../hamutay python scripts/run_pilot.py OUT --backend stub
     uv run --with-editable ../hamutay python scripts/run_pilot.py OUT \\
-        --backend openrouter --model anthropic/claude-haiku-4.5 --smoke
+        --backend openrouter --model anthropic/claude-haiku-4-5 --smoke
 """
 
 import argparse
@@ -39,7 +39,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("out", type=Path)
     ap.add_argument("--backend", choices=["stub", "openrouter"], required=True)
-    ap.add_argument("--model", default="anthropic/claude-haiku-4.5")
+    ap.add_argument("--model", default="anthropic/claude-haiku-4-5")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--worlds", type=lambda t: [int(x) for x in t.split(",")],
