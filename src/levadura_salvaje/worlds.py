@@ -233,7 +233,8 @@ def plant(world: Sequence[dict], seed: int, last_epoch: int = len(LEDGER_EPOCH_E
             if epoch + lag > last_epoch:
                 continue
             for r, f, is_control in ((target, field, False), (control, cfield, True)):
-                probes.append({"event_id": new["id"], "target_id": r["id"], "control": is_control,
+                probes.append({"event_id": new["id"], "kind": kind, "lag": lag,
+                               "target_id": r["id"], "control": is_control,
                                "epoch": epoch + lag, "quantity": r["quantity"],
                                "population": r["population"],
                                "observed_at": None if kind == "repeat" else r["observed_at"],

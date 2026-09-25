@@ -77,12 +77,15 @@ def parse_answer(text: str) -> Any:
 
 
 @contextlib.contextmanager
-def arm_tools(tool: LedgerTool, memory_tools: bool, cap: int = MAX_TOOL_CALLS):
-    """Replace taste_open's tools with this arm's, for the duration."""
+def arm_tools(tool: LedgerTool | None, memory_tools: bool, cap: int = MAX_TOOL_CALLS):
+    """Replace taste_open's tools with this arm's, for the duration.
+
+    ``tool=None`` is the closed-book arm: no ledger at all.
+    """
     import hamutay.tools as tools
 
-    allowed = {"ledger"} | ({"recall", "compare"} if memory_tools else set())
-    schemas = {"ledger": LEDGER_SCHEMA}
+    allowed = ({"ledger"} if tool else set()) | ({"recall", "compare"} if memory_tools else set())
+    schemas = {"ledger": LEDGER_SCHEMA} if tool else {}
     if memory_tools:
         schemas |= {k: tools.TOOL_SCHEMAS[k] for k in ("recall", "compare")}
     base = tools.ToolExecutor
@@ -145,6 +148,9 @@ def reseed(*parts) -> None:
 
 
 def session(backend, log_path: Path | None, model: str = "stub", resume: bool = False):
+    if isinstance(backend, dict):
+        model = backend.get("model", model)
+        backend = make_backend(backend)
     from hamutay.taste_open import OpenTasteSession
 
     return OpenTasteSession(model=model, backend=backend, log_path=log_path, resume=resume,
@@ -168,9 +174,7 @@ def snapshot(backend, live_log: Path, after_cycle: int, probe_log: Path | None):
 
 def run_probe(payload: dict, backend=None) -> dict:
     """One probe, meant to run in its own process (see ``probe_in_subprocess``)."""
-    from levadura_salvaje.worlds import generate  # noqa: F401  (world arrives in payload)
-
-    backend = backend or StubBackend()
+    backend = backend or make_backend(payload["backend"])
     reseed(*payload["seed_parts"])
     world, probe, epoch = payload["world"], payload["probe"], payload["epoch"]
     probe = {**probe, "field": tuple(probe["field"])}
@@ -182,12 +186,28 @@ def run_probe(payload: dict, backend=None) -> dict:
     message = probe_message(probe)
     if payload["in_context"]:
         message = wake_message(world, epoch, True) + "\n\n" + message
-    with arm_tools(LedgerTool(world, epoch), memory_tools=payload["persistent"]) as ex:
+    tool = None if payload.get("closed_book") else LedgerTool(world, epoch)
+    with arm_tools(tool, memory_tools=payload["persistent"]) as ex:
         text = s.exchange(message)
-    out = {"answer": parse_answer(text), "tool_calls": ex.calls}
+    usage = getattr(s, "_last_usage", None) or {}
+    out = {"answer": parse_answer(text), "tool_calls": ex.calls,
+           "ledger_calls": tool.calls if tool else 0, "usage": usage}
     if isinstance(backend, StubBackend):
         out["rendered"] = backend.seen
     return out
+
+
+def make_backend(spec: dict | None):
+    """``{"kind": "stub"}`` or ``{"kind": "openrouter", "model": ...}``."""
+    import os
+
+    if not spec or spec["kind"] == "stub":
+        return StubBackend()
+    from hamutay.taste_open import OpenAITasteBackend
+
+    return OpenAITasteBackend(base_url="https://openrouter.ai/api/v1",
+                              api_key=os.environ["OPENROUTER_API_KEY"],
+                              max_tokens=MAX_OUTPUT_TOKENS, provider_name="openrouter")
 
 
 def probe_in_subprocess(payload: dict) -> dict:
@@ -199,6 +219,59 @@ def probe_in_subprocess(payload: dict) -> dict:
     done = subprocess.run([sys.executable, "-m", "levadura_salvaje.investigator", "probe"],
                           input=json.dumps(payload), capture_output=True, text=True, check=True)
     return json.loads(done.stdout.strip().splitlines()[-1])
+
+
+ARMS = {  # name: (persistent, in_context, uses a model)
+    "O": (False, False, False), "D": (False, False, False),
+    "P.Q": (True, False, True), "F.Q": (False, False, True),
+    "P.L": (True, True, True), "F.L": (False, True, True),
+    "C": (False, False, True),
+}
+
+
+def run_arm(world: list[dict], probes: list[dict], world_seed: int, arm: str, backend: dict,
+            outdir: Path, run: int = 0, last_epoch: int = 22) -> Path:
+    """Run one arm over one world; write one scored line per probe."""
+    from levadura_salvaje.currency_key import answer, score
+    from levadura_salvaje.ledger_tool import deterministic_client
+
+    persistent, in_context, model_arm = ARMS[arm]
+    outdir.mkdir(parents=True, exist_ok=True)
+    out = outdir / "probes.jsonl"
+    live_log = outdir / "live.jsonl"
+    by_epoch: dict[int, list[dict]] = {}
+    for i, p in enumerate(probes):
+        by_epoch.setdefault(p["epoch"], []).append({**p, "index": i})
+    live = session(backend, live_log) if persistent else None
+    with out.open("w") as f:
+        for epoch in range(1, last_epoch + 1):
+            if model_arm and arm != "C":
+                reseed(world_seed, arm, run, epoch)
+                s = live or session(backend, outdir / f"wake{epoch:02d}.jsonl")
+                with arm_tools(LedgerTool(world, epoch), memory_tools=persistent):
+                    s.exchange(wake_message(world, epoch, in_context))
+            for p in by_epoch.get(epoch, []):
+                args = (world, epoch, p["quantity"], p["population"], p["observed_at"], p["field"])
+                if arm == "O":
+                    got = {"answer": answer(*args), "tool_calls": 0, "ledger_calls": 0}
+                elif arm == "D":
+                    tool = LedgerTool(world, epoch)
+                    got = {"answer": deterministic_client(tool, p), "tool_calls": tool.calls,
+                           "ledger_calls": tool.calls}
+                else:
+                    got = probe_in_subprocess({
+                        "world": world, "probe": p, "epoch": epoch, "persistent": persistent,
+                        "in_context": in_context, "closed_book": arm == "C", "backend": backend,
+                        "live_log": str(live_log), "after_cycle": live.cycle if live else None,
+                        "probe_log": str(outdir / f"probe{p['index']:03d}.jsonl"),
+                        "seed_parts": [world_seed, arm, run, epoch, p["index"]]})
+                got.pop("rendered", None)
+                got["score"] = score(world, epoch, p["quantity"], p["population"], p["observed_at"],
+                                     got["answer"], p["field"])
+                f.write(json.dumps({"world": world_seed, "arm": arm, "run": run, **p,
+                                    "field": list(p["field"]), **got}, default=str) + "\n")
+                f.flush()
+    return out
 
 
 if __name__ == "__main__":
