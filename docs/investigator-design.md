@@ -150,6 +150,26 @@ its place, reported for **every** arm and **descriptively only**:
   value (review 4). The pilot claims nothing about what the arm "held" or
   "believed".
 
+## Failed calls (added after the first smoke run, before any scored model data)
+
+The first Haiku smoke run stopped at epoch 3. The persistent arm tried to
+copy the whole 37-record inventory into its state ("a comprehensive index
+of all epoch 3 records") and hit the 4,096-token output cap. taste_open
+refuses a truncated reply. The cap stays as designed. Two rules are added:
+
+- **A failed wake** is recorded in `wake_failures.jsonl`. taste_open keeps the
+  prior state (the cycle rolls back), and the run continues. Failed wakes
+  per arm are reported.
+- **A failed probe** scores invalid and stays in the denominator.
+- **Snapshots ignore failed attempts.** A failed attempt is logged with a
+  state, under the cycle number its retry reuses. The live session never
+  took it into its history, so snapshots exclude it. The fidelity gate
+  covers this case.
+
+The copying itself is an anecdote from one run, but it is the behavior the
+seed argues against: the persistent mind tried to hold the world instead of
+consulting it.
+
 ## Size and cost
 
 - **Substrate:** Haiku 4.5 via OpenRouter.

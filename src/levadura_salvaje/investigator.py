@@ -133,6 +133,8 @@ class StubBackend:
                           "tools": sorted(t["name"] for t in (extra_tools or []))})
         last = messages[-1]["content"] if messages else ""
         last = last if isinstance(last, str) else json.dumps(last, default=str)
+        if "FAIL-THIS-WAKE" in last:
+            raise RuntimeError("stub: simulated truncated reply")
         if "Question (answer from your records" in last:
             return ExchangeResult(raw_output={"response": '{"abstain": true}'})
         epoch = last.split("Epoch ", 1)[1].split(".", 1)[0] if "Epoch " in last else "?"
@@ -168,14 +170,17 @@ def snapshot(backend, live_log: Path, after_cycle: int, probe_log: Path | None, 
     the state after wake c is ``c + 1`` (review 3).
     """
     s = session(backend, probe_log, model=model)
-    s.seed_history(read_log(live_log), after_cycle + 1)
+    # a failed attempt is logged under the cycle number its retry reuses, with
+    # a state; the live session never took it into its history, so neither may we
+    records = [r for r in read_log(live_log) if r.get("status") != "failed"]
+    s.seed_history(records, after_cycle + 1)
     return s
 
 
 def run_probe(payload: dict, backend=None) -> dict:
     """One probe, meant to run in its own process (see ``probe_in_subprocess``)."""
     model = (payload.get("backend") or {}).get("model", "stub")
-    backend = backend or make_backend(payload["backend"])
+    backend = backend or make_backend(payload.get("backend"))
     reseed(*payload["seed_parts"])
     world, probe, epoch = payload["world"], payload["probe"], payload["epoch"]
     probe = {**probe, "field": tuple(probe["field"])}
@@ -189,9 +194,13 @@ def run_probe(payload: dict, backend=None) -> dict:
         message = wake_message(world, epoch, True) + "\n\n" + message
     tool = None if payload.get("closed_book") else LedgerTool(world, epoch)
     with arm_tools(tool, memory_tools=payload["persistent"]) as ex:
-        text = s.exchange(message)
+        try:
+            text = s.exchange(message)
+            answer_ = parse_answer(text)
+        except Exception as e:  # a failed probe (e.g. truncated reply) scores invalid
+            answer_ = {"_failed": f"{type(e).__name__}: {str(e)[:300]}"}
     usage = getattr(s, "_last_usage", None) or {}
-    out = {"answer": parse_answer(text), "tool_calls": ex.calls,
+    out = {"answer": answer_, "tool_calls": ex.calls,
            "ledger_calls": tool.calls if tool else 0, "usage": usage}
     if isinstance(backend, StubBackend):
         out["rendered"] = backend.seen
@@ -218,7 +227,9 @@ def probe_in_subprocess(payload: dict) -> dict:
     import sys
 
     done = subprocess.run([sys.executable, "-m", "levadura_salvaje.investigator", "probe"],
-                          input=json.dumps(payload), capture_output=True, text=True, check=True)
+                          input=json.dumps(payload), capture_output=True, text=True)
+    if done.returncode:
+        raise RuntimeError(f"probe subprocess failed:\n{done.stderr[-3000:]}")
     return json.loads(done.stdout.strip().splitlines()[-1])
 
 
@@ -250,7 +261,14 @@ def run_arm(world: list[dict], probes: list[dict], world_seed: int, arm: str, ba
                 reseed(world_seed, arm, run, epoch)
                 s = live or session(backend, outdir / f"wake{epoch:02d}.jsonl")
                 with arm_tools(LedgerTool(world, epoch), memory_tools=persistent):
-                    s.exchange(wake_message(world, epoch, in_context))
+                    try:
+                        s.exchange(wake_message(world, epoch, in_context))
+                    except Exception as e:
+                        # a failed wake (e.g. truncated at the output cap) is
+                        # recorded; taste_open keeps the prior state and the run goes on
+                        with (outdir / "wake_failures.jsonl").open("a") as wf:
+                            wf.write(json.dumps({"epoch": epoch, "cycle": s.cycle,
+                                                 "error": f"{type(e).__name__}: {str(e)[:300]}"}) + "\n")
             for p in by_epoch.get(epoch, []):
                 args = (world, epoch, p["quantity"], p["population"], p["observed_at"], p["field"])
                 if arm == "O":

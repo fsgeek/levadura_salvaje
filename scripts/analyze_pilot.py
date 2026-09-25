@@ -57,6 +57,9 @@ def main(run: Path) -> None:
     for arm, rs in sorted(by_arm.items()):
         print(f"{arm:5} " + " ".join(f"{v:>14.3f}" if isinstance(v, float) else f"{v:>14}"
                                      for v in summary(rs).values()))
+    print("\nfailed wakes per arm (recorded in wake_failures.jsonl; state carried unchanged)")
+    for f in sorted(run.rglob("wake_failures.jsonl")):
+        print(f"  {f.parent.relative_to(run)}: {len(f.read_text().splitlines())}")
     print("\naccuracy by event kind and lag, event (control)")
     for arm, rs in sorted(by_arm.items()):
         cells = []

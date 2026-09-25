@@ -72,3 +72,29 @@ def test_snapshot_renders_what_the_live_session_would(tmp_path):
         s.exchange(nxt, force_memory=forced)
         snap.exchange(nxt, force_memory=forced)
     assert snap_backend.seen[-1] == live.seen[-1]
+
+
+def test_snapshot_after_a_failed_wake_matches_the_live_session(tmp_path):
+    log = tmp_path / "live.jsonl"
+    live = inv.StubBackend()
+    s = inv.session(live, log)
+    for epoch in range(1, 6):
+        inv.reseed(0, "P.Q", epoch)
+        msg = inv.wake_message(WORLD, epoch, False)
+        with inv.arm_tools(LedgerTool(WORLD, epoch), memory_tools=True):
+            if epoch == 3:
+                with pytest.raises(RuntimeError):
+                    s.exchange(msg + " FAIL-THIS-WAKE")
+            s.exchange(msg)
+    assert sum(r.get("status") == "failed" for r in inv.read_log(log)) == 1
+    snap_backend = inv.StubBackend()
+    snap = inv.snapshot(snap_backend, log, s.cycle, None)
+    assert snap.state == s.state
+    # the history recall and involuntary memory draw from must match too
+    history = lambda sess: [(c, st) for c, _, st, _ in sess._prior_states]
+    assert history(snap) == history(s)
+    nxt = inv.wake_message(WORLD, 6, False)
+    with inv.arm_tools(LedgerTool(WORLD, 6), memory_tools=True):
+        s.exchange(nxt, force_memory=None)
+        snap.exchange(nxt, force_memory=None)
+    assert snap_backend.seen[-1] == live.seen[-1]
