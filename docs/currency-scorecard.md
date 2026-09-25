@@ -78,3 +78,27 @@ side over time, which is what this ledger is becoming.
 Tony's decision about GPU use. A stricter variant, "does the text *name* a
 period that has ended", would separate "silent" from "explicitly dated past".
 It would be a new lens, with its own predictions.
+
+## Addendum: the second judge (obs-0146)
+
+Hamut'ay's Qwen3.8-27B (Q4_K_M) answered the same frozen question about the
+same 1,989 chunks. It ran as our own llama-server under an `ayllu-gpu`
+lease, by the custodian's route: holder `levadura-salvaje`, about 80
+minutes, released cleanly, resident restored.
+
+| | Jev | Qwen |
+|---|---|---|
+| current | 1,500 | 1,489 |
+| historical | 149 | 153 |
+| no_rules | 26 | 33 |
+| agreement with the blind hand audit (C8 sample) | 56/60 | 55/60 |
+| agreement on the 14 AMT fossils | 13/14 | 13/14 |
+
+**C7: the two judges agree on 1,618 of 1,675 sections (96.6%).** I
+predicted 75% (60-88), so it **fails** high, as C8 did. Two models from
+different makers, one hosted and one running locally on the 4090, converge on
+the same finding: about nine in ten regulations that cite dead statute read
+as current law. Their 57 disagreements sit on the same edges the hand audit
+found: 26 current/historical, 22 historical/current, 9 involving no_rules.
+
+With C7 scored, the currency lens ends at 2 of 8.
