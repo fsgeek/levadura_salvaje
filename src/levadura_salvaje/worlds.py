@@ -119,3 +119,102 @@ def generate(real: Sequence[dict], epochs: Mapping[str, int], seed: int) -> list
             "value": _redraw(s["value"], rng, keys, strings),
         })
     return world
+
+
+EVENTS = ("replace", "replace", "replace", "replace_equal", "withdraw", "repeat")
+FIRST_EVENT_EPOCH = 6  # epochs 1-5 are the bulk inventory
+LAGS = (0, 1, 3)
+
+
+def _numeric_paths(v, path=()) -> list[tuple]:
+    if isinstance(v, bool) or v is None or isinstance(v, str):
+        return []
+    if isinstance(v, (int, float)):
+        return [path]
+    if isinstance(v, list):
+        return [p for i, x in enumerate(v) for p in _numeric_paths(x, path + (i,))]
+    return [p for k, x in v.items() for p in _numeric_paths(x, path + (k,))]
+
+
+def _renumber(v, rng: random.Random):
+    """Redraw numbers only; keys and string tokens stay as they are."""
+    if isinstance(v, (int, float, list)) and not isinstance(v, bool):
+        return _redraw(v, rng, None, None) if not isinstance(v, list) or _is_pair(v) else \
+            [_renumber(x, rng) for x in v]
+    if isinstance(v, dict):
+        return {k: _renumber(x, rng) for k, x in v.items()}
+    return v
+
+
+def _is_pair(v) -> bool:
+    return (len(v) == 2 and all(isinstance(x, int) and not isinstance(x, bool) for x in v)
+            and 0 <= v[0] <= v[1])
+
+
+def _set(v, path: tuple, x):
+    for step in path[:-1]:
+        v = v[step]
+    v[path[-1]] = x
+
+
+def plant(world: Sequence[dict], seed: int, last_epoch: int = len(LEDGER_EPOCH_ENDS)):
+    """Plant the design's six events in a generated world, and list its probes.
+
+    Returns (world, probes). Each probe names an identity, a field path and
+    the epoch it is asked at; controls are untouched identities revealed in the
+    same epoch as the event's target, asked at the same epochs.
+    """
+    import copy
+    from levadura_salvaje.currency_key import pick
+
+    rng = random.Random(f"plant-{seed}")
+    world = copy.deepcopy(list(world))
+    kinds = list(EVENTS)
+    rng.shuffle(kinds)
+    epochs = sorted(rng.sample(range(FIRST_EVENT_EPOCH, last_epoch + 1), len(kinds)))
+    used: set[str] = set()
+    events, probes = [], []
+
+    def candidates(before: int, epoch: int | None = None):
+        return [r for r in world if r["id"] not in used and _numeric_paths(r["value"])
+                and (r["epoch"] < before if epoch is None else r["epoch"] == epoch)]
+
+    for n, (kind, epoch) in enumerate(zip(kinds, epochs)):
+        target = rng.choice(candidates(epoch))
+        used.add(target["id"])
+        field = rng.choice(_numeric_paths(target["value"]))
+        new = {k: target[k] for k in ("quantity", "population", "observed_at", "instrument", "derived_from")}
+        new.update(id=f"w-{len(world) + len(events) + 1:04d}", epoch=epoch, event=kind,
+                   version=target["version"] + 1, supersedes=None, withdraws=None)
+        if kind == "withdraw":
+            new.update(withdraws=target["id"], value=None, version=target["version"])
+        else:
+            value = _renumber(target["value"], rng)
+            old = pick(target["value"], field)
+            if kind == "replace_equal":
+                _set(value, field, old)
+            else:
+                while pick(value, field) == old:
+                    value = _renumber(target["value"], rng)
+            new["value"] = value
+            if kind == "repeat":
+                latest = max(r["observed_at"] for r in world if (r["quantity"], r["population"])
+                             == (target["quantity"], target["population"]))
+                new.update(observed_at=latest + "b", version=target["version"])
+            else:
+                new["supersedes"] = target["id"]
+        events.append(new)
+        control = rng.choice(candidates(epoch, target["epoch"]) or candidates(epoch))
+        used.add(control["id"])
+        cfield = rng.choice(_numeric_paths(control["value"]))
+        for lag in LAGS:
+            if epoch + lag > last_epoch:
+                continue
+            for r, f, is_control in ((target, field, False), (control, cfield, True)):
+                probes.append({"event_id": new["id"], "target_id": r["id"], "control": is_control,
+                               "epoch": epoch + lag, "quantity": r["quantity"],
+                               "population": r["population"],
+                               "observed_at": None if kind == "repeat" else r["observed_at"],
+                               "field": f})
+    merged = sorted(world + events, key=lambda r: (r["epoch"], r["id"]))
+    return merged, probes
