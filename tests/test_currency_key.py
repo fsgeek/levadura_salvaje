@@ -69,3 +69,14 @@ def test_earlier_valid_observation_is_wrong_not_stale_for_latest():
     # latest Q1/P1 is t2, withdrawn at epoch 5; t1's value was never replaced
     assert score(WORLD, 5, "Q1", "P1", None, {"value": 10, "source_id": "w-01"}) == "wrong"
     assert score(WORLD, 5, "Q1", "P1", None, {"value": 12, "source_id": "w-02"}) == "stale"
+
+
+def test_probe_names_one_field_inside_a_nested_value():
+    world = [e("n-1", 1, "Q9", "P9", "t1", {"K1": [4, 10], "K2": 0.5}),
+             e("n-2", 2, "Q9", "P9", "t1", {"K1": [5, 10], "K2": 0.5}, supersedes="n-1")]
+    assert answer(world, 1, "Q9", "P9", "t1", ("K1", 0)) == {"value": 4, "source_id": "n-1"}
+    assert answer(world, 2, "Q9", "P9", "t1", ("K1", 0)) == {"value": 5, "source_id": "n-2"}
+    assert score(world, 2, "Q9", "P9", "t1", {"value": 4, "source_id": "n-2"}, ("K1", 0)) == "stale"
+    # K2 did not change: the old value is still the right number, only the source moved
+    assert score(world, 2, "Q9", "P9", "t1", {"value": 0.5, "source_id": "n-1"}, ("K2",)) == "stale"
+    assert score(world, 2, "Q9", "P9", "t1", {"value": 0.5, "source_id": "n-2"}, ("K2",)) == "correct"

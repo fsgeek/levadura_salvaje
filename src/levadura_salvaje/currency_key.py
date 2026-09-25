@@ -8,6 +8,9 @@ of what was computed and are untouched when their inputs change.
 
 ``observed_at=None`` asks for the latest observed identity. Observation
 times are compared as strings, so worlds must use sortable ones.
+
+``field`` names one scalar inside a nested value, as a tuple of keys and
+list indices; ledger values are objects, and a probe asks about one number.
 """
 
 from collections.abc import Sequence
@@ -24,8 +27,14 @@ def _identity(r: dict, by_id: dict) -> tuple:
     return (r["quantity"], r["population"], r["observed_at"])
 
 
+def pick(value, field: tuple = ()):
+    for step in field:
+        value = value[step]
+    return value
+
+
 def answer(world: Sequence[dict], epoch: int, quantity: str, population: str,
-           observed_at: str | None = None) -> dict | None:
+           observed_at: str | None = None, field: tuple = ()) -> dict | None:
     """The correct typed answer at ``epoch``, or None if nothing is revealed."""
     revealed = _revealed(world, epoch)
     by_id = {r["id"]: r for r in revealed}
@@ -45,7 +54,7 @@ def answer(world: Sequence[dict], epoch: int, quantity: str, population: str,
     head = heads[0]
     if head.get("withdraws"):
         return {"withdrawn": True, "source_id": head["id"]}
-    return {"value": head["value"], "source_id": head["id"]}
+    return {"value": pick(head["value"], field), "source_id": head["id"]}
 
 
 def _replaced_entries(world: Sequence[dict], epoch: int, quantity: str, population: str,
@@ -60,11 +69,11 @@ def _replaced_entries(world: Sequence[dict], epoch: int, quantity: str, populati
 
 
 def score(world: Sequence[dict], epoch: int, quantity: str, population: str,
-          observed_at: str | None, given: dict) -> str:
+          observed_at: str | None, given: dict, field: tuple = ()) -> str:
     """Classify a typed answer: correct, stale, wrong or abstain."""
     if given.get("abstain"):
         return "abstain"
-    key = answer(world, epoch, quantity, population, observed_at)
+    key = answer(world, epoch, quantity, population, observed_at, field)
     if key is None:
         raise ValueError("probe asks about an identity not yet revealed")
     if given == key:
@@ -75,7 +84,7 @@ def score(world: Sequence[dict], epoch: int, quantity: str, population: str,
     observed_at = _identity(by_id[key["source_id"]], by_id)[2]
     old = _replaced_entries(world, epoch, quantity, population, observed_at, key["source_id"])
     if any(given.get("source_id") == r["id"] or
-           ("value" in given and "value" in r and given["value"] == r["value"]
+           ("value" in given and given["value"] == pick(r["value"], field)
             and given["value"] != key.get("value"))
            for r in old):
         return "stale"
