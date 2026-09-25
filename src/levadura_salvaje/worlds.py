@@ -62,6 +62,18 @@ class _Tokens:
         return self.map[key]
 
 
+def _collect(v, keys: set, strings: set) -> None:
+    if isinstance(v, str):
+        strings.add(v)
+    elif isinstance(v, list):
+        for x in v:
+            _collect(x, keys, strings)
+    elif isinstance(v, dict):
+        for k, x in v.items():
+            keys.add(k)
+            _collect(x, keys, strings)
+
+
 def _decimals(x: float) -> int:
     text = repr(x)
     return min(len(text.split(".")[1]), 4) if "." in text and "e" not in text else 4
@@ -98,8 +110,11 @@ def generate(real: Sequence[dict], epochs: Mapping[str, int], seed: int) -> list
     quantities = _Tokens("Q", rng, [s["identity"][0] for s in sk])
     populations = _Tokens("P", rng, [s["identity"][1] for s in sk])
     instruments = _Tokens("I", rng, [s["instrument"] for s in sk])
-    keys = _Tokens("K", rng, [])
-    strings = _Tokens("S", rng, [])
+    found_keys, found_strings = set(), set()
+    for x in sk:
+        _collect(x["value"], found_keys, found_strings)
+    keys = _Tokens("K", rng, found_keys)          # shuffled per world, not encounter order
+    strings = _Tokens("S", rng, found_strings)
     # observation times become order-preserving tokens
     times = {t: f"t{n + 1:04d}" for n, t in enumerate(sorted({s["identity"][2] for s in sk}))}
     world = []
@@ -171,7 +186,8 @@ def plant(world: Sequence[dict], seed: int, last_epoch: int = len(LEDGER_EPOCH_E
     world = copy.deepcopy(list(world))
     kinds = list(EVENTS)
     rng.shuffle(kinds)
-    epochs = sorted(rng.sample(range(FIRST_EVENT_EPOCH, last_epoch + 1), len(kinds)))
+    # the last event must still get its +3 probe
+    epochs = sorted(rng.sample(range(FIRST_EVENT_EPOCH, last_epoch - max(LAGS) + 1), len(kinds)))
     used: set[str] = set()
     events, probes = [], []
 

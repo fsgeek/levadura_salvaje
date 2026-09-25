@@ -79,3 +79,13 @@ def test_no_real_ledger_string_survives_generation():
     for seed in range(5):
         rendered = json.dumps(generate(real, epochs, seed))
         assert [x for x in real_strings if x in rendered] == []
+
+
+def test_token_layouts_differ_between_worlds():
+    # review 3: keys and strings were numbered in encounter order, so every
+    # world shared one layout
+    real = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+    a, b = (generate(real, ledger_epochs(real), seed) for seed in (1, 2))
+    layout = lambda w: [sorted(r["value"]) if isinstance(r["value"], dict) else None for r in w]
+    same = sum(x == y for x, y in zip(layout(a), layout(b)) if x)
+    assert same < len(a) // 2

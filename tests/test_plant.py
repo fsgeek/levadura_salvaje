@@ -31,7 +31,7 @@ def test_every_probe_is_answerable_and_d_scores_correct(planted):
         key = answer(world, p["epoch"], p["quantity"], p["population"], p["observed_at"], p["field"])
         assert key is not None
         assert score(world, p["epoch"], p["quantity"], p["population"], p["observed_at"], key,
-                     p["field"]) == "correct"
+                     p["field"]) == {"status": "answered", "value": "current", "source": "current"}
 
 
 def test_changed_replacements_change_the_probed_field_and_equal_ones_do_not(planted):
@@ -53,7 +53,7 @@ def test_before_the_event_the_old_answer_is_correct_after_it_is_stale(planted):
             continue
         old = {"value": pick(by_id[ev["supersedes"]]["value"], p["field"]), "source_id": ev["supersedes"]}
         assert score(world, p["epoch"], p["quantity"], p["population"], p["observed_at"], old,
-                     p["field"]) == "stale"
+                     p["field"]) == {"status": "answered", "value": "obsolete", "source": "replaced"}
 
 
 def test_probes_come_at_fixed_lags_with_matched_controls(planted):
@@ -61,7 +61,7 @@ def test_probes_come_at_fixed_lags_with_matched_controls(planted):
     for ev in (r for r in world if r.get("event")):
         mine = [p for p in probes if p["event_id"] == ev["id"]]
         lags = sorted(p["epoch"] - ev["epoch"] for p in mine if not p["control"])
-        assert lags == [lag for lag in (0, 1, 3) if ev["epoch"] + lag <= 22]
+        assert lags == [0, 1, 3]
         assert sorted(p["epoch"] for p in mine if p["control"]) == sorted(
             p["epoch"] for p in mine if not p["control"])
         for p in mine:

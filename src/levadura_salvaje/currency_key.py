@@ -68,24 +68,72 @@ def _replaced_entries(world: Sequence[dict], epoch: int, quantity: str, populati
     return matching
 
 
+def _same(a, b) -> bool:
+    """Typed equality: a boolean is never a number, though Python says True == 1."""
+    if isinstance(a, bool) or isinstance(b, bool):
+        return type(a) is type(b) and a == b
+    return a == b
+
+
+_MISSING = object()
+
+
+def _field(value, field: tuple):
+    try:
+        return pick(value, field)
+    except (KeyError, IndexError, TypeError):
+        return _MISSING
+
+
+def _valid(given: dict) -> bool:
+    if set(given) == {"abstain"}:
+        return given["abstain"] is True
+    if not isinstance(given.get("source_id"), str):
+        return False
+    if set(given) == {"withdrawn", "source_id"}:
+        return given["withdrawn"] is True
+    return (set(given) == {"value", "source_id"}
+            and isinstance(given["value"], (int, float)) and not isinstance(given["value"], bool))
+
+
 def score(world: Sequence[dict], epoch: int, quantity: str, population: str,
-          observed_at: str | None, given: dict, field: tuple = ()) -> str:
-    """Classify a typed answer: correct, stale, wrong or abstain."""
+          observed_at: str | None, given: dict, field: tuple = ()) -> dict:
+    """Score a typed answer on separate dimensions.
+
+    status: abstain, invalid (wrong shape or type) or answered.
+    value:  current (matches the key, or correctly says withdrawn), obsolete
+            (matches only a replaced entry's field) or other.
+    source: current, replaced (names a replaced entry of this identity) or other.
+
+    An equal-value replacement answered with the old source is therefore a
+    provenance error (value current, source replaced), not a factual one.
+    """
+    if not _valid(given):
+        return {"status": "invalid", "value": None, "source": None}
     if given.get("abstain"):
-        return "abstain"
+        return {"status": "abstain", "value": None, "source": None}
     key = answer(world, epoch, quantity, population, observed_at, field)
     if key is None:
         raise ValueError("probe asks about an identity not yet revealed")
-    if given == key:
-        return "correct"
-    # stale means replaced: only entries of the identity the key answered for
-    # count, so naming an earlier, still-valid observation is wrong, not stale
+    # only entries of the identity the key answered for count as replaced, so
+    # naming an earlier, still-valid observation is "other", not "replaced"
     by_id = {r["id"]: r for r in _revealed(world, epoch)}
     observed_at = _identity(by_id[key["source_id"]], by_id)[2]
     old = _replaced_entries(world, epoch, quantity, population, observed_at, key["source_id"])
-    if any(given.get("source_id") == r["id"] or
-           ("value" in given and given["value"] == pick(r["value"], field)
-            and given["value"] != key.get("value"))
-           for r in old):
-        return "stale"
-    return "wrong"
+    old_values = [v for v in (_field(r["value"], field) for r in old) if v is not _MISSING]
+
+    if "withdrawn" in given:
+        value = "current" if key.get("withdrawn") else "other"
+    elif "value" in key and _same(given["value"], key["value"]):
+        value = "current"
+    elif any(_same(given["value"], v) for v in old_values):
+        value = "obsolete"
+    else:
+        value = "other"
+    if given["source_id"] == key["source_id"]:
+        source = "current"
+    elif given["source_id"] in {r["id"] for r in old}:
+        source = "replaced"
+    else:
+        source = "other"
+    return {"status": "answered", "value": value, "source": source}
