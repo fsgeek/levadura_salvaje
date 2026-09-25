@@ -1,0 +1,48 @@
+15 files, 38.06M characters
+/home/tony/projects/levadura_salvaje/minagi-runs/seed2 does not exist - creating a fresh model from config.yaml
+  weights/: 64 experts + 3 bundles = 67 files, 838.5 MB
+
+  64 experts x 3,145,728 parameters (2048 hidden units, depth 1)
+  pool 201.33M, resident 16 = 50.33M in VRAM
+  total 209.50M
+
+  described 64 experts by what they respond to
+  64 experts on disk, 16 resident, 50.4M in VRAM of 201.4M total
+  computing in bf16; weights stay fp32 everywhere, Adam's moments store as bf16
+  experts move only on demand: a candidate must be wanted 10% more than the resident it displaces, and a newcomer holds its slot for 2,048 characters (1 chunks)
+  trunk learns at 0.1x the pool's rate (8.1M trunk, 50.4M pool)
+  before: 5.6508 +/-0.0053 on /home/tony/projects/levadura_salvaje/data/minagi/val
+  optimiser moments restored (0 steps of history)
+  gradient reaches back 24 of 24 rows
+  depth: up to 24 rows, halting prior pulls toward 13.9 rows, inference stops at 0.9 cumulative
+  recurrence depth is SAMPLED while training: mean 13.77 of 24 (57% of the recurrent compute). Inference still runs all 24 and lets halting decide.
+  graphs redrawn with every sample entry -> runs/training_progress.png and runs/dashboard.png (the last 100M)
+  1 subjects, reading 32,768 characters from one before moving to the next (16 windows of 2,048): cfr1997
+  learning rate is governed by held-out, not by a horizon: rate x1.000, floor x0.05
+/home/tony/projects/mini-AGI/minagi/recur.py:346: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  self.last_steps = float(steps.mean())
+    pool 65 experts (+1)  50.4M in VRAM  vram 1917MB
+    weights/ checkpointed at step 409 (0.8M characters)
+    weights/ checkpointed at step 801 (1.6M characters)
+    pool 66 experts (+1)  50.4M in VRAM  vram 3503MB
+    weights/ checkpointed at step 1,376 (2.8M characters)
+    weights/ checkpointed at step 1,772 (3.6M characters)
+    pool 67 experts (+1)  50.4M in VRAM  vram 3523MB
+    weights/ checkpointed at step 2,362 (4.8M characters)
+    weights/ checkpointed at step 2,757 (5.6M characters)
+    pool 68 experts (+1)  50.4M in VRAM  vram 3526MB
+    weights/ checkpointed at step 3,330 (6.8M characters)
+    weights/ checkpointed at step 3,728 (7.6M characters)
+    pool 69 experts (+1)  50.4M in VRAM  vram 3526MB
+    weights/ checkpointed at step 4,315 (8.8M characters)
+    weights/ checkpointed at step 4,713 (9.7M characters)
+  reached 60 minutes
+    weights/ checkpointed at step 4,783 (9.8M characters)
+
+read 9.80M characters in 60.0m (2.7k char/s)
+  mean loss over the files: 1.6720
+  after:  1.1815 +/-0.0186   -4.4693
+  final samples in /home/tony/projects/levadura_salvaje/minagi-runs/seed2-samples.txt
+  weights/: 69 experts + 3 bundles, 1853.0 MB (paged - experts were already on disk)
+  weights/ updated - the model has read this and kept it
