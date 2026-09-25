@@ -97,3 +97,7 @@ the ledger is the claim.
 - `currency-qwen-v1-2025.jsonl` (+ `.partial.jsonl`) — the currency lens
   answered by local Qwen3.8-27B (own llama-server under an ayllu-gpu lease),
   same chunks as Jev. Ledger: obs-0146.
+- `minagi-v1/` — mini-AGI trained on the 1997 CFR (3 seeds, gazelle):
+  per-seed scores of 1,128 sampled 2025 sections, training logs, and
+  `sections.jsonl` (mean and spread per section). Ledger: obs-0147.
+  Scorecard: docs/minagi-scorecard.md.
