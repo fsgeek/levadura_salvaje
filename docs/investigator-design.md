@@ -170,6 +170,22 @@ The copying itself is an anecdote from one run, but it is the behavior the
 seed argues against: the persistent mind tried to hold the world instead of
 consulting it.
 
+## Size, as cut by the cost rule (after the smoke run)
+
+The Haiku smoke run (world 0, every arm) cost **$6.97** (P·L $3.04, F·L
+$2.03, P·Q $1.38, F·Q $0.52). The in-context arms dominate. The designed
+11 world-runs would cost about $77. The design's rule (below) cuts worlds
+before arms, so the pilot is **worlds 0–4, with world 0 run twice**: 6
+world-runs, about $42. The smoke run is world 0 run 0 on the same code and
+is reused, so about $35 is new. It is run a world at a time, within Tony's
+$10–15/day guide.
+
+Arm C does not measure a closed-book guess as intended. With no tools
+offered, Haiku tried to call one anyway (`search_memory`), which taste_open
+refuses, so every C probe fails and scores invalid. Its accuracy is 0 either way, so
+the check it exists for (generated values can't be recalled) is not
+contradicted, but the scorecard reports C as failed attempts.
+
 ## Size and cost
 
 - **Substrate:** Haiku 4.5 via OpenRouter.
