@@ -98,3 +98,10 @@ def test_snapshot_after_a_failed_wake_matches_the_live_session(tmp_path):
         s.exchange(nxt, force_memory=None)
         snap.exchange(nxt, force_memory=None)
     assert snap_backend.seen[-1] == live.seen[-1]
+
+
+def test_openrouter_calls_are_attributed_to_this_project(monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "x")
+    b = inv.make_backend({"kind": "openrouter", "model": "m", "experiment": "pilot-v1"})
+    assert b._extra_headers["X-Title"] == "levadura-salvaje/pilot-v1"
+    assert "levadura_salvaje" in b._extra_headers["HTTP-Referer"]
