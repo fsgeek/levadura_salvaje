@@ -91,3 +91,6 @@ the ledger is the claim.
   — 2025 CFR sections citing a reused section; ledger obs-0143.
   `usc26-reuse-1997-2025-classified.jsonl` — blind reuse/restructure/rename
   labels; ledger obs-0144.
+- `bounded-reader-v2-2025.jsonl` and `bounded-reader-v2/*.evidence.txt` —
+  v2: 120 fresh sections, panel blind to the packet, reuse flags in the
+  packet. Ledger: obs-0145.

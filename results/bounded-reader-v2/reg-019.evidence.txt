@@ -1,0 +1,28 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 168(d)(3)(b)(i): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 708(b)(1)(B): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 1024: RENUMBERED
+- section 48(q): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 1400L(b): REPEALED (section repealed ?)
+- section 168(d): in force at 119-4 (March 2025)
+- section 168(d)(2): in force at 119-4 (March 2025)
+- section 168(d)(3)(A): in force at 119-4 (March 2025)
+- section 168(f): in force at 119-4 (March 2025)
+- section 168: in force at 119-4 (March 2025)
+- section 280F(d)(4): in force at 119-4 (March 2025)
+- section 168(d)(3)(B)(ii): in force at 119-4 (March 2025)
+- section 1031(d): in force at 119-4 (March 2025)
+- section 1033(b): in force at 119-4 (March 2025)
+- section 168(i)(7): in force at 119-4 (March 2025)
+- section 168(k): in force at 119-4 (March 2025)
+- section 1011: in force at 119-4 (March 2025)
+- section 179: in force at 119-4 (March 2025)
+- section 167(a): in force at 119-4 (March 2025)
+- section 168(i)(7)(B)(i): in force at 119-4 (March 2025)
+- section 721: in force at 119-4 (March 2025)
+- section 168(k)(2): in force at 119-4 (March 2025)
+- section 168(k)(4): in force at 119-4 (March 2025)
+- section 1031: in force at 119-4 (March 2025)
+- section 1033: in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

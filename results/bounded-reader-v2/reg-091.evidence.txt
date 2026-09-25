@@ -1,0 +1,14 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 645: in force at 119-4 (March 2025); NUMBER REUSED since 1997: in 1997 section 645 was 'Taxable year of trusts'; in 2025 it is 'Certain revocable trusts treated as part of estate'
+- section 170(c): in force at 119-4 (March 2025)
+- section 170(a): in force at 119-4 (March 2025)
+- section 170(c)(2): in force at 119-4 (March 2025)
+- section 170(c)(2)(A): in force at 119-4 (March 2025)
+- section 642(c)(6): in force at 119-4 (March 2025)
+- section 4947(a)(1): in force at 119-4 (March 2025)
+- section 509(a): in force at 119-4 (March 2025)
+- section 501(a): in force at 119-4 (March 2025)
+- section 7701(a)(6): in force at 119-4 (March 2025)
+- section 642(c)(1): in force at 119-4 (March 2025)
+Text-dating check: not assessed.

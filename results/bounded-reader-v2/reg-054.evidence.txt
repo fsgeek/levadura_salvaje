@@ -1,0 +1,22 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 1(1): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 30D: in force at 119-4 (March 2025)
+- section 45X(c)(6): in force at 119-4 (March 2025)
+- section 30D(d)(7): in force at 119-4 (March 2025)
+- section 30D(d)(1)(G): in force at 119-4 (March 2025)
+- section 30D(d)(3): in force at 119-4 (March 2025)
+- section 30D(d)(1)(F): in force at 119-4 (March 2025)
+- section 30D(d)(6): in force at 119-4 (March 2025)
+- section 62: in force at 119-4 (March 2025)
+- section 911: in force at 119-4 (March 2025)
+- section 931: in force at 119-4 (March 2025)
+- section 933: in force at 119-4 (March 2025)
+- section 67(e): in force at 119-4 (March 2025)
+- section 30D(d): in force at 119-4 (March 2025)
+- section 30B(b)(3): in force at 119-4 (March 2025)
+- section 30D(d)(1)(H): in force at 119-4 (March 2025)
+- section 25E: in force at 119-4 (March 2025)
+- section 45W: in force at 119-4 (March 2025)
+- section 482: in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

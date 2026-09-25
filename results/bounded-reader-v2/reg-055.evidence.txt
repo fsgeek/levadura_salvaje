@@ -1,0 +1,23 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 545(c)(1): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(3): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(2): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(6): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(4): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(3)(A)(ii): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(5): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(5)(A): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c)(5)(B): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(b)(8): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 545(c): in force at 119-4 (March 2025)
+- section 267(b): in force at 119-4 (March 2025)
+- section 542: in force at 119-4 (March 2025)
+- section 381(c)(15): in force at 119-4 (March 2025)
+- section 541: in force at 119-4 (March 2025)
+- section 318(a): in force at 119-4 (March 2025)
+- section 1011: in force at 119-4 (March 2025)
+- section 545(b)(7): in force at 119-4 (March 2025)
+- section 545(b)(5): in force at 119-4 (March 2025)
+- section 381(a): in force at 119-4 (March 2025)
+Text-dating check: the text limits at least one rule to a period that ended before 2025.

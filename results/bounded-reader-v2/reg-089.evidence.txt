@@ -1,0 +1,15 @@
+EVIDENCE FROM THE LEDGER (machine-checked; may contain errors)
+Code provisions this section cites, checked against 26 U.S.C. as of March 2025 and compared with 1997:
+- section 408A(b)(3): section exists, but NO SUCH SUBDIVISION at 119-4
+- section 402(c)(4): in force at 119-4 (March 2025)
+- section 408A(c)(2): in force at 119-4 (March 2025)
+- section 408A(d)(3): in force at 119-4 (March 2025)
+- section 408A(d)(4): in force at 119-4 (March 2025)
+- section 402(c)(3): in force at 119-4 (March 2025)
+- section 408A(d)(2)(B): in force at 119-4 (March 2025)
+- section 402(c): in force at 119-4 (March 2025)
+- section 402A(c)(3): in force at 119-4 (March 2025)
+- section 408A(d)(2): in force at 119-4 (March 2025)
+- section 401(a): in force at 119-4 (March 2025)
+- section 403(b): in force at 119-4 (March 2025)
+Text-dating check: the text limits none of its rules to an ended period.
