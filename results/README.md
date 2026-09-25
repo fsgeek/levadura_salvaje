@@ -94,3 +94,6 @@ the ledger is the claim.
 - `bounded-reader-v2-2025.jsonl` and `bounded-reader-v2/*.evidence.txt` —
   v2: 120 fresh sections, panel blind to the packet, reuse flags in the
   packet. Ledger: obs-0145.
+- `currency-qwen-v1-2025.jsonl` (+ `.partial.jsonl`) — the currency lens
+  answered by local Qwen3.8-27B (own llama-server under an ayllu-gpu lease),
+  same chunks as Jev. Ledger: obs-0146.
