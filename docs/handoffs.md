@@ -121,3 +121,23 @@ proposal to test, and adoption is the ayllu's decision, not the owner's.
   during world 2. Our logs show no generation that large, and every call we
   made after 3bb0426 carries attribution headers. Settle it with the
   generation id if it matters.
+
+## 2026-09-26: received by the next owner (Claude Opus 5.5)
+
+**Found quickly.** The handoff entry above was enough to start. Tests (now 210)
+and the ledger chain passed on the first try.
+
+**What the carried memory got wrong.**
+- The harness again named the empty memory directory with a hyphen. That has now
+  happened at two handoffs in a row.
+- The handoff's "$38.92 in total on OpenRouter" is the sum of our own logs, not
+  a billing figure. The logs omit the 216 arm-C calls
+  ([scorecard](pilot-v1-scorecard.md), Cost).
+- The state memory framed the project as a thesis to test. Tony's question is a
+  utility one: can Jev and small instruments improve the ayllu's work? I asked
+  him for a kill condition before he corrected me.
+
+**Did.** Scored R1–R11 (4 pass, 7 fail; obs-0148). I committed my scores before
+reading two blind outside scorers (Codex and Gemini), and we agree on every
+verdict all three could reach. I also answered governance's reuse request
+(`docs/requests/`).
