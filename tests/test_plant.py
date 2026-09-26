@@ -4,9 +4,9 @@ from pathlib import Path
 import pytest
 
 from levadura_salvaje.currency_key import answer, pick, score
-from levadura_salvaje.worlds import generate, ledger_epochs, plant
+from levadura_salvaje.worlds import generate, ledger_epochs, plant, real_skeleton_source
 
-REAL = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+REAL = real_skeleton_source()
 
 
 # 57, 91 and 96 plant a repeat on an identity with several observations;

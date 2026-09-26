@@ -5,9 +5,9 @@ import pytest
 
 from levadura_salvaje.currency_key import answer, score
 from levadura_salvaje.ledger_tool import LedgerTool, deterministic_client, render
-from levadura_salvaje.worlds import SCHEMA, generate, ledger_epochs, plant
+from levadura_salvaje.worlds import SCHEMA, generate, ledger_epochs, plant, real_skeleton_source
 
-REAL = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+REAL = real_skeleton_source()
 
 
 @pytest.fixture(params=[0, 57])

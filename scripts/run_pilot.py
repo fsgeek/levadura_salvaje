@@ -19,14 +19,14 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 from levadura_salvaje import investigator as inv
-from levadura_salvaje.worlds import generate, ledger_epochs, plant
+from levadura_salvaje.worlds import generate, ledger_epochs, plant, real_skeleton_source
 
 WORLDS = range(8)
 REPEATED = (0, 1, 2)
 
 
 def one(world_seed: int, arm: str, run: int, backend: dict, out: Path) -> str:
-    real = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+    real = real_skeleton_source()
     world, probes = plant(generate(real, ledger_epochs(real), world_seed), world_seed)
     dest = out / f"w{world_seed}" / arm / f"r{run}"
     if (dest / "probes.jsonl").exists() and len((dest / "probes.jsonl").read_text().splitlines()) == len(probes):

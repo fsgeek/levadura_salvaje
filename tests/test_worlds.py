@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from levadura_salvaje.worlds import SCHEMA, generate, ledger_epochs, skeleton
+from levadura_salvaje.worlds import SCHEMA, generate, ledger_epochs, skeleton, real_skeleton_source
 
 REAL = [
     {"id": "obs-0001", "quantity": "elder_state_size", "population": {"source": "elder.jsonl"},
@@ -67,7 +67,7 @@ def _strings(x, out):
 
 
 def test_no_real_ledger_string_survives_generation():
-    real = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+    real = real_skeleton_source()
     epochs = ledger_epochs(real)
     assert max(epochs.values()) == 22
     found = set()
@@ -84,7 +84,7 @@ def test_no_real_ledger_string_survives_generation():
 def test_token_layouts_differ_between_worlds():
     # review 3: keys and strings were numbered in encounter order, so every
     # world shared one layout
-    real = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+    real = real_skeleton_source()
     a, b = (generate(real, ledger_epochs(real), seed) for seed in (1, 2))
     layout = lambda w: [sorted(r["value"]) if isinstance(r["value"], dict) else None for r in w]
     same = sum(x == y for x, y in zip(layout(a), layout(b)) if x)
