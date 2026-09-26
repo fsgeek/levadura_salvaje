@@ -14,12 +14,23 @@ generated world.
 import json
 import random
 from collections.abc import Mapping, Sequence
+from pathlib import Path
 
 
 # Ledger length after each merge to main that grew it, PR #2 through #45
 # (`git log --first-parent main -- ledger/observations.jsonl`). One epoch each.
 LEDGER_EPOCH_ENDS = (7, 8, 45, 82, 119, 121, 122, 125, 130, 131, 133, 134, 136,
                      137, 138, 140, 141, 142, 144, 145, 146, 147)
+
+
+
+def real_skeleton_source(path="ledger/observations.jsonl") -> list[dict]:
+    """The real entries the pilot's worlds are built from: the ledger as it stood
+    at the last epoch end. The ledger is append-only, so later entries (the pilot's
+    own scores among them) never change the stamped skeleton."""
+    lines = Path(path).read_text().splitlines()[:LEDGER_EPOCH_ENDS[-1]]
+    return [json.loads(line) for line in lines]
+
 
 SCHEMA = ("id", "epoch", "quantity", "population", "observed_at", "instrument", "version",
           "supersedes", "withdraws", "derived_from", "value")

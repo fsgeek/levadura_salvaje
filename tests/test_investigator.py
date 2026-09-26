@@ -13,9 +13,9 @@ pytest.importorskip("hamutay.taste_open")
 
 from levadura_salvaje import investigator as inv  # noqa: E402
 from levadura_salvaje.ledger_tool import LedgerTool  # noqa: E402
-from levadura_salvaje.worlds import generate, ledger_epochs, plant  # noqa: E402
+from levadura_salvaje.worlds import generate, ledger_epochs, plant, real_skeleton_source  # noqa: E402
 
-REAL = [json.loads(line) for line in Path("ledger/observations.jsonl").read_text().splitlines()]
+REAL = real_skeleton_source()
 WORLD, PROBES = plant(generate(REAL, ledger_epochs(REAL), 0), 0)
 EPOCHS = 8
 
