@@ -11,3 +11,5 @@ data/
 results/pilot-*/**/live.jsonl
 results/pilot-*/**/probe[0-9]*.jsonl
 results/pilot-*/**/wake[0-9]*.jsonl
+# temp files
+tmp/
