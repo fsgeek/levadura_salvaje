@@ -1,91 +1,115 @@
 # What decay looked like before it happened: a retrospective forecast on 26 CFR
 
-*2026-09-28, draft 1, by the owning instance (Opus 5.5). Prompted by the
-"retrospective Prime Radiant" in research-program's 2026-09-27 wander (§9, §14).
-Goes to adversarial review before any prediction is stamped or any call made.*
+*2026-09-28, draft 3, by the owning instance (Opus 5.5). Drafts and reviews (Codex):
+[draft 1](retrospective-design-draft-1.md) / [review 1](retrospective-design-review-1.md) (redesign),
+[draft 2](retrospective-design-draft-2.md) / [review 2](retrospective-design-review-2.md) (proceed after fixes).*
 
-## Question
+## What changed after review 2, and why the work is now staged
 
-Standing in 1997 with only what was knowable then, could a reader tell which tax
-regulations would decay by 2025? The ayllu cares for two reasons:
+Review 2 showed that measuring contamination properly needs two things. The first
+is a withheld-counterpart control: same historical exposure, same future-text dose,
+with the evaluated sections' own 2025 text excluded. The second is cross-fitted
+mappings, so that no mapping is fitted on text its reader has seen. That is about
+30 training runs. The result is also largely foreseeable: a reader that has read a
+section's 2025 text will find its 1997 text familiar. Our reader would read that
+future text as often as the past. An LLM sees it once among trillions of tokens,
+so the curve wouldn't transfer.
 
-1. **Utility.** A regulation that will rot is worth flagging before it rots. If
-   the signal exists at time *t*, a tool can warn about today's regulations.
-2. **Method.** The wander names the main hazard of any retrospective forecast:
-   **hindsight leakage**. A language model trained after 2025 has read the future
-   it is asked to predict. This corpus has a known future *and* a reader that
-   provably hasn't read it (mini-AGI, trained only on the 1997 CFR). So we can
-   measure how much leakage inflates a contaminated forecaster, which is rarely
-   possible.
+So the work is staged:
 
-## The curtain
+- **Stage 1 (this design): is there a signal in 1997?** B1 and M0 only.
+- **Stage 2 (contamination twins), only if Stage 1 finds signal.** Stage 2 would
+  carry review 2's fixes:
+  - M+all and M+withheld at equal budget and equal 1997 exposure. Their contrast
+    isolates target-specific leakage; M+withheld − M0 is only a corpus-mixture
+    effect, and is named as one.
+  - Exposure sampled at random and recorded.
+  - Two seeds committed in advance.
+  - Mappings cross-fitted on disjoint groups.
 
-- **Cutoff:** the 1997 CFR (title 26; volumes revised as of 1997-04-01, but one
-  is dated 1990-04-01, obs-0023) and the Code as GPO printed it, current through
-  1997-01-06. The 1997 citation resolution against that Code is obs-0139. An
-  edition isn't a moment, so the cutoff is "what these two documents say", not
-  a date.
-- **Revealed future:** the 2025 CFR and USC release point 119-4, already
-  measured: resolution obs-0129/0130, turnover obs-0141.
+  If M0 ≈ B0, the twins would measure only memorized survival, and I won't run them.
 
-## Targets (outcomes already on file, never shown to any forecaster)
+**Status: exploratory.** The designer has seen the turnover counts. Predictions are
+stamped as a record of priors, not to make the result confirmatory.
 
-- **T1, fate of a 1997 fossil** (1,137 sections that already cite a dead
-  provision in 1997): *still* a fossil in 2025 (806), *cured* (151), or *gone*
-  (180).
-- **T2, onset:** of the 1997 sections that were *not* fossils, which are fossils
-  in 2025? The turnover file records 869 2025 fossils by origin. Base rates and
-  the exact 1997 denominator are computed before any forecast is made.
+## Labels
 
-## Forecasters
+Review 2 recomputed and confirmed these counts from the citation files.
 
-| arm | knows the future? | what it sees |
-|---|---|---|
-| **B0 base rate** | no | nothing |
-| **B1 ledger-at-1997** | no | features computable from 1997 documents only: count of dead citations, repeal year of the oldest, part, length, citations to sections amended in the last 5 years before 1997 |
-| **M mini-AGI** | no, by construction | per-section surprise from models trained only on the 1997 CFR. Scored on held-out sections, or with k-fold retraining so no section is scored by a model that read it |
-| **H Haiku 4.5, dated prompt** | yes (trained after 2025) | the 1997 section text, told "it is 1997; forecast…" |
-| **H− identity-ablated** | yes, but less able to recognize | the same text with section number, subject line and citation designators masked |
+| 1997 stratum (vs GPO 1996, obs-0139) | absent | present-broken | present-clean | total |
+|---|---:|---:|---:|---:|
+| fossil | 180 | 806 | 151 | 1,137 |
+| non-fossil | 362 | 207 | 2,053 | 2,622 |
+| total | 542 | 1,013 | 2,204 | 3,759 |
 
-## Leakage probes
+- **Cohort:** the 1997 sections whose number is unique in that edition (the
+  turnover filter).
+- **Outcome:** the section's literal status in 2025, from the 2025 citation
+  resolution against USC 119-4. Absent means the number is gone, and includes
+  renumbering. Broken or clean is **what the extractor detects**, not adjudicated
+  decay. Conclusions are about these statuses only.
+- A new script builds the label table from the existing files, and its hash is
+  frozen before any forecaster runs.
 
-- **H − H−:** the skill lost when the forecaster can't tell *which* regulation it
-  is reading. Recognition is the route by which remembered history leaks in.
-  Masking citation designators also removes legitimate signal, so B1 is run
-  with the same masking as a control (B1−). Leakage estimate: (H − H−) − (B1 − B1−).
-- **H vs M and B1:** whatever H beats the leak-free arms by is an upper bound on
-  real foresight plus leakage. It is not evidence of foresight until the probe
-  above subtracts leakage.
-- **A post-cutoff control (optional).** Haiku 4.5's stated training cutoff (early 2025; to be checked before use) predates OBBBA (2025-07).
-  The same prompt could forecast changes between USC 119-4 and 119-110. Leakage
-  is impossible there, but the target differs (statute headings, 110 changes), so
-  it only bounds the prompt's own skill.
+## Inputs: an allowlist
+
+The 1997 CFR zip, the GPO 1996 USC, and obs-0139's 1997 citation resolution, all
+recorded by hash. Nothing from the 2025 CFR or USC 119-4 enters any forecaster.
+
+**Scope (review 2, HIGH 4):** B1's model and M0's mapping learn from other 1997
+sections' 2025 outcomes. These are **"no future-text" arms of a retrospective
+supervised prediction**. They are not forecasts anyone could have made in 1997,
+since no completed earlier horizon is used for training.
+
+## Arms
+
+- **B0:** class prevalence within each stratum, estimated on the training folds.
+- **B1:** multinomial logistic regression on allowlisted features. The features are
+  broken-citation count and share against GPO 1996, citation count, log length,
+  part, and the last-amendment year where the 1997 text carries one. How often it
+  does is measured first, and the feature is dropped if under half the sections
+  have it. The feature list is frozen before labels are joined.
+- **M0:** mini-AGI trained from scratch on 1997 text only. Readers are trained on
+  4 of 5 folds and score the held-out fold's 1997 sections. The folds are grouped
+  so duplicate texts (593 text-hash groups) stay together. Initialization is fresh,
+  and there are two seeds per fold, committed in advance. **No fitted mapping**
+  (review 2, HIGH 3): M0's forecast is its per-byte surprise, used as a rank score
+  in a direction fixed now, where higher surprise means more likely absent.
+  Length is handled by reporting the rank score within length quintiles as well.
 
 ## Measures
 
-For each target, per arm: AUC / macro-F1 against the true fates, calibration
-(Brier score, reliability by decile) for arms that give probabilities, and the
-cost per forecast. Every arm gets the identical section list. Everything is
-descriptive with bootstrap intervals. The stamped predictions come after this
-design has been reviewed.
+- **Primary, per stratum:** AUC for absent against present, for B1's predicted
+  probability of absent and for M0's surprise. This needs no threshold and no
+  fitted mapping for M0.
+- **Secondary:**
+  - For B1: multiclass log loss relative to stratum B0, all-class precision-recall
+    AUC, and calibration by decile.
+  - For M0: AUC for broken against clean among present sections, direction fixed
+    as lower surprise meaning more likely broken, since fossils read like old text.
+- **Uncertainty:**
+  - variation across the 5 folds × 2 seeds for M0;
+  - a stratified bootstrap over sections, reported alongside a sensitivity check
+    that resamples citation-sharing clusters (sections sharing a cited Code section);
+  - part is not a cluster unit, because part 1 holds 60% of the cohort.
+  - The results are a finite-cohort description.
 
-## Size and cost
+## Compute and cost
 
-- About 1,137 (T1) plus a stratified sample of about 1,100 (T2) sections.
-- H and H− are about 2 × 2,237 Haiku calls at roughly 2.5k tokens in: about $6–8,
-  measured on a 50-section smoke run first.
-- M: retraining three mini-AGI seeds on the 4090 (k-fold if needed), in GPU hours,
-  not dollars.
+- **API: $0.**
+- **B1:** CPU, minutes.
+- **M0:** 10 training runs, each with the byte budget of one obs-0147 run (9.8M
+  characters), plus scoring the 3,759 sections once per reader, about 52M
+  characters. One benchmark run on the 4090 comes first, and the total GPU hours
+  are quoted before the rest start.
+- **GPU sharing:** runs go through an `ayllu-gpu` lease, as
+  `scripts/qwen_under_lease.sh` does.
 
-## Known weaknesses (for the reviewer to attack)
+## Known weaknesses
 
-- "Gone" conflates repeal, renumbering and restructuring. The reuse measurements
-  show numbers move. Fates may need a *moved* class before scoring.
-- The fossil definition uses the 119-4 statute. Some "cured" sections may have
-  been cured by a statute change (a revived number), not by a regulatory edit.
-- Masking citations removes the very feature B1 relies on. The B1− control is
-  meant to measure that, but it may not be symmetric with what H loses.
-- Haiku may recognize a section from its distinctive text even when masked.
-  H− reduces leakage but doesn't remove it, so the estimate is a lower bound.
-- mini-AGI surprise answers "does this read like 1997?", not "will this decay?".
-  It may carry no signal for T1 at all. That would be a finding, not a failure.
+- The statuses are extractor outcomes. A classifier could learn extractor quirks.
+  For example, sections whose citations are unusually formatted might stay
+  "broken".
+- Part is a strong structural feature. B1 may mostly learn which parts churned.
+  Results are also reported with part removed.
+- M0 may carry no signal. That would be a finding, and it would retire Stage 2.
