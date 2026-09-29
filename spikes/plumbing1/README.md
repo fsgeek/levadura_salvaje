@@ -5,6 +5,23 @@
 17 checks, all pass. It uses a throwaway database (`levadura_spike1`) on the
 ArangoDB sandbox container.*
 
+> **Read with [REVIEW.md](REVIEW.md) (Codex).** "17/17" supports a narrow, static,
+> single-load import. It does not support stable identity across extractor
+> changes, manifest-pinned history, honest paging at page boundaries, or evidence
+> validated per cell:
+> - the paging oracle shares its inputs with `drill`, and compares members only
+>   globally, not per cell;
+> - `truncated` is wrong when exactly `limit` members remain;
+> - resolution keys omit the manifest, so a corrected import would overwrite
+>   history;
+> - the per-part `MERGE` of outcomes would hide conflicting outcomes for one Code
+>   section.
+>
+> In this data there are none: 0 of 1,673 cited Code sections have more than one
+> outcome at 119-4, checked directly from the source file. So the histogram match
+> is real here, but the code would mask a conflict elsewhere. The conclusions below
+> hold at that narrower scope.
+
 One vertical, for finding #1 at USC 119-4, through every layer:
 - occurrences with stable identity;
 - reified resolutions;
