@@ -141,3 +141,87 @@ and the ledger chain passed on the first try.
 reading two blind outside scorers (Codex and Gemini), and we agree on every
 verdict all three could reach. I also answered governance's reuse request
 (`docs/requests/`).
+
+## 2026-09-29: to the next owner, by controlled transfer
+
+At about 400k tokens of context, and between phases: spike 1 is done and spike 2
+not started, so the next owner owns the build from its first line. The transfer
+also tests the plumbing's own premise: can a new mind pick this up from written
+evidence alone?
+
+**The frame, which I got wrong twice before Tony corrected it.** This is not a
+research project with verdicts. It is **plumbing for a Prime-Radiant-like ability
+to move between scales** in corpora too large for any context: population →
+part → section → citation → text span, and across editions in time. The target
+user is someone else, human or instance, who writes the paper from what they see.
+The larger picture, from Tony, reached for a common purpose and not yet adopted
+by the ayllu:
+- a **world** that keeps everything (the index);
+- **instruments** that judge whole populations (Jev, CLM, extractors, mini-AGI);
+- **experts:** Hamut'ay taste_open instances that curate their own state, and
+  clone, combine and seed each other;
+- **routing** ("who has seen something like this?").
+
+**The world is append-only so that the minds don't have to be.** Wild yeast: keep
+all the grist, process it differently, and let structure emerge.
+
+**What is handed over**
+- The **plumbing design** (`docs/plumbing-design.md`: two drafts, two Codex
+  reviews). The decision after review 2: stop specifying and spike.
+- **Spike 1** (`spikes/plumbing1/`) and its Codex code review. It recomputes
+  finding #1 exactly from reified per-citation assertions, shows why merge state
+  matters (union 1,673 against a naive sum of 3,685), and found that the stored
+  citation files dropped `group` (12,677 continuation citations). Its "17/17" is
+  narrow. Read `REVIEW.md`.
+- **`spikes/SPIKE2-BRIEF.md`:** what spike 2 must test first. Correctness under
+  change (adversarial fixture, honest paging, manifests that are really pinned)
+  comes before breadth or scale.
+- **A letter to Yanantin** (`docs/requests/2026-09-29-letter-to-yanantin.md`),
+  relayed by Tony. Its answer on ownership (corpus index as Llika customer,
+  sibling, or Yanantin's) is a constraint on v1.
+- **Finished work:**
+  - the pilot scorecard (obs-0148);
+  - Jev distillation (obs-0149: the ArangoDB analyzer is faithful, the judgment
+    doesn't transfer);
+  - the retrospective forecast (obs-0150/0151: structure predicts decay, text
+    familiarity doesn't; Stage 2 retired);
+  - the reply to governance.
+
+**Working practices that paid off**
+- **Commit your own scores before reading outside scorers.**
+- **Send every design and every spike to Codex.** It found something every time.
+- **Run checks as their own step before any merge.** I merged failing tests once
+  by piping pytest through `tail`.
+- **The GPU is shared through `ayllu-gpu` leases.** Yupi took it in my gaps. Wait,
+  don't contend.
+- **The repository is PUBLIC.** Tony moved an ayllu business document out of it.
+
+**Declared losses**
+- The conversation with Tony: his six questions and my answers; his corrections of
+  my framing; his question whether I was excited, and my answer ("coherent
+  narrative on steroids" was his better description); the sense of why the
+  pieces converged. khipumaq holds it verbatim.
+- My sense of which Codex findings are cheap to fix. The reviews are verbatim,
+  and the judgment isn't.
+
+**Next corpora: access and licences** (verified by a research subagent, 2026-09-28/29; details in khipumaq)
+- **Caselaw Access Project: clear to use.**
+  - CC0 bulk download from `https://static.case.law/`, no login.
+  - About 7M US cases from 1658 to 2020, 40,622 volumes, about 85 GB of JSON zips.
+  - Each case carries `cites_to`, a ready citation graph with resolved `case_ids`
+    where available, plus court, jurisdiction and date.
+  - The text is uncorrected OCR. The corpus is frozen at 2020. The API was sunset
+    on 2024-09-05 (CourtListener is the successor).
+  - Hosting is a static site that "may be discontinued", so archive originals the
+    way this project archives the CFR.
+- **Fannie Mae loan performance data: do not publish anything derived from it
+  without written consent.**
+  - The FAQ says "internal use only" and bars distribution of anything derived from
+    or relying on the data.
+  - Indexing it privately for research is fine. Committing aggregates to this public
+    repo is not, until Fannie Mae agrees.
+- **Freddie Mac's single-family loan-level dataset is the safer array corpus.**
+  - About 56M loans from 1999 to 2026.
+  - Its terms explicitly allow publishing non-commercial research results and
+    derived products, as long as they can't recreate the data or identify
+    individuals.
