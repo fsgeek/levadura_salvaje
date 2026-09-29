@@ -141,9 +141,24 @@ out the database handle. An MCP wrapper comes when there's a caller.
   assertions, metric specs, manifests, rollups.
 - **Reused:** the ledger-to-Jabberwock identity mapping for observations,
   instruments and editions (`docs/jabberwock-mapping.md`).
-- **Offered to Llika, not owned here:** `visited` and `lineage` describe
-  instances, not corpora. Until Yanantin answers, they live in a separate
-  collection with Llika's edge shape, so they can move.
+- **Decided 2026-09-29** ([Yanantin's reply](https://github.com/fsgeek/yanantin/blob/main/docs/requests/2026-09-29-reply-to-levadura-salvaje.md)):
+  the corpus index is a **sibling service on Yanantin's principles, owning its own
+  database**. It is not a Llika customer, and it is not Yanantin's. Conventions it
+  must follow:
+  - one database and one user per tenant, with a separate `_test` database; no
+    root, no `_system`, no databases created at runtime;
+  - collections, indexes and views created in one registry, never hardcoded;
+  - edges carry `_from`, `_to`, `id` (UUID), `created_at` and tiksi's
+    `ProvenanceEnvelope`, are append-only, and may have extra fields;
+  - no cross-database AQL. A reference into another tenant is its own record: the
+    target address, a hash of the target when it was cited, and the grant.
+- **What this gives up:** Yanantin promises no combined query across this corpus
+  and its memory, beyond the cross-tenant reference above.
+- **`lineage`** is Llika-shaped, but Llika's `RelationType` enum doesn't include it
+  yet. Write it here in the edge shape above; moving it later is a copy.
+- **`visited` (footprints)** is recorded as a query *event* (who asked, what, what
+  came back, when). The edge is derived from the event stream, so the query that
+  produced it isn't lost.
 - **Before convergence:** a mapping table for every relation and provenance field,
   plus a round-trip fixture. Not slice 1.
 
@@ -202,8 +217,7 @@ sharding.
   level) on first use?
 - Whether `member` edges should exist at all above some population size, or drills
   should always re-run the spec's query against the manifest.
-- Database placement: our own database on `arango-ayllu` with its own user,
-  pending Tony.
+- ~~Database placement~~: decided, own database and user (see Ownership).
 
 ## After review 2: build a spike, don't write draft 3
 
