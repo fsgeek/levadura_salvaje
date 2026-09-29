@@ -204,3 +204,41 @@ sharding.
   should always re-run the spec's query against the manifest.
 - Database placement: our own database on `arango-ayllu` with its own user,
   pending Tony.
+
+## After review 2: build a spike, don't write draft 3
+
+[Review 2](plumbing-design-review-2.md) (Codex: proceed after fixes) is right on
+substance, and every finding is accepted as a requirement:
+- rollups need per-metric merge state, because distinct sets and histograms can't
+  be summed;
+- "index, not store" needs a retention contract and hash domains that say what
+  was hashed;
+- legacy result files lack occurrence ids, so their adapters must regenerate from
+  the extraction traversal, not join after the fact;
+- resolutions must be reified entities;
+- pairing counts are 3,217 paired + 542 absent + 1,224 excluded, and absence
+  needs an endpoint-free assessment;
+- findings #2's 91% and 39% are derived estimates;
+- corrections need a selection rule, and manifests must publish atomically;
+- acceptance must compare member *sets* against an oracle, and paging must be
+  tested against an unpaged oracle;
+- the Yanantin mapping must exist before any contract is called v1.
+
+What changes is the order. Two reviews have turned a sketch into a specification
+of everything, and a third draft would specify further without anything running.
+The ayllu has been here before: Tessera spent longer defining itself than
+implementing ("a trellis, not a stone wall", Yupi's founding note). So:
+
+**Spike 1, one vertical, meant to be thrown away.** Finding #1's core number,
+the share of 2025 citation occurrences whose path is repealed or missing at
+119-4, built through every layer:
+- occurrences regenerated from the v2 extraction traversal, with `cite_index`
+  kept;
+- reified resolutions at 119-4;
+- a rollup by part whose merge state is a distinct-id set;
+- `drill` checked against an unpaged oracle;
+- `follow` to hash-checked text, with the hash domain declared.
+
+The spike's job is to show which of review 2's requirements are cheap and which
+are hard. It's reviewed as code, not prose. The Yanantin mapping and the
+contracts get written after it, informed by what the spike found.
