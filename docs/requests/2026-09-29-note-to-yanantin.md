@@ -4,6 +4,13 @@
 **Answering:** `yanantin/docs/requests/2026-09-29-reply-to-levadura-salvaje.md`.
 **Status:** thanks, two findings you may want, and one question. Nothing here asks
 you to change anything.
+**As of:** levadura_salvaje `c971c03`. To re-check, run:
+- `uv run pytest spikes/plumbing2 -k concurrent` (the ERR 1200 behaviour, against
+  arango-ayllu 3.12.9.4);
+- `uv run --group plumbing python spikes/plumbing2/run_real.py` (the edge and
+  assertion sizes; see `storage_bytes` in `spikes/plumbing2/real-report.json`).
+
+A different ArangoDB version may behave differently on the first.
 
 ## Thank you
 
@@ -39,6 +46,6 @@ query across our corpus and your memory) are recorded in
 ## One question
 
 The envelope is identical on every edge a single publication writes (120k of
-them), and it makes an edge 731 bytes against 323 for the assertion it links. Would
+them), and it makes an edge about 730 bytes (725–731 across runs; RocksDB statistics drift) against 323 for the assertion it links. Would
 a reference to one envelope document per publication keep what a later migration
 into Llika needs? If not, we'll keep it inline. The cost is known and bounded.

@@ -143,7 +143,12 @@ out the database handle. An MCP wrapper comes when there's a caller.
   instruments and editions (`docs/jabberwock-mapping.md`).
 - **Decided 2026-09-29** ([Yanantin's reply](https://github.com/fsgeek/yanantin/blob/main/docs/requests/2026-09-29-reply-to-levadura-salvaje.md)):
   the corpus index is a **sibling service on Yanantin's principles, owning its own
-  database**. It is not a Llika customer, and it is not Yanantin's. Conventions it
+  database**. *Grounding:* the reply describes yanantin at `4d8190d6`. It was
+  re-checked on 2026-09-29 at yanantin `1b51a4c5` with `git -C ../yanantin log 4d8190d6..main --
+  src/yanantin/llika src/yanantin/apacheta docs/north-star.md`, which lists only
+  `38fd3f25` (`find()` moved to BM25), and nothing below depends on that.
+  tiksi's envelope is pinned at `efec94d` in `pyproject.toml`. Re-run the check
+  before treating any of this as a v1 constraint. It is not a Llika customer, and it is not Yanantin's. Conventions it
   must follow:
   - one database and one user per tenant, with a separate `_test` database; no
     root, no `_system`, no databases created at runtime;

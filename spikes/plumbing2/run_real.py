@@ -150,8 +150,13 @@ def main():
     check("a missing release is unreachable",
           cx.follow(p["locator"] | {"uri": p["locator"]["uri"].replace(cx.RP, "118-1")})["status"] == "unreachable")
 
-    REPORT.write_text(json.dumps({"checks": checks, "facts": facts, "timings_s": timings}, indent=1,
-                                 default=str) + "\n")
+    storage = {}
+    for c in ("units", "occurrences", "assertions", "rollups", "provisions", "resolves_to", "queries", "manifests"):
+        st = db.collection(c).statistics()
+        storage[c] = {"docs": db.collection(c).count(), "documents_size": st.get("documents_size"),
+                      "indexes_size": st.get("indexes", {}).get("size")}
+    REPORT.write_text(json.dumps({"checks": checks, "facts": facts, "timings_s": timings,
+                                  "storage_bytes": storage}, indent=1, default=str) + "\n")
     failed = [k for k, v in checks.items() if not v["pass"]]
     print(f"{len(checks) - len(failed)}/{len(checks)} checks pass; timings {timings}")
     sys.exit(1 if failed else 0)

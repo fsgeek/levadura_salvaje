@@ -109,7 +109,7 @@ now:
   index-resolved CFR with 120k edges 48s. A warm rerun takes under 1s per
   publish.
 - **Storage.** Average document sizes: occurrence 205 bytes, assertion 323,
-  provision 420, `resolves_to` edge 731.
+  provision 420, `resolves_to` edge 725–731 (RocksDB statistics drift between runs).
 
 ## Hard, or not yet shown
 
@@ -118,7 +118,7 @@ now:
   occurrences, and now also every edge. Sharing unchanged records needs
   membership records or content-addressed keys, and that moves cost into every
   query. This is the next design question.
-- **The tiksi envelope dominates edge size.** An edge is 731 bytes against 323
+- **The tiksi envelope dominates edge size.** An edge is about 730 bytes (725–731 across runs) against 323
   for an assertion, and the envelope is identical on all 120k edges. Referencing
   one envelope per publication would need Yanantin to agree that a migration
   keeps what it needs.
