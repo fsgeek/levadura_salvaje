@@ -1,0 +1,174 @@
+{
+ "checks": {
+  "provisions match the measured file row for row": {
+   "pass": true,
+   "detail": 57176
+  },
+  "57,176 rows, 57,161 identifiers": {
+   "pass": true,
+   "detail": {
+    "rows": 57176,
+    "identifiers": 57161,
+    "collided_identifiers": 14,
+    "extra_rows": 15
+   }
+  },
+  "index resolver agrees with resolve.py on every occurrence": {
+   "pass": true,
+   "detail": {
+    "occurrences": 124993,
+    "disagreements": []
+   }
+  },
+  "imported: finding #1 (obs-0129)": {
+   "pass": true,
+   "detail": {
+    "broken": 10300,
+    "occurrences": 124993,
+    "units": 6158,
+    "fossil_units": 1675,
+    "cited_distinct": 1673,
+    "naive_sum": 3685,
+    "conflicts": 0,
+    "cells": 69
+   }
+  },
+  "index: finding #1 (obs-0129)": {
+   "pass": true,
+   "detail": {
+    "broken": 10300,
+    "occurrences": 124993,
+    "units": 6158,
+    "fossil_units": 1675,
+    "cited_distinct": 1673,
+    "naive_sum": 3685,
+    "conflicts": 0,
+    "cells": 69
+   }
+  },
+  "per cell, both manifests have the same members": {
+   "pass": true
+  },
+  "per cell, concatenated drill pages equal the rollup": {
+   "pass": true,
+   "detail": []
+  },
+  "every resolved assertion has >= 1 edge, collisions have one per version": {
+   "pass": true,
+   "detail": {
+    "assertions_with_targets": 119897,
+    "edges_by_fanout": {
+     "1": 119887,
+     "2": 20
+    }
+   }
+  },
+  "followed locators verify in their own hash domain": {
+   "pass": true,
+   "detail": {
+    "cfr:ok": 20,
+    "usc:ok": 714
+   }
+  },
+  "every version of a collided identifier verifies separately": {
+   "pass": true,
+   "detail": {
+    "ok": 29
+   }
+  },
+  "a wrong hash is stale": {
+   "pass": true
+  },
+  "an undeclared hash domain is refused": {
+   "pass": true
+  },
+  "a missing release is unreachable": {
+   "pass": true
+  }
+ },
+ "facts": {
+  "provisions": {
+   "rows": 57176,
+   "identifiers": 57161,
+   "collided_identifiers": 14,
+   "extra_rows": 15
+  },
+  "manifests": {
+   "usc": "df188bf8-138a-5527-af5f-86ad60e57695",
+   "imported": "b2d3b3b1-1c56-5dcc-b746-d362d75f7fe1",
+   "index": "2cf823b1-ac39-50ed-a229-9bb5253c33a9"
+  },
+  "imported": {
+   "broken": 10300,
+   "occurrences": 124993,
+   "units": 6158,
+   "fossil_units": 1675,
+   "cited_distinct": 1673,
+   "naive_sum": 3685,
+   "conflicts": 0,
+   "cells": 69
+  },
+  "index": {
+   "broken": 10300,
+   "occurrences": 124993,
+   "units": 6158,
+   "fossil_units": 1675,
+   "cited_distinct": 1673,
+   "naive_sum": 3685,
+   "conflicts": 0,
+   "cells": 69
+  },
+  "resolves_to": {
+   "edges_by_fanout": {
+    "1": 119887,
+    "2": 20
+   },
+   "collided_citations": [
+    {
+     "unit": "cfr26-2025:CFR-2025-title26-vol12.xml:48",
+     "ident": "/us/usc/t26/s951A/d/3",
+     "n": 2
+    },
+    {
+     "unit": "cfr26-2025:CFR-2025-title26-vol20.xml:70",
+     "ident": "/us/usc/t26/s6011/e/6",
+     "n": 2
+    },
+    {
+     "unit": "cfr26-2025:CFR-2025-title26-vol3.xml:215",
+     "ident": "/us/usc/t26/s951A/d/3",
+     "n": 10
+    },
+    {
+     "unit": "cfr26-2025:CFR-2025-title26-vol4.xml:154",
+     "ident": "/us/usc/t26/s951A/d/3/A",
+     "n": 2
+    },
+    {
+     "unit": "cfr26-2025:CFR-2025-title26-vol6.xml:141",
+     "ident": "/us/usc/t26/s1563/f/2",
+     "n": 4
+    }
+   ],
+   "n_collided": 5
+  },
+  "follow": {
+   "sampled_units": 20,
+   "statuses": {
+    "cfr:ok": 20,
+    "usc:ok": 714
+   },
+   "collided_versions": {
+    "ok": 29
+   }
+  }
+ },
+ "timings_s": {
+  "publish_provisions": 0.01,
+  "rows_imported": 0.62,
+  "publish_imported": 0.14,
+  "load_resolver": 0.18,
+  "rows_index": 1.09,
+  "publish_index": 0.14
+ }
+}

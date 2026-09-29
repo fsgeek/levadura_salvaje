@@ -49,6 +49,8 @@ REGISTRY = {
     "assertions": ("document", [["manifest", "cell", "outcome"], ["manifest", "unit"]]),
     "rollups": ("document", [["manifest"]]),
     "queries": ("document", [["manifest", "cell"]]),
+    "provisions": ("document", [["manifest", "address"]]),
+    "resolves_to": ("edge", [["manifest"]]),
 }
 
 
@@ -152,8 +154,11 @@ def merge(states: list[dict]) -> dict:
 
 
 def publish(db: StandardDatabase, stream: str, snapshot: str, rows: list[dict], instance: str,
-            fail_before_manifest: bool = False) -> str:
-    """Data first, the manifest last. Idempotent, and safe to retry after a crash."""
+            fail_before_manifest: bool = False, extra=None) -> str:
+    """Data first, the manifest last. Idempotent, and safe to retry after a crash.
+
+    `extra(m)`, if given, writes more of the manifest's data (edges) and returns
+    {collection: count}; it runs before the count check, so it is published atomically too."""
     m = manifest_id(stream, snapshot, rows)
     if db.collection("manifests").has(m):
         return m
@@ -173,6 +178,10 @@ def publish(db: StandardDatabase, stream: str, snapshot: str, rows: list[dict], 
                 assertions: LENGTH(FOR x IN assertions FILTER x.manifest == @m RETURN 1),
                 rollups: LENGTH(FOR x IN rollups FILTER x.manifest == @m RETURN 1)}""", bind_vars={"m": m}))
     want = {k: len(v) for k, v in docs.items()} | {"rollups": len({r["cell"] for r in rows})}
+    for name, n in (extra(m) if extra else {}).items():
+        want[name] = n
+        counts[name] = next(db.aql.execute("RETURN LENGTH(FOR x IN @@c FILTER x.manifest == @m RETURN 1)",
+                                           bind_vars={"@c": name, "m": m}))
     if counts != want:
         raise RuntimeError(f"manifest {m}: stored {counts}, expected {want}")
     if fail_before_manifest:

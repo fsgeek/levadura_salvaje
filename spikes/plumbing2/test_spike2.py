@@ -248,3 +248,22 @@ def test_spike1_last_wins_merge_is_caught(db, m1):
         assert len(last_wins) == PINNED["1"]["top"]["cited_distinct"]  # the count still matches
         survivors.add(last_wins["T-conf-x"])
     assert survivors == {"absent-section", "in-force"}  # the answer depends on order
+
+
+# --- the resolver rule the real corpus never exercises ----------------------------------
+
+def test_any_in_force_version_keeps_an_address_in_force():
+    """At 119-4 no cited address has versions that disagree on status, so real-data agreement
+    with resolve.py can't vouch for this rule (run_real.py: first-version-wins changes 0 outcomes)."""
+    import corpus as cx
+    r = cx.IndexResolver.__new__(cx.IndexResolver)
+    r.ranges = []
+    r.rows = {"9": [{"key": "p0", "status": None, "position": 0}],
+              "9/a": [{"key": "p1", "status": "repealed", "position": 1},
+                      {"key": "p2", "status": None, "position": 2}],
+              "9/b": [{"key": "p3", "status": "repealed", "position": 3},
+                      {"key": "p4", "status": "repealed", "position": 4}]}
+    assert r.resolve("9/a") == {"outcome": "resolves", "targets": ["p1", "p2"]}
+    assert r.resolve("9/b") == {"outcome": "repealed", "targets": ["p3", "p4"]}
+    assert r.resolve("9/c")["outcome"] == "absent-subdivision"
+    assert r.resolve("10")["outcome"] == "absent-section"
