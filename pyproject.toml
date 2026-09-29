@@ -27,6 +27,9 @@ distill = [
     "fasttext-wheel>=0.9.2",
     "numpy<2",
 ]
+plumbing = [
+    "python-arango>=8.3.5",
+]
 retro = [
     "scikit-learn>=1.9.1",
 ]
