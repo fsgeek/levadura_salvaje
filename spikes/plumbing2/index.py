@@ -26,10 +26,12 @@ import base64
 import hashlib
 import hmac
 import json
+import time
 import uuid
 from datetime import datetime, timezone
 
 from arango.database import StandardDatabase
+from arango.exceptions import DocumentInsertError
 from tiksi.provenance import ProvenanceEnvelope, SourceIdentifier
 
 from levadura_salvaje.tenant import settings
@@ -42,8 +44,9 @@ PAGE = 40
 ADAPTER = "spikes/plumbing2 v1"
 
 # The registry: the one place that owns collections and indexes (Yanantin's Khipu.watay).
+# Index entries are field lists; a leading "unique" makes the index unique.
 REGISTRY = {
-    "manifests": ("document", [["stream", "seq"]]),
+    "manifests": ("document", [["unique", "stream", "seq"]]),
     "units": ("document", [["manifest", "cell"]]),
     "occurrences": ("document", [["manifest", "cell"]]),
     "assertions": ("document", [["manifest", "cell", "outcome"], ["manifest", "unit"]]),
@@ -85,7 +88,8 @@ def ensure(db: StandardDatabase) -> None:
         if not db.has_collection(name):
             db.create_collection(name, edge=kind == "edge")
         for fields in indexes:
-            db.collection(name).add_index({"type": "persistent", "fields": fields})
+            unique = fields[0] == "unique"
+            db.collection(name).add_index({"type": "persistent", "fields": fields[unique:], "unique": unique})
 
 
 def truncate(db: StandardDatabase) -> None:
@@ -95,9 +99,12 @@ def truncate(db: StandardDatabase) -> None:
 
 # --- publication --------------------------------------------------------------
 
-def manifest_id(stream: str, snapshot: str, rows: list[dict]) -> str:
-    """Content-derived: the same rows under the same adapter are the same manifest."""
-    digest = hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest()
+def manifest_id(stream: str, snapshot: str, rows: list[dict], depends_on: tuple[str, ...] = (),
+                extra_inputs=None) -> str:
+    """Content-derived from everything that decides the generation's data: the rows, the
+    manifests it was computed against, and the inputs of any extra writer (edge targets)."""
+    body = {"rows": rows, "depends_on": sorted(depends_on), "extra": extra_inputs}
+    digest = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
     return key("manifest", stream, snapshot, ADAPTER, digest)
 
 
@@ -119,7 +126,13 @@ def documents(m: str, snapshot: str, rows: list[dict]) -> dict[str, list[dict]]:
 
 
 def cell_states(db: StandardDatabase, m: str) -> dict[str, dict]:
-    """Per-cell merge state for manifest m, read from the assertions themselves."""
+    """Per-cell merge state of a published manifest, read from the assertions themselves."""
+    published(db, m)
+    return _staged_states(db, m)
+
+
+def _staged_states(db: StandardDatabase, m: str) -> dict[str, dict]:
+    """The same, for a generation still being written. Only publish() may call this."""
     q = """
     FOR u IN units FILTER u.manifest == @m
       COLLECT cell = u.cell WITH COUNT INTO n
@@ -153,45 +166,94 @@ def merge(states: list[dict]) -> dict:
             "conflicts": sorted(t for t, o in cited.items() if len(o) > 1)}
 
 
-def publish(db: StandardDatabase, stream: str, snapshot: str, rows: list[dict], instance: str,
-            fail_before_manifest: bool = False, extra=None) -> str:
-    """Data first, the manifest last. Idempotent, and safe to retry after a crash.
+STAGES = ("data", "rollups", "extra", "verify", "commit")
 
-    `extra(m)`, if given, writes more of the manifest's data (edges) and returns
-    {collection: count}; it runs before the count check, so it is published atomically too."""
-    m = manifest_id(stream, snapshot, rows)
+
+def publish(db: StandardDatabase, stream: str, snapshot: str, rows: list[dict], instance: str,
+            depends_on: tuple[str, ...] = (), extra=None, extra_inputs=None, crash_at: str | None = None) -> str:
+    """Write a generation, then commit it by inserting its manifest. Idempotent and retryable.
+
+    Data is insert-only (`on_duplicate="ignore"`): a generation's keys are derived from its
+    content, so a retry writes the same documents and never rewrites one that exists.
+    `extra(m)` writes more of the generation (edges) and returns {collection: count}; its
+    inputs must be passed as `extra_inputs` so they are part of the manifest's identity.
+    The commit is a compare-and-swap on the unique (stream, seq) index: a publisher that
+    loses the race re-reads the stream and tries the next seq. `crash_at` names a stage
+    to fail after, for fault injection."""
+    def stage(name):
+        if crash_at == name:
+            raise SystemExit(f"simulated crash after {name}")
+
+    if extra is not None and extra_inputs is None:
+        raise ValueError("extra writers must declare extra_inputs")
+    for dep in depends_on:
+        published(db, dep)
+    m = manifest_id(stream, snapshot, rows, depends_on, extra_inputs)
     if db.collection("manifests").has(m):
         return m
     docs = documents(m, snapshot, rows)
     for name, batch in docs.items():
         for i in range(0, len(batch), 5000):
-            r = db.collection(name).import_bulk(batch[i:i + 5000], on_duplicate="replace")
-            if r["errors"]:
-                raise RuntimeError(f"{name}: {r['errors']} import errors")
-    states = cell_states(db, m)
-    for cell, st in states.items():
-        db.collection("rollups").insert({"_key": key("rollup", SPEC, m, cell), "manifest": m, "spec": SPEC,
-                                         "cell": cell, "state": st}, overwrite=True)
-    counts = next(db.aql.execute("""
-        RETURN {units: LENGTH(FOR x IN units FILTER x.manifest == @m RETURN 1),
-                occurrences: LENGTH(FOR x IN occurrences FILTER x.manifest == @m RETURN 1),
-                assertions: LENGTH(FOR x IN assertions FILTER x.manifest == @m RETURN 1),
-                rollups: LENGTH(FOR x IN rollups FILTER x.manifest == @m RETURN 1)}""", bind_vars={"m": m}))
+            _insert(db, name, batch[i:i + 5000])
+            if i == 0:
+                stage("data")  # a crash with some batches written
+    states = _staged_states(db, m)
+    _insert(db, "rollups", [{"_key": key("rollup", SPEC, m, cell), "manifest": m, "spec": SPEC, "cell": cell,
+                             "state": st} for cell, st in states.items()])
+    stage("rollups")
     want = {k: len(v) for k, v in docs.items()} | {"rollups": len({r["cell"] for r in rows})}
-    for name, n in (extra(m) if extra else {}).items():
-        want[name] = n
-        counts[name] = next(db.aql.execute("RETURN LENGTH(FOR x IN @@c FILTER x.manifest == @m RETURN 1)",
-                                           bind_vars={"@c": name, "m": m}))
+    want |= extra(m) if extra else {}
+    stage("extra")
+    counts = {name: next(db.aql.execute("RETURN LENGTH(FOR x IN @@c FILTER x.manifest == @m RETURN 1)",
+                                        bind_vars={"@c": name, "m": m})) for name in want}
     if counts != want:
         raise RuntimeError(f"manifest {m}: stored {counts}, expected {want}")
-    if fail_before_manifest:
-        raise SystemExit("simulated crash between data and manifest")
-    prior = current(db, stream)
-    db.collection("manifests").insert({
-        "_key": m, "stream": stream, "snapshot": snapshot, "adapter": ADAPTER, "counts": counts,
-        "seq": (prior["seq"] + 1) if prior else 1, "supersedes": prior["_key"] if prior else None,
-        "published_at": now(), "provenance": envelope(instance, f"publish {stream} at {snapshot}")})
-    return m
+    stored = {r["cell"]: r["state"] for r in db.aql.execute("FOR r IN rollups FILTER r.manifest == @m RETURN r",
+                                                             bind_vars={"m": m})}
+    if stored != states:
+        raise RuntimeError(f"manifest {m}: stored rollups differ from the data")
+    stage("verify")
+    return commit(db, m, stream, snapshot, counts, depends_on, instance, stage)
+
+
+def commit(db: StandardDatabase, m: str, stream: str, snapshot: str, counts: dict, depends_on, instance: str,
+           stage=lambda name: None) -> str:
+    """Publish m by inserting its manifest: a compare-and-swap on the unique (stream, seq) index."""
+    for attempt in range(20):
+        prior = current(db, stream)
+        try:
+            db.collection("manifests").insert({
+                "_key": m, "stream": stream, "snapshot": snapshot, "adapter": ADAPTER, "counts": counts,
+                "depends_on": sorted(depends_on), "seq": (prior["seq"] + 1) if prior else 1,
+                "supersedes": prior["_key"] if prior else None, "published_at": now(),
+                "provenance": envelope(instance, f"publish {stream} at {snapshot}")})
+            stage("commit")
+            return m
+        except DocumentInsertError as e:
+            # 1210: the seq (or this manifest) is taken; 1200: a concurrent insert on the same
+            # unique index is still in flight. Either way this publisher lost; re-read and retry.
+            if e.error_code not in (1200, 1210):
+                raise
+            if db.collection("manifests").has(m):
+                return m  # another publisher committed this same generation
+            time.sleep(0.02 * (attempt + 1))
+    raise RuntimeError(f"manifest {m}: lost the commit race 20 times")
+
+
+def _insert(db: StandardDatabase, name: str, batch: list[dict]) -> None:
+    """Insert-only. A concurrent publisher of the same generation writing the same keys
+    raises a write-write conflict (ERR 1200) rather than being ignored; the documents are
+    identical by construction, so the batch is retried and the survivors kept."""
+    for attempt in range(20):
+        try:
+            r = db.collection(name).import_bulk(batch, on_duplicate="ignore")
+            break
+        except DocumentInsertError as e:
+            if e.error_code != 1200 or attempt == 19:
+                raise
+            time.sleep(0.05 * (attempt + 1))
+    if r["errors"]:
+        raise RuntimeError(f"{name}: {r['errors']} import errors")
 
 
 def current(db: StandardDatabase, stream: str) -> dict | None:
@@ -241,6 +303,8 @@ def decode_cursor(token: str) -> dict:
 def drill(db: StandardDatabase, m: str, cell: str, cursor: str | None = None, limit: int = PAGE,
           instance: str = "anonymous") -> dict:
     """One page of the members of (fossil_units, m, cell), ordered by unit id."""
+    if not isinstance(limit, int) or isinstance(limit, bool) or limit < 1:
+        raise ValueError(f"limit must be a positive integer, got {limit!r}")
     published(db, m)
     binding = {"spec": SPEC, "manifest": m, "cell": cell, "order": ORDER}
     after = None

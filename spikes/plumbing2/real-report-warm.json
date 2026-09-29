@@ -170,53 +170,11 @@
   }
  },
  "timings_s": {
-  "publish_provisions": 15.72,
-  "rows_imported": 2.09,
-  "publish_imported": 27.74,
-  "load_resolver": 0.49,
-  "rows_index": 3.19,
-  "publish_index": 48.49
- },
- "storage_bytes": {
-  "units": {
-   "docs": 12316,
-   "documents_size": 4852676,
-   "indexes_size": 965747
-  },
-  "occurrences": {
-   "docs": 249986,
-   "documents_size": 51326198,
-   "indexes_size": 19407946
-  },
-  "assertions": {
-   "docs": 249894,
-   "documents_size": 80607439,
-   "indexes_size": 24430731
-  },
-  "rollups": {
-   "docs": 138,
-   "documents_size": 344097,
-   "indexes_size": 0
-  },
-  "provisions": {
-   "docs": 57176,
-   "documents_size": 24030041,
-   "indexes_size": 6759677
-  },
-  "resolves_to": {
-   "docs": 119907,
-   "documents_size": 87685714,
-   "indexes_size": 48120848
-  },
-  "queries": {
-   "docs": 212,
-   "documents_size": 617504,
-   "indexes_size": 45771
-  },
-  "manifests": {
-   "docs": 3,
-   "documents_size": 0,
-   "indexes_size": 2001
-  }
+  "publish_provisions": 0.03,
+  "rows_imported": 1.66,
+  "publish_imported": 0.52,
+  "load_resolver": 0.46,
+  "rows_index": 3.09,
+  "publish_index": 0.67
  }
 }

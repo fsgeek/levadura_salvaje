@@ -34,6 +34,19 @@ def password() -> str:
     return "".join(secrets.choice(string.ascii_letters + string.digits) for _ in range(24))
 
 
+def save(c: configparser.ConfigParser) -> None:
+    """Atomic and private from the first byte: a 0600 temporary file, then rename."""
+    CONFIG.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    os.chmod(CONFIG.parent, 0o700)
+    tmp = CONFIG.with_suffix(".tmp")
+    fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, "w") as f:
+        c.write(f)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, CONFIG)
+
+
 def main() -> None:
     c = configparser.ConfigParser()
     c.read(CONFIG)
@@ -41,24 +54,34 @@ def main() -> None:
         c["database"] = {"hosts": HOSTS, "container": CONTAINER}
     s = c["database"]
     s.setdefault("cursor_secret", secrets.token_hex(32))  # signs drill cursors
+    for tier in TIERS:
+        s[f"{tier}_database"], s[f"{tier}_user"] = DATABASES[tier], USERS[tier]
+        s.setdefault(f"{tier}_password", password())
+    save(c)  # durable before any password changes on the server
     sys_db = ArangoClient(hosts=HOSTS).db("_system", username="root", password=root_password(), verify=True)
     for tier in TIERS:
         db, user = DATABASES[tier], USERS[tier]
-        s[f"{tier}_database"], s[f"{tier}_user"] = db, user
-        s.setdefault(f"{tier}_password", password())
         if not sys_db.has_database(db):
             sys_db.create_database(db)
         if sys_db.has_user(user):
             sys_db.replace_user(user, password=s[f"{tier}_password"], active=True)
         else:
             sys_db.create_user(user, password=s[f"{tier}_password"], active=True)
+        for other in sys_db.permissions(user):
+            if other not in (db, "*"):
+                sys_db.update_permission(user, "none", other)
         sys_db.update_permission(user, "rw", db)
         sys_db.update_permission(user, "none", "_system")
-        print(f"{tier}: database {db}, user {user}")
-    CONFIG.parent.mkdir(parents=True, exist_ok=True)
-    fd = os.open(CONFIG, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
-    with os.fdopen(fd, "w") as f:
-        c.write(f)
+        grants = {}
+        for d, p in sys_db.permissions(user).items():
+            if p.get("permission") not in ("none", "undefined", None):
+                grants[d] = p["permission"]
+            for coll, cp in p.get("collections", {}).items():
+                if cp not in ("none", "undefined"):
+                    grants[f"{d}/{coll}"] = cp
+        if grants != {db: "rw"}:
+            raise SystemExit(f"{user}: effective grants {grants}, expected {{{db!r}: 'rw'}}")
+        print(f"{tier}: database {db}, user {user}, grants {grants}")
     os.chmod(CONFIG, 0o600)
     print(f"credentials: {CONFIG}")
 

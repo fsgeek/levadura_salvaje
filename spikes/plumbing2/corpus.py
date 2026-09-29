@@ -13,6 +13,7 @@
 """
 
 import hashlib
+import io
 import json
 import uuid
 import xml.etree.ElementTree as ET
@@ -38,17 +39,28 @@ USC_DOMAIN = "levadura.usc.flat_v1"      # sha256 of usc._flat(element), notes e
 CFR_DOMAIN = "levadura.sections.flat_v1"  # sha256 of sections.py flat text
 
 
-def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 # --- provisions ---------------------------------------------------------------
 
+def read(path: Path) -> tuple[str, bytes]:
+    """One read: the digest and the bytes parsed are the same bytes."""
+    data = path.read_bytes()
+    return hashlib.sha256(data).hexdigest(), data
+
+
+_by_sha: dict[str, bytes] = {}
+
+
+def _hold(path: Path) -> str:
+    digest, data = read(path)
+    _by_sha[digest] = data
+    return digest
+
+
 @lru_cache(maxsize=4)
-def _usc_texts(zip_sha: str, zip_path: str) -> dict[tuple[str, int], str]:
-    """(identifier, occurrence) -> flat text. Keyed by the archive's content hash."""
+def _usc_texts(zip_sha: str) -> dict[tuple[str, int], str]:
+    """(identifier, occurrence) -> flat text, keyed by the archive's content hash alone."""
     out, seen = {}, defaultdict(int)
-    with zipfile.ZipFile(zip_path) as z, z.open("usc26.xml") as f:
+    with zipfile.ZipFile(io.BytesIO(_by_sha[zip_sha])) as z, z.open("usc26.xml") as f:
         for _, el in ET.iterparse(f, events=("end",)):
             ident = el.get("identifier", "")
             if el.tag not in usc.TAGS or not ident.startswith(usc.PREFIX):
@@ -60,9 +72,9 @@ def _usc_texts(zip_sha: str, zip_path: str) -> dict[tuple[str, int], str]:
     return out
 
 
-def provision_docs(m: str, rp: str = RP) -> list[dict]:
+def provision_docs(m: str, data: bytes, rp: str = RP) -> list[dict]:
     seen, docs = defaultdict(int), []
-    for n, p in enumerate(usc.provisions(Path(str(USC_ZIP).format(rp=rp)))):
+    for n, p in enumerate(usc.provisions(io.BytesIO(data))):
         occ = seen[p["identifier"]]
         seen[p["identifier"]] += 1
         head, *rest = p["path"].translate(DASHES).split("/")
@@ -75,27 +87,21 @@ def provision_docs(m: str, rp: str = RP) -> list[dict]:
 
 
 def publish_provisions(db: StandardDatabase, instance: str, rp: str = RP) -> str:
-    """Same discipline as ix.publish: data, count check, then the manifest."""
+    """Same discipline as ix.publish: insert-only data, a count check, then the commit."""
     stream, zp = "usc26", Path(str(USC_ZIP).format(rp=rp))
-    m = ix.key("manifest", stream, rp, ix.ADAPTER, sha(zp))
+    digest, data = read(zp)
+    m = ix.key("manifest", stream, rp, ix.ADAPTER, digest)
     if db.collection("manifests").has(m):
         return m
-    docs = provision_docs(m, rp)
+    docs = provision_docs(m, data, rp)
     for i in range(0, len(docs), 5000):
-        r = db.collection("provisions").import_bulk(docs[i:i + 5000], on_duplicate="replace")
-        if r["errors"]:
-            raise RuntimeError(f"provisions: {r['errors']} import errors")
+        ix._insert(db, "provisions", docs[i:i + 5000])
     n = next(db.aql.execute("RETURN LENGTH(FOR p IN provisions FILTER p.manifest == @m RETURN 1)",
                             bind_vars={"m": m}))
     if n != len(docs):
         raise RuntimeError(f"provisions: stored {n}, expected {len(docs)}")
-    prior = ix.current(db, stream)
-    db.collection("manifests").insert({
-        "_key": m, "stream": stream, "snapshot": rp, "adapter": ix.ADAPTER, "counts": {"provisions": n},
-        "sources": {str(zp.relative_to(ROOT)): sha(zp)}, "seq": (prior["seq"] + 1) if prior else 1,
-        "supersedes": prior["_key"] if prior else None, "published_at": ix.now(),
-        "provenance": ix.envelope(instance, f"publish {stream} at {rp}")})
-    return m
+    return ix.commit(db, m, stream, rp, {"provisions": n, "sources": {str(zp.relative_to(ROOT)): digest}},
+                     (), instance)
 
 
 # --- resolution inside the index ----------------------------------------------
@@ -122,7 +128,7 @@ class IndexResolver:
             self.rows[r["address"]].append(r)
         self.ranges = [(lo, hi, r) for r in db.aql.execute(
             """FOR p IN provisions FILTER p.manifest == @m AND CONTAINS(p.address, "...")
-               RETURN {address: p.address, key: p._key, status: p.status}""", bind_vars={"m": um})
+               SORT p.position RETURN {address: p.address, key: p._key, status: p.status}""", bind_vars={"m": um})
             for lo, hi in [[_seckey(x) for x in r["address"].split("...")]] if lo and hi]
 
     def status(self, address: str) -> tuple[bool, str | None]:
@@ -199,9 +205,7 @@ def edge_writer(db: StandardDatabase, targets: dict, instance: str):
                               "id": str(uuid.UUID(ek)), "created_at": ix.now(), "provenance": env,
                               "manifest": m, "fanout": len(keys)})
         for j in range(0, len(edges), 5000):
-            r = db.collection("resolves_to").import_bulk(edges[j:j + 5000], on_duplicate="replace")
-            if r["errors"]:
-                raise RuntimeError(f"resolves_to: {r['errors']} import errors")
+            ix._insert(db, "resolves_to", edges[j:j + 5000])
         return {"resolves_to": len(edges)}
     return write
 
@@ -231,12 +235,12 @@ def _follow_usc(locator: dict) -> dict:
     zp = Path(str(USC_ZIP).format(rp=rp))
     if not zp.exists():
         return _check(locator, None)
-    return _check(locator, _usc_texts(sha(zp), str(zp)).get((ident, int(occ))))
+    return _check(locator, _usc_texts(_hold(zp)).get((ident, int(occ))))
 
 
 @lru_cache(maxsize=2)
-def _cfr_texts(zip_sha: str, zip_path: str) -> dict:
-    return {(s["volume_file"], s["ordinal"]): s["text"] for s in sections(Path(zip_path))}
+def _cfr_texts(zip_sha: str) -> dict:
+    return {(s["volume_file"], s["ordinal"]): s["text"] for s in sections(io.BytesIO(_by_sha[zip_sha]))}
 
 
 def _follow_cfr(locator: dict) -> dict:
@@ -245,4 +249,4 @@ def _follow_cfr(locator: dict) -> dict:
     zp = ROOT / path
     if not zp.exists():
         return _check(locator, None)
-    return _check(locator, _cfr_texts(sha(zp), str(zp)).get((volume, int(ordinal))))
+    return _check(locator, _cfr_texts(_hold(zp)).get((volume, int(ordinal))))

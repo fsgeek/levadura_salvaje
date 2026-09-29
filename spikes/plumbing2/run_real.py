@@ -20,7 +20,7 @@ import index as ix  # noqa: E402
 from levadura_salvaje.tenant import connect  # noqa: E402
 
 ME = "levadura-owner-2026-09-29"
-REPORT = Path(__file__).with_name("real-report.json")
+REPORT = Path(__file__).with_name(sys.argv[1] if len(sys.argv) > 1 else "real-report.json")
 checks, facts, timings = {}, {}, {}
 
 
@@ -61,19 +61,26 @@ def main():
     paths |= {p.split("/")[0] for p in paths}
     resolver = timed("load_resolver", cx.IndexResolver, db, um, paths)
     rows_b, targets = timed("rows_index", cx.cfr_rows, resolver)
+    edge_inputs = sorted([u, i, t] for (u, i), t in targets.items())
     mb = timed("publish_index", ix.publish, db, "cfr26-2025@119-4/index", cx.RP, rows_b, ME,
-               extra=cx.edge_writer(db, targets, ME))
+               depends_on=(um,), extra=cx.edge_writer(db, targets, ME), extra_inputs=edge_inputs)
     facts["manifests"] = {"usc": um, "imported": ma, "index": mb}
 
     # the two resolvers, occurrence by occurrence
-    diff = Counter()
+    diff, compared, aligned = Counter(), 0, len(rows_a) == len(rows_b)
     for ra, rb in zip(rows_a, rows_b):
+        aligned &= ra["unit"] == rb["unit"] and len(ra["occurrences"]) == len(rb["occurrences"])
         for oa, ob in zip(ra["occurrences"], rb["occurrences"]):
+            aligned &= oa["path"] == ob["path"]
+            if oa["path"] is None:
+                continue  # neither resolver sees these
+            compared += 1
             if (oa["outcome"], oa["target_outcome"]) != (ob["outcome"], ob["target_outcome"]):
                 diff[(oa["outcome"], ob["outcome"], oa["target_outcome"], ob["target_outcome"])] += 1
     n_occ = sum(len(r["occurrences"]) for r in rows_a)
-    check("index resolver agrees with resolve.py on every occurrence", not diff,
-          {"occurrences": n_occ, "disagreements": [[*k, v] for k, v in diff.most_common(10)]})
+    check("index resolver agrees with resolve.py on every resolvable occurrence", aligned and not diff,
+          {"occurrences": n_occ, "compared": compared, "null_paths": n_occ - compared, "aligned": aligned,
+           "disagreements": [[*k, v] for k, v in diff.most_common(10)]})
 
     # finding #1 from both manifests, per cell and merged
     for name, m in (("imported", ma), ("index", mb)):
@@ -89,8 +96,9 @@ def main():
     sa, sb = ix.cell_states(db, ma), ix.cell_states(db, mb)
     check("per cell, both manifests have the same members", {c: s["members"] for c, s in sa.items()}
           == {c: s["members"] for c, s in sb.items()})
-    bad = [c for c in sorted(sb) if [u for p in ix.drill_all(db, mb, c) for u in p["page"]] != sb[c]["members"]]
-    check("per cell, concatenated drill pages equal the rollup", not bad, bad[:5])
+    bad = [c for c in sorted(sb) if [u for p in ix.drill_all(db, mb, c) for u in p["page"]]
+           != ix.rollup(db, mb, c)["members"]]
+    check("per cell, concatenated drill pages equal the persisted rollup", not bad, bad[:5])
 
     # edges: fan-out where addresses collide
     fan = {f: n for f, n in db.aql.execute("""FOR e IN resolves_to FILTER e.manifest == @m
@@ -101,10 +109,19 @@ def main():
                                    COLLECT unit = a.unit, path = a.target, ident = p.identifier
                                    WITH COUNT INTO n RETURN {unit, ident, n}""", bind_vars={"m": mb}))
     facts["resolves_to"] = {"edges_by_fanout": fan, "collided_citations": multi[:10], "n_collided": len(multi)}
-    resolved = sum(1 for t in targets.values() if t)
-    check("every resolved assertion has >= 1 edge, collisions have one per version",
-          sum(n // f for f, n in fan.items()) == resolved and all(n % f == 0 for f, n in fan.items()),
-          {"assertions_with_targets": resolved, "edges_by_fanout": fan})
+    want_edges = {(f"assertions/{ix.key(ix.key(mb, u, i), cx.RP)}", f"provisions/{k}")
+                  for (u, i), keys in targets.items() for k in keys}
+    got_edges = {(e[0], e[1]) for e in db.aql.execute(
+        "FOR e IN resolves_to FILTER e.manifest == @m RETURN [e._from, e._to]", bind_vars={"m": mb},
+        batch_size=50000)}
+    dangling = next(db.aql.execute("""RETURN LENGTH(FOR e IN resolves_to FILTER e.manifest == @m
+        LET a = DOCUMENT(e._from) LET p = DOCUMENT(e._to)
+        FILTER a == null OR p == null OR a.manifest != @m OR p.manifest != @um RETURN 1)""",
+                                   bind_vars={"m": mb, "um": um}))
+    check("edge endpoints are exactly the resolver's targets, one per provision version",
+          got_edges == want_edges and dangling == 0,
+          {"edges": len(got_edges), "missing": len(want_edges - got_edges), "unexpected": len(got_edges - want_edges),
+           "dangling_or_foreign": dangling, "edges_by_fanout": fan})
 
     # follow: drill members -> their citations -> provisions, in two hash domains
     rng = random.Random(0)
@@ -122,7 +139,8 @@ def main():
     both = Counter(cx.follow(p["locator"])["status"] for p in collided_docs)
     facts["follow"] = {"sampled_units": 20, "statuses": dict(outcomes), "collided_versions": dict(both)}
     check("followed locators verify in their own hash domain",
-          set(outcomes) <= {"cfr:ok", "usc:ok"} and outcomes["cfr:ok"] == 20, dict(outcomes))
+          set(outcomes) <= {"cfr:ok", "usc:ok"} and outcomes["cfr:ok"] == 20 and outcomes["usc:ok"] >= 20,
+          dict(outcomes))
     check("every version of a collided identifier verifies separately",
           both == {"ok": len(collided_docs)} and len(collided_docs) == 29, dict(both))
     p = collided_docs[0]

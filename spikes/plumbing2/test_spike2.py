@@ -12,8 +12,7 @@ import pytest
 
 from levadura_salvaje.tenant import CONFIG
 
-pytestmark = pytest.mark.skipif(not CONFIG.exists(), reason="tenant not set up (scripts/tenant_setup.py)")
-
+import corpus as cx  # noqa: E402
 import fixture as fx  # noqa: E402
 import index as ix  # noqa: E402
 
@@ -23,6 +22,8 @@ ME = "levadura-owner-2026-09-29"
 
 @pytest.fixture(scope="module")
 def db():
+    if not CONFIG.exists():
+        pytest.skip("tenant not set up (scripts/tenant_setup.py)")
     from levadura_salvaje.tenant import connect
     d = connect("test")
     ix.ensure(d)
@@ -164,23 +165,66 @@ def test_correction_published_while_paging(db, m1):
         assert ix.merge(list(ix.cell_states(db, m).values()))["conflicts"] == PINNED[g]["top"]["conflicts"]
 
 
-def test_publication_is_atomic_and_retryable(db, m1):
+def readers(db, m, cell="c00"):
+    """Every published reader, applied to m: how many refused it as unpublished."""
+    calls = [lambda: ix.drill(db, m, cell), lambda: ix.rollup(db, m, cell), lambda: ix.unpaged(db, m, cell),
+             lambda: ix.cell_states(db, m), lambda: cx.IndexResolver(db, m, {"1"})]
+    refused = 0
+    for call in calls:
+        try:
+            call()
+        except ix.Unpublished:
+            refused += 1
+    return refused, len(calls)
+
+
+@pytest.mark.parametrize("stage", [s for s in ix.STAGES if s != "commit"])
+def test_a_crash_at_any_stage_is_invisible_and_retryable(db, m1, stage):
     rows = fx.generation(2)
-    rows[0]["occurrences"].append(fx.occ("T-late", "repealed", "repealed"))  # c00 gains its first member
+    rows[0]["occurrences"].append(fx.occ(f"T-late-{stage}", "repealed", "repealed"))  # c00 gains a member
     before = ix.current(db, fx.STREAM)
     with pytest.raises(SystemExit):
-        ix.publish(db, fx.STREAM, fx.SNAPSHOT, rows, ME, fail_before_manifest=True)
-    m3 = ix.manifest_id(fx.STREAM, fx.SNAPSHOT, rows)
+        ix.publish(db, fx.STREAM, fx.SNAPSHOT, rows, ME, crash_at=stage)
+    m = ix.manifest_id(fx.STREAM, fx.SNAPSHOT, rows)
     assert ix.current(db, fx.STREAM)["_key"] == before["_key"]
-    assert db.collection("units").find({"manifest": m3}).count() > 0  # data landed ...
-    with pytest.raises(ix.Unpublished):
-        ix.drill(db, m3, "c00")  # ... and nothing answers for it
-    with pytest.raises(ix.Unpublished):
-        ix.rollup(db, m3, "c00")
-    assert ix.publish(db, fx.STREAM, fx.SNAPSHOT, rows, ME) == m3
+    assert next(db.aql.execute("RETURN LENGTH(FOR u IN units FILTER u.manifest == @m RETURN 1)",
+                               bind_vars={"m": m})) > 0  # data landed ...
+    assert readers(db, m) == (5, 5)  # ... and no reader answers for it
+    assert ix.publish(db, fx.STREAM, fx.SNAPSHOT, rows, ME) == m
     assert ix.current(db, fx.STREAM)["seq"] == before["seq"] + 1
-    assert ix.drill(db, m3, "c00")["page"] == ["c00-000"]
+    assert ix.drill(db, m, "c00")["page"] == ["c00-000"]
     assert check_cell(db, m1, "c00", PINNED["1"]["cells"]["c00"]) == []
+
+
+def test_a_crash_after_commit_is_harmless(db, m1):
+    rows = fx.generation(2)
+    rows[1]["occurrences"].append(fx.occ("T-after-commit", "repealed", "repealed"))
+    with pytest.raises(SystemExit):
+        ix.publish(db, fx.STREAM, fx.SNAPSHOT, rows, ME, crash_at="commit")
+    m = ix.manifest_id(fx.STREAM, fx.SNAPSHOT, rows)
+    assert ix.current(db, fx.STREAM)["_key"] == m
+    assert ix.publish(db, fx.STREAM, fx.SNAPSHOT, rows, ME) == m
+
+
+def test_concurrent_publishers(db, m1):
+    """Six publishers at once: four distinct generations, two of them published twice."""
+    from concurrent.futures import ThreadPoolExecutor
+    from levadura_salvaje.tenant import connect
+    stream = "fixture-race"
+    gens = []
+    for n in range(4):
+        rows = fx.generation(1)
+        rows[0]["occurrences"].append(fx.occ(f"T-race-{n}", "repealed", "repealed"))
+        gens.append(rows)
+    jobs = gens + gens[:2]
+    with ThreadPoolExecutor(len(jobs)) as pool:
+        got = list(pool.map(lambda rows: ix.publish(connect("test"), stream, fx.SNAPSHOT, rows, ME), jobs))
+    assert got[4:] == got[:2] and len(set(got)) == 4
+    chain = list(db.aql.execute("FOR x IN manifests FILTER x.stream == @s SORT x.seq RETURN x",
+                                bind_vars={"s": stream}))
+    assert [x["seq"] for x in chain] == [1, 2, 3, 4]
+    assert {x["_key"] for x in chain} == set(got)
+    assert [x["supersedes"] for x in chain] == [None] + [x["_key"] for x in chain[:-1]]
 
 
 def test_republish_is_a_no_op(db, m1):
@@ -234,20 +278,43 @@ def test_spike1_truncation_rule_is_caught(db, m1, monkeypatch):
     assert "c40 page count 2" in check_cell(db, m1, "c40", PINNED["1"]["cells"]["c40"])
 
 
-def test_spike1_last_wins_merge_is_caught(db, m1):
-    """Spike 1 merged {target: outcome} with MERGE/update: the distinct count survives, but the
-    surviving outcome of a conflicted target depends on merge order, and no conflict is reported."""
-    states = list(ix.cell_states(db, m1).values())
-    rng, survivors = random.Random(1), set()
-    for _ in range(50):
-        rng.shuffle(states)
-        last_wins = {}
+def acceptance_top(db, m, g) -> list[str]:
+    """The merged answer for a manifest against the pinned top."""
+    top, exp = ix.merge(list(ix.cell_states(db, m).values())), PINNED[g]["top"]
+    return [k for k, ok in (("members", top["members"] == exp["members"]),
+                            ("cited", len(top["cited"]) == exp["cited_distinct"]),
+                            ("conflicts", top["conflicts"] == exp["conflicts"])) if not ok]
+
+
+def test_spike1_last_wins_merge_is_caught(db, m1, monkeypatch):
+    """Spike 1 collapsed outcomes last-wins, across parts (Python update) and within a part
+    (AQL MERGE). Injected at either level, the acceptance check fails on conflicts only:
+    the distinct count, the number spike 1 checked, still matches."""
+    assert acceptance_top(db, m1, "1") == []
+    real_merge, real_states = ix.merge, ix.cell_states
+
+    def across(states):
+        out = real_merge(states)
+        last = {}
         for st in states:
             for t, outcomes in st["cited"]:
-                last_wins[t] = outcomes[-1]
-        assert len(last_wins) == PINNED["1"]["top"]["cited_distinct"]  # the count still matches
-        survivors.add(last_wins["T-conf-x"])
-    assert survivors == {"absent-section", "in-force"}  # the answer depends on order
+                last[t] = [outcomes[-1]]
+        return out | {"cited": last, "conflicts": sorted(t for t, o in last.items() if len(o) > 1)}
+
+    def within(d, m):
+        return {c: st | {"cited": [[t, o[-1:]] for t, o in st["cited"]]} for c, st in real_states(d, m).items()}
+
+    monkeypatch.setattr(ix, "merge", across)
+    assert acceptance_top(db, m1, "1") == ["conflicts"]
+    monkeypatch.setattr(ix, "merge", real_merge)
+    monkeypatch.setattr(ix, "cell_states", within)
+    assert acceptance_top(db, m1, "1") == ["conflicts"]
+
+
+def test_limit_must_be_positive(db, m1):
+    for bad in (0, -1, 1.5, True, None):
+        with pytest.raises(ValueError):
+            ix.drill(db, m1, "c80", limit=bad)
 
 
 # --- the resolver rule the real corpus never exercises ----------------------------------
