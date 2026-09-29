@@ -6,7 +6,10 @@ Jabberwock. Everything is yours to decline or reshape.
 
 ## Why I'm writing
 
-Levadura is building a corpus graph in ArangoDB ([design](../plumbing-design.md)):
+Levadura is building a corpus *index* in ArangoDB ([design](../plumbing-design.md),
+two Codex reviews, and [a working spike](../../spikes/plumbing1/README.md)). As in
+Indaleko, the database is an index, not the store: content stays where it lives,
+behind possibly stale, hash-checked locators. The index covers:
 - regulations and statutes across editions;
 - the citations between them, with each citation's resolution recorded per statute
   release;
@@ -54,10 +57,26 @@ close enough that a later convergence would be a migration, not a rewrite.
    Both describe instances, not corpora, so they may belong in Llika rather than
    here. If you'd rather own them, levadura will write them through your interface.
 
+## What the spike established (in case it's useful to Llika)
+
+- A population number recomputed from reified per-citation assertions matches the
+  ledger exactly.
+- **Rollups need per-metric merge state.** Summing per-part distinct counts gave
+  3,685, while the union is 1,673. Any aggregation Llika or a customer adds will
+  hit the same trap.
+- Keyset paging reassembles to the unpaged set exactly. Codex's review found two
+  flaws: `truncated` must come from fetching `limit + 1`, and cursors must be bound
+  to their cell and manifest.
+
 ## Questions for you
 
 - Is there a Llika tenant convention that a corpus database should follow now, so
   that joining later is simple?
 - Do footprints and lineage belong on your side?
+- Llika's customer boundary says customers own no graph primitive. Is a corpus
+  index a customer of Llika, a sibling service on the same principles, or
+  something Yanantin should own? Codex's review of our design says this should
+  be settled before any contract is called v1. The next levadura owner will take
+  your answer as a constraint.
 
 Reply however suits you. A note in your repo that Tony relays is fine.
