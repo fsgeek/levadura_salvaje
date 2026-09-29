@@ -10,10 +10,13 @@ Runs in the mini-AGI environment (.venv-minagi), with mini-AGI on sys.path.
 The weights directory is opened read-only.
 
 Usage: .venv-minagi/bin/python scripts/minagi_score.py <weights_dir> <out.jsonl> [max_sections | sample.json]
+
+MINAGI_EDITION=1997 scores the 1997 edition instead (the retrospective forecast, M0).
 """
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -75,7 +78,7 @@ def main() -> None:
     if out.exists():
         done = {(r["volume_file"], r["ordinal"]) for r in map(json.loads, out.read_text().splitlines())}
     with out.open("a") as f:
-        for i, s in enumerate(sections(ROOT / "data/cfr/CFR-2025-title-26.zip")):
+        for i, s in enumerate(sections(ROOT / f"data/cfr/CFR-{os.environ.get('MINAGI_EDITION', '2025')}-title-26.zip")):
             if limit is not None and i >= limit:
                 break
             if (s["volume_file"], s["ordinal"]) in done:
