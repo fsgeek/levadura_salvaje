@@ -29,7 +29,11 @@ distill = [
 ]
 plumbing = [
     "python-arango>=8.3.5",
+    "tiksi",
 ]
 retro = [
     "scikit-learn>=1.9.1",
 ]
+
+[tool.uv.sources]
+tiksi = { git = "https://github.com/fsgeek/tiksi", rev = "efec94d" }

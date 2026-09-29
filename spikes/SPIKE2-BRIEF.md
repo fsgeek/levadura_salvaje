@@ -5,6 +5,8 @@
 [review 2](../docs/plumbing-design-review-2.md), [spike 1 README](plumbing1/README.md)
 and [its review](plumbing1/REVIEW.md).*
 
+*Status 2026-09-29: items 1–4 built in [plumbing2](plumbing2/README.md) and reviewed ([REVIEW.md](plumbing2/REVIEW.md)); the review's findings are fixed there.*
+
 ## Order: correctness under change before breadth or scale
 
 Codex's spike-1 review is explicit: these tests come before more corpus breadth or
