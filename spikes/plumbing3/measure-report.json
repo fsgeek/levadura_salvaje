@@ -1,0 +1,643 @@
+{
+ "corrections": [
+  {
+   "depth": 1,
+   "changed": "all (first)",
+   "seconds": 10.85,
+   "written": {
+    "units": 6158,
+    "occurrences": 124993,
+    "assertions": 124947,
+    "retractions": 0,
+    "rollups": 69
+   }
+  },
+  {
+   "depth": 2,
+   "changed": 1,
+   "seconds": 3.3,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 1,
+    "retractions": 1,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 3,
+   "changed": 100,
+   "seconds": 4.23,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 100,
+    "retractions": 100,
+    "rollups": 12
+   }
+  },
+  {
+   "depth": 4,
+   "changed": 5000,
+   "seconds": 5.01,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 5000,
+    "retractions": 5000,
+    "rollups": 50
+   }
+  },
+  {
+   "depth": 5,
+   "changed": 10,
+   "seconds": 4.24,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 6,
+   "changed": 10,
+   "seconds": 4.28,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 7,
+   "changed": 10,
+   "seconds": 4.33,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 8,
+   "changed": 10,
+   "seconds": 4.66,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 4
+   }
+  },
+  {
+   "depth": 9,
+   "changed": 10,
+   "seconds": 4.26,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 10,
+   "changed": 10,
+   "seconds": 4.39,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 11,
+   "changed": 10,
+   "seconds": 4.22,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 12,
+   "changed": 10,
+   "seconds": 4.28,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 5
+   }
+  },
+  {
+   "depth": 13,
+   "changed": 10,
+   "seconds": 4.71,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 14,
+   "changed": 10,
+   "seconds": 4.22,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 15,
+   "changed": 10,
+   "seconds": 4.43,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 16,
+   "changed": 10,
+   "seconds": 4.15,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 17,
+   "changed": 10,
+   "seconds": 4.42,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 18,
+   "changed": 10,
+   "seconds": 4.4,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 19,
+   "changed": 10,
+   "seconds": 4.95,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 4
+   }
+  },
+  {
+   "depth": 20,
+   "changed": 10,
+   "seconds": 4.21,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 21,
+   "changed": 10,
+   "seconds": 4.52,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 22,
+   "changed": 10,
+   "seconds": 4.56,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 23,
+   "changed": 10,
+   "seconds": 4.93,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 24,
+   "changed": 10,
+   "seconds": 4.15,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 25,
+   "changed": 10,
+   "seconds": 4.45,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 26,
+   "changed": 10,
+   "seconds": 4.38,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 27,
+   "changed": 10,
+   "seconds": 4.96,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 28,
+   "changed": 10,
+   "seconds": 4.32,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 29,
+   "changed": 10,
+   "seconds": 4.49,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 30,
+   "changed": 10,
+   "seconds": 4.3,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 31,
+   "changed": 10,
+   "seconds": 4.27,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 32,
+   "changed": 10,
+   "seconds": 4.66,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 5
+   }
+  },
+  {
+   "depth": 33,
+   "changed": 10,
+   "seconds": 4.36,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 34,
+   "changed": 10,
+   "seconds": 4.06,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 35,
+   "changed": 10,
+   "seconds": 4.16,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 36,
+   "changed": 10,
+   "seconds": 4.04,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 1
+   }
+  },
+  {
+   "depth": 37,
+   "changed": 10,
+   "seconds": 4.15,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 38,
+   "changed": 10,
+   "seconds": 5.42,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 3
+   }
+  },
+  {
+   "depth": 39,
+   "changed": 10,
+   "seconds": 4.09,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 5
+   }
+  },
+  {
+   "depth": 40,
+   "changed": 10,
+   "seconds": 4.29,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 10,
+    "retractions": 10,
+    "rollups": 2
+   }
+  },
+  {
+   "depth": 41,
+   "changed": 60000,
+   "seconds": 11.24,
+   "checkpoint": false,
+   "written": {
+    "units": 0,
+    "occurrences": 0,
+    "assertions": 60000,
+    "retractions": 60000,
+    "rollups": 64
+   }
+  },
+  {
+   "depth": 42,
+   "changed": 10,
+   "seconds": 14.89,
+   "checkpoint": true,
+   "written": {
+    "units": 6158,
+    "occurrences": 124993,
+    "assertions": 124947,
+    "retractions": 0,
+    "rollups": 69
+   }
+  }
+ ],
+ "reads": [
+  {
+   "layout": "full copy, same rows",
+   "depth": 4,
+   "drill_first_page": 0.0363,
+   "rollup": 0.0049,
+   "unpaged": 0.0425,
+   "cell_states_all": 0.3295
+  },
+  {
+   "layout": "lineage",
+   "depth": 4,
+   "drill_first_page": 0.0777,
+   "rollup": 0.0056,
+   "unpaged": 0.0502,
+   "cell_states_all": 0.8396
+  },
+  {
+   "layout": "lineage",
+   "depth": 5,
+   "drill_first_page": 0.087,
+   "rollup": 0.0064,
+   "unpaged": 0.0614,
+   "cell_states_all": 0.9296
+  },
+  {
+   "layout": "lineage",
+   "depth": 10,
+   "drill_first_page": 0.0912,
+   "rollup": 0.0081,
+   "unpaged": 0.0644,
+   "cell_states_all": 0.9641
+  },
+  {
+   "layout": "lineage",
+   "depth": 20,
+   "drill_first_page": 0.09,
+   "rollup": 0.0071,
+   "unpaged": 0.0639,
+   "cell_states_all": 0.9758
+  },
+  {
+   "layout": "lineage",
+   "depth": 40,
+   "drill_first_page": 0.0882,
+   "rollup": 0.0104,
+   "unpaged": 0.0614,
+   "cell_states_all": 0.9524
+  },
+  {
+   "layout": "full copy, same rows",
+   "depth": 40,
+   "drill_first_page": 0.0356,
+   "rollup": 0.0052,
+   "unpaged": 0.0412,
+   "cell_states_all": 0.3276
+  },
+  {
+   "layout": "full copy, same rows",
+   "depth": 41,
+   "after": "60k-row delta",
+   "drill_first_page": 0.1083,
+   "rollup": 0.0063,
+   "unpaged": 0.1364,
+   "cell_states_all": 0.4396
+  },
+  {
+   "layout": "lineage",
+   "depth": 41,
+   "after": "60k-row delta",
+   "drill_first_page": 0.4244,
+   "rollup": 0.0075,
+   "unpaged": 0.3015,
+   "cell_states_all": 1.7686
+  },
+  {
+   "layout": "lineage",
+   "depth": 42,
+   "after": "checkpoint",
+   "drill_first_page": 0.1425,
+   "rollup": 0.0073,
+   "unpaged": 0.1262,
+   "cell_states_all": 1.1138
+  }
+ ],
+ "checks": {
+  "every generation: all cells' members and the merged top": true,
+  "first, middle, last: rollup and pages for 6 cells": true
+ },
+ "stream": "cfr26-2025@119-4/lineage/1790779428",
+ "cell": "1",
+ "storage_bytes": {
+  "l_units": {
+   "docs": 12316,
+   "documents_size": 6422308
+  },
+  "l_occurrences": {
+   "docs": 249986,
+   "documents_size": 87302193
+  },
+  "l_assertions": {
+   "docs": 315355,
+   "documents_size": 148670270
+  },
+  "l_retractions": {
+   "docs": 65461,
+   "documents_size": 14593539
+  },
+  "l_rollups": {
+   "docs": 356,
+   "documents_size": 6151075
+  },
+  "l_manifests": {
+   "docs": 42,
+   "documents_size": 75805
+  },
+  "l_queries": {
+   "docs": 219,
+   "documents_size": 292684
+  },
+  "units": {
+   "docs": 30790,
+   "documents_size": 12161232
+  },
+  "occurrences": {
+   "docs": 624965,
+   "documents_size": 128474499
+  },
+  "assertions": {
+   "docs": 624735,
+   "documents_size": 201585903
+  }
+ }
+}
