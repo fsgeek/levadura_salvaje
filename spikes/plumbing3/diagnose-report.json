@@ -1,0 +1,35 @@
+{
+ "stream": "cfr26-2025@119-4/lineage/1790781390",
+ "cell": "1",
+ "cell_assertions_by_generation": [
+  103289,
+  103289,
+  49619,
+  4129,
+  75
+ ],
+ "member_query": {
+  "before_mass": {
+   "members": 2200,
+   "scanned_index": 17277,
+   "scanned_full": 0,
+   "seconds": 0.0736
+  },
+  "mass_delta": {
+   "members": 3267,
+   "scanned_index": 110551,
+   "scanned_full": 0,
+   "seconds": 0.4218
+  },
+  "checkpoint": {
+   "members": 3267,
+   "scanned_index": 50100,
+   "scanned_full": 0,
+   "seconds": 0.1983
+  }
+ },
+ "unpaged_on_mass_delta_seconds": {
+  "cell_scoped_set": 0.3933,
+  "per_record_probe": 6.9411
+ }
+}
