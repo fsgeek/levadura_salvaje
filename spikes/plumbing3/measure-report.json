@@ -3,7 +3,7 @@
   {
    "depth": 1,
    "changed": "all (first)",
-   "seconds": 10.85,
+   "seconds": 12.41,
    "written": {
     "units": 6158,
     "occurrences": 124993,
@@ -15,7 +15,7 @@
   {
    "depth": 2,
    "changed": 1,
-   "seconds": 3.3,
+   "seconds": 3.38,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -27,7 +27,7 @@
   {
    "depth": 3,
    "changed": 100,
-   "seconds": 4.23,
+   "seconds": 4.42,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -39,7 +39,7 @@
   {
    "depth": 4,
    "changed": 5000,
-   "seconds": 5.01,
+   "seconds": 5.05,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -51,7 +51,7 @@
   {
    "depth": 5,
    "changed": 10,
-   "seconds": 4.24,
+   "seconds": 4.58,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -63,7 +63,7 @@
   {
    "depth": 6,
    "changed": 10,
-   "seconds": 4.28,
+   "seconds": 4.39,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -75,7 +75,7 @@
   {
    "depth": 7,
    "changed": 10,
-   "seconds": 4.33,
+   "seconds": 4.73,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -87,7 +87,7 @@
   {
    "depth": 8,
    "changed": 10,
-   "seconds": 4.66,
+   "seconds": 5.88,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -99,7 +99,7 @@
   {
    "depth": 9,
    "changed": 10,
-   "seconds": 4.26,
+   "seconds": 6.46,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -111,7 +111,7 @@
   {
    "depth": 10,
    "changed": 10,
-   "seconds": 4.39,
+   "seconds": 4.98,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -123,7 +123,7 @@
   {
    "depth": 11,
    "changed": 10,
-   "seconds": 4.22,
+   "seconds": 4.51,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -135,7 +135,7 @@
   {
    "depth": 12,
    "changed": 10,
-   "seconds": 4.28,
+   "seconds": 4.6,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -147,7 +147,7 @@
   {
    "depth": 13,
    "changed": 10,
-   "seconds": 4.71,
+   "seconds": 4.62,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -159,7 +159,7 @@
   {
    "depth": 14,
    "changed": 10,
-   "seconds": 4.22,
+   "seconds": 4.39,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -171,7 +171,7 @@
   {
    "depth": 15,
    "changed": 10,
-   "seconds": 4.43,
+   "seconds": 4.99,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -183,7 +183,7 @@
   {
    "depth": 16,
    "changed": 10,
-   "seconds": 4.15,
+   "seconds": 4.51,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -195,7 +195,7 @@
   {
    "depth": 17,
    "changed": 10,
-   "seconds": 4.42,
+   "seconds": 4.48,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -207,7 +207,7 @@
   {
    "depth": 18,
    "changed": 10,
-   "seconds": 4.4,
+   "seconds": 4.62,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -219,7 +219,7 @@
   {
    "depth": 19,
    "changed": 10,
-   "seconds": 4.95,
+   "seconds": 5.07,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -231,7 +231,7 @@
   {
    "depth": 20,
    "changed": 10,
-   "seconds": 4.21,
+   "seconds": 4.45,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -243,7 +243,7 @@
   {
    "depth": 21,
    "changed": 10,
-   "seconds": 4.52,
+   "seconds": 4.57,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -255,7 +255,7 @@
   {
    "depth": 22,
    "changed": 10,
-   "seconds": 4.56,
+   "seconds": 4.58,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -267,7 +267,7 @@
   {
    "depth": 23,
    "changed": 10,
-   "seconds": 4.93,
+   "seconds": 4.7,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -279,7 +279,7 @@
   {
    "depth": 24,
    "changed": 10,
-   "seconds": 4.15,
+   "seconds": 4.7,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -291,7 +291,7 @@
   {
    "depth": 25,
    "changed": 10,
-   "seconds": 4.45,
+   "seconds": 4.55,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -303,7 +303,7 @@
   {
    "depth": 26,
    "changed": 10,
-   "seconds": 4.38,
+   "seconds": 4.75,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -315,7 +315,7 @@
   {
    "depth": 27,
    "changed": 10,
-   "seconds": 4.96,
+   "seconds": 5.17,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -327,7 +327,7 @@
   {
    "depth": 28,
    "changed": 10,
-   "seconds": 4.32,
+   "seconds": 4.7,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -339,7 +339,7 @@
   {
    "depth": 29,
    "changed": 10,
-   "seconds": 4.49,
+   "seconds": 4.55,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -351,7 +351,7 @@
   {
    "depth": 30,
    "changed": 10,
-   "seconds": 4.3,
+   "seconds": 4.53,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -363,7 +363,7 @@
   {
    "depth": 31,
    "changed": 10,
-   "seconds": 4.27,
+   "seconds": 4.46,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -375,7 +375,7 @@
   {
    "depth": 32,
    "changed": 10,
-   "seconds": 4.66,
+   "seconds": 5.4,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -387,7 +387,7 @@
   {
    "depth": 33,
    "changed": 10,
-   "seconds": 4.36,
+   "seconds": 4.48,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -399,7 +399,7 @@
   {
    "depth": 34,
    "changed": 10,
-   "seconds": 4.06,
+   "seconds": 4.4,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -411,7 +411,7 @@
   {
    "depth": 35,
    "changed": 10,
-   "seconds": 4.16,
+   "seconds": 4.75,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -423,7 +423,7 @@
   {
    "depth": 36,
    "changed": 10,
-   "seconds": 4.04,
+   "seconds": 4.8,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -435,7 +435,7 @@
   {
    "depth": 37,
    "changed": 10,
-   "seconds": 4.15,
+   "seconds": 4.62,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -447,7 +447,7 @@
   {
    "depth": 38,
    "changed": 10,
-   "seconds": 5.42,
+   "seconds": 5.39,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -459,7 +459,7 @@
   {
    "depth": 39,
    "changed": 10,
-   "seconds": 4.09,
+   "seconds": 4.65,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -471,7 +471,7 @@
   {
    "depth": 40,
    "changed": 10,
-   "seconds": 4.29,
+   "seconds": 4.69,
    "written": {
     "units": 0,
     "occurrences": 0,
@@ -483,7 +483,7 @@
   {
    "depth": 41,
    "changed": 60000,
-   "seconds": 11.24,
+   "seconds": 12.22,
    "checkpoint": false,
    "written": {
     "units": 0,
@@ -496,7 +496,7 @@
   {
    "depth": 42,
    "changed": 10,
-   "seconds": 14.89,
+   "seconds": 17.37,
    "checkpoint": true,
    "written": {
     "units": 6158,
@@ -511,133 +511,133 @@
   {
    "layout": "full copy, same rows",
    "depth": 4,
-   "drill_first_page": 0.0363,
-   "rollup": 0.0049,
-   "unpaged": 0.0425,
-   "cell_states_all": 0.3295
+   "drill_first_page": 0.0473,
+   "rollup": 0.0066,
+   "unpaged": 0.0532,
+   "cell_states_all": 0.4394
   },
   {
    "layout": "lineage",
    "depth": 4,
-   "drill_first_page": 0.0777,
-   "rollup": 0.0056,
-   "unpaged": 0.0502,
-   "cell_states_all": 0.8396
+   "drill_first_page": 0.0909,
+   "rollup": 0.0071,
+   "unpaged": 0.0734,
+   "cell_states_all": 1.0082
   },
   {
    "layout": "lineage",
    "depth": 5,
-   "drill_first_page": 0.087,
-   "rollup": 0.0064,
-   "unpaged": 0.0614,
-   "cell_states_all": 0.9296
+   "drill_first_page": 0.0995,
+   "rollup": 0.0062,
+   "unpaged": 0.086,
+   "cell_states_all": 1.1178
   },
   {
    "layout": "lineage",
    "depth": 10,
-   "drill_first_page": 0.0912,
-   "rollup": 0.0081,
-   "unpaged": 0.0644,
-   "cell_states_all": 0.9641
+   "drill_first_page": 0.0954,
+   "rollup": 0.007,
+   "unpaged": 0.0858,
+   "cell_states_all": 1.1151
   },
   {
    "layout": "lineage",
    "depth": 20,
-   "drill_first_page": 0.09,
-   "rollup": 0.0071,
-   "unpaged": 0.0639,
-   "cell_states_all": 0.9758
+   "drill_first_page": 0.1028,
+   "rollup": 0.0077,
+   "unpaged": 0.0877,
+   "cell_states_all": 1.1197
   },
   {
    "layout": "lineage",
    "depth": 40,
-   "drill_first_page": 0.0882,
-   "rollup": 0.0104,
-   "unpaged": 0.0614,
-   "cell_states_all": 0.9524
+   "drill_first_page": 0.1011,
+   "rollup": 0.0086,
+   "unpaged": 0.0831,
+   "cell_states_all": 1.1121
   },
   {
    "layout": "full copy, same rows",
    "depth": 40,
-   "drill_first_page": 0.0356,
-   "rollup": 0.0052,
-   "unpaged": 0.0412,
-   "cell_states_all": 0.3276
+   "drill_first_page": 0.0463,
+   "rollup": 0.0058,
+   "unpaged": 0.0519,
+   "cell_states_all": 0.366
   },
   {
    "layout": "full copy, same rows",
    "depth": 41,
    "after": "60k-row delta",
-   "drill_first_page": 0.1083,
-   "rollup": 0.0063,
-   "unpaged": 0.1364,
-   "cell_states_all": 0.4396
+   "drill_first_page": 0.1013,
+   "rollup": 0.0054,
+   "unpaged": 0.1169,
+   "cell_states_all": 0.4559
   },
   {
    "layout": "lineage",
    "depth": 41,
    "after": "60k-row delta",
-   "drill_first_page": 0.4244,
-   "rollup": 0.0075,
-   "unpaged": 0.3015,
-   "cell_states_all": 1.7686
+   "drill_first_page": 0.4681,
+   "rollup": 0.0086,
+   "unpaged": 0.3778,
+   "cell_states_all": 1.9773
   },
   {
    "layout": "lineage",
    "depth": 42,
    "after": "checkpoint",
-   "drill_first_page": 0.1425,
-   "rollup": 0.0073,
-   "unpaged": 0.1262,
-   "cell_states_all": 1.1138
+   "drill_first_page": 0.1711,
+   "rollup": 0.0076,
+   "unpaged": 0.1822,
+   "cell_states_all": 1.3844
   }
  ],
  "checks": {
-  "every generation: all cells' members and the merged top": true,
-  "first, middle, last: rollup and pages for 6 cells": true
+  "every generation: complete state of every cell and the merged totals": true,
+  "first, middle, last: also persisted rollups and pages for 6 cells": true
  },
- "stream": "cfr26-2025@119-4/lineage/1790779428",
+ "stream": "cfr26-2025@119-4/lineage/1790781390",
  "cell": "1",
  "storage_bytes": {
   "l_units": {
    "docs": 12316,
-   "documents_size": 6422308
+   "documents_size": 4316105
   },
   "l_occurrences": {
    "docs": 249986,
-   "documents_size": 87302193
+   "documents_size": 57463189
   },
   "l_assertions": {
    "docs": 315355,
-   "documents_size": 148670270
+   "documents_size": 102433788
   },
   "l_retractions": {
    "docs": 65461,
-   "documents_size": 14593539
+   "documents_size": 13914179
   },
   "l_rollups": {
    "docs": 356,
-   "documents_size": 6151075
+   "documents_size": 1665719
   },
   "l_manifests": {
    "docs": 42,
-   "documents_size": 75805
+   "documents_size": 65332
   },
   "l_queries": {
    "docs": 219,
-   "documents_size": 292684
+   "documents_size": 18695
   },
   "units": {
-   "docs": 30790,
-   "documents_size": 12161232
+   "docs": 61580,
+   "documents_size": 9982116
   },
   "occurrences": {
-   "docs": 624965,
-   "documents_size": 128474499
+   "docs": 1249930,
+   "documents_size": 98534210
   },
   "assertions": {
-   "docs": 624735,
-   "documents_size": 201585903
+   "docs": 1249470,
+   "documents_size": 235055030
   }
  }
 }

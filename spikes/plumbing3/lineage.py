@@ -38,6 +38,8 @@ import index as ix  # noqa: E402  (key, envelope, merge, cursors, _insert, error
 BROKEN = ix.BROKEN
 SPEC, ORDER, PAGE = ix.SPEC, ix.ORDER, ix.PAGE
 KINDS = ("units", "occurrences", "assertions")
+VERSION = "lineage-v2"  # part of every generation's identity: a change of writer is a change of generation
+REBASES = 0  # lost commit races, counted so tests can prove a race happened
 C = {k: f"l_{k}" for k in (*KINDS, "retractions", "rollups", "manifests", "queries")}
 
 REGISTRY = {
@@ -75,6 +77,8 @@ def slots(rows: list[dict], snapshot: str) -> dict[str, dict[str, dict]]:
     """kind -> slot -> content. Content is what a correction can change."""
     out = {k: {} for k in KINDS}
     for r in rows:
+        if r["unit"] in out["units"]:
+            raise ValueError(f"duplicate unit {r['unit']!r}: a slot must be unique")
         out["units"][r["unit"]] = {"unit": r["unit"], "cell": r["cell"], "locator": r.get("locator")}
         for i, o in enumerate(r["occurrences"]):
             s = f"{r['unit']}#{i}"
@@ -152,19 +156,30 @@ CHECKPOINT = 0.25  # retractions accumulated since the last checkpoint, as a sha
 
 
 def publish(db: StandardDatabase, stream: str, snapshot: str, rows: list[dict], instance: str,
-            crash_at: str | None = None, max_rebases: int = 20) -> str:
-    """Publish rows as a child of the stream's current generation, writing only the delta."""
+            crash_at: str | None = None, max_rebases: int = 20, before_commit=None) -> str:
+    """Publish rows as the stream's next generation, writing only the delta from the current one.
+
+    Semantics are whole-state replacement: `rows` is the complete intended state. If two
+    corrections race from one parent, the loser rebases and its rows replace the winner's,
+    including slots only the winner changed. Merging independent patches is not attempted.
+
+    A generation's identity covers its content (rows, snapshot, writer VERSION), its parent,
+    and its plan (the CHECKPOINT threshold), so a retry under a different plan is a different
+    generation and never reuses another plan's staged writes. `before_commit` is a test hook."""
+    global REBASES
     want = slots(rows, snapshot)
+    content = h({"rows": rows, "snapshot": snapshot, "version": VERSION})
     for _ in range(max_rebases):
         parent = current(db, stream)
-        m = ix.key("lineage-manifest", stream, snapshot, ix.ADAPTER, h(rows), parent["_key"] if parent else None)
+        m = ix.key("lineage-manifest", stream, content, parent["_key"] if parent else None, CHECKPOINT)
         if db.collection(C["manifests"]).has(m):
             return m
-        if parent and parent.get("content") == h(rows):
-            return parent["_key"]  # nothing changed
+        if parent and parent.get("content") == content:
+            return parent["_key"]  # nothing changed: same rows, snapshot and writer
         try:
-            return _publish_on(db, stream, snapshot, rows, want, parent, m, instance, crash_at)
+            return _publish_on(db, stream, snapshot, content, want, parent, m, instance, crash_at, before_commit)
         except _Rebase:
+            REBASES += 1
             continue
     raise RuntimeError(f"{stream}: rebased {max_rebases} times without committing")
 
@@ -173,7 +188,7 @@ class _Rebase(Exception):
     pass
 
 
-def _publish_on(db, stream, snapshot, rows, want, parent, m, instance, crash_at) -> str:
+def _publish_on(db, stream, snapshot, content, want, parent, m, instance, crash_at, before_commit) -> str:
     def stage(name):
         if crash_at == name:
             raise SystemExit(f"simulated crash after {name}")
@@ -183,16 +198,16 @@ def _publish_on(db, stream, snapshot, rows, want, parent, m, instance, crash_at)
     size = sum(len(v) for v in want.values())
     new, gone, touched = {k: [] for k in KINDS}, [], set()
     for kind in KINDS:
-        for s, content in want[kind].items():
-            hh = h(content)
+        for s, slot_content in want[kind].items():
+            hh = h(slot_content)
             old = have[kind].get(s)
             if old and old[1] == hh:
                 continue  # inherited, not rewritten
             if old:
                 gone.append(old[0])
             new[kind].append({"_key": ix.key(m, kind, s), "stream": stream, "born": m, "slot": s, "h": hh,
-                              **content})
-            touched.add(content["cell"])
+                              **slot_content})
+            touched.add(slot_content["cell"])
         for s, (k, _) in have[kind].items():
             if s not in want[kind]:
                 gone.append(k)
@@ -213,10 +228,15 @@ def _publish_on(db, stream, snapshot, rows, want, parent, m, instance, crash_at)
         touched = {c["cell"] for c in want["units"].values()}
     else:
         anc = anc_parent + [m]
+    first = True
     for kind in KINDS:
         for i in range(0, len(new[kind]), 5000):
             ix._insert(db, C[kind], new[kind][i:i + 5000])
-    stage("records")
+            if first:
+                first = False
+                stage("records")  # a crash with only the first batch written
+    if first:
+        stage("records")
     ret = [{"_key": ix.key(m, "retract", g), "stream": stream, "born": m, "record": g, "cell": gone_cell[g]}
            for g in gone]
     for i in range(0, len(ret), 5000):
@@ -233,12 +253,23 @@ def _publish_on(db, stream, snapshot, rows, want, parent, m, instance, crash_at)
                                            bind_vars={"m": m}))
     if stored != written:
         raise RuntimeError(f"{m}: stored {stored}, wrote {written}")
+    for kind in KINDS:  # the persisted content, not just its count
+        got = dict(db.aql.execute(f"FOR x IN {C[kind]} FILTER x.born == @m RETURN [x.slot, x.h]",
+                                  bind_vars={"m": m}, batch_size=50000))
+        if got != {r["slot"]: r["h"] for r in new[kind]}:
+            raise RuntimeError(f"{m}: persisted {kind} differ from what was written")
+    if dict(db.aql.execute(f"FOR r IN {C['rollups']} FILTER r.born == @m RETURN [r.cell, r.state]",
+                           bind_vars={"m": m})) != states:
+        raise RuntimeError(f"{m}: persisted rollups differ from the data")
     stage("verify")
+    if before_commit:
+        before_commit()
     seq = (parent["seq"] + 1) if parent else 1
     try:
         db.collection(C["manifests"]).insert({
             "_key": m, "stream": stream, "snapshot": snapshot, "adapter": ix.ADAPTER, "seq": seq,
-            "parent": parent["_key"] if parent else None, "ancestors": anc, "content": h(rows),
+            "parent": parent["_key"] if parent else None, "ancestors": anc, "content": content,
+            "version": VERSION, "checkpoint_threshold": CHECKPOINT if CHECKPOINT != float("inf") else None,
             "written": written, "touched": sorted(touched), "published_at": ix.now(),
             "checkpoint": checkpoint, "retracted_since_checkpoint": since,
             "provenance": ix.envelope(instance, f"publish {stream} at {snapshot} (delta)")})
@@ -273,7 +304,7 @@ def rollup(db: StandardDatabase, m: str, cell: str) -> dict:
 def unpaged(db: StandardDatabase, m: str, cell: str) -> list[str]:
     doc = manifest(db, m)
     return list(db.aql.execute(visible("assertions", "AND x.cell == @cell") +
-                               " FILTER x.outcome IN @broken COLLECT u = x.unit SORT u RETURN u",
+                               " FILTER x.outcome IN @broken COLLECT u = x.unit SORT TO_HEX(u) RETURN u",
                                bind_vars={"s": doc["stream"], "anc": doc["ancestors"], "cell": cell,
                                           "broken": list(BROKEN)}))
 
@@ -291,15 +322,22 @@ def drill(db: StandardDatabase, m: str, cell: str, cursor: str | None = None, li
             raise ix.CursorRejected(f"bound to {({k: c.get(k) for k in binding})}, asked for {binding}")
         after = c["after"]
     bind = {"s": doc["stream"], "anc": doc["ancestors"], "cell": cell}
-    members = unpaged(db, m, cell)
+    # One comparator for sorting and for continuation: the unit id's UTF-8 bytes (TO_HEX), so
+    # the server's collation never decides one and Python the other. Ids are unique, so no ties.
+    r = next(db.aql.execute(f"""
+        LET members = ({visible("assertions", "AND x.cell == @cell")}
+                       FILTER x.outcome IN @broken COLLECT u = x.unit RETURN u)
+        RETURN {{total: LENGTH(members),
+                 page: (FOR u IN members FILTER @after == null OR TO_HEX(u) > TO_HEX(@after)
+                        SORT TO_HEX(u) LIMIT @n RETURN u)}}""",
+                            bind_vars=bind | {"broken": list(BROKEN), "after": after, "n": limit + 1}))
     denominator = next(db.aql.execute(visible("units", "AND x.cell == @cell") + " COLLECT WITH COUNT INTO n RETURN n",
                                       bind_vars=bind), 0)
-    rest = [u for u in members if after is None or u > after][:limit + 1]
-    page, truncated = rest[:limit], len(rest) > limit
+    page, truncated = r["page"][:limit], len(r["page"]) > limit
     db.collection(C["queries"]).insert({"at": ix.now(), "who": instance, "tool": "drill", **binding,
                                         "after": after, "limit": limit, "returned": page,
-                                        "population_total": len(members), "truncated": truncated})
-    return {"spec": SPEC, "manifest": m, "cell": cell, "population_total": len(members), "denominator": denominator,
+                                        "population_total": r["total"], "truncated": truncated})
+    return {"spec": SPEC, "manifest": m, "cell": cell, "population_total": r["total"], "denominator": denominator,
             "returned": len(page), "page": page, "truncated": truncated,
             "cursor": ix.encode_cursor(binding | {"after": page[-1]}) if truncated else None}
 

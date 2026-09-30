@@ -37,12 +37,21 @@ def db():
     return d
 
 
-def check(db, m, rows, limit=ix.PAGE) -> list[str]:
-    """Every cell, three ways, plus the merged top, against expected(rows)."""
+def check(db, m, rows, limit=ix.PAGE, vanished=()) -> list[str]:
+    """Every cell, three ways, plus the merged top, against expected(rows). Cells in
+    `vanished` must have no rollup and no state."""
     exp, bad = fx.expected(rows), []
     states = lx.cell_states(db, m)
     if sorted(states) != sorted(exp["cells"]):
         bad.append(f"cells {sorted(set(states) ^ set(exp['cells']))}")
+    for cell in vanished:
+        if cell in states:
+            bad.append(f"{cell} vanished but has state")
+        try:
+            lx.rollup(db, m, cell)
+            bad.append(f"{cell} vanished but has a rollup")
+        except KeyError:
+            pass
     for cell, e in exp["cells"].items():
         try:
             st = lx.rollup(db, m, cell)
@@ -54,7 +63,10 @@ def check(db, m, rows, limit=ix.PAGE) -> list[str]:
                 bad.append(f"{cell} rollup {k}")
         if dict(map(tuple, st["cited"])) != e["cited"]:
             bad.append(f"{cell} rollup cited")
-        if states.get(cell, {}).get("members") != e["members"]:
+        st2 = states.get(cell, {})
+        if [st2.get(k) for k in ("units", "occurrences", "broken", "members")] != \
+                [e[k] for k in ("units", "occurrences", "broken", "members")] or \
+                dict(map(tuple, st2.get("cited", []))) != e["cited"]:
             bad.append(f"{cell} states")
         if lx.unpaged(db, m, cell) != e["members"]:
             bad.append(f"{cell} unpaged")
@@ -67,7 +79,9 @@ def check(db, m, rows, limit=ix.PAGE) -> list[str]:
         if any(p["population_total"] != n or p["denominator"] != e["units"] for p in pages):
             bad.append(f"{cell} totals")
     top = ix.merge(list(states.values()))
-    if top["conflicts"] != exp["top"]["conflicts"] or top["members"] != exp["top"]["members"]:
+    if (top["conflicts"], top["members"], top["units"], top["broken"], len(top["cited"])) != (
+            exp["top"]["conflicts"], exp["top"]["members"], exp["top"]["units"], exp["top"]["broken"],
+            exp["top"]["cited_distinct"]):
         bad.append("top")
     return bad
 
@@ -169,9 +183,20 @@ def test_concurrent_corrections_rebase(db):
     stream = "race"
     base = fx.generation(1)
     lx.publish(db, stream, fx.SNAPSHOT, base, ME)
+    import threading
     variants = [mutate(base, random.Random(100 + i), 4) for i in range(6)]
+    barrier, local = threading.Barrier(6), threading.local()
+
+    def hold_once():  # every publisher computes its delta against the same parent, then all commit at once
+        if not getattr(local, "held", False):
+            local.held = True
+            barrier.wait(timeout=60)
+
+    before = lx.REBASES
     with ThreadPoolExecutor(6) as pool:
-        got = list(pool.map(lambda rows: lx.publish(connect("test"), stream, fx.SNAPSHOT, rows, ME), variants))
+        got = list(pool.map(lambda rows: lx.publish(connect("test"), stream, fx.SNAPSHOT, rows, ME,
+                                                    before_commit=hold_once), variants))
+    assert lx.REBASES - before >= 5  # one wins the first round; every other publisher lost at least once
     chain = list(db.aql.execute(f"FOR x IN {lx.C['manifests']} FILTER x.stream == @s SORT x.seq RETURN x",
                                 bind_vars={"s": stream}))
     assert [x["seq"] for x in chain] == list(range(1, 8))
@@ -230,5 +255,79 @@ def test_a_large_correction_becomes_a_checkpoint(db):
     assert docs[m3]["ancestors"] == [m3] and docs[m3]["parent"] == m2 and docs[m3]["written"]["retractions"] == 0
     for m, rows in ((m1, rows1), (m2, small), (m3, big)):
         assert check(db, m, rows) == [], m
-    m4 = lx.publish(db, "ckpt", fx.SNAPSHOT, mutate(big, rng, 2), ME)  # deltas resume on the new root
+    rows4 = mutate(big, rng, 2)
+    assert rows4 != big
+    m4 = lx.publish(db, "ckpt", fx.SNAPSHOT, rows4, ME)  # deltas resume on the new root
     assert db.collection(lx.C["manifests"]).get(m4)["ancestors"] == [m3, m4]
+    assert check(db, m4, rows4) == []
+
+
+# --- cases the random chain never reached (REVIEW.md #6) -------------------------------------
+
+def test_cells_vanish_and_return_units_and_citations_come_back(db):
+    rows1 = fx.generation(1)
+    m1 = lx.publish(db, "vanish", fx.SNAPSHOT, rows1, ME)
+    swap_a = [r for r in rows1 if r["cell"] == "swapA"]
+    dropped = copy.deepcopy(rows1[0]["occurrences"][-1])
+    rows2 = [r for r in copy.deepcopy(rows1) if r["cell"] != "swapA"]  # a whole cell disappears
+    rows2[0]["occurrences"].pop()                                       # a citation is dropped
+    m2 = lx.publish(db, "vanish", fx.SNAPSHOT, rows2, ME)
+    assert check(db, m2, rows2, vanished=["swapA"]) == []
+    rows3 = copy.deepcopy(rows2) + copy.deepcopy(swap_a)                 # the cell returns, same units, same content
+    rows3[0]["occurrences"].append(dropped)                             # the citation is restored
+    m3 = lx.publish(db, "vanish", fx.SNAPSHOT, rows3, ME)
+    assert fx.expected(rows3) == fx.expected(rows1)
+    assert check(db, m3, rows3) == [] and check(db, m2, rows2, vanished=["swapA"]) == []
+    assert check(db, m1, rows1) == []
+
+
+def test_paging_order_is_one_comparator(db):
+    """REVIEW.md #1: sorting and continuation must agree. Ids that server collation and code
+    points order differently (case, accents, a decomposed accent) must page without loss."""
+    ids = ["a", "\u00e5", "b", "B", "\u00e9", "e\u0301", "z", "Z", "\u00e4", "A", "_", "~", "10", "9"]
+    rows = [fx.unit(i, "uni", True, 1) for i in ids]
+    m = lx.publish(db, "unicode", fx.SNAPSHOT, rows, ME)
+    for limit in (1, 2, 3, 5):
+        pages = lx.drill_all(db, m, "uni", limit=limit)
+        assert [u for p in pages for u in p["page"]] == sorted(ids), limit  # code-point order, no loss
+    assert lx.unpaged(db, m, "uni") == sorted(ids)
+
+
+def test_same_rows_new_snapshot_is_a_new_generation(db):
+    """REVIEW.md #2: identity covers the snapshot, not just the rows."""
+    rows = fx.generation(1)
+    m1 = lx.publish(db, "snap", "fx-1", rows, ME)
+    m2 = lx.publish(db, "snap", "fx-2", rows, ME)
+    assert m2 != m1
+    got = set(db.aql.execute(f"""FOR x IN {lx.C['assertions']} FILTER x.stream == "snap" AND x.born == @m
+                                 RETURN DISTINCT x.snapshot""", bind_vars={"m": m2}))
+    assert got == {"fx-2"} and check(db, m2, rows) == []
+
+
+def test_retry_under_a_changed_plan_is_a_new_generation(db, monkeypatch):
+    """REVIEW.md #3: a crash staged under one checkpoint plan must not poison a retry under another."""
+    rows1 = fx.generation(1)
+    lx.publish(db, "plan", fx.SNAPSHOT, rows1, ME)
+    big = copy.deepcopy(rows1)
+    for r in big:
+        for o in r["occurrences"]:
+            if o["path"]:
+                o["outcome"] = o["target_outcome"] = "in-force" if o["outcome"] in fx.BROKEN else "repealed"
+    monkeypatch.setattr(lx, "CHECKPOINT", float("inf"))
+    with pytest.raises(SystemExit):
+        lx.publish(db, "plan", fx.SNAPSHOT, big, ME, crash_at="retractions")
+    small = mutate(rows1, random.Random(9), 2)  # checkpoints off, committed: the manifest must store
+    assert small != rows1                        # the disabled threshold (measure.py's first failure)
+    m_off = lx.publish(db, "plan-off", fx.SNAPSHOT, rows1, ME)
+    m_off2 = lx.publish(db, "plan-off", fx.SNAPSHOT, small, ME)
+    assert db.collection(lx.C["manifests"]).get(m_off2)["checkpoint_threshold"] is None and m_off != m_off2
+    monkeypatch.setattr(lx, "CHECKPOINT", 0.25)
+    m = lx.publish(db, "plan", fx.SNAPSHOT, big, ME)
+    assert db.collection(lx.C["manifests"]).get(m)["checkpoint"] is True
+    assert check(db, m, big) == []
+
+
+def test_duplicate_units_are_refused():
+    rows = fx.generation(1)
+    with pytest.raises(ValueError):
+        lx.slots(rows + [copy.deepcopy(rows[0])], fx.SNAPSHOT)

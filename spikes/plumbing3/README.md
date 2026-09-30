@@ -1,12 +1,15 @@
 # Plumbing spike 3: corrections that don't copy the corpus
 
 *2026-09-30. Throwaway code answering spike 2's first "Hard" item: every correction
-republished the whole corpus ([spike 2 README](../plumbing2/README.md)). This one
-builds on spike 2's `index.py` (cursors, merges, insert-only writes) and its fixture.*
+republished the whole corpus ([spike 2 README](../plumbing2/README.md)). It builds on
+spike 2's `index.py` (cursors, merges, insert-only writes) and its fixture. Reviewed
+by Codex ([REVIEW.md](REVIEW.md)). This README describes the code **after** that
+review's fixes; the table at the end maps each finding to what changed.*
 
 ```
-uv run pytest spikes/plumbing3                                 # 11 tests on the fixture
-uv run --group plumbing python spikes/plumbing3/measure.py     # the real corpus; writes measure-report.json
+uv run pytest spikes/plumbing3                                 # 16 tests on the fixture
+uv run --group plumbing python spikes/plumbing3/measure.py     # the real corpus -> measure-report.json
+uv run --group plumbing python spikes/plumbing3/diagnose.py    # query-plan evidence -> diagnose-report.json
 ```
 
 ## The design (`lineage.py`)
@@ -14,107 +17,164 @@ uv run --group plumbing python spikes/plumbing3/measure.py     # the real corpus
 - **Records live in slots, keyed by generation.** A slot is a unit, an occurrence
   (`unit#i`) or an assertion (`unit#i@snapshot`). A record's key is (born, slot),
   where `born` is the generation that wrote it.
-  - A child generation writes only the slots whose content changed.
-  - For every record a child replaces or removes, it writes a *retraction*, also
-    born in the child. Nothing is ever updated.
-- **Why content alone can't be the key.** A crashed, never-published generation
-  would then own records that a later generation needs. With insert-only writes,
-  the later generation would silently inherit an invisible record.
-- **Readers see an ancestry.** A manifest records its parent and its whole
-  ancestry. A reader for manifest m sees records born in m's ancestry that no
-  generation in the ancestry has retracted. This is the bitemporal pattern of
-  Yanantin's Jabberwock aliases, with generations standing in for time.
-  - A retraction carries the cell of the record it retracts, so a read of one
-    cell builds only that cell's retraction set.
-- **Rollups are rewritten only for cells a correction touched.** A reader takes
-  the rollup from the most recent ancestor that has one.
-- **The commit is spike 2's compare-and-swap, plus one rule: the parent must still
-  be current.** A publisher that loses the race rebases on the new current. Its
-  orphaned writes stay invisible, because no committed ancestry contains them.
-- **Checkpoints.** Once the retractions accumulated since the last root exceed 25%
-  of the corpus, the next generation is a checkpoint: a fresh root with no
-  ancestry that rewrites every slot.
+  - A child generation writes only the slots whose content changed, plus a
+    *retraction* (born in the child) for every record it replaces or removes.
+    Nothing is updated.
+  - Content alone can't be the key. A crashed, unpublished generation would then
+    own records that a later generation needs.
+  - Duplicate slots in the input are refused.
+- **Readers see an ancestry.** A manifest records its parent and its ancestry. A
+  reader for manifest m sees records born in m's ancestry that no generation in
+  it has retracted: Jabberwock's bitemporal pattern, with generations for time.
+  - A retraction carries the cell of the record it retracts, so a single-cell
+    read builds only that cell's retraction set.
+- **Rollups.** Only cells a correction touched get new rollups. A reader takes the
+  rollup from the most recent ancestor that has one. A cell that empties gets a
+  zero-unit rollup, so an older rollup can't resurrect it.
+- **Identity.** A generation's identity covers:
+  - its content: rows, snapshot and writer `VERSION`;
+  - its parent;
+  - its plan: the checkpoint threshold.
+  
+  "Nothing changed" means identical content, so the same rows at a new snapshot
+  make a new generation. A retry under a different plan is a different generation,
+  and never reuses the staged writes of another plan.
+- **Verification before commit.** The persisted records, compared by slot and
+  content hash, and the persisted rollups are checked against what was written,
+  not just counted.
+- **The commit.** It is spike 2's compare-and-swap, and the parent must still be
+  current. A publisher that loses the race rebases on the new current, and its
+  orphaned writes stay invisible.
+- **Semantics are whole-state replacement.** If two corrections race from one
+  parent, the loser rebases and its rows replace the winner's, including slots only
+  the winner changed. Concurrent independent patches are *not* preserved. That
+  choice has to be made deliberately before this is real code.
+- **Checkpoints.** Once retractions accumulated since the last root exceed 25% of
+  the corpus, the next generation is a fresh root with no ancestry.
+- **Paging** sorts and continues with one comparator: the unit id's UTF-8 bytes
+  (`TO_HEX`), which is code-point order. Server collation and Python can no longer
+  disagree.
 
-## Correctness (11 tests)
+## Correctness (16 tests)
 
 The oracle is `fixture.expected(rows)`, plain Python over the rows each
-generation *intends* to hold. It shares nothing with `lineage.py`. The tests:
-- **20 generations of random corrections**, each generation checked in every
-  cell three ways, plus the merged top. The corrections flip outcomes, add
-  units, delete units, move units between cells and drop citations.
-- **A correction published while a reader is paging.**
-- **A crash after each of four stages.** The parent still reads exactly, and a
-  retry publishes.
-- **Six corrections racing from one parent.** All six commit with rebases, the
-  chain has seqs 1–7, and each generation reads exactly as the rows it intended.
-- **A large correction becomes a checkpoint.** The older generations are
-  unchanged, and later deltas resume on the new root.
-- **Mutants.** Ignoring retractions is caught, and so is reading the oldest
-  rollup instead of the newest.
+generation intends to hold, sharing nothing with `lineage.py`. Every check
+compares each cell's complete state three ways: persisted rollup, `cell_states`
+(units, occurrences, broken, members, cited) and unpaged plus paged members. It
+also compares the merged totals. Cells expected to have vanished must have no
+state and no rollup. The tests:
+- **A 20-generation random chain** (outcome flips, additions, deletions, moves,
+  dropped citations), with every generation checked.
+- **Cases the chain never reached:** a whole cell vanishes and returns with the
+  same units; a dropped citation is restored.
+- **A correction published during paging.**
+- **Crashes** after the first record batch, retractions, rollups and
+  verification. The parent still reads exactly, and the retry publishes.
+- **Six corrections held at a barrier after computing their deltas against the
+  same parent**, then committed together. At least five rebases are recorded, the
+  chain has seqs 1–7, and each generation reads exactly as its rows.
+- **Checkpoints.** A large correction becomes a checkpoint, and the delta after it
+  is checked in full.
+- **The review's findings:**
+  - ids that collation and code points order differently (case, accents, a
+    decomposed accent, digits, punctuation) page without loss at limits 1–5;
+  - the same rows at a new snapshot make a new generation;
+  - a retry under a changed plan works, and a disabled threshold is stored.
+- **Mutants.** Ignoring retractions is caught, and so is reading the oldest rollup
+  instead of the newest.
 
-## The real corpus (`measure-report.json`)
+## The real corpus (`measure-report.json`, one run)
 
-- **Correction cost.**
-  - The first publish takes 11s.
-  - Corrections of 1, 100 and 5,000 changed citations each write exactly their
-    delta: n assertions, n retractions, and rollups for the touched cells only.
-  - Each correction takes 3–5s regardless of size. The time goes to reading the
-    parent's whole view to compute the delta. A caller that supplied the delta
-    itself would avoid that.
-  - A 60k-citation correction takes 11s. A checkpoint takes 15s.
-- **Storage.** 42 generations hold 315k assertions. Full copies would hold 5.2M.
-- **Every generation matches the oracle**, in all cells and the merged top. Rollups
-  and pages were also checked for 6 cells at the first, middle and last generation.
-- **Reads, against a full copy of *the same rows***, for the largest cell (part 1)
-  and for `cell_states` over all 69 cells:
+- **Writes are delta-sized.**
+  - The first publish takes 12s.
+  - Corrections of 1, 100 and 5,000 changed citations each write exactly n
+    assertions, n retractions, and rollups for the touched cells.
+  - Each takes 3–5s. The time goes to reading the parent's whole view in order to
+    compute the delta. `measure.py` doesn't break that time down further.
+  - A 60k-citation delta takes 12s. The checkpoint after it takes 17s.
+- **Every generation matches the oracle's complete per-cell state and merged
+  totals** (all 42). The persisted rollups and pages were also checked for 6 cells
+  at the first, middle and last generation.
+- **Records.** 42 generations hold 315,355 assertions, where full copies would hold
+  5,247,774. Storage statistics are per collection, and the spike 2 collections
+  also hold earlier runs' baselines, so compare record counts, not bytes.
+- **Reads, for the largest cell (part 1) and `cell_states` over all 69 cells.**
+  Timings from one run. The full copy's own drill varied 36–47 ms across runs, so
+  read ratios as roughly ±25%.
 
-| state | full copy: drill / unpaged / all states | lineage: drill / unpaged / all states |
-|---|---|---|
-| small corrections, depth 4 | 36 ms / 43 ms / 0.33 s | 78 ms / 50 ms / 0.84 s |
-| small corrections, depth 40 | 36 ms / 41 ms / 0.33 s | 88 ms / 61 ms / 0.95 s |
-| after a 60k-citation delta | 108 ms / 136 ms / 0.44 s | 424 ms / 302 ms / 1.77 s |
-| the checkpoint after it | (same rows) | 142 ms / 126 ms / 1.11 s |
+| state | full copy of the same rows: drill / unpaged / all states | lineage: drill / unpaged / all states | ratio |
+|---|---|---|---|
+| depth 4 | 47 ms / 53 ms / 0.44 s | 91 ms / 73 ms / 1.01 s | 1.9× / 1.4× / 2.3× |
+| depth 40 | 46 ms / 52 ms / 0.37 s | 101 ms / 83 ms / 1.11 s | 2.2× / 1.6× / 3.0× |
+| after a 60k delta | 101 ms / 117 ms / 0.46 s | 468 ms / 378 ms / 1.98 s | 4.6× / 3.2× / 4.3× |
+| the checkpoint after it | *baseline ≈ the row above; the checkpoint changed 10 more citations* | 171 ms / 182 ms / 1.38 s | ≈1.7× / 1.6× / 3.0× |
 
 ## What this says
 
-- **Small corrections: cheap to write, nearly flat with depth, and 1.2–2.9× slower
-  to read** (unpaged 1.2×, drill 2.2×, all states 2.5× at depth 4). Depth matters
-  little: 36 more generations of small corrections add 13–22%.
-- **A mass change costs reads about 4×** against the same data, until a checkpoint
-  brings drill and unpaged back near parity. The policy "delta if small, checkpoint
-  if large" holds up. A 25% threshold is a guess that this data didn't test.
-- **`cell_states` over all cells stays 2.5× slower even after a checkpoint.** A
-  checkpoint has no retractions, so the overhead is scanning a stream that holds
-  every generation's records. Keeping each stream's records in their own
-  collection, or archiving generations older than the last checkpoint, would
-  address it. Not tried.
+- **Small corrections are cheap to write, reads are 1.4–3.0× slower, and depth
+  matters little.** From depth 4 to depth 40, 36 more generations add 10–13%.
+- **A mass change costs reads 3–4.6×** against the same data. A checkpoint brings
+  drill and unpaged back to 1.6–1.7×. The policy "delta if small, checkpoint if
+  large" holds up. The 25% threshold is a guess this data didn't test.
+- **`cell_states` over all cells stays about 3× slower, even at a checkpoint.**
+  There are no retractions there, which rules them out. `measure.py` and
+  `diagnose.py` don't identify the remaining cost. The stream's collections do
+  hold every generation's records (103k + 103k + 50k + … for part 1 alone,
+  `diagnose-report.json`), but that is a suspect, not a finding.
 
 ## Two wrong diagnoses, recorded
 
-The first two explanations of the slow reads were wrong. The profiler caught the
-error, and no review did.
-1. **"The retraction set grows."** After the 60k delta, I blamed building a set of
-   every retraction in the ancestry, and tried an indexed per-record probe instead.
-   The probe was 17× *worse*: the cell holds every version of its records, and a
-   subquery for each one costs more than one set. I then scoped retractions to
-   the cell. That helped little, and a checkpoint with *zero* retractions was
-   still slow. So the set wasn't the main cost.
-2. **"Dead versions are scanned."** Indexes that include `born` cut the
-   checkpoint's drill from 365 to 218 ms (kept), but didn't restore it. Profiling
-   the query showed 50,100 index entries scanned: part 1 holds 103k assertions,
-   and my random correction had flipped enough in-force outcomes to repealed that
-   its broken share rose from about 10k to about 50k. **The answer had grown, and
-   I was comparing against a full copy of the *original* rows.** The fix was a
-   baseline of the same rows at every read point, which produced the table
-   above. Both effects turned out to be real, and the first run's comparison
-   couldn't separate them.
+The profiler caught both, and no review did. `diagnose.py` reproduces the evidence.
+1. **"The retraction set grows."** After the 60k delta I blamed the per-query set
+   of every retraction in the ancestry, and tried an indexed per-record probe. The
+   probe is 18× *slower* (6.94 s against 0.39 s for `unpaged`), because the cell
+   holds every version of its records, and a subquery per version costs more than
+   one set. Scoping the set to the cell helped little. A checkpoint with *zero*
+   retractions was still slow, so the set wasn't the main cost.
+2. **"Dead versions are scanned."** Indexes that include `born` helped (kept), but
+   the checkpoint stayed slow. The query plan settled it:
 
-## Not done
+| part 1, member query | members | index entries scanned |
+|---|---|---|
+| before the mass correction | 2,200 | 17,277 |
+| after the 60k delta | 3,267 | 110,551 |
+| at the checkpoint | 3,267 | 50,100 |
+
+My random correction had flipped enough in-force outcomes to repealed that part 1's
+broken assertions roughly tripled. **The answer had grown**, and I had been comparing
+against a full copy of the *original* rows. With a baseline of the same rows, both
+effects show:
+- the data effect: 17k → 50k entries, and the full copy slows too;
+- the layout effect: 50k → 110k entries after the delta, removed by the checkpoint.
+
+## Not done, and needed before this is real code
 
 - **Edges (`resolves_to`).** They would follow the same rule, retracted with their
-  assertion, but aren't implemented here.
+  assertion.
 - **Deltas supplied by the caller**, instead of being computed from a full read of
   the parent.
-- **Archiving generations older than the last checkpoint.**
-- **Paging.** `drill` computes the cell's member list, then slices it. It is
-  correct but not keyset-efficient.
+- **A deliberate choice between whole-state replacement and patch merging.**
+- **Archiving generations older than the last checkpoint**, while keeping them
+  readable for old manifests and cursors.
+- **Tests of crashes *inside* a batch, and of durability.**
+- **Phase timings and query plans for every reader**, before choosing indexes or
+  the checkpoint threshold.
+
+## Review findings → changes
+
+| # | Finding | Change | Evidence |
+|---|---|---|---|
+| 1 HIGH | paging sorted in AQL, continued in Python | one comparator (UTF-8 bytes via `TO_HEX`) for both | `test_paging_order_is_one_comparator` |
+| 2 HIGH | "no change" ignored the snapshot | identity = rows + snapshot + writer `VERSION` | `test_same_rows_new_snapshot_is_a_new_generation` |
+| 3 | a retry under another checkpoint plan reuses staged writes; counts-only verification | plan (threshold) in identity; persisted slots, hashes and rollups verified before commit | `test_retry_under_a_changed_plan…` |
+| 4 | duplicate slots collapse silently | refused | `test_duplicate_units_are_refused` |
+| 5 | "rebase" silently replaces concurrent independent edits | documented as whole-state replacement; a choice required before real code | docstring, above |
+| 6 | chain never empties/restores; checks compare members only; race may run serially; checkpoint follow-up unchecked | complete state and vanished cells checked; vanish/return test; barrier forces the race (≥5 rebases asserted); crash after the first batch; follow-up checked | tests above |
+| 7 | the real-corpus verify compared members only | complete per-cell state and merged totals, for every generation | `measure-report.json` checks |
+| 8 | ratios and causes overstated; profile evidence not in artifacts | ratios per reader; approximate checkpoint baseline marked; residual cause called a suspect; `diagnose.py` reproduces the plans | `diagnose-report.json` |
+
+Two bugs came from my own fixes and were caught by the new tests:
+- A loop variable shadowed the new `content` identity, so "no change" was never
+  recognized. The re-publish assertion caught it at once.
+- An infinite threshold (checkpoints disabled) wasn't valid JSON in the manifest.
+  `measure.py` failed on it, and a test now covers it.

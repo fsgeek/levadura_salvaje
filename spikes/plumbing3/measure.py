@@ -46,12 +46,22 @@ def flip(rows, rng, k):
 
 
 def verify(db, m, rows, cells=None) -> bool:
+    """Complete per-cell state (units, occurrences, broken, members, cited) and the merged
+    totals, against expected(rows); for `cells`, also the persisted rollup and the pages."""
     exp = fx.expected(rows)
     states = lx.cell_states(db, m)
-    ok = ix.merge(list(states.values()))["members"] == exp["top"]["members"]
-    ok &= {c: s["members"] for c, s in states.items()} == {c: e["members"] for c, e in exp["cells"].items()}
+    keys = ("units", "occurrences", "broken", "members")
+    ok = sorted(states) == sorted(exp["cells"])
+    for c, e in exp["cells"].items():
+        st = states.get(c, {})
+        ok &= [st.get(k) for k in keys] == [e[k] for k in keys] and dict(map(tuple, st.get("cited", []))) == e["cited"]
+    top = ix.merge(list(states.values()))
+    ok &= (top["members"], top["units"], top["broken"], len(top["cited"]), top["conflicts"]) == (
+        exp["top"]["members"], exp["top"]["units"], exp["top"]["broken"], exp["top"]["cited_distinct"],
+        exp["top"]["conflicts"])
     for c in cells or []:
-        ok &= lx.rollup(db, m, c)["members"] == exp["cells"][c]["members"]
+        r = lx.rollup(db, m, c)
+        ok &= [r[k] for k in keys] == [exp["cells"][c][k] for k in keys]
         ok &= [u for p in lx.drill_all(db, m, c) for u in p["page"]] == exp["cells"][c]["members"]
     return ok
 
@@ -138,9 +148,9 @@ def main():
     report["reads"].append({"layout": "lineage", "depth": len(chain), "after": "checkpoint", **reads(db, m, big)})
     print(report["corrections"][-1], report["reads"][-1])
     sample = rng.sample(sorted(fx.expected(chain[0][1])["cells"]), 5) + [big]
-    report["checks"]["every generation: all cells' members and the merged top"] = all(
+    report["checks"]["every generation: complete state of every cell and the merged totals"] = all(
         verify(db, m, r) for m, r in chain)
-    report["checks"]["first, middle, last: rollup and pages for 6 cells"] = all(
+    report["checks"]["first, middle, last: also persisted rollups and pages for 6 cells"] = all(
         verify(db, m, r, sample) for m, r in (chain[0], chain[len(chain) // 2], chain[-1]))
     storage = {}
     for c in list(lx.C.values()) + ["units", "occurrences", "assertions"]:
