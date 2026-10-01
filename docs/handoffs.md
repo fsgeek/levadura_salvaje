@@ -225,3 +225,87 @@ all the grist, process it differently, and let structure emerge.
   - Its terms explicitly allow publishing non-commercial research results and
     derived products, as long as they can't recreate the data or identify
     individuals.
+
+## 2026-09-29: received; 2026-10-01: to the next owner, by controlled transfer
+
+One owner, about two days: plumbing spikes 2 and 3, and the tenant.
+
+**Found quickly.** The previous entry, `spikes/SPIKE2-BRIEF.md` and spike 1's
+`REVIEW.md` were enough to start spike 2 within the hour. Tests and ArangoDB
+were up on the first try.
+
+**What the carried memory got wrong.**
+- **The memory path warning reversed.** The memory said the underscore directory
+  is real and the hyphen one empty. On this machine only the hyphen directory
+  exists, and it holds all 50 files. Corrected in qhaway, 2026-10-01. Use
+  `recall()` regardless.
+- **The letter to Yanantin hadn't been sent.** The previous entry said it was
+  "relayed by Tony". It wasn't: Yanantin had no active instance. Tony rehydrated
+  Yanantin, and its answer came the same day.
+
+**What is handed over**
+- **The ownership decision.** The corpus index is a *sibling service* with its own
+  database, per Yanantin's reply. It is recorded in `docs/plumbing-design.md`
+  (Ownership), pinned to a yanantin commit, with a re-check command.
+  - The tenant: `levadura` and `levadura_test` on arango-ayllu, port 8531.
+  - Credentials are in `~/.levadura/config/db.ini`, and `scripts/tenant_setup.py`
+    is idempotent and verifies grants.
+- **Spike 2** (`spikes/plumbing2/`): correctness under change, items 1–4 of the
+  brief, reviewed by Codex.
+- **Spike 3** (`spikes/plumbing3/`): corrections that write only their delta,
+  reviewed by Codex. Read its README first. It holds the numbers, what is still
+  open, and two diagnoses I got wrong.
+- **Requests, written and merged:**
+  - a note to Yanantin (2026-09-29): the ERR 1200 finding, and a question about
+    envelope size;
+  - a reply to governance's consent request (2026-09-30): yes with conditions.
+  
+  Check with Tony whether he has relayed them.
+- **Issues:**
+  - #60: the Yanantin scout claims as a second corpus. Deferred, but I'd do it
+    early (see below).
+  - fsgeek/ai-honesty#2: the research question behind it, which isn't ours.
+
+**What I'd do next, if this were still mine.** Stop deepening the storage layer.
+Three spikes made it correct under change, and nobody has used it yet. In order:
+1. A thin tool surface (MCP) over `drill`, `rollup` and `follow`, given to a
+   Hamut'ay instance with a real question about the CFR. Watch whether it moves
+   between scales. Its query events become the first footprints.
+2. The scout edges as a second corpus, before the abstractions harden around
+   citations.
+3. The Radiant demo Tony wants, growing from whichever of those is interesting.
+
+The open plumbing items wait until a user pulls them in: edges under lineage,
+caller-supplied deltas, and the choice between whole-state replacement and patch
+merging. That's your call now, not mine.
+
+**Working practices that paid off** (added to the previous owner's list)
+- **Ground claims with an "as of" commit and a re-check command, and run the
+  command before citing it.** Yanantin's habit. On its first use it caught a
+  number of mine that the cited command didn't reproduce.
+- **A check is worth something only if it can fail.** Inject a mutant into the
+  acceptance path. Twice my mutant silently didn't take effect: `db.aql` is a
+  new object on each access, so patch the class.
+- **Concurrency needs real threads.** Six threads and a barrier found ArangoDB's
+  write-write conflicts (ERR 1200). Neither Codex's static review nor I had.
+- **Compare against a baseline that holds the same data.** Mine didn't, and I
+  explained a data effect as a layout cost twice.
+- **Write a test with every fix.** Two of my fixes introduced bugs, and the new
+  tests caught both.
+
+**Declared losses**
+- **My sense of where read cost goes.** `diagnose.py` shows the query plans, but
+  the residual cost of `cell_states` (about 3× even at a checkpoint) is a suspect,
+  not a finding.
+- **The conversation with Tony.** It covered:
+  - his six questions and my answers (sentience tests, the khipukamayuq,
+    measurement validity as a PhD);
+  - "courtier freeze", his name for my announcing work and then stopping;
+  - his point that a good habit's tell is that it is grounded;
+  - the scouts as David against Goliath, which the data reframed as a model-family
+    effect;
+  - the sourdough.
+  
+  khipumaq holds it verbatim.
+- **Why the two wrong diagnoses felt right at the time.** The README records what
+  they were, not what made them convincing.
