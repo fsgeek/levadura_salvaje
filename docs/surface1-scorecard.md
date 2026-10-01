@@ -200,7 +200,7 @@ word:
 - what `measure` does: it aggregates, and it also hands over passages from many
   sections at once, which changes access to evidence;
 - prior knowledge: Sonnet says it relied on knowing the 2017 repeal, and Opus
-  used the same knowledge.
+  searched for `2017|2018` (calls 7–8) before it read § 902's repeal note (call 16).
 
 Footprints record calls, not motives. "Pattern from words read" is a lexical echo,
 for example `applies to` right after the applicability paragraph came back, not
