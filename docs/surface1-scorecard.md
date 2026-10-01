@@ -151,7 +151,8 @@ cite § 902 on purpose" rests on six sections read. Neither made a grain error.
 ## Round 2: the same question, with `measure`
 
 *Predictions: [predictions/2026-10-01-surface1-round2-claude.md](../predictions/2026-10-01-surface1-round2-claude.md),
-stamped before the run. Fresh callers `caller-opus-2` and `caller-sonnet-2`,
+stamped before the run. Reviewed by Codex: [REVIEW-2.md](../spikes/surface1/REVIEW-2.md), which reproduced
+all 17 `measure` counts and this section's corrections come from. Fresh callers `caller-opus-2` and `caller-sonnet-2`,
 [BRIEF-2.md](../spikes/surface1/BRIEF-2.md). The tool list gained `measure` and
 nothing else changed. Answers verbatim in `answer-caller-*-2.md`; footprints in
 `footprints.json`; every `measure` count a caller reported matches its recorded
@@ -173,30 +174,50 @@ sonnet-2  01223442211122342222               (20 calls,  7 measure)
 
 **What changed.** Round 1's paths ran down and stayed at the bottom. Round 2's
 paths oscillate between the population (2) and the words (4). Opus used `measure`
-before reading as well as after (calls 5–8): to survey first, then to go
-back up with what it read. Both callers reached claims about shares of the
-§ 902 concentration that no round-1 caller made. Opus's answer splits the 73
-sections into deliberate transition law (1.909-6, 1.904-7, 1.905-5, titled as
-such) and regulations that read as live: 1.902-1 was amended in 2021 and still
-gives no end date, and 1.6038-2 applies to post-2018 years but defines a term
-"as described in section 902(c)(5)". That is a population argument with
-exemplars, the shape the seed asks for.
+before calling `cite`/`follow` as well as after (calls 5–8). Strictly, though,
+that wasn't "before reading": `measure` returns passages from several
+sections, so it reads as well as counts. Both callers reported shares of the
+§ 902 concentration that no round-1 caller made. They are **lexical** shares,
+not classifications. "17 of 73 mention 2017 or 2018" is a regex result, and Opus's
+13 "date or 'as in effect' qualifiers" near § 902 include qualifiers about 1986
+and about § 904, not acknowledgments of § 902's repeal (review 2). Opus's answer
+then reads exemplars on both sides:
+- deliberate transition law: 1.909-6, 1.904-7 and 1.905-5, titled as such;
+- regulations that read as live: 1.902-1, amended in 2021 and still giving no end
+  date, and 1.6038-2, which applies to post-2018 years but defines a term "as
+  described in section 902(c)(5)".
 
-**What this does and doesn't show.** Round 1's hypothesis survives a test it
-could have failed (T1 was the claim; both failing would have refuted it). But n =
-1 per model, and the intervention changed two things: it added an operation *and*
-listed a new tool name, which is itself a cue. A round that lists `measure`
-without implementing it, or a caller that has `measure` and reads before being
-told it exists, would separate the two. I haven't run either. Exploratory, as
-registered.
+That is the shape the seed asks for, counts plus counterexamples. The counts
+don't measure "misleading", and both answers say so.
+
+**What this does and doesn't show.** Round 1's hypothesis survived a test it
+could have failed: T1 was the claim, and both failing would have refuted it. It
+did not *isolate* the cause. Between rounds, more changed than the brief's one
+word:
+- the cue: a new tool name in the list;
+- review 1's fixes: per-unit citation counts in `cited_by`, `cell` paging,
+  metadata, validation, and `cite` slicing the right text;
+- what `measure` does: it aggregates, and it also hands over passages from many
+  sections at once, which changes access to evidence;
+- prior knowledge: Sonnet says it relied on knowing the 2017 repeal, and Opus
+  used the same knowledge.
+
+Footprints record calls, not motives. "Pattern from words read" is a lexical echo,
+for example `applies to` right after the applicability paragraph came back, not
+an observed reason. n = 1 per model. Exploratory, as registered. Separating the
+causes would take arms that hold the surface fixed and vary one thing: the name
+without the operation, the operation without passages, a corpus the caller
+doesn't already know.
 
 **New needs and defects (after round 2):**
 - **The non-matches.** Both callers wanted the list of units a pattern missed.
   Opus enumerated the population with pattern `.` to get it. `measure` returned
   only the matched ids.
 - **Anchors in windows.** `^` never matches inside a `near` window, because
-  Python's `search(t, pos)` doesn't treat `pos` as a start. Sonnet's `'^'` call got
-  0 of 73 and the result didn't say why.
+  Python's `search(t, pos)` doesn't treat `pos` as a start. Sonnet's `'^'` call
+  ran over cell 1's 1,243 members: 1,170 had no § 902 citation to anchor on, and
+  0 of the 73 that did matched. The result didn't say why. This was wrong output
+  under the window semantics the tool now declares.
 - **Paging text wasn't discoverable.** Sonnet believed it could read only one
   1,500-character slice of a 75,290-character section. `--offset` existed, and
   the output didn't point to it. Opus wanted "the end of a regulation" without
@@ -206,9 +227,29 @@ registered.
   asked for paragraph-level dates and earlier editions.
 - **Ranking by citations per regulation** (Opus), still summed by hand, although
   `cited_by` now returns per-unit counts.
+- **An answer error, not a tool error:** Opus ranks § 1201 right after § 167. § 103
+  (266) comes before § 1201 (262), and Sonnet has the order right.
 
 Fixed after round 2, with tests: `measure` returns `not_matched_units` and
 `no_anchor_units`; each window is searched as its own string, so `^` and `$`
 anchor at its edges (a mutant restoring the old search is caught); `follow`
 returns `next_offset` and a paging hint, and `from_end` reads back from the end.
 Structure, dates and editions remain open.
+
+## Review 2 (Codex) → changes
+
+| # | Finding | Change |
+|---|---|---|
+| 1 HIGH | round 2 doesn't isolate the cause: review-1 fixes, passages in `measure`, prior knowledge | stated above; arms that would separate them named |
+| 2 HIGH | `measure` skipped the consistency checks `cite`/`follow` make | each unit's text *and* sidecar row must hash to its locator in the manifest; otherwise `stale`, not counted (two tests, mutant caught) |
+| 3 | footprints couldn't reconstruct samples | `measure` footprints record sample, seed, list cursor, no-anchor and stale counts, and the sampled ids |
+| 4, 5 | reverse paging overlapped and continued with forward coordinates; offsets past the end gave negative counts | `window` rewritten; continuations tested to cover the text exactly once, both ways, at five lengths |
+| 6 | snippets unbounded (`.*`) | a hit's own text cut at 240, context 120 each side (tested, mutant caught). Regexes still have no timeout; patterns are capped at 500 characters |
+| 7 | id lists stopped at 200; `returned` undercounted; no seed | `list_cursor`/`list_next`; `returned` counts every distinct unit shown; `seed` exposed in CLI and MCP |
+| 8 | Sonnet's `^` probe population misstated | corrected above |
+| 9 | counts described as more than lexical | corrected above |
+| 10 | `--cited-by … --all` silently ignored; MCP selector errors unlogged; empty `cited_by` re-dispatched | `population_arg` refuses each case (tested) and runs inside the logged handler |
+| 11 | Opus's § 1201/§ 103 ranking | noted above |
+
+The one remaining equivalent mutant: `start = max(0, n - offset - length)` equals
+`max(0, end - length)` whenever `end = max(0, n - offset)`. It is the same code.

@@ -54,6 +54,8 @@ def _parser() -> argparse.ArgumentParser:
     s.add_argument("--window", type=int, default=instrument.WINDOW)
     s.add_argument("--case-sensitive", action="store_true")
     s.add_argument("--sample", type=int, default=instrument.SAMPLE)
+    s.add_argument("--seed", type=int, default=0, help="change it to draw different samples")
+    s.add_argument("--list-cursor", type=int, default=0, help="page the unit-id lists (200 per call)")
     return p
 
 
@@ -73,8 +75,8 @@ def main(argv=None) -> int:
             "cite": lambda: sf.cite(a.unit, a.index),
             "follow": lambda: sf.follow(a.kind, a.id, a.offset, a.length, a.from_end),
             "measure": lambda: instrument.measure(
-                sf, {"cited_by": a.cited_by} if a.cited_by else {"cell": a.cell, "all": a.all},
-                a.pattern, a.near, a.window, not a.case_sensitive, a.sample),
+                sf, instrument.population_arg(a.cited_by, a.cell, a.all),
+                a.pattern, a.near, a.window, not a.case_sensitive, a.sample, a.seed, a.list_cursor),
         }[a.tool]()
     except Exception as e:  # noqa: BLE001 -- the contract is JSON out, whatever failed
         err = f"{type(e).__name__}: {e}"

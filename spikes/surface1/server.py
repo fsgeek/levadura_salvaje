@@ -95,16 +95,16 @@ def follow(kind: str, id: str, offset: int = 0, length: int = 4000, from_end: bo
 @server.tool()
 def measure(pattern: str, cited_by: str | None = None, cell: str | None = None, all_units: bool = False,
             near: str | None = None, window: int = instrument.WINDOW, case_sensitive: bool = False,
-            sample: int = instrument.SAMPLE) -> str:
+            sample: int = instrument.SAMPLE, seed: int = 0, list_cursor: int = 0) -> str:
     """Run a regular expression over a population: units citing `cited_by`, or a cell's members
     (`all_units` for every unit in the cell). Optionally only `near` citations of a Code section.
-    Returns counts and samples of both sides."""
-    if (cited_by is None) == (cell is None):
-        return json.dumps({"error": "ValueError: give exactly one of cited_by or cell"})
-    pop = {"cited_by": cited_by} if cited_by else {"cell": cell, "all": all_units}
-    return _out("measure", lambda s: instrument.measure(s, pop, pattern, near, window, not case_sensitive, sample),
-                population=pop, pattern=pattern, near=near)
-
+    Returns counts, samples of both sides (change `seed` for others), and unit-id lists paged by
+    `list_cursor`."""
+    return _out("measure", lambda s: instrument.measure(
+                    s, instrument.population_arg(cited_by, cell, all_units), pattern, near, window,
+                    not case_sensitive, sample, seed, list_cursor),
+                pattern=pattern, cited_by=cited_by, cell=cell, all_units=all_units, near=near, window=window,
+                case_sensitive=case_sensitive, sample=sample, seed=seed, list_cursor=list_cursor)
 
 if __name__ == "__main__":
     server.run("stdio")

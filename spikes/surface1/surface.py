@@ -273,14 +273,22 @@ def context(text: str, citation: dict) -> dict:
             "before": t[max(0, a - CONTEXT):a], "cited": cited, "after": t[b:b + CONTEXT]}
 
 def window(t: str, offset: int, length: int, from_end: bool = False) -> dict:
-    """A slice of a text, saying where the next one starts (after round 2: a caller didn't find paging)."""
-    start = max(0, len(t) - offset - length) if from_end else offset
-    end = min(len(t), start + length)
-    return {"chars_total": len(t), "start": start, "end": end, "text": t[start:end],
-            "population_total": len(t), "returned": end - start, "grain": "characters",
-            "truncated": start > 0 or end < len(t),
-            "next_offset": end if end < len(t) else None,
-            "how_to_page": "call again with offset=next_offset, or from_end=true to read backwards from the end"}
+    """A slice of a text and how to continue (after round 2: a caller didn't find paging).
+    Forward, `offset` is where the slice starts. With `from_end`, `offset` counts back from the
+    end to where the slice *ends*, and `next_offset` continues backwards (review 2, #4, #5)."""
+    n = len(t)
+    if from_end:
+        end = max(0, n - offset)
+        start = max(0, end - length)
+        nxt = offset + (end - start) if start > 0 else None
+    else:
+        start = min(offset, n)
+        end = min(n, start + length)
+        nxt = end if end < n else None
+    return {"chars_total": n, "start": start, "end": end, "text": t[start:end],
+            "population_total": n, "returned": end - start, "grain": "characters",
+            "truncated": start > 0 or end < n, "from_end": from_end, "next_offset": nxt,
+            "how_to_page": "call again with offset=next_offset (and the same from_end) to continue"}
 
 
 def _offset(n) -> int:

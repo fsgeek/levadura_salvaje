@@ -24,5 +24,5 @@ uv run --group plumbing python spikes/surface1/measure_findings.py --dry-run   #
 
 Round 1 in one line: both callers went down cleanly and neither came back up to
 the population because of something it read. My hypothesis is that the surface
-has no way up. Round 2 tests it with `measure`. Codex's review is in `REVIEW.md`,
+has no way up. Round 2 tests it with `measure`: both callers used it after reading. That supports the hypothesis without isolating it (see the scorecard). Codex's reviews are in `REVIEW.md` and `REVIEW-2.md`,
 and its fixes are mapped in the scorecard.
