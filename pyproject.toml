@@ -28,6 +28,7 @@ distill = [
     "numpy<2",
 ]
 plumbing = [
+    "mcp>=1.20",
     "python-arango>=8.3.5",
     "tiksi",
 ]
