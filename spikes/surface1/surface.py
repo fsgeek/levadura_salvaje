@@ -20,6 +20,7 @@ The surface never hands out the database handle, and it reads only published man
 import hashlib
 import io
 import json
+import re
 import sys
 from functools import lru_cache
 from pathlib import Path
@@ -29,6 +30,7 @@ sys.path.insert(0, str(HERE.parent / "plumbing2"))
 import corpus as cx  # noqa: E402
 import index as ix  # noqa: E402
 
+from levadura_salvaje.citations import normalize  # noqa: E402
 from levadura_salvaje.sections import sections  # noqa: E402
 from levadura_salvaje.tenant import connect  # noqa: E402
 
@@ -189,9 +191,7 @@ class Surface:
         got = self._follow_unit(unit)
         out = {**_describe(unit), "index": index, "path": c["path"], "head": c["head"], "status": got["status"]}
         if got["status"] == "ok" and c.get("span"):
-            a, b = c["span"]
-            t = got["text"]
-            out |= {"before": t[max(0, a - CONTEXT):a], "cited": t[a:b], "after": t[b:b + CONTEXT]}
+            out |= context(got["text"], c)
         assertion = ix.key(ix.key(self.m, unit, index), cx.RP)
         out["resolves_to"] = self._q("""FOR p, e IN 1..1 OUTBOUND CONCAT("assertions/", @a) resolves_to
                                         FILTER e.manifest == @m
@@ -211,6 +211,8 @@ class Surface:
         if kind == "unit":
             got, head = self._follow_unit(id), _describe(id)
         elif kind == "provision":
+            if not UUID.fullmatch(id):
+                raise KeyError(f"not a provision key: {id!r}; take one from `cite` (resolves_to)")
             p = self._db.collection("provisions").get(id)
             if p is None or p["manifest"] != self.um:
                 raise KeyError(f"no provision {id}")
@@ -233,6 +235,24 @@ class Surface:
 
 
 # --- helpers ---------------------------------------------------------------------
+
+UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
+
+
+def context(text: str, citation: dict) -> dict:
+    """The words around a citation. Its span indexes `citations.normalize(text)`, not the stored
+    flat text (normalizing collapses ' ( PRS )' and shifts every later offset). The hash check
+    covers the text, not the span, so the span is checked here: a section-head citation's slice
+    must contain its section number."""
+    t = normalize(text)
+    a, b = citation["span"]
+    cited = t[a:b]
+    if citation["head"] == "section" and citation["path"]:
+        check = "ok" if citation["path"].split("/")[0] in cited else "mismatch"
+    else:
+        check = "unchecked"
+    return {"text_domain": "levadura.citations.normalize", "span_check": check,
+            "before": t[max(0, a - CONTEXT):a], "cited": cited, "after": t[b:b + CONTEXT]}
 
 def _limit(n) -> int:
     n = int(n)
