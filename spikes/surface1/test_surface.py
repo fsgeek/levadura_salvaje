@@ -121,3 +121,25 @@ def test_failed_calls_are_footprints():
     _surface({"queries": queries}).failed("follow", {"id": "4061/a"}, "KeyError: x")
     (op, doc), = queries.log
     assert op == "insert" and doc["error"] == "KeyError: x" and doc["who"] == "test"
+
+
+# --- after round 2 -----------------------------------------------------------------------
+
+def test_window_pages_forward_and_from_the_end():
+    t = "abcdefghij"
+    first = surface.window(t, 0, 4)
+    assert first["text"] == "abcd" and first["next_offset"] == 4 and first["truncated"]
+    assert surface.window(t, first["next_offset"], 4)["text"] == "efgh"
+    last = surface.window(t, 0, 3, from_end=True)
+    assert last["text"] == "hij" and last["next_offset"] is None and last["truncated"]
+    assert surface.window(t, 3, 3, from_end=True)["text"] == "efg"
+    assert not surface.window(t, 0, 99)["truncated"]
+
+
+def test_anchors_match_at_window_edges():
+    import re
+    import instrument
+    t = "zzzz section 902 qqqq"
+    m, at = instrument._first(re.compile(r"^section"), t, [(5, 16)])
+    assert m and t[at + m.start():at + m.end()] == "section"
+    assert instrument._first(re.compile(r"^qqqq"), t, [(5, 16)]) == (None, 0)

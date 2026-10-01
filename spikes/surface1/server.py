@@ -85,10 +85,11 @@ def cite(unit: str, index: int) -> str:
 
 
 @server.tool()
-def follow(kind: str, id: str, offset: int = 0, length: int = 4000) -> str:
-    """Hash-checked text. kind 'unit' (a CFR section id) or 'provision' (a key from cite). Sliced."""
-    return _out("follow", lambda s: s.follow(kind, id, offset, length), kind=kind, id=id, offset=offset,
-                length=length)
+def follow(kind: str, id: str, offset: int = 0, length: int = 4000, from_end: bool = False) -> str:
+    """Hash-checked text. kind 'unit' (a CFR section id) or 'provision' (a key from cite). Sliced;
+    page with next_offset, or from_end=true to read back from the end."""
+    return _out("follow", lambda s: s.follow(kind, id, offset, length, from_end), kind=kind, id=id,
+                offset=offset, length=length, from_end=from_end)
 
 
 @server.tool()

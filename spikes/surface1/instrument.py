@@ -9,7 +9,8 @@ never coming back up. Reading raised population questions, such as "how many of 
   (a cell's members: units with a broken citation), or `{"cell": "54", "all": true}`
   (every unit in the cell).
 - **predicate**: a regular expression over each unit's normalized text, optionally
-  `near` a citation of a Code section, within `window` characters of it. It's
+  `near` a citation of a Code section, within `window` characters of it. Each window
+  is searched as its own string, so `^` and `$` anchor at its edges. It's
   deliberately exact and cheap. A model-based predicate is the next step and needs
   the same contract.
 - **result**: counts on both sides, plus a **sample from each side**, with the
@@ -57,9 +58,9 @@ def measure(s: "sf.Surface", population: dict, pattern: str, near: str | None = 
             if not regions:
                 no_anchor.append(u)
                 continue
-        m = next((m for a, b in regions for m in [rx.search(t, a, b)] if m), None)
+        m, at = _first(rx, t, regions)
         if m:
-            hits.append((u, t[max(0, m.start() - 120):m.end() + 120]))
+            hits.append((u, t[max(0, at + m.start() - 120):at + m.end() + 120]))
         else:
             misses.append((u, t[:240]))
     rng = random.Random(seed)
@@ -70,12 +71,24 @@ def measure(s: "sf.Surface", population: dict, pattern: str, near: str | None = 
         "matched": len(hits), "not_matched": len(misses), "no_anchor": len(no_anchor),
         "matched_sample": [sf._describe(u) | {"words": w} for u, w in pick(hits)],
         "not_matched_sample": [sf._describe(u) | {"opening": w} for u, w in pick(misses)],
-        "matched_units": [u for u, _ in hits][:200], "truncated": len(hits) > 200,
-        "returned": min(len(hits), 200),
+        "matched_units": [u for u, _ in hits][:200], "not_matched_units": [u for u, _ in misses][:200],
+        "no_anchor_units": no_anchor[:200],
+        "truncated": max(len(hits), len(misses), len(no_anchor)) > 200,
+        "returned": min(len(hits), 200) + min(len(misses), 200) + min(len(no_anchor), 200),
         "caution": "a regular expression, not a reading: check both samples before trusting the counts",
     }
     return s._log("measure", {"population": population, "pattern": pattern, "near": near, "window": window,
                               "ignore_case": ignore_case, "matched": len(hits), "not_matched": len(misses)}, out)
+
+
+def _first(rx, t: str, regions: list[tuple[int, int]]):
+    """The first match in any region. Each region is searched as its own string, so `^` and `$`
+    anchor at the window's edges (after round 2: `rx.search(t, a, b)` never matches `^` at a)."""
+    for a, b in regions:
+        m = rx.search(t[a:b])
+        if m:
+            return m, a
+    return None, 0
 
 
 def _population(s: "sf.Surface", population: dict) -> list[str]:

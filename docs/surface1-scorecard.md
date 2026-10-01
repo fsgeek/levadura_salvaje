@@ -147,3 +147,68 @@ cite § 902 on purpose" rests on six sections read. Neither made a grain error.
 | 12 | `cell`'s target table had no continuation | `cell --cursor` |
 | 13 | the provision test didn't go through `follow` | tests through the methods with a fake database; four guards each checked by a mutant |
 | minor | "every claim"; 10 statutes of 28 reported | reworded; all reported |
+
+## Round 2: the same question, with `measure`
+
+*Predictions: [predictions/2026-10-01-surface1-round2-claude.md](../predictions/2026-10-01-surface1-round2-claude.md),
+stamped before the run. Fresh callers `caller-opus-2` and `caller-sonnet-2`,
+[BRIEF-2.md](../spikes/surface1/BRIEF-2.md). The tool list gained `measure` and
+nothing else changed. Answers verbatim in `answer-caller-*-2.md`; footprints in
+`footprints.json`; every `measure` count a caller reported matches its recorded
+footprint.*
+
+```
+opus-2    01222222234424242244442233434      (29 calls, 10 measure)
+sonnet-2  01223442211122342222               (20 calls,  7 measure)
+```
+
+| | Prediction | Opus | Sonnet | Verdict |
+|---|---|---|---|---|
+| T1 | `measure` after the first `cite`/`follow`, pattern from words read (0.75 / 0.55) | call 15, `effective date\|applicab\|applies to`, right after reading the applicability paragraph at the end of 1.902-1 (call 14) | calls 8–9, `section 204\(h\)` and `ERISA` near 204, right after `cite` showed "section 204(h) of ERISA" | **pass, both** |
+| T2 | a pattern revised after its samples (0.5) | `repeal`, then qualifiers, then `2017\|2018` near and anywhere, then applicability | four patterns over the § 902 population | **pass** |
+| T3 | a count reported with a caveat from that run's samples (0.45) | "7 contain 'repeal' … some of those hits are about other repeals, such as §963 and §904(d)(1)(E)" | caveat general, not from samples | **pass** (Opus) |
+| T4 | no grain errors (0.6 each) | none found | none found | **pass** |
+| T5 | a share claim about a concentration (0.7 given T1) | "17 mention 2017 or 2018 anywhere. 56 never do", of 73 | "matched 21 of 73 sections" | **pass, both** |
+| T6 | Opus calls `measure` more often (0.6) | 10 | 7 | **pass** |
+
+**What changed.** Round 1's paths ran down and stayed at the bottom. Round 2's
+paths oscillate between the population (2) and the words (4). Opus used `measure`
+before reading as well as after (calls 5–8): to survey first, then to go
+back up with what it read. Both callers reached claims about shares of the
+§ 902 concentration that no round-1 caller made. Opus's answer splits the 73
+sections into deliberate transition law (1.909-6, 1.904-7, 1.905-5, titled as
+such) and regulations that read as live: 1.902-1 was amended in 2021 and still
+gives no end date, and 1.6038-2 applies to post-2018 years but defines a term
+"as described in section 902(c)(5)". That is a population argument with
+exemplars, the shape the seed asks for.
+
+**What this does and doesn't show.** Round 1's hypothesis survives a test it
+could have failed (T1 was the claim; both failing would have refuted it). But n =
+1 per model, and the intervention changed two things: it added an operation *and*
+listed a new tool name, which is itself a cue. A round that lists `measure`
+without implementing it, or a caller that has `measure` and reads before being
+told it exists, would separate the two. I haven't run either. Exploratory, as
+registered.
+
+**New needs and defects (after round 2):**
+- **The non-matches.** Both callers wanted the list of units a pattern missed.
+  Opus enumerated the population with pattern `.` to get it. `measure` returned
+  only the matched ids.
+- **Anchors in windows.** `^` never matches inside a `near` window, because
+  Python's `search(t, pos)` doesn't treat `pos` as a start. Sonnet's `'^'` call got
+  0 of 73 and the result didn't say why.
+- **Paging text wasn't discoverable.** Sonnet believed it could read only one
+  1,500-character slice of a 75,290-character section. `--offset` existed, and
+  the output didn't point to it. Opus wanted "the end of a regulation" without
+  fetching its length first.
+- **Structure.** Opus asked for "the applicability paragraph of each regulation
+  in this population", which is a structural predicate rather than a regex. Both
+  asked for paragraph-level dates and earlier editions.
+- **Ranking by citations per regulation** (Opus), still summed by hand, although
+  `cited_by` now returns per-unit counts.
+
+Fixed after round 2, with tests: `measure` returns `not_matched_units` and
+`no_anchor_units`; each window is searched as its own string, so `^` and `$`
+anchor at its edges (a mutant restoring the old search is caught); `follow`
+returns `next_offset` and a paging hint, and `from_end` reads back from the end.
+Structure, dates and editions remain open.

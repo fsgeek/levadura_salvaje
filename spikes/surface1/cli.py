@@ -43,6 +43,7 @@ def _parser() -> argparse.ArgumentParser:
     s = sub.add_parser("cite"); s.add_argument("unit"); s.add_argument("index", type=int)
     s = sub.add_parser("follow"); s.add_argument("kind", choices=["unit", "provision"]); s.add_argument("id")
     s.add_argument("--offset", type=int, default=0); s.add_argument("--length", type=int, default=4000)
+    s.add_argument("--from-end", action="store_true", help="count --offset back from the end of the text")
     s = sub.add_parser("measure", help="run a regular expression over a population; counts and samples of both sides")
     g = s.add_mutually_exclusive_group(required=True)
     g.add_argument("--cited-by", help="population: units citing this Code section")
@@ -70,7 +71,7 @@ def main(argv=None) -> int:
             "cited-by": lambda: sf.cited_by(a.target, a.cursor, a.limit),
             "unit": lambda: sf.unit(a.unit, a.cursor, a.limit, a.only_broken),
             "cite": lambda: sf.cite(a.unit, a.index),
-            "follow": lambda: sf.follow(a.kind, a.id, a.offset, a.length),
+            "follow": lambda: sf.follow(a.kind, a.id, a.offset, a.length, a.from_end),
             "measure": lambda: instrument.measure(
                 sf, {"cited_by": a.cited_by} if a.cited_by else {"cell": a.cell, "all": a.all},
                 a.pattern, a.near, a.window, not a.case_sensitive, a.sample),

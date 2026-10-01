@@ -223,8 +223,9 @@ class Surface:
 
     # --- the words -------------------------------------------------------------------
 
-    def follow(self, kind: str, id: str, offset: int = 0, length: int = SLICE) -> dict:
-        """kind 'unit' (a CFR section id) or 'provision' (a key from `cite`). Hash-checked text, sliced."""
+    def follow(self, kind: str, id: str, offset: int = 0, length: int = SLICE, from_end: bool = False) -> dict:
+        """kind 'unit' (a CFR section id) or 'provision' (a key from `cite`). Hash-checked text, sliced.
+        `from_end` counts `offset` back from the end (applicability paragraphs sit there)."""
         length, offset = max(1, min(int(length), 20000)), _offset(offset)
         if kind == "unit":
             got, head = self._follow_unit(id), _describe(id)
@@ -240,11 +241,9 @@ class Surface:
             raise ValueError("kind must be 'unit' or 'provision'")
         out = {**head, "status": got["status"]}
         if got["status"] == "ok":
-            t = got["text"]
-            out |= {"chars_total": len(t), "offset": offset, "text": t[offset:offset + length],
-                    "population_total": len(t), "returned": len(t[offset:offset + length]),
-                    "truncated": offset + length < len(t), "grain": "characters"}
-        return self._log("follow", {"kind": kind, "id": id, "offset": offset, "length": length}, out)
+            out |= window(got["text"], offset, length, from_end)
+        return self._log("follow", {"kind": kind, "id": id, "offset": offset, "length": length,
+                                    "from_end": from_end}, out)
 
     def _follow_unit(self, unit: str) -> dict:
         u = self._q("FOR u IN units FILTER u.manifest == @m AND u.unit == @u RETURN u.locator", m=self.m, u=unit)
@@ -272,6 +271,17 @@ def context(text: str, citation: dict) -> dict:
         check = "unchecked"
     return {"text_domain": "levadura.citations.normalize", "span_check": check,
             "before": t[max(0, a - CONTEXT):a], "cited": cited, "after": t[b:b + CONTEXT]}
+
+def window(t: str, offset: int, length: int, from_end: bool = False) -> dict:
+    """A slice of a text, saying where the next one starts (after round 2: a caller didn't find paging)."""
+    start = max(0, len(t) - offset - length) if from_end else offset
+    end = min(len(t), start + length)
+    return {"chars_total": len(t), "start": start, "end": end, "text": t[start:end],
+            "population_total": len(t), "returned": end - start, "grain": "characters",
+            "truncated": start > 0 or end < len(t),
+            "next_offset": end if end < len(t) else None,
+            "how_to_page": "call again with offset=next_offset, or from_end=true to read backwards from the end"}
+
 
 def _offset(n) -> int:
     n = int(n)
