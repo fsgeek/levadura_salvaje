@@ -1,0 +1,1486 @@
+{
+ "caller-opus-1": {
+  "who": "caller-opus-1",
+  "calls": 65,
+  "failed_calls": 0,
+  "failures": [],
+  "first": "overview",
+  "tools": {
+   "overview": 1,
+   "cell": 2,
+   "cited_by": 2,
+   "unit": 8,
+   "cite": 15,
+   "follow": 37
+  },
+  "down": 12,
+  "up": 7,
+  "up_after_text": 7,
+  "path": "01123444444444344444344444344444344444344444444444444344444444234",
+  "sequence": [
+   {
+    "at": "2026-10-01T14:16:10.619552+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-01T14:16:20.947308+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "1",
+     "top": 15
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:21.231663+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "54",
+     "top": 10
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:26.390474+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 0,
+     "limit": 80
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:31.151163+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "cursor": 0,
+     "limit": 50,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:38.612783+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "index": 9
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:43.308867+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "index": 41
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:53.440542+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "provision",
+     "id": "2b190855-a86e-5ca0-a85e-5612c66b04b2",
+     "offset": 0,
+     "length": 4000
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:59.062128+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "offset": 0,
+     "length": 6000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:06.585339+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:12.623156+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:19.088458+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:25.308307+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:28.109684+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+     "offset": 60000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:36.104717+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "cursor": 0,
+     "limit": 200,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:39.952514+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:42.682637+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:45.442639+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:48.283312+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 60000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:51.036504+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 80000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:52.168488+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+     "cursor": 0,
+     "limit": 200,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:59.211166+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:01.913068+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:04.704536+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:07.503189+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+     "offset": 60000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:10.191970+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+     "offset": 80000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:11.265698+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol9.xml:150",
+     "cursor": 0,
+     "limit": 200,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:15.049833+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol9.xml:150",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:17.798651+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol9.xml:150",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:20.553540+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol9.xml:150",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:23.338921+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol9.xml:150",
+     "offset": 60000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:26.116701+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol9.xml:150",
+     "offset": 80000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:30.475029+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol10.xml:224",
+     "cursor": 0,
+     "limit": 200,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:34.340691+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol10.xml:224",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:37.048450+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol10.xml:224",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:39.875120+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol10.xml:224",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:42.688669+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol10.xml:224",
+     "offset": 60000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:45.481620+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol10.xml:224",
+     "offset": 80000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:46.624741+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "cursor": 0,
+     "limit": 200,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:50.337833+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:53.036513+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:55.821366+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:18:58.495787+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 60000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:04.530068+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 80000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:11.968127+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 10
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:16.627247+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 11
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:21.569613+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 37
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:26.508378+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 39
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:31.438699+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 44
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:39.736533+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 46
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:44.713978+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 48
+    }
+   },
+   {
+    "at": "2026-10-01T14:19:49.654062+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 49
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:00.976524+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 37
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:03.419417+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "cursor": 0,
+     "limit": 200,
+     "only_broken": false
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:15.992649+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 52
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:20.133285+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "provision",
+     "id": "a0808b2c-4bc6-57fa-be30-e178d5b1e04b",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:28.507949+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 0,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:31.281022+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 20000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:34.007232+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "offset": 40000,
+     "length": 20000
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:47.700558+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 50
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:51.642121+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "provision",
+     "id": "37b8cf21-e46a-563c-a380-308c5737d3aa",
+     "offset": 0,
+     "length": 1500
+    }
+   },
+   {
+    "at": "2026-10-01T14:20:55.312629+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 11
+    }
+   },
+   {
+    "at": "2026-10-01T14:21:04.715923+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "204",
+     "cursor": 0,
+     "limit": 5
+    }
+   },
+   {
+    "at": "2026-10-01T14:21:09.231169+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "cursor": 0,
+     "limit": 3,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:21:17.088430+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "index": 0
+    }
+   }
+  ]
+ },
+ "caller-sonnet-1": {
+  "who": "caller-sonnet-1",
+  "calls": 13,
+  "failed_calls": 0,
+  "failures": [],
+  "first": "overview",
+  "tools": {
+   "overview": 1,
+   "cell": 2,
+   "cited_by": 1,
+   "drill": 1,
+   "unit": 2,
+   "follow": 3,
+   "cite": 3
+  },
+  "down": 5,
+  "up": 1,
+  "up_after_text": 1,
+  "path": "0112234443444",
+  "sequence": [
+   {
+    "at": "2026-10-01T14:16:10.332770+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-01T14:16:18.938297+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "48",
+     "top": 15
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:19.523442+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "1",
+     "top": 15
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:21.545307+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "4061",
+     "cursor": 0,
+     "limit": 10
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:22.027035+00:00",
+    "tool": "drill",
+    "grain": 2,
+    "args": {
+     "cell": "48",
+     "after": null,
+     "limit": 8
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:24.791651+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "cursor": 0,
+     "limit": 20,
+     "only_broken": false
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:28.548967+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "offset": 0,
+     "length": 3500
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:36.005234+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "index": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:41.629858+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "index": 16
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:43.777667+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "cursor": 20,
+     "limit": 30,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:53.059671+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "provision",
+     "id": "b4522df6-1578-5688-a217-60bcd9ae376c",
+     "offset": 0,
+     "length": 2000
+    }
+   },
+   {
+    "at": "2026-10-01T14:16:56.713384+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "index": 16
+    }
+   },
+   {
+    "at": "2026-10-01T14:17:00.625445+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol18.xml:136",
+     "offset": 3500,
+     "length": 2500
+    }
+   }
+  ]
+ },
+ "caller-opus-2": {
+  "who": "caller-opus-2",
+  "calls": 29,
+  "failed_calls": 0,
+  "failures": [],
+  "first": "overview",
+  "tools": {
+   "overview": 1,
+   "cell": 1,
+   "cited_by": 3,
+   "measure": 10,
+   "unit": 4,
+   "cite": 3,
+   "follow": 7
+  },
+  "down": 10,
+  "up": 5,
+  "up_after_text": 5,
+  "path": "01222222234424242244442233434",
+  "sequence": [
+   {
+    "at": "2026-10-01T14:46:34.729862+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-01T14:46:41.216694+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "1",
+     "top": 30,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:44.355067+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 0,
+     "limit": 100
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:51.300659+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 45,
+     "limit": 100
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:58.630190+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "repeal",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 7,
+     "not_matched": 66
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:03.451125+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "as in effect|before January 1, 2018|prior to (its )?repeal|Tax Cuts and Jobs Act|Public Law 115-97|Pub\\. L\\. 115-97",
+     "near": "902",
+     "window": 300,
+     "ignore_case": true,
+     "matched": 13,
+     "not_matched": 60
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:12.187985+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "2017|2018",
+     "near": "902",
+     "window": 300,
+     "ignore_case": true,
+     "matched": 10,
+     "not_matched": 63
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:16.920325+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "2017|2018",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 17,
+     "not_matched": 56
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:25.787012+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 0,
+     "limit": 100
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:26.843605+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "cursor": 0,
+     "limit": 5,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:33.812783+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "index": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:38.030227+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 0,
+     "length": 1500
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:45.519247+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "2017|2018",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 17,
+     "not_matched": 56
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:57.842519+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 73000,
+     "length": 2300
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:01.729326+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "effective date|applicab|applies to",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 67,
+     "not_matched": 6
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:09.852211+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "provision",
+     "id": "2b190855-a86e-5ca0-a85e-5612c66b04b2",
+     "offset": 0,
+     "length": 4000
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:13.777877+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "applies to|effective",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 59,
+     "not_matched": 14
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:18.553208+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "applies to|effective",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 59,
+     "not_matched": 14
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:25.779011+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:210",
+     "offset": 0,
+     "length": 10
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:32.055459+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:210",
+     "offset": 21088,
+     "length": 900
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:34.988802+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:211",
+     "offset": 0,
+     "length": 10
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:37.883793+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:211",
+     "offset": 30495,
+     "length": 900
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:47.258441+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": ".",
+     "near": "902",
+     "window": 150,
+     "ignore_case": true,
+     "matched": 73,
+     "not_matched": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:54.982255+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": ".",
+     "near": "902",
+     "window": 150,
+     "ignore_case": true,
+     "matched": 73,
+     "not_matched": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:56.894781+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol9.xml:171",
+     "cursor": 0,
+     "limit": 50,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:49:06.820912+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol9.xml:171",
+     "cursor": 0,
+     "limit": 50,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:49:11.548175+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol9.xml:171",
+     "index": 6
+    }
+   },
+   {
+    "at": "2026-10-01T14:49:13.914602+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "cursor": 0,
+     "limit": 50,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:49:18.845916+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+     "index": 10
+    }
+   }
+  ]
+ },
+ "caller-sonnet-2": {
+  "who": "caller-sonnet-2",
+  "calls": 20,
+  "failed_calls": 0,
+  "failures": [],
+  "first": "overview",
+  "tools": {
+   "overview": 1,
+   "cell": 4,
+   "drill": 1,
+   "cited_by": 2,
+   "unit": 2,
+   "cite": 2,
+   "measure": 7,
+   "follow": 1
+  },
+  "down": 7,
+  "up": 3,
+  "up_after_text": 3,
+  "path": "01223442211122342222",
+  "sequence": [
+   {
+    "at": "2026-10-01T14:46:35.500308+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-01T14:46:37.917148+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "54",
+     "top": 15,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:44.143160+00:00",
+    "tool": "drill",
+    "grain": 2,
+    "args": {
+     "cell": "54",
+     "after": null,
+     "limit": 10
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:44.774901+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "204",
+     "cursor": 0,
+     "limit": 5
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:51.058433+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "cursor": 0,
+     "limit": 4,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-01T14:46:55.797284+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "index": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:02.906030+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "index": 2
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:07.769208+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cell": "54",
+      "all": false
+     },
+     "pattern": "section 204\\(h\\)",
+     "near": "204",
+     "window": 400,
+     "ignore_case": true,
+     "matched": 1,
+     "not_matched": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:12.255405+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cell": "54",
+      "all": false
+     },
+     "pattern": "ERISA",
+     "near": "204",
+     "window": 40,
+     "ignore_case": true,
+     "matched": 1,
+     "not_matched": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:16.332654+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "1",
+     "top": 12,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:16.668434+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "9",
+     "top": 15,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:17.013748+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "12",
+     "top": 15,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:19.800802+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 0,
+     "limit": 12
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:29.895320+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "repeal|Tax Cuts and Jobs|Pub\\. L\\. 115-97|2018|December 31, 2017",
+     "near": "902",
+     "window": 400,
+     "ignore_case": true,
+     "matched": 11,
+     "not_matched": 62
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:31.968494+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "cursor": 0,
+     "limit": 3,
+     "only_broken": false
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:39.011069+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 0,
+     "length": 1500
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:43.860636+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cell": "1",
+      "all": false
+     },
+     "pattern": "^",
+     "near": "902",
+     "window": 1,
+     "ignore_case": true,
+     "matched": 0,
+     "not_matched": 73
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:48.540036+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "applicable to taxable years|effective|applies to",
+     "near": "902",
+     "window": 300,
+     "ignore_case": true,
+     "matched": 17,
+     "not_matched": 56
+    }
+   },
+   {
+    "at": "2026-10-01T14:47:53.355208+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "as in effect|before (its )?repeal|repealed",
+     "near": "902",
+     "window": 600,
+     "ignore_case": true,
+     "matched": 9,
+     "not_matched": 64
+    }
+   },
+   {
+    "at": "2026-10-01T14:48:03.789258+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "repeal|2018|2017",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "matched": 21,
+     "not_matched": 52
+    }
+   }
+  ]
+ }
+}

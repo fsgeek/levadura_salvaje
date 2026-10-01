@@ -1,0 +1,259 @@
+"""Tests for the surface's pure parts: the fixes callers' reports led to."""
+
+import sys
+from pathlib import Path
+
+import pytest
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import surface  # noqa: E402
+
+# A flat text with the spacing the CFR's italic markup leaves: normalize closes "( PRS )".
+FLAT = "A partnership ( PRS ) holds assets. None of the property is section 751 property."
+
+
+def _citation():
+    # Pinned, not computed with the code under test: "751" is at 66 in the normalized text
+    # ("( PRS )" -> "(PRS)" removes two characters) and at 68 in the flat text.
+    return {"path": "751", "head": "section", "span": [66, 69]}
+
+
+def test_span_indexes_normalized_text():
+    out = surface.context(FLAT, _citation())
+    assert out["cited"] == "751" and out["span_check"] == "ok"
+
+
+def test_flat_text_slice_would_drift():
+    """The bug caller-opus-1 found: slicing the flat text with the span misses the number."""
+    a, b = _citation()["span"]
+    assert FLAT[a:b] != "751"
+
+
+def test_a_wrong_span_is_reported_not_passed():
+    c = _citation() | {"span": [0, 3]}
+    assert surface.context(FLAT, c)["span_check"] == "mismatch"
+
+
+@pytest.mark.parametrize("bad", ["4061/a", "4061", "../x", ""])
+def test_provision_ids_are_validated_before_the_database(bad):
+    assert not surface.UUID.fullmatch(bad)
+
+
+# --- review 1: tests through the methods, with a fake database -------------------------
+
+class _Coll:
+    def __init__(self, docs=None, log=None):
+        self.docs, self.log = docs or {}, log if log is not None else []
+
+    def get(self, key):
+        self.log.append(("get", key))
+        return self.docs.get(key)
+
+    def insert(self, doc):
+        self.log.append(("insert", doc))
+
+
+class _DB:
+    def __init__(self, colls):
+        self.colls = colls
+
+    def collection(self, name):
+        return self.colls.setdefault(name, _Coll())
+
+
+def _surface(colls=None):
+    s = object.__new__(surface.Surface)
+    s.who, s.m, s.um, s._db = "test", "M", "U", _DB(colls or {})
+    return s
+
+
+@pytest.mark.parametrize("bad", ["4061/a", "4061", "../x", ""])
+def test_follow_refuses_malformed_provision_ids_before_the_database(bad):
+    provisions = _Coll()
+    s = _surface({"provisions": provisions})
+    with pytest.raises(KeyError, match="not a provision key"):
+        s.follow("provision", bad)
+    assert provisions.log == []
+
+
+def test_follow_refuses_a_provision_of_another_usc_generation():
+    key = "8d999877-8d77-52ce-afb8-914f7b9ae2d8"
+    s = _surface({"provisions": _Coll({key: {"manifest": "OTHER", "locator": {}}})})
+    with pytest.raises(KeyError, match="no provision"):
+        s.follow("provision", key)
+
+
+@pytest.mark.parametrize("call", [
+    lambda s: s.follow("unit", "u", offset=-2),
+    lambda s: s.unit("u", cursor=-1),
+    lambda s: s.cited_by("902", cursor=-1),
+    lambda s: s.cell("1", cursor=-1),
+])
+def test_negative_cursors_and_offsets_are_refused(call):
+    with pytest.raises(ValueError, match="non-negative"):
+        call(_surface())
+
+
+def test_cite_refuses_when_the_sidecar_and_the_stored_occurrence_disagree(monkeypatch):
+    """Review 1 #1: the sidecar said 960 where the index holds 902, and cite combined them."""
+    unit = "cfr26-2025:CFR-2025-title26-vol1.xml:5"
+    monkeypatch.setattr(surface, "_rows", lambda: {unit: {"citations": [{"path": "960", "head": "section",
+                                                                           "span": [0, 3]}]}})
+    occ = _Coll({surface.ix.key("M", unit, 0): {"path": "902"}})
+    with pytest.raises(LookupError, match="disagree"):
+        _surface({"occurrences": occ}).cite(unit, 0)
+
+
+def test_the_sidecar_is_pinned(monkeypatch, tmp_path):
+    other = tmp_path / "citations.jsonl"
+    other.write_text('{"volume_file": "v", "ordinal": 1, "citations": []}\n')
+    monkeypatch.setattr(surface.cx, "CIT", other)
+    surface._rows.cache_clear()
+    try:
+        with pytest.raises(LookupError, match="not the file the index was built from"):
+            surface._rows()
+    finally:
+        surface._rows.cache_clear()
+
+
+def test_failed_calls_are_footprints():
+    queries = _Coll()
+    _surface({"queries": queries}).failed("follow", {"id": "4061/a"}, "KeyError: x")
+    (op, doc), = queries.log
+    assert op == "insert" and doc["error"] == "KeyError: x" and doc["who"] == "test"
+
+
+# --- after round 2 -----------------------------------------------------------------------
+
+def test_window_pages_forward_and_from_the_end():
+    t = "abcdefghij"
+    first = surface.window(t, 0, 4)
+    assert first["text"] == "abcd" and first["next_offset"] == 4 and first["truncated"]
+    assert surface.window(t, first["next_offset"], 4)["text"] == "efgh"
+    assert not surface.window(t, 0, 99)["truncated"]
+
+
+def _walk(t, length, from_end):
+    out, off = [], 0
+    while off is not None:
+        w = surface.window(t, off, length, from_end)
+        out.append(w["text"])
+        off = w["next_offset"]
+    return out
+
+
+@pytest.mark.parametrize("length", [1, 3, 4, 10, 11])
+def test_continuations_cover_the_text_exactly_once(length):
+    """Review 2 #4: reverse pages overlapped at the start and continued with forward coordinates."""
+    t = "abcdefghij"
+    assert "".join(_walk(t, length, False)) == t
+    assert "".join(reversed(_walk(t, length, True))) == t
+
+
+def test_window_edges():
+    t = "abcdefghij"
+    assert surface.window(t, 8, 4, from_end=True)["text"] == "ab"          # review 2 #4
+    assert surface.window(t, 10, 4, from_end=True)["text"] == ""
+    past = surface.window(t, 12, 3)                                         # review 2 #5
+    assert past["text"] == "" and past["returned"] == 0
+
+
+def test_anchors_match_at_window_edges():
+    import re
+    import instrument
+    t = "zzzz section 902 qqqq"
+    m, at = instrument._first(re.compile(r"^section"), t, [(5, 16)])
+    assert m and t[at + m.start():at + m.end()] == "section"
+    assert instrument._first(re.compile(r"^qqqq"), t, [(5, 16)]) == (None, 0)
+
+
+
+# --- measure, through its own code, with a fake surface ------------------------------
+
+class _FakeSurface:
+    m = "M"
+
+    def __init__(self, locators):
+        self.locators, self.logged = locators, []
+
+    def _q(self, aql, **bind):
+        return [[u, self.locators.get(u)] for u in bind["us"] if u in self.locators]
+
+    def _log(self, tool, args, result):
+        self.logged.append((tool, args))
+        return result
+
+
+def _corpus(monkeypatch, texts):
+    """texts: unit -> (flat text, citations). The sidecar row's hash is the text's hash."""
+    import hashlib
+    import instrument
+    rows, flat = {}, {}
+    for i, (u, (t, cits)) in enumerate(texts.items()):
+        rows[u] = {"volume_file": "v", "ordinal": i, "sha256": hashlib.sha256(t.encode()).hexdigest(),
+                   "citations": cits}
+        flat[("v", i)] = t
+    monkeypatch.setattr(instrument.sf, "_rows", lambda: rows)
+    monkeypatch.setattr(instrument.sf, "_describe", lambda u: {"unit": u})
+    monkeypatch.setattr(instrument.cx, "_hold", lambda p: "sha")
+    monkeypatch.setattr(instrument.cx, "_cfr_texts", lambda sha: flat)
+    monkeypatch.setattr(instrument, "_population", lambda s, pop: list(texts))
+    return {u: r["sha256"] for u, r in rows.items()}
+
+
+def test_measure_counts_both_sides_anchors_and_stale(monkeypatch):
+    import instrument
+    texts = {
+        "a": ("section 902 was repealed in 2017.", [{"path": "902", "span": [8, 11]}]),
+        "b": ("section 902 applies.", [{"path": "902", "span": [8, 11]}]),
+        "c": ("nothing cited here, repealed.", []),
+        "d": ("section 902 repealed, but this text changed.", [{"path": "902", "span": [8, 11]}]),
+    }
+    locs = _corpus(monkeypatch, texts)
+    locs["d"] = "0" * 64                     # the manifest's locator disagrees: stale, not counted
+    s = _FakeSurface(locs)
+    out = instrument.measure(s, {"cited_by": "902"}, "repeal", near="902", window=30)
+    assert (out["matched"], out["not_matched"], out["no_anchor"], out["stale"]) == (1, 1, 1, 1)
+    assert out["matched_units"] == ["a"] and out["not_matched_units"] == ["b"]
+    assert out["no_anchor_units"] == ["c"] and out["stale_units"] == ["d"]
+    tool, args = s.logged[-1]
+    assert tool == "measure" and args["sampled"]["matched"] == ["a"] and args["seed"] == 0
+
+
+def test_measure_snippets_are_bounded(monkeypatch):
+    """Review 2 #6: '.*' returned a whole regulation per sample."""
+    import instrument
+    long = "x" * 30000
+    s = _FakeSurface(_corpus(monkeypatch, {"a": (long, [])}))
+    out = instrument.measure(s, {"cited_by": "902"}, ".*")
+    assert len(out["matched_sample"][0]["words"]) <= 240 + 2 * instrument.SNIPPET
+
+
+def test_measure_lists_page_and_returned_counts_what_is_shown(monkeypatch):
+    """Review 2 #7: returned undercounted units shown only in samples; lists stopped at 200."""
+    import instrument
+    texts = {f"u{i:03d}": ("hit", []) for i in range(250)}
+    s = _FakeSurface(_corpus(monkeypatch, texts))
+    first = instrument.measure(s, {"cited_by": "902"}, "hit", sample=5)
+    assert len(first["matched_units"]) == 200 and first["list_next"] == 200 and first["truncated"]
+    shown = set(first["matched_units"]) | {x["unit"] for x in first["matched_sample"]}
+    assert first["returned"] == len(shown)
+    rest = instrument.measure(s, {"cited_by": "902"}, "hit", sample=0, list_cursor=200)
+    assert len(rest["matched_units"]) == 50 and rest["list_next"] is None
+    assert set(first["matched_units"]) | set(rest["matched_units"]) == set(texts)
+
+
+@pytest.mark.parametrize("args", [("902", "1", False), (None, None, False), ("", None, False), ("902", None, True)])
+def test_population_selector_refuses_ambiguity(args):
+    import instrument
+    with pytest.raises(ValueError):
+        instrument.population_arg(*args)
+
+
+def test_measure_refuses_a_sidecar_row_from_another_text(monkeypatch):
+    """The text matches the locator but the sidecar row (spans) was made from other text."""
+    import instrument
+    locs = _corpus(monkeypatch, {"a": ("section 902 repealed", [{"path": "902", "span": [8, 11]}])})
+    instrument.sf._rows()["a"]["sha256"] = "f" * 64
+    out = instrument.measure(_FakeSurface(locs), {"cited_by": "902"}, "repeal")
+    assert out["stale_units"] == ["a"] and out["matched"] == 0
