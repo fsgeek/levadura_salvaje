@@ -39,6 +39,9 @@ USC_STREAM = "usc26"
 CONTEXT = 160   # characters either side of a citation in `cite`
 SLICE = 4000    # default characters per `follow` call
 MAX_LIMIT = 200
+# The citations sidecar supplies spans and heads, which the index doesn't store. Pinned to the file the
+# index was built from (spike 2 published from it at e8691cc); a different file is refused (review 1, #1).
+SIDECAR_SHA256 = "8c8d2c257f79c26355e651d899c4a932bb0927646ef99f4ca68d1742a39308c9"
 
 ABOUT = {
     "corpus": "Title 26 of the Code of Federal Regulations (Treasury tax regulations), 2025 edition, "
@@ -69,7 +72,11 @@ class Surface:
         if cur is None:
             raise ix.Unpublished(STREAM)
         self.m = cur["_key"]
-        self.um = ix.current(self._db, USC_STREAM)["_key"]
+        # The USC generation this index was resolved against, not the stream's latest (review 1, #2).
+        deps = [d for d in cur["depends_on"] if ix.published(self._db, d)["stream"] == USC_STREAM]
+        if len(deps) != 1:
+            raise LookupError(f"{self.m}: expected one {USC_STREAM} dependency, found {deps}")
+        self.um = deps[0]
 
     # --- footprints ------------------------------------------------------------
 
@@ -79,6 +86,11 @@ class Surface:
             "population_total": result.get("population_total"), "returned": result.get("returned"),
             "truncated": result.get("truncated")})
         return result
+
+    def failed(self, tool: str, args: dict, error: str) -> None:
+        """Failed calls are footprints too (review 1, #8)."""
+        self._db.collection("queries").insert({"at": ix.now(), "who": self.who, "tool": tool,
+                                               "manifest": self.m, "args": args, "error": error})
 
     def _q(self, aql: str, **bind) -> list:
         return list(self._db.aql.execute(aql, bind_vars=bind, batch_size=10000))
@@ -99,8 +111,8 @@ class Surface:
             "about": ABOUT, "manifest": self.m, "spec": ix.SPEC, "totals": total,
             "cells": rows, "population_total": len(rows), "returned": len(rows), "truncated": False})
 
-    def cell(self, cell: str, top: int = 15) -> dict:
-        top = _limit(top)
+    def cell(self, cell: str, top: int = 15, cursor: int = 0) -> dict:
+        top, cursor = _limit(top), _offset(cursor)
         st = ix.rollup(self._db, self.m, cell)
         groups = self._q("""FOR x IN assertions FILTER x.manifest == @m AND x.cell == @cell
                               AND x.outcome IN @broken
@@ -112,11 +124,12 @@ class Surface:
         outcomes = self._q("""FOR x IN assertions FILTER x.manifest == @m AND x.cell == @cell
                               COLLECT o = x.outcome WITH COUNT INTO n SORT n DESC RETURN {outcome: o, n}""",
                            m=self.m, cell=cell)
-        return self._log("cell", {"cell": cell, "top": top}, {
+        return self._log("cell", {"cell": cell, "top": top, "cursor": cursor}, {
             "cell": cell, "units": st["units"], "members": len(st["members"]),
             "occurrences": st["occurrences"], "broken": st["broken"], "outcomes": outcomes,
-            "broken_targets": groups[:top], "population_total": len(groups), "returned": min(top, len(groups)),
-            "truncated": len(groups) > top, "grain": "(cited Code section, outcome) pairs among broken citations"})
+            "broken_targets": groups[cursor:cursor + top], "population_total": len(groups),
+            "returned": len(groups[cursor:cursor + top]), "truncated": cursor + top < len(groups),
+            "cursor": cursor + top if cursor + top < len(groups) else None, "grain": "(cited Code section, outcome) pairs among broken citations"})
 
     def drill(self, cell: str, cursor: str | None = None, limit: int = 40) -> dict:
         page = ix.drill(self._db, self.m, cell, cursor=cursor, limit=_limit(limit), instance=self.who)
@@ -125,7 +138,7 @@ class Surface:
 
     def cited_by(self, target: str, cursor: int = 0, limit: int = 40) -> dict:
         """Every citation of one Code section (its number, e.g. '1201'), by cell and outcome, then units."""
-        limit = _limit(limit)
+        limit, cursor = _limit(limit), _offset(cursor)
         rows = self._q("""FOR x IN assertions FILTER x.manifest == @m AND x.target == @t
                           COLLECT unit = x.unit, cell = x.cell INTO g = x.outcome
                           SORT unit RETURN {unit, cell, outcomes: g}""", m=self.m, t=target)
@@ -143,14 +156,15 @@ class Surface:
             "target": target, "outcomes": outcomes,
             "by_cell": sorted(by_cell.values(), key=lambda c: _cellkey(c["cell"])),
             "population_total": len(rows), "returned": len(page),
-            "units": [_describe(r["unit"]) | {"outcomes": sorted(set(r["outcomes"]))} for r in page],
+            "units": [_describe(r["unit"]) | {"citations": len(r["outcomes"]), "outcomes": sorted(set(r["outcomes"]))}
+                      for r in page],
             "truncated": cursor + limit < len(rows), "cursor": cursor + limit if cursor + limit < len(rows) else None,
             "grain": "units (CFR sections) citing this Code section"})
 
     # --- one unit ----------------------------------------------------------------
 
     def unit(self, unit: str, cursor: int = 0, limit: int = 50, only_broken: bool = False) -> dict:
-        limit = _limit(limit)
+        limit, cursor = _limit(limit), _offset(cursor)
         rows = self._citations(unit)
         counts: dict[str, int] = {}
         for r in rows:
@@ -168,11 +182,11 @@ class Surface:
         a join filtered on the occurrence's unit has no index and timed out on part 1."""
         if not self._q("FOR u IN units FILTER u.manifest == @m AND u.unit == @u RETURN 1", m=self.m, u=unit):
             raise KeyError(f"no unit {unit}")
-        n = len(_rows()[unit]["citations"])
+        side = _rows()[unit]["citations"]
         occ = self._q("FOR o IN occurrences FILTER o._key IN @keys SORT o.index RETURN {index: o.index, path: o.path}",
-                      keys=[ix.key(self.m, unit, i) for i in range(n)])
-        if len(occ) != n:
-            raise RuntimeError(f"{unit}: {len(occ)} occurrences stored, {n} measured")
+                      keys=[ix.key(self.m, unit, i) for i in range(len(side))])
+        if [o["path"] for o in occ] != [c["path"] for c in side]:
+            raise LookupError(f"{unit}: the stored occurrences and the citations sidecar disagree")
         asserted = {a["occurrence"]: a for a in self._q(
             """FOR x IN assertions FILTER x.manifest == @m AND x.unit == @u
                RETURN {occurrence: x.occurrence, outcome: x.outcome, target: x.target,
@@ -188,6 +202,9 @@ class Surface:
         if meta is None or not 0 <= index < len(meta["citations"]):
             raise KeyError(f"no citation {index} in {unit}")
         c = meta["citations"][index]
+        stored = self._db.collection("occurrences").get(ix.key(self.m, unit, index))
+        if stored is None or stored["path"] != c["path"]:
+            raise LookupError(f"{unit}#{index}: the stored occurrence and the citations sidecar disagree")
         got = self._follow_unit(unit)
         out = {**_describe(unit), "index": index, "path": c["path"], "head": c["head"], "status": got["status"]}
         if got["status"] == "ok" and c.get("span"):
@@ -200,14 +217,15 @@ class Surface:
                                      a=assertion, m=self.m)
         a = self._q("RETURN DOCUMENT('assertions', @a)", a=assertion)[0]
         out |= {"outcome": a and a["outcome"], "target": a and a["target"],
-                "target_outcome": a and a["target_outcome"]}
+                "target_outcome": a and a["target_outcome"],
+                "population_total": 1, "returned": 1, "truncated": False}
         return self._log("cite", {"unit": unit, "index": index}, out)
 
     # --- the words -------------------------------------------------------------------
 
     def follow(self, kind: str, id: str, offset: int = 0, length: int = SLICE) -> dict:
         """kind 'unit' (a CFR section id) or 'provision' (a key from `cite`). Hash-checked text, sliced."""
-        length = max(1, min(int(length), 20000))
+        length, offset = max(1, min(int(length), 20000)), _offset(offset)
         if kind == "unit":
             got, head = self._follow_unit(id), _describe(id)
         elif kind == "provision":
@@ -224,7 +242,8 @@ class Surface:
         if got["status"] == "ok":
             t = got["text"]
             out |= {"chars_total": len(t), "offset": offset, "text": t[offset:offset + length],
-                    "truncated": offset + length < len(t)}
+                    "population_total": len(t), "returned": len(t[offset:offset + length]),
+                    "truncated": offset + length < len(t), "grain": "characters"}
         return self._log("follow", {"kind": kind, "id": id, "offset": offset, "length": length}, out)
 
     def _follow_unit(self, unit: str) -> dict:
@@ -254,6 +273,13 @@ def context(text: str, citation: dict) -> dict:
     return {"text_domain": "levadura.citations.normalize", "span_check": check,
             "before": t[max(0, a - CONTEXT):a], "cited": cited, "after": t[b:b + CONTEXT]}
 
+def _offset(n) -> int:
+    n = int(n)
+    if n < 0:
+        raise ValueError("cursor and offset must be non-negative")
+    return n
+
+
 def _limit(n) -> int:
     n = int(n)
     if n < 1:
@@ -268,8 +294,11 @@ def _cellkey(c: str):
 @lru_cache(maxsize=1)
 def _rows() -> dict[str, dict]:
     """The measured citation rows (results/cfr-usc-citations-v2-2025.jsonl), by unit id: spans and heads."""
+    data = cx.CIT.read_bytes()
+    if hashlib.sha256(data).hexdigest() != SIDECAR_SHA256:
+        raise LookupError(f"{cx.CIT.name} is not the file the index was built from")
     out = {}
-    for line in cx.CIT.read_text().splitlines():
+    for line in data.decode().splitlines():
         r = json.loads(line)
         out[f"cfr26-2025:{r['volume_file']}:{r['ordinal']}"] = r
     return out

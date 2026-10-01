@@ -9,17 +9,20 @@ uv run --group plumbing python spikes/surface1/cli.py --who NAME overview      #
 LEVADURA_WHO=NAME uv run --group plumbing python spikes/surface1/server.py     # the same tools over MCP (stdio)
 uv run --group plumbing pytest spikes/surface1                                 # the fixes' tests
 uv run --group plumbing python spikes/surface1/footprints.py WHO...            # score moves from `queries`
-uv run --group plumbing python spikes/surface1/measure_findings.py --dry-run   # obs-0152/0153
+uv run --group plumbing python spikes/surface1/measure_findings.py --dry-run   # obs-0154/0155
 ```
 
 - `surface.py` sits over spike 2's index, stream `cfr26-2025@119-4/index`, which
   has `resolves_to` edges to the 26 USC provisions at 119-4. It provides seven
   tools: `overview`, `cell`, `drill`, `cited_by`, `unit`, `cite` and `follow`.
+  `instrument.py` adds an eighth for round 2, `measure`: a reader-written regular
+  expression run over a population, with counts and samples of both sides.
   Every result is bounded and carries `population_total`, `returned` and
   `truncated`. Every call is a footprint in `queries`, recorded with `who`.
 - `BRIEF.md` is what each caller got. `answer-caller-*.md` are their final
   messages, verbatim. `footprints.json` holds their call sequences.
 
-The finding, in one line: both callers went down cleanly and neither came back
-up, because the surface has no way up. A predicate the reader defines and runs
-over a population is the next thing to build.
+Round 1 in one line: both callers went down cleanly and neither came back up to
+the population because of something it read. My hypothesis is that the surface
+has no way up. Round 2 tests it with `measure`. Codex's review is in `REVIEW.md`,
+and its fixes are mapped in the scorecard.

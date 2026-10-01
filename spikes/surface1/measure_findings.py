@@ -26,12 +26,37 @@ import surface as sf  # noqa: E402  (puts spikes/plumbing2 on the path)
 import corpus as cx  # noqa: E402
 
 from levadura_salvaje import ledger  # noqa: E402
-from levadura_salvaje.citations import normalize  # noqa: E402
+from levadura_salvaje.citations import _DOUBLED, _ITALIC, _SPACES, normalize  # noqa: E402
 
 BROKEN = {"repealed", "absent-section", "absent-subdivision"}
-OTHER = re.compile(r"\bsections? (\d{1,4}[A-Z]?)((?:\s?\([A-Za-z0-9]{1,6}\))*) of (?:the )?"
+# Version 2 (review 1, #5 and #6): capitalized "Section" too, and the Code itself is never "another statute".
+OTHER = re.compile(r"\b[Ss]ections? (\d{1,4}[A-Z]?)((?:\s?\([A-Za-z0-9]{1,6}\))*) of (?:the )?"
                    r"(ERISA|Employee Retirement Income Security Act|Social Security Act|Public Health Service Act"
-                   r"|Railroad Retirement Act|Tariff Act|[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)* Act)")
+                   r"|Railroad Retirement Act|Tariff Act|(?!Internal Revenue Code)[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)* Act)")
+
+
+def tracked_normalize(text: str) -> tuple[str, list[int]]:
+    """normalize(), also returning each output character's position in the input (review 1, #7).
+    Asserted equal to normalize() on every section measured."""
+    chars = list(range(len(text)))
+
+    def sub(rx, repl, t, origin):
+        out, org, last = [], [], 0
+        for m in rx.finditer(t):
+            out.append(t[last:m.start()]); org.extend(origin[last:m.start()])
+            r, o = repl(m, origin)
+            out.append(r); org.extend(o)
+            last = m.end()
+        out.append(t[last:]); org.extend(origin[last:])
+        return "".join(out), org
+
+    t, o = sub(_SPACES, lambda m, og: (" ", [og[m.start()]]), text, chars)
+    lead = len(t) - len(t.lstrip())
+    t, o = t.strip(), o[lead:lead + len(t.strip())]
+    t, o = sub(_ITALIC, lambda m, og: ("(" + m.group(1) + ")",
+                                       [og[m.start()], *og[m.start(1):m.end(1)], og[m.end() - 1]]), t, o)
+    t, o = sub(_DOUBLED, lambda m, og: ("§", [og[m.end() - 1]]), t, o)
+    return t, o
 
 
 def main(dry: bool) -> None:
@@ -42,7 +67,9 @@ def main(dry: bool) -> None:
     alias_units, by_statute, by_cell = set(), Counter(), Counter()
     for uid, r in rows.items():
         flat = texts[(r["volume_file"], r["ordinal"])]
-        norm = normalize(flat)
+        norm, origin = tracked_normalize(flat)
+        if norm != normalize(flat):
+            raise RuntimeError(f"{uid}: tracked_normalize diverges from normalize")
         others = {}
         for m in OTHER.finditer(norm):
             others.setdefault(m.group(1), m.group(3))
@@ -55,7 +82,11 @@ def main(dry: bool) -> None:
                 span["section_head"] += 1
                 span["flat_misplaced"] += sec not in flat[a:b]
                 span["normalized_misplaced"] += sec not in norm[a:b]
-            if sec in others:
+                fa, fb = origin[a], origin[b - 1] + 1
+                span["shifted"] += (fa, fb) != (a, b)
+                span["shifted_but_contains_number"] += (fa, fb) != (a, b) and sec in flat[a:b]
+                span["mapped_contains_number"] += sec in flat[fa:fb]
+            if sec in others and c["head"] == "section":
                 outcome = c["outcome"][cx.RP]["outcome"]
                 alias["citations"] += 1
                 alias["broken"] += outcome in BROKEN
@@ -69,22 +100,38 @@ def main(dry: bool) -> None:
            "units": len(rows), "snapshot": cx.RP}
     entries = [
         {"observed_at": "2025-04-01", "observed_at_note": "2025 CFR edition, citation spans of extractor v2",
-         "instrument": {"name": "span-domain check", "version": "1", "scripts": ["spikes/surface1/measure_findings.py"],
-                        "method": "for each section-head citation, does the slice at its span contain its section "
-                                  "number, in the flat text and in citations.normalize(text)",
-                        "known_limits": "checks section heads only; continuation spans are not checked"},
-         "population": pop, "quantity": "section-head citations misplaced by slicing each text domain",
-         "value": dict(span)},
+         "supersedes": ["obs-0152"], "derived_from": ["obs-0152"],
+         "supersedes_note": "obs-0152 called number-containment failures 'misplaced'; that is a lower bound "
+                            "on shifted spans (Codex review, spikes/surface1/REVIEW.md #7)",
+         "instrument": {"name": "span-domain check", "version": "2", "scripts": ["spikes/surface1/measure_findings.py"],
+                        "method": "track each normalized character's origin in the flat text (tracked_normalize, "
+                                  "asserted equal to citations.normalize); a span is shifted if its mapped flat "
+                                  "span differs; containment = the slice contains the cited section number",
+                        "known_limits": "section-head citations only; containment is a weak check (a shifted "
+                                        "slice can still contain the number)"},
+         "population": pop, "quantity": "section-head citation spans: shifted between text domains, and "
+                                        "number-containment failures in each domain",
+         "value": {"section_head": span["section_head"], "shifted": span["shifted"],
+                   "shifted_but_contains_number": span["shifted_but_contains_number"],
+                   "flat_containment_failures": span["flat_misplaced"],
+                   "normalized_containment_failures": span["normalized_misplaced"],
+                   "mapped_flat_contains_number": span["mapped_contains_number"]}},
         {"observed_at": "2025-04-01", "observed_at_note": "2025 CFR edition, outcomes at 119-4",
-         "instrument": {"name": "other-statute alias probe", "version": "1",
+         "supersedes": ["obs-0153"], "derived_from": ["obs-0153"],
+         "supersedes_note": "v1 missed capitalized 'Section' seeds, counted the Code itself as another statute "
+                            "('Internal Revenue Code Act'), counted non-bare heads, and reported 10 statutes only "
+                            "(review #5, #6)",
+         "instrument": {"name": "other-statute alias probe", "version": "2",
                         "scripts": ["spikes/surface1/measure_findings.py"],
-                        "method": "sections where 'section N... of <another statute>' occurs; count extracted Code "
-                                  "citations of the same N in the same section",
-                        "known_limits": "upper bound within a section (a bare N may still mean the Code); misses "
-                                        "aliases defined in another section; statute list is a regex"},
-         "population": pop, "quantity": "Code citations that may be another statute's section, by alias in the same section",
-         "value": {**alias, "all_broken": total_broken, "by_statute": dict(by_statute.most_common(10)),
-                   "broken_by_cell": dict(by_cell.most_common(10))}},
+                        "method": "seeds: '[Ss]ection N... of <another statute>' in a section; candidates: bare "
+                                  "section-head Code citations of the same N in the same section",
+                        "known_limits": "counts candidates under detected seeds only, so it is not a population "
+                                        "ceiling on aliases; a candidate may still mean the Code; aliases defined "
+                                        "in another section are missed; the statute pattern is a regex"},
+         "population": pop, "quantity": "bare Code citations sharing a number with another statute's section "
+                                        "named in the same CFR section",
+         "value": {**alias, "all_broken": total_broken, "by_statute": dict(by_statute.most_common()),
+                   "broken_by_cell": {k: v for k, v in by_cell.most_common() if v}}},
     ]
     for e in entries:
         print(json.dumps(e["value"], indent=1))

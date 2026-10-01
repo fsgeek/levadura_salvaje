@@ -2,7 +2,8 @@
 
     uv run --group plumbing python spikes/surface1/footprints.py caller-opus-1 caller-sonnet-1
 
-Grain, coarse to fine: overview 0, cell 1, drill/cited_by 2, unit 3, cite/follow 4.
+Grain, coarse to fine: overview 0, cell 1, drill/cited_by/measure 2, unit 3, cite/follow 4.
+Failed calls (recorded since review 1) are listed apart and don't count as moves.
 A move is *down* if the next call is finer, *up* if coarser. `up_after_text` counts up
 moves after the caller's first cite/follow (prediction S3). Writes footprints.json.
 """
@@ -13,11 +14,13 @@ from pathlib import Path
 
 from levadura_salvaje.tenant import connect
 
-GRAIN = {"overview": 0, "cell": 1, "drill": 2, "cited_by": 2, "unit": 3, "cite": 4, "follow": 4}
+GRAIN = {"overview": 0, "cell": 1, "drill": 2, "cited_by": 2, "measure": 2, "unit": 3, "cite": 4, "follow": 4}
 
 
 def score(db, who: str) -> dict:
     calls = list(db.aql.execute("FOR q IN queries FILTER q.who == @w SORT q.at RETURN q", bind_vars={"w": who}))
+    failed = [{"at": q["at"], "tool": q["tool"], "error": q["error"]} for q in calls if "error" in q]
+    calls = [q for q in calls if "error" not in q]
     seq = []
     for q in calls:
         args = q.get("args") or {k: q.get(k) for k in ("cell", "after", "limit") if k in q}
@@ -34,7 +37,7 @@ def score(db, who: str) -> dict:
     tools: dict[str, int] = {}
     for s in seq:
         tools[s["tool"]] = tools.get(s["tool"], 0) + 1
-    return {"who": who, "calls": len(seq), "first": seq[0]["tool"] if seq else None, "tools": tools,
+    return {"who": who, "calls": len(seq), "failed_calls": len(failed), "failures": failed, "first": seq[0]["tool"] if seq else None, "tools": tools,
             "down": down, "up": up, "up_after_text": up_after_text,
             "path": "".join(str(s["grain"]) for s in seq), "sequence": seq}
 
