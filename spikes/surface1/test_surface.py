@@ -261,23 +261,98 @@ def test_measure_refuses_a_sidecar_row_from_another_text(monkeypatch):
 
 # --- lens: stored readings as predicates -------------------------------------------------
 
-def test_lens_counts_per_judge_agreement_not_read_and_stale(monkeypatch):
+def _lens_reads(monkeypatch, judges):
     import instrument
-    reads = {"jev": {"a": {"label": "current", "sha256": "A"}, "b": {"label": "historical", "sha256": "B"},
-                     "d": {"label": "current", "sha256": "OLD"}},
-             "qwen": {"a": {"label": "current", "sha256": "A"}, "b": {"label": "current", "sha256": "B"},
-                      "d": {"label": "current", "sha256": "OLD"}}}
-    monkeypatch.setitem(instrument._READINGS, "currency", reads)
-    monkeypatch.setattr(instrument, "_population", lambda s, pop: ["a", "b", "c", "d"])
+    monkeypatch.setitem(instrument._READINGS, "currency",
+                        {"judges": judges, "files": {j: (f"{j}.jsonl", "h") for j in judges}})
     monkeypatch.setattr(instrument.sf, "_describe", lambda u: {"unit": u})
-    s = _FakeSurface({"a": "A", "b": "B", "c": "C", "d": "D"})
+
+
+def test_lens_counts_agreement_not_read_stale_and_partial(monkeypatch):
+    import instrument
+    _lens_reads(monkeypatch, {
+        "jev": {"a": {"label": "current", "sha256": "A"}, "b": {"label": "historical", "sha256": "B"},
+                "d": {"label": "current", "sha256": "OLD"}, "e": {"label": "current", "sha256": "E"}},
+        "qwen": {"a": {"label": "current", "sha256": "A"}, "b": {"label": "current", "sha256": "B"},
+                 "d": {"label": "current", "sha256": "OLD"}}})
+    monkeypatch.setattr(instrument, "_population", lambda s, pop: ["a", "b", "c", "d", "e"])
+    s = _FakeSurface({"a": "A", "b": "B", "c": "C", "d": "D", "e": "E"})
     out = instrument.lens(s, {"cited_by": "902"})
-    assert (out["read"], out["not_read"], out["stale"]) == (2, 1, 1)
+    assert (out["read"], out["not_read"], out["stale"], out["partial"]) == (2, 1, 1, 1)
     assert out["counts"] == {"jev": {"current": 1, "historical": 1}, "qwen": {"current": 2}}
     assert out["judges_agree"] == 1
-    assert out["combinations"] == {"jev=current,qwen=current": 1, "jev=historical,qwen=current": 1}
-    assert out["not_read_units"] == ["c"] and out["stale_units"] == ["d"]
-    assert "question" in out and s.logged[-1][0] == "lens"
+    assert out["not_read_units"] == ["c"] and out["stale_units"] == ["d"] and out["partial_units"] == ["e"]
+    assert out["returned"] == 5                     # review 3 #4: every id shown counts
+    tool, args = s.logged[-1]
+    assert tool == "lens" and args["combinations"] == out["combinations"] and "files" in args
+
+
+def test_lens_unit_missing_from_the_manifest_is_stale(monkeypatch):
+    import instrument
+    _lens_reads(monkeypatch, {"jev": {"a": {"label": "current", "sha256": "A"}}})
+    monkeypatch.setattr(instrument, "_population", lambda s, pop: ["a"])
+    out = instrument.lens(_FakeSurface({}), {"cited_by": "902"})
+    assert out["stale_units"] == ["a"] and out["read"] == 0
+
+
+def test_lens_pages_every_list_including_stale(monkeypatch):
+    """Review 3 #3: stale ids were always the first 200 and never reported truncated."""
+    import instrument
+    us = [f"u{i:03d}" for i in range(250)]
+    _lens_reads(monkeypatch, {"jev": {u: {"label": "current", "sha256": "OLD"} for u in us}})
+    monkeypatch.setattr(instrument, "_population", lambda s, pop: us)
+    s = _FakeSurface({u: "NEW" for u in us})
+    first = instrument.lens(s, {"cited_by": "902"})
+    assert len(first["stale_units"]) == 200 and first["truncated"] and first["list_next"] == 200
+    rest = instrument.lens(s, {"cited_by": "902"}, list_cursor=200)
+    assert rest["stale_units"] == us[200:] and rest["list_next"] is None
+
+
+def test_lens_label_filter_keeps_counts_and_samples(monkeypatch):
+    """Several units per combination and a sample smaller than each, so a shared generator would
+    give the kept combination a different sample once the others are filtered out."""
+    import instrument
+    cur = {f"c{i}": {"label": "current", "sha256": f"c{i}"} for i in range(30)}
+    hist_j = {f"h{i}": {"label": "historical", "sha256": f"h{i}"} for i in range(30)}
+    hist_q = {f"h{i}": {"label": "current", "sha256": f"h{i}"} for i in range(30)}
+    _lens_reads(monkeypatch, {"jev": cur | hist_j, "qwen": cur | hist_q})
+    units = sorted(cur) + sorted(hist_j)
+    monkeypatch.setattr(instrument, "_population", lambda s, pop: units)
+    s = _FakeSurface({u: u for u in units})
+    whole = instrument.lens(s, {"cited_by": "902"}, sample=3)
+    hist = instrument.lens(s, {"cited_by": "902"}, label="historical", sample=3)
+    k = "jev=historical,qwen=current"
+    assert list(hist["combinations"]) == [k]
+    assert hist["counts"] == whole["counts"] and hist["judges_agree"] == whole["judges_agree"]
+    assert hist["samples"][k] == whole["samples"][k]
+
+
+def test_readings_refuse_a_file_the_ledger_did_not_record(monkeypatch, tmp_path):
+    """Review 3 #1: a label changed while the text hash stayed was silently accepted."""
+    import json
+    import instrument
+    f = tmp_path / "jev.jsonl"
+    row = {"volume_file": "v", "ordinal": 1, "label": "current", "sha256": "A"}
+    f.write_text(json.dumps(row) + "\n")
+    import hashlib
+    good = hashlib.sha256(f.read_bytes()).hexdigest()
+    monkeypatch.setattr(instrument.cx, "ROOT", tmp_path)
+    monkeypatch.setattr(instrument, "_ledger_entry",
+                        lambda obs: {"population": {"results_file": "jev.jsonl", "results_sha256": good}})
+    monkeypatch.setitem(instrument.LENSES, "t", {**instrument.LENSES["currency"], "judges": {"jev": "obs-x"}})
+    assert instrument._readings("t")["judges"]["jev"]["cfr26-2025:v:1"]["label"] == "current"
+    instrument._READINGS.pop("t")
+    f.write_text(json.dumps(row | {"label": "historical"}) + "\n")
+    with pytest.raises(LookupError, match="not the file"):
+        instrument._readings("t")
+    for bad in ([row, row], [row | {"label": "live"}], [row | {"sha256": None}]):
+        f.write_text("".join(json.dumps(r) + "\n" for r in bad))
+        monkeypatch.setattr(instrument, "_ledger_entry", lambda obs, h=hashlib.sha256(f.read_bytes()).hexdigest():
+                            {"population": {"results_file": "jev.jsonl", "results_sha256": h}})
+        instrument._READINGS.pop("t", None)
+        with pytest.raises(LookupError):
+            instrument._readings("t")
+    instrument._READINGS.pop("t", None)
 
 
 def test_lens_refuses_unknown_names_and_labels():

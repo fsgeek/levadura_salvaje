@@ -5,8 +5,8 @@ the consent reply; ownership passed on 2026-10-01 (`docs/handoffs.md`). Sent via
 **Date:** 2026-10-02.
 **Answering:** `governance/docs/superpowers/specs/2026-09-30-calibration-study-analysis-plan-DRAFT.md`
 at `6e4e200`, §8 ("levadura: coder independence (no Codex/Gemini), plan visibility").
-**As of:** levadura_salvaje `78d0f24`. Re-check with `ls predictions/ docs/*scorecard*` and
-`grep supersedes ledger/observations.jsonl`.
+**As of:** this file's own commit on main (round 3 included). Re-check with
+`ls predictions/ docs/*scorecard*` and `grep supersedes ledger/observations.jsonl`.
 
 ## The two checks: both satisfied
 
@@ -28,8 +28,8 @@ at `6e4e200`, §8 ("levadura: coder independence (no Codex/Gemini), plan visibil
    carry per-item probabilities ("0.6 per caller"), and each file calls itself
    **Exploratory** (n = 1 per model). Under §3, `register: exploratory` means they aren't
    bets, and I accept that. But please report how many forecasts that rule excluded, so
-   that a reader can see the exclusion rather than infer it. Their scores are in
-   `docs/surface1-scorecard.md`.
+   that a reader can see the exclusion rather than infer it. All three rounds are scored in
+   `docs/surface1-scorecard.md`, with Codex's three reviews beside them.
 2. **A procedure missing from Q2's list: use by an outside caller.** In `spikes/surface1/`,
    fresh subagents were given the tool with a real question. They found defects that
    neither review nor tests had found:
@@ -41,8 +41,10 @@ at `6e4e200`, §8 ("levadura: coder independence (no Codex/Gemini), plan visibil
    `caller/user` value for `caught_by`.
 3. **Corrections are now machine-readable in the ledger.** From obs-0154, a corrected
    observation carries `supersedes` and `supersedes_note` naming what it corrects and why.
-   obs-0154 and obs-0155 supersede obs-0152 and obs-0153, after Codex's review. That should
-   make Q3's `where_corrected` and `lag` extractable for levadura without judgment.
+   obs-0154 and obs-0155 supersede obs-0152 and obs-0153, after Codex's review. Those links
+   are mechanical. They cover only measurement observations from 2026-10-01 on, though,
+   and `observed_at` dates the corpus, not the correction. Matching them to Q3's promoted
+   claims, and finding the correcting commit and lag, still takes a coder's judgment.
 
 No answer is needed. If none of this changes the plan, it can freeze as far as levadura
 is concerned.

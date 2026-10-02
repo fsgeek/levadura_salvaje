@@ -164,41 +164,64 @@ LENSES = {
     "currency": {
         "question": "Does the section's own text state at least one rule with no time limit or one reaching "
                     "2025 (current), are all its rules limited by its own words to the past (historical), or "
-                    "does it state no rules (no_rules)?",
+                    "does it state no rules (no_rules)? A section-level question: it does not say which rule "
+                    "makes a section current, or whether that rule depends on any particular citation.",
         "labels": ("current", "historical", "no_rules"),
-        "judges": {"jev": "results/currency-jev-v1-2025.jsonl", "qwen": "results/currency-qwen-v1-2025.jsonl"},
-        "ledger": {"jev": "obs-0132", "qwen": "obs-0146", "hand_audit": "obs-0133"},
+        # judge -> the ledger entry that recorded its results file (population.results_file / results_sha256)
+        "judges": {"jev": "obs-0132", "qwen": "obs-0146"},
+        "ledger": {"jev": "obs-0132", "qwen": "obs-0146", "audit": "obs-0133"},
         "scope": "sections with at least one broken citation at 119-4 (1,675); other units were not read",
-        "quality": "judges agree on 1,618 of 1,675 (96.6%); blind hand audit agrees with Jev on 56 of 60 and "
-                   "with Qwen on 55 of 60; misses sit on the current/historical edge (docs/currency-scorecard.md)",
+        "quality": "judges agree on 1,618 of 1,675 (96.6%); an audit by Claude instances on a stratified "
+                   "sample of 60 agrees with Jev on 56 and Qwen on 55; misses sit on the current/historical "
+                   "edge (docs/currency-scorecard.md). Not an independent human audit.",
     },
 }
 
+_READINGS: dict[str, dict] = {}
 
-def _readings(name: str) -> dict[str, dict[str, dict]]:
-    """judge -> unit -> {label, sha256, confidence}. Cached per process."""
+
+def _ledger_entry(obs: str) -> dict:
+    for line in (cx.ROOT / "ledger/observations.jsonl").read_text().splitlines():
+        e = json.loads(line)
+        if e["id"] == obs:
+            return e
+    raise LookupError(f"no ledger entry {obs}")
+
+
+def _readings(name: str) -> dict:
+    """{"judges": judge -> unit -> {label, sha256}, "files": judge -> (path, sha256)}. Each results file
+    must hash to what its ledger entry recorded; rows must be unique, carry a text hash, and use the
+    lens's labels (review 3, #1 and #5). Cached per process."""
     if name not in _READINGS:
         lens = LENSES[name]
-        out = {}
-        for judge, path in lens["judges"].items():
+        judges, files = {}, {}
+        for judge, obs in lens["judges"].items():
+            pop = _ledger_entry(obs)["population"]
+            path, want = cx.ROOT / pop["results_file"], pop["results_sha256"]
+            data = path.read_bytes()
+            if hashlib.sha256(data).hexdigest() != want:
+                raise LookupError(f"{pop['results_file']} is not the file {obs} recorded")
             rows = {}
-            for line in (cx.ROOT / path).read_text().splitlines():
+            for line in data.decode().splitlines():
                 r = json.loads(line)
-                rows[f"cfr26-2025:{r['volume_file']}:{r['ordinal']}"] = {
-                    "label": r["label"], "sha256": r["sha256"], "confidence": r.get("confidence")}
-            out[judge] = rows
-        _READINGS[name] = out
+                u = f"cfr26-2025:{r['volume_file']}:{r['ordinal']}"
+                if u in rows:
+                    raise LookupError(f"{pop['results_file']}: duplicate row for {u}")
+                if r.get("label") not in lens["labels"] or not r.get("sha256"):
+                    raise LookupError(f"{pop['results_file']}: bad row for {u}")
+                rows[u] = {"label": r["label"], "sha256": r["sha256"]}
+            judges[judge], files[judge] = rows, (pop["results_file"], want)
+        _READINGS[name] = {"judges": judges, "files": files}
     return _READINGS[name]
-
-
-_READINGS: dict[str, dict] = {}
 
 
 def lens(s: "sf.Surface", population: dict, name: str = "currency", label: str | None = None,
          sample: int = SAMPLE, seed: int = 0, list_cursor: int = 0) -> dict:
     """Counts of a stored lens's labels over a population, per judge, with agreement, samples per
-    label, and the units the lens never read. A reading counts only if its text hash matches the
-    unit's locator in this manifest; otherwise it is `stale`."""
+    label combination, and the units the lens never read. A reading counts only if its text hash
+    matches the unit's locator in this manifest; otherwise the unit is `stale`. A unit one judge read
+    and another didn't is `partial`, not a label (review 3, #5). `label` keeps combinations in which
+    any judge gave that label; counts and agreement stay population-wide."""
     if name not in LENSES:
         raise ValueError(f"unknown lens {name!r}; known: {sorted(LENSES)}")
     meta = LENSES[name]
@@ -211,43 +234,51 @@ def lens(s: "sf.Surface", population: dict, name: str = "currency", label: str |
     want = dict(s._q("FOR u IN units FILTER u.manifest == @m AND u.unit IN @us RETURN [u.unit, u.locator.sha256]",
                      m=s.m, us=units))
     reads = _readings(name)
-    judges = sorted(reads)
+    judges = sorted(reads["judges"])
     by: dict[str, list[str]] = {}          # "jev=current,qwen=current" -> units
-    not_read, stale = [], []
+    not_read, stale, partial = [], [], []
     for u in units:
-        got = [reads[j].get(u) for j in judges]
+        got = [reads["judges"][j].get(u) for j in judges]
         if all(g is None for g in got):
             not_read.append(u)
-        elif any(g is not None and g["sha256"] != want.get(u) for g in got):
+        elif not want.get(u) or any(g is not None and g["sha256"] != want[u] for g in got):
             stale.append(u)
+        elif any(g is None for g in got):
+            partial.append(u)
         else:
-            by.setdefault(",".join(f"{j}={g['label'] if g else None}" for j, g in zip(judges, got)), []).append(u)
+            by.setdefault(",".join(f"{j}={g['label']}" for j, g in zip(judges, got)), []).append(u)
     counts = {j: {} for j in judges}
     for key, us in by.items():
         for part in key.split(","):
             j, lab = part.split("=")
             counts[j][lab] = counts[j].get(lab, 0) + len(us)
     agree = sum(len(us) for k, us in by.items() if len({p.split("=")[1] for p in k.split(",")}) == 1)
-    rng = random.Random(seed)
     combos = sorted(by.items(), key=lambda kv: (-len(kv[1]), kv[0]))
     if label is not None:
         combos = [(k, us) for k, us in combos if any(p.split("=")[1] == label for p in k.split(","))]
-    samples = {k: [sf._describe(u) for u in rng.sample(us, min(sample, len(us)))] for k, us in combos}
-    lists = {k: us[list_cursor:list_cursor + LIST] for k, us in combos}
-    more = any(len(us) > list_cursor + LIST for _, us in combos) or len(not_read) > list_cursor + LIST
-    shown = {u for us in lists.values() for u in us} | {d["unit"] for ds in samples.values() for d in ds}
+    # one generator per combination, so filtering by label doesn't change a kept combination's sample
+    samples = {k: [sf._describe(u) for u in random.Random(f"{seed}:{k}").sample(us, min(sample, len(us)))]
+               for k, us in combos}
+    groups = {**{k: us for k, us in combos}, "not_read": not_read, "stale": stale, "partial": partial}
+    pages = {k: us[list_cursor:list_cursor + LIST] for k, us in groups.items()}
+    more = any(len(us) > list_cursor + LIST for us in groups.values())
+    shown = {u for us in pages.values() for u in us} | {d["unit"] for ds in samples.values() for d in ds}
     out = {
         "lens": name, "question": meta["question"], "scope": meta["scope"], "quality": meta["quality"],
-        "ledger": meta["ledger"], "population": population, "population_total": len(units),
-        "read": len(units) - len(not_read) - len(stale), "not_read": len(not_read), "stale": len(stale),
-        "counts": counts, "judges_agree": agree,
-        "combinations": {k: len(us) for k, us in combos}, "samples": samples, "units": lists,
-        "not_read_units": not_read[list_cursor:list_cursor + LIST], "stale_units": stale[:LIST],
+        "ledger": meta["ledger"], "files": {j: {"path": p, "sha256": h} for j, (p, h) in reads["files"].items()},
+        "population": population, "population_total": len(units),
+        "read": sum(len(us) for us in by.values()), "not_read": len(not_read), "stale": len(stale),
+        "partial": len(partial), "counts": counts, "judges_agree": agree,
+        "combinations": {k: len(us) for k, us in combos}, "samples": samples,
+        "units": {k: pages[k] for k, _ in combos}, "not_read_units": pages["not_read"],
+        "stale_units": pages["stale"], "partial_units": pages["partial"],
         "list_cursor": list_cursor, "list_next": list_cursor + LIST if more else None,
         "returned": len(shown), "truncated": more,
-        "caution": "stored readings by models, audited on a sample; read both sides before trusting a label",
+        "caution": "stored readings by models, audited on a sample; read both sides before trusting a label, "
+                   "and check that the lens's question is yours",
     }
     return s._log("lens", {"population": population, "name": name, "label": label, "sample": sample,
-                           "seed": seed, "list_cursor": list_cursor, "counts": counts, "not_read": len(not_read),
-                           "stale": len(stale),
+                           "seed": seed, "list_cursor": list_cursor, "counts": counts,
+                           "combinations": out["combinations"], "not_read": len(not_read), "stale": len(stale),
+                           "partial": len(partial), "files": out["files"],
                            "sampled": {k: [d["unit"] for d in ds] for k, ds in samples.items()}}, out)

@@ -259,7 +259,8 @@ The one remaining equivalent mutant: `start = max(0, n - offset - length)` equal
 *Predictions: [predictions/2026-10-02-surface1-round3-claude.md](../predictions/2026-10-02-surface1-round3-claude.md),
 stamped before the run. Callers `caller-opus-3` and `caller-sonnet-3`,
 [BRIEF-3.md](../spikes/surface1/BRIEF-3.md); the tool list gains `lens`. Every `lens` and
-`measure` count in both answers matches its footprint.*
+`measure` count in both answers matches its footprint. Reviewed by Codex:
+[REVIEW-3.md](../spikes/surface1/REVIEW-3.md), which this section's corrections come from.*
 
 Why this round: after round 2 I found that the question both callers worked toward,
 which § 902 sections read as live law, had been measured on 2026-09-24/26 by the
@@ -271,7 +272,7 @@ the § 902-dependent rules. The prediction file records one text check of each k
 the two questions part.
 
 ```
-opus-3    00122344442244442    (17 calls + 1 failed: lens --name nonexistent, probing for other lenses)
+opus-3    00122344422444442    (17 calls + 1 failed: lens --name nonexistent, probing for other lenses)
 sonnet-3  0122323442114224422222
 ```
 
@@ -280,31 +281,50 @@ sonnet-3  0122323442114224422222
 | U1 | each calls `lens` (0.8 each) | 1 | 3 | **pass** |
 | U2 | a `lens` count reported (0.8) | "59 of the 73 sections current by both judges and only 7 historical by both" | "62 of the 73 units as current (Jev) and 61 (Qwen)" | **pass** |
 | U3 | `cite`/`follow` a unit after `lens` returned it (Opus 0.5, Sonnet 0.35) | `lens` (call 5) → `unit`, `cite`, `follow` of 1.902-1; the answer says the lens "pointed me to §1.902-1 judged current" | `lens` (call 15) → `follow` of 1.902-1 | **pass, both**, but weak as registered: `lens` lists every unit of a population this small, so any later read qualifies |
-| U4 | the mismatch named (0.35, at least one) | needs list: "A way to tell whether a 'current' lens judgment rests on the cited dead provision or on some other rule in the same section" | not named | **pass** (Opus) |
-| U5 | `current` treated as "misleading" without qualification (0.4, at least one) | no: "The lens is a model judgment", and its claim rests on the text it read | no: "it therefore treats most of these as still operative", then argues the mislead separately from the text | **fail**: the registered failure mode did not occur |
+| U4 | the mismatch named (0.35, at least one) | needs list: "A way to tell whether a 'current' lens judgment rests on the cited dead provision or on some other rule in the same section" | not named | **pass** (Opus), as a need it listed; whether it came from the output or from reading, the footprints can't say |
+| U5 | `current` treated as "misleading" without qualification (0.4, at least one) | no: its claim rests on the text it read, and its needs list scopes the lens | not as registered: "it therefore treats most of these as still operative" adopts the lens's framing without the section-level qualification, but doesn't equate it with "misleading" | **fail as registered**; Sonnet's adoption of the label is closer to the failure mode than the strict wording catches |
 | U6 | no grain errors (0.6 each) | none | none | **pass** |
 | U7 | fewer text calls than round 2's 13 (0.6) | 8 | 5 | **fail**: 13, the same |
 
-**What happened.** Both callers used the stored reading as a *pointer*, not a
-verdict. Opus took `lens`'s "current by both judges" for 1.902-1 and made six
+**What happened.** Opus used the stored reading as a pointer: it took `lens`'s
+"current by both judges" for 1.902-1 and made six
 `follow` calls on it, four of them 20,000-character pages covering all 75,290 characters. It quoted the present-tense
 operative rule and the open-ended applicability paragraph, and found the 2021
 amendment history. Then it went back up with `measure` ("deemed paid" near § 902: 31
-of 73). The reading did not substitute for reading (U7). The registered failure
-mode, adopting the label as the conclusion (U5), didn't occur in either answer.
-And the mismatch I had found by reading two sections, Opus found from the tool's
-own output and named precisely as a need.
+of 73). Sonnet is less clear. It read 1.902-1 too, but its sentence about the
+lens ("treats most of these as still operative") restates the label without the
+section-level qualification. Opus named the mismatch I had found by reading two
+sections, as a need, though not necessarily from the output alone.
+
+U7 fails numerically (13 = 13), but call totals mix breadth with paging. Opus's
+distinct sections read fell from 5 to 1 while it paged that one section four
+times; Sonnet's rose from 2 to 3. Whether the stored reading substituted for
+reading is not settled either way by these counts (review 3).
 
 **Limits.** n = 1 per model. U3 as registered is satisfied by almost any later
 read. The answers report reasons, but footprints don't, so "used as a pointer" rests
 on Opus's own account and on the call order. Both callers found and read 1.902-1,
 the same section round-2 Opus reached without `lens`. So the lens may have
-changed *how fast* they got there more than *where*.
+changed *how fast* they got there more than *where*. Confounds, as in round 2:
+- the post-round-2 fixes (non-match lists, anchors, paging hints, reverse
+  paging) were in place, and both round-3 callers used reverse paging;
+- `lens` lists every classified unit of a small population, so it also changed
+  *enumeration*, beyond `cited_by`'s page of 12;
+- its output carries guidance (question, scope, quality, "read both sides");
+- the callers' own knowledge of the 2017 repeal.
+
+The experiment separates none of these. The currency "hand audit" was done by
+Claude instances on a stratified sample. It is not an independent human audit, and
+it didn't validate the callers' citation-level question.
 
 **Answer errors (not tool errors).**
 - Opus again lists § 1201 right after § 46, skipping § 167 (284) and § 103 (266). It is
   the second Opus caller to make the same ranking slip from the same `cell 1` output.
 - Sonnet attributes its "9" to its first pattern. It was the second; the first matched 47.
+- Sonnet says flatly that a reader of 1.902-1 alone "would not learn" the 2018
+  cutoff, after saying it hadn't read the special effective-date paragraph. Its
+  claim that most other § 902 references are side references with small effect
+  has no population evidence behind it (review 3).
 
 **New finding by a caller.** Sonnet found a second other-statute alias outside
 obs-0155's seeds: 54.9816-8T cites "section 10(a) of title 9, United States Code",
@@ -316,3 +336,19 @@ lower bound in this respect too, as obs-0155 already says.
 Navigation to a named paragraph, such as "(a)(13)", instead of character offsets
 (Sonnet). The repealing act's effective-date provisions, not just "Repealed" (Opus).
 More lenses (Opus).
+
+## Review 3 (Codex) → changes
+
+| # | Finding | Change |
+|---|---|---|
+| 1 HIGH | stored labels not checked against the audited files | each results file must hash to its ledger entry's `results_sha256`; duplicate rows, labels outside the lens, and missing text hashes are refused (tests, mutants caught) |
+| 2 HIGH | "both used it as a pointer" overclaimed | Opus only; Sonnet's adoption of the label noted under U5 |
+| 3, 4 | stale ids unpaged; `returned` omitted unread and stale ids | every list pages with `list_cursor`; `returned` counts every id shown (tested) |
+| 5 | missing judge rows counted as label "None"; unknown labels counted; missing locator passed | `partial` and `stale` reported separately; labels validated at load (tested) |
+| 6 | U7's failure doesn't establish non-substitution | breadth and paging separated above |
+| 7 | confounds missing; the "hand audit" overstated | listed above; `lens` output's `quality` now says the audit was by Claude instances |
+| 8, 9 | governance reply overstated `supersedes` extraction and cited a snapshot before round 3 | reply corrected (below) |
+| 10 | Sonnet's overreach not recorded | recorded above |
+| 11 | lens footprints lacked totals and file identities | now logged: combinations, file paths and hashes |
+| 12 | Opus path misprinted | corrected |
+| tests | label-filter sampling semantics untested | one generator per combination, tested with combinations larger than the sample (a shared-generator mutant is caught) |
