@@ -283,11 +283,11 @@ sonnet-3  0122323442114224422222
 | U4 | the mismatch named (0.35, at least one) | needs list: "A way to tell whether a 'current' lens judgment rests on the cited dead provision or on some other rule in the same section" | not named | **pass** (Opus) |
 | U5 | `current` treated as "misleading" without qualification (0.4, at least one) | no: "The lens is a model judgment", and its claim rests on the text it read | no: "it therefore treats most of these as still operative", then argues the mislead separately from the text | **fail**: the registered failure mode did not occur |
 | U6 | no grain errors (0.6 each) | none | none | **pass** |
-| U7 | fewer text calls than round 2's 13 (0.6) | 10 | 3 | **fail**: 13, the same |
+| U7 | fewer text calls than round 2's 13 (0.6) | 8 | 5 | **fail**: 13, the same |
 
 **What happened.** Both callers used the stored reading as a *pointer*, not a
-verdict. Opus took `lens`'s "current by both judges" for 1.902-1 and spent nine
-`follow` calls reading all 75,290 characters of it. It quoted the present-tense
+verdict. Opus took `lens`'s "current by both judges" for 1.902-1 and made six
+`follow` calls on it, four of them 20,000-character pages covering all 75,290 characters. It quoted the present-tense
 operative rule and the open-ended applicability paragraph, and found the 2021
 amendment history. Then it went back up with `measure` ("deemed paid" near § 902: 31
 of 73). The reading did not substitute for reading (U7). The registered failure
