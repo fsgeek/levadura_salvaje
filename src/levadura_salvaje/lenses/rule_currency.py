@@ -20,6 +20,16 @@ around the citation, which is marked ⟦like this⟧. Labels:
 - ``not_a_rule``: the marked citation is not part of a rule: a cross-reference, a
   history note, an amendment or authority citation, or a heading.
 
+Version 2 (2026-10-02) adds rules for three cases v1 left open. The blind audit of v1
+(obs-0157) found that 18 of 45 sampled citations sat in worked examples, and that each of
+three judges applied its own consistent rule to them: untimed, time_limited, not_a_rule.
+v2 decides:
+- worked examples take the timing of the rule they illustrate (an example's dated facts
+  are hypothetical, not a limit);
+- carryover and transition rules that apply past amounts in later periods, with no end
+  date, are untimed;
+- pointers to rules elsewhere ("see § 1.909-6T for rules applicable to ...") are not_a_rule.
+
 Like the currency lens, it tests the text, not the law: the model must not use
 outside knowledge that the cited provision was repealed. Any edit to the wording
 is a new lens and must bump LENS_VERSION.
@@ -27,7 +37,7 @@ is a new lens and must bump LENS_VERSION.
 
 import json
 
-LENS_VERSION = "1"
+LENS_VERSION = "2"
 LABELS = ("untimed", "time_limited", "not_a_rule")
 BEFORE, AFTER = 1500, 700   # characters of context either side of the citation
 OPEN, CLOSE = "⟦", "⟧"
@@ -51,6 +61,13 @@ INSTRUCTIONS = (
 CRITERIA = {
     "untimed": {
         "what": "The rule containing the marked citation applies, as written, to periods in 2025 or later.",
+        "examples": "A citation inside a worked example (\"Example 1. ... In 1992, Corporation M ...\") takes "
+                    "the timing of the rule the example illustrates. The dates in an example's facts are "
+                    "hypothetical and do not limit the rule. If the excerpt shows that the illustrated rule "
+                    "applies only to past periods, the citation is time_limited; otherwise it is untimed.",
+        "carryovers": "A rule that carries amounts from a past period (losses, earnings, taxes, pools) into "
+                      "later periods with no end date applies today and is untimed, even if it is labelled a "
+                      "transition rule.",
         "no_time_limit": "A rule that states no time limit counts as untimed, however old its wording looks.",
         "open_ended_dates": "A rule limited only by a starting date (\"taxable years beginning after December "
                             "31, 1986\") has no end and is untimed.",
@@ -72,6 +89,10 @@ CRITERIA = {
     "not_a_rule": {
         "what": "The marked citation is not part of a rule: \"see section 902 for rules\", a bracketed "
                 "amendment or authority note, a table of contents, or a heading.",
+        "pointers": "A sentence that only directs the reader to rules elsewhere (\"see § 1.909-6T for rules "
+                    "applicable to ...\", \"for corresponding rules ..., see ...\") is not_a_rule, even if the "
+                    "rules it points to are limited to the past.",
+        "examples": "A worked example is not not_a_rule: judge it by the rule it illustrates.",
         "not_for": "A sentence that applies, defines, computes, requires, limits or allows something by "
                    "reference to the cited provision. Such a sentence states a rule.",
     },

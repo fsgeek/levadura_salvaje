@@ -3,8 +3,8 @@
     uv run python scripts/audit_rule_currency.py sample     # writes the readers' packet (no labels)
     uv run python scripts/audit_rule_currency.py score      # after both readers have answered
 
-`sample` draws up to 15 citations per Qwen label (seed 0), shuffles them, and writes
-results/rule-currency-audit-v1-902-packet.jsonl: item id and excerpt only. The key that
+`sample` draws up to 15 citations per Qwen label (seed = lens version - 1), shuffles them, and writes
+results/rule-currency-audit-v<N>-902-packet.jsonl: item id and excerpt only. The key that
 maps items to Qwen labels goes to a separate file, which the readers are never shown.
 Each reader writes results/rule-currency-audit-v1-902-<reader>.jsonl with
 {"item", "label", "decisive_text"}. `score` reports reader-reader agreement, the
@@ -24,8 +24,10 @@ import measure_rule_currency_qwen as m  # noqa: E402
 from levadura_salvaje.lenses import rule_currency as rc  # noqa: E402
 
 PER_LABEL = 15
-PACKET = Path("results/rule-currency-audit-v1-902-packet.jsonl")
-KEY = Path("results/rule-currency-audit-v1-902-key.jsonl")
+V = rc.LENS_VERSION
+SEED = int(V) - 1   # v1: seed 0; v2: seed 1, a fresh sample
+PACKET = Path(f"results/rule-currency-audit-v{V}-902-packet.jsonl")
+KEY = Path(f"results/rule-currency-audit-v{V}-902-key.jsonl")
 READERS = ("reader-a", "reader-b")
 
 
@@ -33,7 +35,7 @@ def sample() -> None:
     labels = {(r["volume_file"], r["ordinal"], r["index"]): r["label"]
               for r in map(json.loads, m.FINAL.read_text().splitlines())}
     items = m.items()
-    rng = random.Random(0)
+    rng = random.Random(SEED)
     chosen = []
     for lab in rc.LABELS:
         pool = [it for it in items if labels[(it["volume_file"], it["ordinal"], it["index"])] == lab]
@@ -53,7 +55,7 @@ def sample() -> None:
 def score() -> None:
     key = {k["item"]: k for k in map(json.loads, KEY.read_text().splitlines())}
     reads = {r: {x["item"]: x["label"] for x in map(json.loads, Path(
-        f"results/rule-currency-audit-v1-902-{r}.jsonl").read_text().splitlines())} for r in READERS}
+        f"results/rule-currency-audit-v{V}-902-{r}.jsonl").read_text().splitlines())} for r in READERS}
     a, b = (reads[r] for r in READERS)
     items = sorted(key)
     missing = [i for i in items if i not in a or i not in b]
