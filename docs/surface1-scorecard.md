@@ -253,3 +253,66 @@ Structure, dates and editions remain open.
 
 The one remaining equivalent mutant: `start = max(0, n - offset - length)` equals
 `max(0, end - length)` whenever `end = max(0, n - offset)`. It is the same code.
+
+## Round 3: a stored reading whose question nearly matches
+
+*Predictions: [predictions/2026-10-02-surface1-round3-claude.md](../predictions/2026-10-02-surface1-round3-claude.md),
+stamped before the run. Callers `caller-opus-3` and `caller-sonnet-3`,
+[BRIEF-3.md](../spikes/surface1/BRIEF-3.md); the tool list gains `lens`. Every `lens` and
+`measure` count in both answers matches its footprint.*
+
+Why this round: after round 2 I found that the question both callers worked toward,
+which § 902 sections read as live law, had been measured on 2026-09-24/26 by the
+currency lens (obs-0132, obs-0133, obs-0146) and sat in `results/` out of the
+surface's reach. `lens` exposes it. But the lens asks a section-level question
+("does the section state *any* untimed rule?"), and the callers' question concerns
+the § 902-dependent rules. The prediction file records one text check of each kind:
+1.902-3, where the lens is right and a round-2 caller was wrong, and 1.909-6, where
+the two questions part.
+
+```
+opus-3    00122344442244442    (17 calls + 1 failed: lens --name nonexistent, probing for other lenses)
+sonnet-3  0122323442114224422222
+```
+
+| | Prediction | Opus | Sonnet | Verdict |
+|---|---|---|---|---|
+| U1 | each calls `lens` (0.8 each) | 1 | 3 | **pass** |
+| U2 | a `lens` count reported (0.8) | "59 of the 73 sections current by both judges and only 7 historical by both" | "62 of the 73 units as current (Jev) and 61 (Qwen)" | **pass** |
+| U3 | `cite`/`follow` a unit after `lens` returned it (Opus 0.5, Sonnet 0.35) | `lens` (call 5) → `unit`, `cite`, `follow` of 1.902-1; the answer says the lens "pointed me to §1.902-1 judged current" | `lens` (call 15) → `follow` of 1.902-1 | **pass, both**, but weak as registered: `lens` lists every unit of a population this small, so any later read qualifies |
+| U4 | the mismatch named (0.35, at least one) | needs list: "A way to tell whether a 'current' lens judgment rests on the cited dead provision or on some other rule in the same section" | not named | **pass** (Opus) |
+| U5 | `current` treated as "misleading" without qualification (0.4, at least one) | no: "The lens is a model judgment", and its claim rests on the text it read | no: "it therefore treats most of these as still operative", then argues the mislead separately from the text | **fail**: the registered failure mode did not occur |
+| U6 | no grain errors (0.6 each) | none | none | **pass** |
+| U7 | fewer text calls than round 2's 13 (0.6) | 10 | 3 | **fail**: 13, the same |
+
+**What happened.** Both callers used the stored reading as a *pointer*, not a
+verdict. Opus took `lens`'s "current by both judges" for 1.902-1 and spent nine
+`follow` calls reading all 75,290 characters of it. It quoted the present-tense
+operative rule and the open-ended applicability paragraph, and found the 2021
+amendment history. Then it went back up with `measure` ("deemed paid" near § 902: 31
+of 73). The reading did not substitute for reading (U7). The registered failure
+mode, adopting the label as the conclusion (U5), didn't occur in either answer.
+And the mismatch I had found by reading two sections, Opus found from the tool's
+own output and named precisely as a need.
+
+**Limits.** n = 1 per model. U3 as registered is satisfied by almost any later
+read. The answers report reasons, but footprints don't, so "used as a pointer" rests
+on Opus's own account and on the call order. Both callers found and read 1.902-1,
+the same section round-2 Opus reached without `lens`. So the lens may have
+changed *how fast* they got there more than *where*.
+
+**Answer errors (not tool errors).**
+- Opus again lists § 1201 right after § 46, skipping § 167 (284) and § 103 (266). It is
+  the second Opus caller to make the same ranking slip from the same `cell 1` output.
+- Sonnet attributes its "9" to its first pattern. It was the second; the first matched 47.
+
+**New finding by a caller.** Sonnet found a second other-statute alias outside
+obs-0155's seeds: 54.9816-8T cites "section 10(a) of title 9, United States Code",
+the Federal Arbitration Act, which is extracted as Code § 10. obs-0155's seed regex
+covers "… Act" but not "of title N, United States Code". So that finding is a
+lower bound in this respect too, as obs-0155 already says.
+
+**New needs.** Text search inside one named section, returning its span (both).
+Navigation to a named paragraph, such as "(a)(13)", instead of character offsets
+(Sonnet). The repealing act's effective-date provisions, not just "Repealed" (Opus).
+More lenses (Opus).
