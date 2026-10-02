@@ -257,3 +257,32 @@ def test_measure_refuses_a_sidecar_row_from_another_text(monkeypatch):
     instrument.sf._rows()["a"]["sha256"] = "f" * 64
     out = instrument.measure(_FakeSurface(locs), {"cited_by": "902"}, "repeal")
     assert out["stale_units"] == ["a"] and out["matched"] == 0
+
+
+# --- lens: stored readings as predicates -------------------------------------------------
+
+def test_lens_counts_per_judge_agreement_not_read_and_stale(monkeypatch):
+    import instrument
+    reads = {"jev": {"a": {"label": "current", "sha256": "A"}, "b": {"label": "historical", "sha256": "B"},
+                     "d": {"label": "current", "sha256": "OLD"}},
+             "qwen": {"a": {"label": "current", "sha256": "A"}, "b": {"label": "current", "sha256": "B"},
+                      "d": {"label": "current", "sha256": "OLD"}}}
+    monkeypatch.setitem(instrument._READINGS, "currency", reads)
+    monkeypatch.setattr(instrument, "_population", lambda s, pop: ["a", "b", "c", "d"])
+    monkeypatch.setattr(instrument.sf, "_describe", lambda u: {"unit": u})
+    s = _FakeSurface({"a": "A", "b": "B", "c": "C", "d": "D"})
+    out = instrument.lens(s, {"cited_by": "902"})
+    assert (out["read"], out["not_read"], out["stale"]) == (2, 1, 1)
+    assert out["counts"] == {"jev": {"current": 1, "historical": 1}, "qwen": {"current": 2}}
+    assert out["judges_agree"] == 1
+    assert out["combinations"] == {"jev=current,qwen=current": 1, "jev=historical,qwen=current": 1}
+    assert out["not_read_units"] == ["c"] and out["stale_units"] == ["d"]
+    assert "question" in out and s.logged[-1][0] == "lens"
+
+
+def test_lens_refuses_unknown_names_and_labels():
+    import instrument
+    with pytest.raises(ValueError):
+        instrument.lens(_FakeSurface({}), {"cited_by": "902"}, name="nope")
+    with pytest.raises(ValueError):
+        instrument.lens(_FakeSurface({}), {"cited_by": "902"}, label="live")

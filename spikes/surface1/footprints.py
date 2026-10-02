@@ -2,7 +2,7 @@
 
     uv run --group plumbing python spikes/surface1/footprints.py caller-opus-1 caller-sonnet-1
 
-Grain, coarse to fine: overview 0, cell 1, drill/cited_by/measure 2, unit 3, cite/follow 4.
+Grain, coarse to fine: overview 0, cell 1, drill/cited_by/measure/lens 2, unit 3, cite/follow 4.
 Failed calls (recorded since review 1) are listed apart and don't count as moves.
 A move is *down* if the next call is finer, *up* if coarser. `up_after_text` counts up
 moves after the caller's first cite/follow (prediction S3). Writes footprints.json.
@@ -14,7 +14,7 @@ from pathlib import Path
 
 from levadura_salvaje.tenant import connect
 
-GRAIN = {"overview": 0, "cell": 1, "drill": 2, "cited_by": 2, "measure": 2, "unit": 3, "cite": 4, "follow": 4}
+GRAIN = {"overview": 0, "cell": 1, "drill": 2, "cited_by": 2, "measure": 2, "lens": 2, "unit": 3, "cite": 4, "follow": 4}
 
 
 def score(db, who: str) -> dict:

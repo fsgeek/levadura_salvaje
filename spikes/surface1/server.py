@@ -106,5 +106,16 @@ def measure(pattern: str, cited_by: str | None = None, cell: str | None = None, 
                 pattern=pattern, cited_by=cited_by, cell=cell, all_units=all_units, near=near, window=window,
                 case_sensitive=case_sensitive, sample=sample, seed=seed, list_cursor=list_cursor)
 
+@server.tool()
+def lens(cited_by: str | None = None, cell: str | None = None, all_units: bool = False, name: str = "currency",
+         label: str | None = None, sample: int = instrument.SAMPLE, seed: int = 0, list_cursor: int = 0) -> str:
+    """A stored reading of each unit by earlier instruments (see the result's `question`, `scope` and
+    `quality`), counted over a population per judge, with samples for each label combination."""
+    return _out("lens", lambda s: instrument.lens(s, instrument.population_arg(cited_by, cell, all_units), name,
+                                                  label, sample, seed, list_cursor),
+                cited_by=cited_by, cell=cell, all_units=all_units, name=name, label=label, sample=sample,
+                seed=seed, list_cursor=list_cursor)
+
+
 if __name__ == "__main__":
     server.run("stdio")

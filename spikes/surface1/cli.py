@@ -8,6 +8,7 @@
     ... cite UNIT_ID INDEX
     ... follow unit|provision ID [--offset 0] [--length 4000]
     ... measure (--cited-by N | --cell C [--all]) --pattern REGEX [--near N] [--window 400] [--case-sensitive]
+    ... lens (--cited-by N | --cell C [--all]) [--name currency] [--label L]
 
 Every error, argument errors included, comes back as {"error": ...} with exit status 2.
 Failed calls are recorded as footprints too.
@@ -56,6 +57,16 @@ def _parser() -> argparse.ArgumentParser:
     s.add_argument("--sample", type=int, default=instrument.SAMPLE)
     s.add_argument("--seed", type=int, default=0, help="change it to draw different samples")
     s.add_argument("--list-cursor", type=int, default=0, help="page the unit-id lists (200 per call)")
+    s = sub.add_parser("lens", help="a stored reading of each unit (by earlier instruments), counted over a population")
+    g = s.add_mutually_exclusive_group(required=True)
+    g.add_argument("--cited-by", help="population: units citing this Code section")
+    g.add_argument("--cell", help="population: a cell's members (units with a broken citation)")
+    s.add_argument("--all", action="store_true", help="with --cell: every unit in the cell")
+    s.add_argument("--name", default="currency", help="which lens (see its `question` in the output)")
+    s.add_argument("--label", help="only combinations involving this label")
+    s.add_argument("--sample", type=int, default=instrument.SAMPLE)
+    s.add_argument("--seed", type=int, default=0)
+    s.add_argument("--list-cursor", type=int, default=0)
     return p
 
 
@@ -74,6 +85,8 @@ def main(argv=None) -> int:
             "unit": lambda: sf.unit(a.unit, a.cursor, a.limit, a.only_broken),
             "cite": lambda: sf.cite(a.unit, a.index),
             "follow": lambda: sf.follow(a.kind, a.id, a.offset, a.length, a.from_end),
+            "lens": lambda: instrument.lens(sf, instrument.population_arg(a.cited_by, a.cell, a.all), a.name,
+                                            a.label, a.sample, a.seed, a.list_cursor),
             "measure": lambda: instrument.measure(
                 sf, instrument.population_arg(a.cited_by, a.cell, a.all),
                 a.pattern, a.near, a.window, not a.case_sensitive, a.sample, a.seed, a.list_cursor),
