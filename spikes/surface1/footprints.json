@@ -1482,5 +1482,810 @@
     }
    }
   ]
+ },
+ "caller-opus-3": {
+  "who": "caller-opus-3",
+  "calls": 17,
+  "failed_calls": 1,
+  "failures": [
+   {
+    "at": "2026-10-02T15:56:42.286441+00:00",
+    "tool": "lens",
+    "error": "ValueError: unknown lens 'nonexistent'; known: ['currency']"
+   }
+  ],
+  "first": "overview",
+  "tools": {
+   "overview": 2,
+   "cell": 1,
+   "cited_by": 1,
+   "lens": 1,
+   "unit": 1,
+   "cite": 1,
+   "follow": 7,
+   "measure": 3
+  },
+  "down": 5,
+  "up": 2,
+  "up_after_text": 2,
+  "path": "00122344422444442",
+  "sequence": [
+   {
+    "at": "2026-10-02T15:56:21.359431+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-02T15:56:25.343098+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-02T15:56:31.276116+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "1",
+     "top": 30,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:35.617817+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 0,
+     "limit": 80
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:38.672283+00:00",
+    "tool": "lens",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "name": "currency",
+     "label": null,
+     "sample": 5,
+     "seed": 0,
+     "list_cursor": 0,
+     "counts": {
+      "jev": {
+       "current": 62,
+       "historical": 9,
+       "no_rules": 2
+      },
+      "qwen": {
+       "current": 61,
+       "no_rules": 5,
+       "historical": 7
+      }
+     },
+     "not_read": 0,
+     "stale": 0,
+     "sampled": {
+      "jev=current,qwen=current": [
+       "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:114",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:142",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:84",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:122"
+      ],
+      "jev=historical,qwen=historical": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:211",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:141",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:154",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:145",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:212"
+      ],
+      "jev=current,qwen=no_rules": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:225",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:120",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:208"
+      ],
+      "jev=historical,qwen=current": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:111",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:71"
+      ],
+      "jev=no_rules,qwen=no_rules": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:2",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:139"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:43.598218+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "cursor": 0,
+     "limit": 10,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:51.251798+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "index": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:55.684457+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 0,
+     "length": 2000,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:01.797648+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 2500,
+     "length": 2500,
+     "from_end": true
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:08.974454+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "(before|prior to) January 1, 2018|as in effect (before|on)",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "sample": 5,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 15,
+     "not_matched": 58,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:99",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:235",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:71",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+       "cfr26-2025:CFR-2025-title26-vol10.xml:224"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:85",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:3",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:2",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:140",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:89"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:18.518169+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "2018|2017|Tax Cuts|115-97|repeal",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "sample": 0,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 21,
+     "not_matched": 52,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [],
+      "not_matched": []
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:30.171946+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 0,
+     "length": 20000,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:38.366382+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 20000,
+     "length": 20000,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:41.526780+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 40000,
+     "length": 20000,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:44.641181+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 60000,
+     "length": 20000,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:56.660082+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "provision",
+     "id": "2b190855-a86e-5ca0-a85e-5612c66b04b2",
+     "offset": 0,
+     "length": 4000,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:58:09.696103+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "deemed paid",
+     "near": "902",
+     "window": 150,
+     "ignore_case": true,
+     "sample": 3,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 31,
+     "not_matched": 42,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol15.xml:89",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:258",
+       "cfr26-2025:CFR-2025-title26-vol14.xml:182"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:5",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:120",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:120"
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "caller-sonnet-3": {
+  "who": "caller-sonnet-3",
+  "calls": 22,
+  "failed_calls": 0,
+  "failures": [],
+  "first": "overview",
+  "tools": {
+   "overview": 1,
+   "cell": 3,
+   "lens": 3,
+   "cited_by": 2,
+   "unit": 2,
+   "drill": 1,
+   "cite": 3,
+   "measure": 5,
+   "follow": 2
+  },
+  "down": 7,
+  "up": 5,
+  "up_after_text": 4,
+  "path": "0122323442114224422222",
+  "sequence": [
+   {
+    "at": "2026-10-02T15:56:22.079211+00:00",
+    "tool": "overview",
+    "grain": 0,
+    "args": {}
+   },
+   {
+    "at": "2026-10-02T15:56:29.227757+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "54",
+     "top": 15,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:29.681620+00:00",
+    "tool": "lens",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cell": "54",
+      "all": false
+     },
+     "name": "currency",
+     "label": null,
+     "sample": 5,
+     "seed": 0,
+     "list_cursor": 0,
+     "counts": {
+      "jev": {
+       "current": 6,
+       "historical": 1
+      },
+      "qwen": {
+       "current": 6,
+       "historical": 1
+      }
+     },
+     "not_read": 0,
+     "stale": 0,
+     "sampled": {
+      "jev=current,qwen=current": [
+       "cfr26-2025:CFR-2025-title26-vol19.xml:208",
+       "cfr26-2025:CFR-2025-title26-vol19.xml:239",
+       "cfr26-2025:CFR-2025-title26-vol19.xml:139",
+       "cfr26-2025:CFR-2025-title26-vol19.xml:145",
+       "cfr26-2025:CFR-2025-title26-vol19.xml:161"
+      ],
+      "jev=historical,qwen=historical": [
+       "cfr26-2025:CFR-2025-title26-vol19.xml:141"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:32.673511+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "204",
+     "cursor": 0,
+     "limit": 5
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:33.984265+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:239",
+     "cursor": 0,
+     "limit": 5,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:35.812700+00:00",
+    "tool": "drill",
+    "grain": 2,
+    "args": {
+     "cell": "54",
+     "after": null,
+     "limit": 10
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:40.072586+00:00",
+    "tool": "unit",
+    "grain": 3,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "cursor": 0,
+     "limit": 4,
+     "only_broken": true
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:45.077733+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "index": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:50.527037+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:161",
+     "index": 100
+    }
+   },
+   {
+    "at": "2026-10-02T15:56:56.075967+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "204"
+     },
+     "pattern": "ERISA|Employee Retirement Income Security Act",
+     "near": "204",
+     "window": 200,
+     "ignore_case": true,
+     "sample": 3,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 1,
+     "not_matched": 3,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol19.xml:161"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol20.xml:626",
+       "cfr26-2025:CFR-2025-title26-vol1.xml:53",
+       "cfr26-2025:CFR-2025-title26-vol7.xml:44"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:01.253784+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "1",
+     "top": 8,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:01.628766+00:00",
+    "tool": "cell",
+    "grain": 1,
+    "args": {
+     "cell": "48",
+     "top": 6,
+     "cursor": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:05.754913+00:00",
+    "tool": "cite",
+    "grain": 4,
+    "args": {
+     "unit": "cfr26-2025:CFR-2025-title26-vol19.xml:239",
+     "index": 0
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:10.479194+00:00",
+    "tool": "cited_by",
+    "grain": 2,
+    "args": {
+     "target": "902",
+     "cursor": 0,
+     "limit": 12
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:11.164976+00:00",
+    "tool": "lens",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "name": "currency",
+     "label": null,
+     "sample": 5,
+     "seed": 0,
+     "list_cursor": 0,
+     "counts": {
+      "jev": {
+       "current": 62,
+       "historical": 9,
+       "no_rules": 2
+      },
+      "qwen": {
+       "current": 61,
+       "no_rules": 5,
+       "historical": 7
+      }
+     },
+     "not_read": 0,
+     "stale": 0,
+     "sampled": {
+      "jev=current,qwen=current": [
+       "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:114",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:142",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:84",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:122"
+      ],
+      "jev=historical,qwen=historical": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:211",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:141",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:154",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:145",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:212"
+      ],
+      "jev=current,qwen=no_rules": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:225",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:120",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:208"
+      ],
+      "jev=historical,qwen=current": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:111",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:71"
+      ],
+      "jev=no_rules,qwen=no_rules": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:2",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:139"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:17.104889+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 0,
+     "length": 1800,
+     "from_end": false
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:20.259183+00:00",
+    "tool": "follow",
+    "grain": 4,
+    "args": {
+     "kind": "unit",
+     "id": "cfr26-2025:CFR-2025-title26-vol11.xml:209",
+     "offset": 1800,
+     "length": 1800,
+     "from_end": true
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:24.582887+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "taxable years? (beginning|of foreign corporations) (before|after)|December 31, 2017|repeal|Tax Cuts and Jobs|Pub\\. L\\. 115-97|no longer",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "sample": 3,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 47,
+     "not_matched": 26,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:126",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:141",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:200"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:114",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:71",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:7"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:36.295170+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "repeal|Tax Cuts|115-97|section 902.{0,40}(no longer|does not apply)|after December 31, 2017",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "sample": 6,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 9,
+     "not_matched": 64,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:95",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:200",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:220",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:115",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:235"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol13.xml:264",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:140",
+       "cfr26-2025:CFR-2025-title26-vol13.xml:257",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:142",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:71",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:128"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:41.841495+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "1\\.902-1.{0,300}(2017|2018)|before (the )?(first )?taxable year.{0,40}2018|taxable years? .{0,30}beginning on or after January 1, 2018",
+     "near": null,
+     "window": 400,
+     "ignore_case": true,
+     "sample": 4,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 2,
+     "not_matched": 71,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol5.xml:146",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:235"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:198",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:126",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:140",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:88"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:52.130186+00:00",
+    "tool": "measure",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "pattern": "Special effective date\\. .{0,400}",
+     "near": null,
+     "window": 400,
+     "ignore_case": false,
+     "sample": 20,
+     "seed": 0,
+     "list_cursor": 0,
+     "matched": 1,
+     "not_matched": 72,
+     "no_anchor": 0,
+     "stale": 0,
+     "sampled": {
+      "matched": [
+       "cfr26-2025:CFR-2025-title26-vol11.xml:208"
+      ],
+      "not_matched": [
+       "cfr26-2025:CFR-2025-title26-vol13.xml:184",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:198",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:126",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:140",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:88",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:95",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:145",
+       "cfr26-2025:CFR-2025-title26-vol15.xml:87",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:5",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:141",
+       "cfr26-2025:CFR-2025-title26-vol13.xml:257",
+       "cfr26-2025:CFR-2025-title26-vol13.xml:264",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:215",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:124",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:202",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:251",
+       "cfr26-2025:CFR-2025-title26-vol5.xml:134",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:7",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:20",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:146"
+      ]
+     }
+    }
+   },
+   {
+    "at": "2026-10-02T15:57:54.019801+00:00",
+    "tool": "lens",
+    "grain": 2,
+    "args": {
+     "population": {
+      "cited_by": "902"
+     },
+     "name": "currency",
+     "label": "historical",
+     "sample": 5,
+     "seed": 0,
+     "list_cursor": 0,
+     "counts": {
+      "jev": {
+       "current": 62,
+       "historical": 9,
+       "no_rules": 2
+      },
+      "qwen": {
+       "current": 61,
+       "no_rules": 5,
+       "historical": 7
+      }
+     },
+     "not_read": 0,
+     "stale": 0,
+     "sampled": {
+      "jev=historical,qwen=historical": [
+       "cfr26-2025:CFR-2025-title26-vol15.xml:87",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:145",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:7",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:211",
+       "cfr26-2025:CFR-2025-title26-vol11.xml:212"
+      ],
+      "jev=historical,qwen=current": [
+       "cfr26-2025:CFR-2025-title26-vol12.xml:71",
+       "cfr26-2025:CFR-2025-title26-vol12.xml:111"
+      ]
+     }
+    }
+   }
+  ]
  }
 }
