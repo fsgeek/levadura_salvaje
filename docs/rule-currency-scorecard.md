@@ -3,8 +3,11 @@
 *The rule-currency lens asks the question three callers of the tool surface had
 (docs/surface1-scorecard.md, round 3). The currency lens asked only whether a
 section states *any* untimed rule. This lens asks whether *the rule a citation sits
-in* is limited to the past. Population: the 548 citations of § 902, repealed by Pub. L.
-115-97 for years beginning after 2017, in 73 sections of the 2025 CFR. Judge: Qwen3.8-27B
+in* is limited to the past. Population: the 548 resolved § 902 reference records in the
+pinned citations sidecar (547 distinct spans; two inverted records share one), in 73
+sections of the 2025 CFR. § 902 was repealed by Pub. L. 115-97 for years beginning after
+2017. Citations inside ranges such as "sections 901 through 905" are outside the frame.
+Reviewed by Codex: [rule-currency-review-1.md](rule-currency-review-1.md). Judge: Qwen3.8-27B
 under an `ayllu-gpu` lease.*
 
 ## v1 (obs-0156, audit obs-0157)
@@ -29,7 +32,8 @@ citations sat in worked examples ("Example 4. ... In 1992, Corporation M ..."), 
 of the three judges applied its own consistent rule to them:
 - reader A (Opus): `untimed` on 17 of 18, judging the rule illustrated;
 - reader B (Sonnet): `time_limited` on 18 of 18, judging the example's dated facts;
-- Qwen: `not_a_rule` on 12 of 18, because an example isn't a rule.
+- Qwen: `not_a_rule` on 12 of 18, 5 `untimed`, 1 `time_limited`. Qwen gives only labels, so
+  "because an example isn't a rule" is my inference, not its reason.
 
 On the 27 non-example items, the readers agree on 20 (74%), and Qwen agrees with reader B
 on 25 (93%). The remaining splits are the same kind of gap, smaller: transition
@@ -76,28 +80,71 @@ unused taxes, recapture of old separate-limitation loss accounts. But the rule i
 applies today with no end date. That is v2's carryover case, and the readers applied it
 while Qwen didn't. Where Qwen said `untimed`, the consensus agreed 12 of 12.
 
-**The number, audit-adjusted (obs-0159).** Reallocating each Qwen stratum by its consensus
-labels, with the 6 disagreements excluded and a within-stratum bootstrap:
+**The number, audit-adjusted (obs-0161, superseding obs-0159).** Each Qwen stratum's
+population count is reallocated by the audit's labels in that stratum. The readers'
+six disagreements matter, so the estimate is shown under every rule for them
+(`scripts/audit_rule_currency.py adjust`):
 
-| | Qwen v2 | audit-adjusted share, 95% interval |
-|---|---|---|
-| `untimed` | 337 (61.5%) | **82% (73–91)** |
-| `time_limited` | 188 (34.3%) | 14% (6–23) |
-| `not_a_rule` | 23 (4.2%) | 4% (3–4) |
+| `untimed` share | |
+|---|---|
+| Qwen v2, unadjusted | 61.5% |
+| consensus items only (disagreements excluded) | 82.1% |
+| reader A alone, all items | 68.1% |
+| reader B alone, all items | 82.6% |
+| **disputed items counted out / in** | **65.8% – 84.9%** |
+| bootstrap over the consensus items, conditional on them | 72.9% – 90.9% |
 
-**So about four in five citations of the repealed § 902 in the 2025 regulations sit in
-rules that, by their own words, still apply.** This is the citation-level counterpart of
-the currency lens's section-level "about nine in ten unmarked fossils" (obs-0132/0146).
-At citation level the gap between the two lenses stays small: 4 of 59 sections (V3).
+An earlier version of this scorecard gave "82% (73–91)" as a population estimate with a 95%
+interval. That excluded the disagreements, which concern exactly the hard cases
+(headings, applicability, past-period inputs). Its bootstrap treated Qwen's 337
+`untimed` labels as certain (12 of 12 agreed) and covered only resampling of agreed items.
+The review was right on both counts.
 
-**What "untimed" does not mean.** It means the rule is live as written. It doesn't mean
+**So, of the § 902 citations in the 2025 regulations, between about two-thirds and
+five-sixths sit in rules that state no time limit in the surrounding text.** Qwen alone
+undercounts: it calls rules on past-period amounts time-limited. The section-level gap
+between the two lenses stays small, at 4 of 59 sections (V3), but that compares model
+labels and is not proof that a section is "current only because of other rules".
+
+**What "untimed" does not mean, either.** It means the rule is live as written. It doesn't mean
 the rule misleads. 1.367(b)-7's 21 citations are all `untimed`, including "As a result of
 the repeal of section 902 effective for taxable years ... beginning on or after January 1,
 2018, ...": a live rule that *acknowledges* the repeal. A lens that separates
 "depends on the repealed provision" from "acknowledges its repeal" would be v3, a
 different question, with its own predictions.
 
+**"No time limit visible", not "still applies".** The excerpt (1,500 characters before,
+700 after) can miss the governing limit. In the v2 audit sample, two example headings sit
+2,584 and 4,251 characters before their citations. Both readers saw the same excerpt, so
+their agreement can't detect a limit that neither could see. A v3 would retrieve the
+paragraph's ancestry and the section's applicability paragraph.
+
+**One consensus label is probably wrong.** Item 21 (1.902-3) carries an exception that
+lets the section apply until ownership requirements are first met after 1986, with no
+calendar end. Both readers said `time_limited`; the text supports `untimed`. Moving it
+shifts the consensus estimate by 2.9 points.
+
+**Blinding, verified.** Each of the four readers' tool calls was extracted from its
+subagent transcript (`results/rule-currency-audit-access-log.json`). Each read its
+instructions and its packet, then wrote its answers, and opened nothing else: no key, no
+Qwen labels, not the other reader's file. Three items appear in both the v1 and v2
+samples. With fresh readers and these access logs, that isn't a leak.
+
 **Limits.** Claude-family readers (Opus and Sonnet), the same family that designed the
 lens. Strata of 12 to 15 consensus items. `not_a_rule` was oversampled (15 of its 23). The
 adjustment assumes the sample's per-stratum precision holds across the population. One
 Code section, § 902; whether the shape holds for § 1201, § 46 or § 167 is untested.
+
+## Review 1 (Codex) → changes
+
+| # | Finding | Change |
+|---|---|---|
+| 1, 2 HIGH | 82% excluded disagreements; the "95% interval" treated Qwen's `untimed` stratum as certain | headline replaced by the range 65.8–84.9% under every disagreement rule; bootstrap relabelled as conditional; `adjust` computes all of it (obs-0161 supersedes obs-0159) |
+| 3 HIGH | excerpt absence read as currency | "no time limit visible in the excerpt"; v3 named |
+| 4 | resume and `record` lacked invariants | malformed, invalid-label or other-model cached rows are distrusted; `check_final` requires the exact population, once each, matching excerpts and valid labels, at write and at record (tests; mutants caught) |
+| 5 | item 21's consensus contradicted by its exception | flagged above and in obs-0161 |
+| 6 | blinding asserted, not shown | readers' tool calls extracted from transcripts; all four opened only instructions and packet |
+| 7 | V4/V6 improvement confounded; 7/7 is weak | V4 and V6 stand as threshold checks only; the wording and the sample both changed, and v2's seven examples all illustrate live rules |
+| 8 | scorer accepted inconsistent answers | answers must match the packet's items exactly, once each, with valid labels; `score` reports the packet's hash (tests; mutants caught) |
+| 9 | 548 is records, not occurrences; range interiors excluded | population described as such; obs-0160 records 547 distinct spans |
+| 10 | obs-0158 cited the v1 predictions; Qwen's "example isn't a rule" was inferred | obs-0160 supersedes obs-0158; the v1 section's explanation is marked as an inference below |

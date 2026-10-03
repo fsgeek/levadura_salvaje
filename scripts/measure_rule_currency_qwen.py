@@ -37,6 +37,37 @@ ZIP = Path("data/cfr/CFR-2025-title-26.zip")
 PARTIAL = Path(f"results/rule-currency-qwen-v{rc.LENS_VERSION}-{TARGET}-2025.partial.jsonl")
 FINAL = Path(f"results/rule-currency-qwen-v{rc.LENS_VERSION}-{TARGET}-2025.jsonl")
 WORKERS = 2
+PREDICTIONS = {"1": "predictions/2026-10-02-rule-currency-claude.md",
+               "2": "predictions/2026-10-02-rule-currency-v2-claude.md"}
+
+
+def _cached(line: str) -> dict | None:
+    """A partial-file row, or None if it can't be trusted for resume (review 1, #4): malformed,
+    a label outside the lens, or answered by another model."""
+    try:
+        row = json.loads(line)
+    except json.JSONDecodeError:
+        return None
+    if row.get("label") not in rc.LABELS or row.get("model_reported") not in (None, MODEL):
+        return None
+    return row
+
+
+def check_final(rows: list[dict], todo_all: list[dict]) -> None:
+    """The final file must hold exactly the expected population, once each, with matching excerpts
+    and valid labels (review 1, #4)."""
+    want = {(it["volume_file"], it["ordinal"], it["index"]): it for it in todo_all}
+    got = [(r["volume_file"], r["ordinal"], r["index"]) for r in rows]
+    if len(got) != len(set(got)):
+        sys.exit("final file: duplicate rows")
+    if set(got) != set(want):
+        sys.exit(f"final file: {len(set(want) - set(got))} missing, {len(set(got) - set(want))} unexpected")
+    for r in rows:
+        it = want[(r["volume_file"], r["ordinal"], r["index"])]
+        if r["label"] not in rc.LABELS:
+            sys.exit(f"{it['key']}: invalid label {r['label']!r}")
+        if r["excerpt_sha256"] != hashlib.sha256(it["excerpt"].encode()).hexdigest():
+            sys.exit(f"{it['key']}: excerpt hash does not match this lens version's excerpt")
 
 
 def items() -> list[dict]:
@@ -93,8 +124,9 @@ def main() -> None:
     done = {}
     if PARTIAL.exists():
         for line in PARTIAL.read_text().splitlines():
-            row = json.loads(line)
-            done[row["key"]] = row
+            row = _cached(line)
+            if row is not None:
+                done[row["key"]] = row
     todo = [it for it in todo_all if it["key"] not in done]
     print(f"{len(todo_all)} citations, {len(todo)} to ask ({len(done)} answered)", flush=True)
     failed = 0
@@ -123,12 +155,14 @@ def main() -> None:
             sys.exit(f"{it['key']}: the partial answer was for a different excerpt")
         rows.append({k: it[k] for k in ("volume_file", "ordinal", "sectno", "sha256", "index", "path", "head", "span")}
                     | {"label": d["label"], "excerpt_sha256": d["excerpt_sha256"]})
+    check_final(rows, todo_all)
     FINAL.write_text("".join(json.dumps(r, sort_keys=True) + "\n" for r in rows))
     print(f"wrote {FINAL} ({len(rows)} rows); record it with: uv run python {sys.argv[0]} record")
 
 
 def record() -> None:
     rows = [json.loads(l) for l in FINAL.read_text().splitlines()]
+    check_final(rows, items())
     by_sec: dict[str, Counter] = {}
     for r in rows:
         by_sec.setdefault(r["sectno"], Counter())[r["label"]] += 1
@@ -144,14 +178,16 @@ def record() -> None:
                       f"({rc.BEFORE} before, {rc.AFTER} after, citation marked); JSON-schema label; temperature 0; "
                       "thinking off",
             "known_limits": "excerpt may cut off a limit stated elsewhere in the section; one judge; text, not law",
-            "predictions": "predictions/2026-10-02-rule-currency-claude.md",
+            "predictions": PREDICTIONS[rc.LENS_VERSION],
         },
         "population": {"edition": "2025", "target": TARGET, "citations_file": str(CIT),
                        "citations_sha256": CIT_SHA256, "results_file": str(FINAL),
                        "results_sha256": hashlib.sha256(FINAL.read_bytes()).hexdigest(),
                        "partial_sha256": hashlib.sha256(PARTIAL.read_bytes()).hexdigest()},
         "quantity": "rule_currency_citation_labels_qwen",
-        "value": {"citations": len(rows), "sections": len(by_sec),
+        "value": {"citations": len(rows), "distinct_spans": len({(r["volume_file"], r["ordinal"], *r["span"])
+                                                                  for r in rows}),
+                  "sections": len(by_sec),
                   "labels": dict(Counter(r["label"] for r in rows)),
                   "sections_with_no_untimed_citation": sum(1 for c in by_sec.values() if not c["untimed"])},
         "derived_from": ["obs-0132", "obs-0146"],
