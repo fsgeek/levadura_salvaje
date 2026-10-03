@@ -1,0 +1,47 @@
+{
+ "note": "Every tool call each blind reader made, extracted from its subagent transcript (Claude Code session b574b6f2, subagents/agent-<id>.jsonl). Bash calls are shown by their first line; they wrote the reader's answer file from hard-coded labels and read nothing.",
+ "readers": {
+  "v3/reader-a": {
+   "agent": "a23ebdca64ce48c60",
+   "calls": [
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-packet.jsonl"
+    },
+    {
+     "tool": "Bash",
+     "target": "cat > /home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-reader-a.jsonl <<'EOF'"
+    }
+   ]
+  },
+  "v3/reader-b": {
+   "agent": "a652fdb132c8c8895",
+   "calls": [
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v3-902-packet.jsonl"
+    },
+    {
+     "tool": "Bash",
+     "target": "cd /home/tony/projects/levadura_salvaje/results && python3 - <<'E'"
+    }
+   ]
+  }
+ }
+}

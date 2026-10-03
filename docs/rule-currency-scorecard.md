@@ -148,3 +148,65 @@ Code section, § 902; whether the shape holds for § 1201, § 46 or § 167 is un
 | 8 | scorer accepted inconsistent answers | answers must match the packet's items exactly, once each, with valid labels; `score` reports the packet's hash (tests; mutants caught) |
 | 9 | 548 is records, not occurrences; range interiors excluded | population described as such; obs-0160 records 547 distinct spans |
 | 10 | obs-0158 cited the v1 predictions; Qwen's "example isn't a rule" was inferred | obs-0160 supersedes obs-0158; the v1 section's explanation is marked as an inference below |
+
+## v3: excerpts from paragraph structure (obs-0162, audit obs-0164)
+
+*Predictions: [predictions/2026-10-03-rule-currency-v3-claude.md](../predictions/2026-10-03-rule-currency-v3-claude.md),
+stamped before any v3 call. Design: [rule-currency-v3-design.md](rule-currency-v3-design.md).* The
+question and labels are v2's. The judge now sees the section heading, the opening of each
+ancestor paragraph, the worked example and what introduces it, the citation's own paragraph and
+the applicability paragraph, all rebuilt from the CFR XML by `src/levadura_salvaje/structure.py`
+in the same coordinates as the citation spans. Excerpt modes for the 548 records: 476 from
+structure, 28 with a table or extract attached to the paragraph before it, and 44 on v2's window
+as a declared fallback (43 failed designator chains, 1 table-of-contents heading).
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| W1 | Qwen v3 `untimed` 58% (45–70) | 66.6% (365) | **pass**, but in the opposite direction to my reasoning: up from v2's 61.5%, not down |
+| W2 | **what the window hid**: v2 `untimed` → v3 `time_limited`, 10% (3–20) | **8.0%** (27 of 337) | **pass** |
+| W3 | v2 `time_limited` → v3 `untimed`, 15% (5–30) | 27.7% (52 of 188) | **pass**, near the top |
+| W4 | readers agree 85% (75–95) | 34 of 45 (75.6%) | **pass**, at the edge |
+| W5 | consensus agrees with Qwen 80% (65–92) | 31 of 34 (91%) | **pass** |
+| W6 | adjusted `untimed` midpoint below v2's 75.4% (p 0.6) | range 57.3–82.1%, midpoint 69.7% | **pass** |
+| W7 | probe 1.902-3 #49 gets an `untimed` (p 0.6) | reader A `untimed`, reader B `time_limited`, Qwen `time_limited` | **pass** |
+
+**Structure cuts both ways, and more often toward `untimed`.** Seeing the governing structure
+revealed limits the window hid: 27 citations, W2. It also removed apparent limits that the
+window had shown out of context: 52 citations, W3. Only 1 of the 44 window-fallback citations
+changed label, so the instrument is stable where its input didn't change.
+
+**The remaining disagreement is one ambiguity, concentrated in one section.** Nine of the
+eleven disagreements are reader A `untimed` against reader B `time_limited`, and seven of the
+eleven are in 1.909-6. Each is a rule whose *inputs* are from the past (pre-2011 split taxes,
+pre-2018 years) but whose *application* is open-ended: "in taxable years ... ending after
+February 9, 2015", "redeterminations ... that occur in taxable years ... ending on or after
+November 2, 2020". The lens's carryover criterion says such a rule is `untimed`, and reader A
+applied it. Reader B, and mostly Qwen, read the input period as the limit. That is my reading of
+the criterion, not an adjudication, so the range below keeps both. This is the case I first
+noticed on 2026-10-02, when the section-level lens and a caller disagreed about 1.909-6. It has
+recurred at every grain since.
+
+| `untimed` share, v3 | |
+|---|---|
+| Qwen v3, unadjusted | 66.6% |
+| consensus items only | 71.5% |
+| reader A alone | 77.7% |
+| reader B alone | 61.7% |
+| **disputed items counted out / in** | **57.3% – 82.1%** |
+| bootstrap over consensus items, conditional | 56.2% – 86.6% |
+
+**So, with the governing structure visible: between about three in five and four in five of the
+§ 902 citations sit in rules that state no time limit.** v2's range was 65.8–84.9%. The
+interval moved down a little and widened, because v3's audit found disagreement concentrated in
+a heavy section (1.909-6 holds 84 of the 548 citations). The width now comes mainly from one
+question: should a rule that applies past inputs in open-ended future years count as live? The
+lens says yes, and half the judges don't follow it.
+
+**Blinding** is verified as before: both readers' tool calls are in
+`results/rule-currency-audit-v3-access-log.json`. A pinned-file check now runs over the whole
+ledger (`scripts/verify_pins.py`; 143 pins verified, and the one mismatch is the superseded
+obs-0163). I wrote that check after extending a pinned file in place and breaking obs-0161's pin.
+
+**Next, if the lens continues:** the ambiguity has become the lens's open question. Either make
+"past inputs, open-ended application" a fourth label, or adjudicate the criterion with a reader
+who isn't Claude.
