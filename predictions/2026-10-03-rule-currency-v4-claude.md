@@ -14,7 +14,7 @@ do, v4 runs on the fixed excerpts, and these predictions still apply.*
 
 Same 548 records, Qwen settings and lease. A fresh blind audit with two new readers (fresh
 subagents, one Opus and one Sonnet): 15 per v4 label (seed 3), plus the 1.902-3 #49 probe,
-plus every 1.909-6 citation in the sample.
+plus a fixed extra stratum of ten 1.909-6 citations (seed `extra-3`) for X1. The probe and the extra stratum are kept out of X2, X6 and the population adjustment. *(Clarified 2026-10-03, before any v4 call: the first version said "every 1.909-6 citation in the sample", which a random draw might leave at two or three.)*
 
 | | Prediction |
 |---|---|

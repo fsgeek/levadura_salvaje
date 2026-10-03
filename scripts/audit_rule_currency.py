@@ -33,7 +33,10 @@ KEY = Path(f"results/rule-currency-audit-v{V}-902-key.jsonl")
 READERS = ("reader-a", "reader-b")
 # Fixed probes added to a version's sample (keys from measure_rule_currency_qwen.items()); marked in the key
 # file, not in the packet. v3: the 1.902-3 ownership exception both v2 readers mislabelled (v2 item 21).
-PROBES = {"3": ["CFR-2025-title26-vol11.xml#211#aaf2466f59ad66b3e0b1ed73563d27458a2c0b795761d9896754bdafecb8f0b2#49"]}
+PROBE_1902_3 = "CFR-2025-title26-vol11.xml#211#aaf2466f59ad66b3e0b1ed73563d27458a2c0b795761d9896754bdafecb8f0b2#49"
+PROBES = {"3": [PROBE_1902_3], "4": [PROBE_1902_3]}
+# v4's collapse test (X1) needs enough 1.909-6 items: a fixed extra stratum, also excluded from the statistics.
+EXTRA = {"4": ("1.909-6", 10)}
 
 
 def sample() -> None:
@@ -46,6 +49,11 @@ def sample() -> None:
         pool = [it for it in items if labels[(it["volume_file"], it["ordinal"], it["index"])] == lab]
         chosen += rng.sample(pool, min(PER_LABEL, len(pool)))
     probes = set(PROBES.get(V, []))
+    if V in EXTRA:
+        sec, n = EXTRA[V]
+        taken = {c["key"] for c in chosen} | probes
+        pool = sorted((it for it in items if it["sectno"] == sec and it["key"] not in taken), key=lambda it: it["key"])
+        probes |= {it["key"] for it in random.Random(f"extra-{SEED}").sample(pool, min(n, len(pool)))}
     chosen += [it for it in items if it["key"] in probes and it["key"] not in {c["key"] for c in chosen}]
     rng.shuffle(chosen)
     packet, key = [], []
