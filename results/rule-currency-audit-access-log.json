@@ -1,0 +1,89 @@
+{
+ "note": "Every tool call each blind reader made, extracted from its subagent transcript (Claude Code session b574b6f2, subagents/agent-<id>.jsonl). Bash calls are shown by their first line; they wrote the reader's answer file from hard-coded labels and read nothing.",
+ "readers": {
+  "v1/reader-a": {
+   "agent": "a696cd55c36753edd",
+   "calls": [
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-packet.jsonl"
+    },
+    {
+     "tool": "Write",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-reader-a.jsonl"
+    }
+   ]
+  },
+  "v1/reader-b": {
+   "agent": "a4eb5d1f72e4bd9e6",
+   "calls": [
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v1-902-packet.jsonl"
+    },
+    {
+     "tool": "Bash",
+     "target": "cd /home/tony/projects/levadura_salvaje/results && python3 - <<'E'"
+    }
+   ]
+  },
+  "v2/reader-a": {
+   "agent": "ac0e1c4cddc54ea46",
+   "calls": [
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-packet.jsonl"
+    },
+    {
+     "tool": "Write",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-reader-a.jsonl"
+    }
+   ]
+  },
+  "v2/reader-b": {
+   "agent": "ac426ab528514a705",
+   "calls": [
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "target": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v2-902-packet.jsonl"
+    },
+    {
+     "tool": "Bash",
+     "target": "cd /home/tony/projects/levadura_salvaje/results && python3 - <<'E'"
+    }
+   ]
+  }
+ }
+}
