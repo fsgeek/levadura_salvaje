@@ -57,7 +57,8 @@ headings. 487 fail to place:
 - **368 are in five tables of contents** (sections ending "-0"), which list designators
   out of context. Only 16 of the 548 citations sit in those, and Qwen v2 already labels 14
   of them `not_a_rule`.
-- **That leaves 119 of about 3,970 (3%) in real paragraphs.** 39 sections parse without a
+- **That leaves 119 of 3,524 (3.4%) in real paragraphs.** The tables of contents hold 818 of the
+  4,342 designators, and the probe prints both counts (`toc_designated`, `toc_failed`). 39 sections parse without a
   failure, and none of the rest has more than 12.
 
 Getting there took five conventions:

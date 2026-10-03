@@ -113,5 +113,6 @@ for name in sorted(n for n in z.namelist() if n.endswith(".xml")):
             stats["sections_clean"] += fails == 0
             worst.append((fails, no, len(toks)))
             stats["toc_failed"] += fails if no.strip().endswith("-0") else 0
+            stats["toc_designated"] += len(toks) if no.strip().endswith("-0") else 0
         el.clear()
 print(dict(stats)); print(sorted(worst, reverse=True)[:10])
