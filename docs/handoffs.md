@@ -353,7 +353,7 @@ cairn in my first message, and placed the stone that day.
   alone, and the 46 database tests error until it's back.
 
 **What I'd do next, if this were still mine.**
-1. Take the v3 review.
+1. Take the v3 review (`docs/rule-currency-review-2.md`, which landed just after handoff: 5 P1 and 7 P2. Excerpts can omit the illustrated rule's limit, and `structure.py` has four ancestry bugs). v4 should run only on fixed excerpts.
 2. Run the reader-against-itself baseline on the 1.909-6 items. It's cheap, and it decides whether
    the split is interpretive or noise.
 3. Run v4 and its audit.
