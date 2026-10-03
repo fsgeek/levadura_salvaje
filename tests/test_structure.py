@@ -88,13 +88,13 @@ def test_a_failed_designator_does_not_break_later_chains():
 
 
 def test_a_paragraph_failing_on_its_second_designator_leaves_no_partial_chain():
-    """'(b)(q)' applies (b) and then fails on (q): the stack must revert, or (1) would hang under a (b)
-    that no paragraph owns."""
+    """'(b)(q)' applies (b) and then fails on (q). (1) must not hang under a (b) that no paragraph owns,
+    nor under (a): its chain passes through the failure, so it is unknown (Codex review 2, P1 #4)."""
     el = ET.fromstring("<SECTION><P>(a) One.</P><P>(b)(q) Bad.</P><P>(1) Under a.</P></SECTION>")
     _, paras = st.paragraphs(el)
-    a, bad, one = paras
+    _a, bad, one = paras
     assert bad.failed and bad.ancestry is None
-    assert one.ancestry == [a.index] and None not in one.ancestry
+    assert one.failed and one.ancestry is None      # under the unknown chain, not silently under (a)
 
 
 def test_applicability_is_the_last_top_level_date_paragraph():
@@ -103,3 +103,32 @@ def test_applicability_is_the_last_top_level_date_paragraph():
                        "</SECTION>")
     _, paras = st.paragraphs(el)
     assert st.applicability(paras).text.startswith("(c) Effective/applicability dates")
+
+
+def test_a_chain_through_a_failure_is_unknown_until_a_known_sibling():
+    """Codex review 2, P1 #4: '(a) Live' -> '(q) Before 1987' -> '(1) ...' gave (1) the ancestor (a),
+    losing the possible governing limit in (q)."""
+    el = ET.fromstring("<SECTION><P>(a) Live rule.</P><P>(q) Before 1987.</P><P>(1) Section 902 applies.</P>"
+                       "<FP>A continuation.</FP><P>(2) More.</P><P>(b) Known again.</P><P>(1) Under b.</P>"
+                       "</SECTION>")
+    _, paras = st.paragraphs(el)
+    _a, q, one, cont, two, b, b1 = paras
+    assert q.failed and q.ancestry is None
+    for p in (one, cont, two):
+        assert p.failed and p.ancestry is None
+    assert not b.failed and b.level == 0 and b.ancestry == []
+    assert not b1.failed and b1.ancestry == [b.index]
+
+
+def test_an_inline_roman_opens_a_child_before_continuing_a_letter():
+    """Codex review 2, P1 #3 (1.367(b)-4(h)(7)): in '(2) Triangular —(i) Definition', (i) is (2)'s child,
+    not a sibling of (h)."""
+    lead = "".join(f"<P>({c}) {c.upper()}.</P>" for c in "abcdefg")
+    el = ET.fromstring(f"<SECTION>{lead}<P>(h) Rules.</P><P>(1) One.</P>"
+                       "<P>(2) <E T=\"03\">Triangular</E> —(i) <E T=\"03\">Definition</E>. Text.</P>"
+                       "<P>(ii) Second.</P><P>(i) Applicability date. After 2020.</P></SECTION>")
+    _, paras = st.paragraphs(el)
+    h, _one, two, ii, i_top = paras[7:]
+    assert two.designators == ["2", "i"] and two.level == 2 and two.ancestry == [h.index]
+    assert ii.level == 2 and ii.ancestry == [h.index, two.index]
+    assert i_top.level == 0 and i_top.ancestry == []

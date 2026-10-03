@@ -144,17 +144,33 @@ def _opens(tok: str, level: int) -> bool:
     return tok == {0: "a", 1: "1", 2: "i", 3: "A", 4: "1", 5: "i"}[level] or (level in (1, 4) and tok == "0")
 
 
-def _place(stack: list, tok: str) -> list | None:
-    """The new stack after tok, or None if tok neither continues a sibling nor opens a child."""
+UNKNOWN = (-1, None, None)     # a chain that failed: every level opened under it is unknown too
+
+
+def _place(stack: list, tok: str, inline: bool = False) -> list | None:
+    """The new stack after tok, or None if tok neither continues a sibling nor opens a child.
+
+    A paragraph's first designator tries continuing a sibling first. A later one in the same
+    paragraph ("(2) Taxes —(i) In general") tries opening a child first, because that is what an
+    inline designator does (Codex review 2, P1 #3). UNKNOWN has level -1, so anything opens under it,
+    and nothing continues it."""
     ks = _kinds(tok)
-    for depth in range(len(stack) - 1, -1, -1):
-        lv, t, _ = stack[depth]
-        if lv in ks and _next(t, lv) == tok:
-            return stack[:depth] + [(lv, tok, None)]
-    for k in ks:
-        if (not stack and _opens(tok, k)) or (stack and k > stack[-1][0] and _opens(tok, k)):
-            return stack + [(k, tok, None)]
-    return None
+
+    def sibling():
+        for depth in range(len(stack) - 1, -1, -1):
+            lv, t, _ = stack[depth]
+            if lv in ks and _next(t, lv) == tok:
+                return stack[:depth] + [(lv, tok, None)]
+        return None
+
+    def child():
+        for k in ks:
+            if (not stack and _opens(tok, k)) or (stack and k > stack[-1][0] and _opens(tok, k)):
+                return stack + [(k, tok, None)]
+        return None
+
+    first, second = (child, sibling) if inline else (sibling, child)
+    return first() or second()
 
 
 # --- the structure -----------------------------------------------------------------------------
@@ -198,29 +214,35 @@ def paragraphs(section_el) -> tuple[str, list[Para]]:
 
 
 def _levels(paras: list[Para]) -> None:
+    """Levels, parents and ancestry. A paragraph whose designators can't be placed is failed, and so
+    is every paragraph whose chain passes through it (Codex review 2, P1 #4): its children and
+    continuations get ancestry None, not a confident ancestry under an unrelated earlier paragraph.
+    A later designator that continues a known sibling leaves the unknown chain."""
     stacks: dict[str, list] = {}
     for p in paras:
         stack = stacks.setdefault(p.scope, [])
-        before, failed = list(stack), False
-        for tok in p.designators:
-            new = _place(stack, tok)
+        failed = False
+        for n, tok in enumerate(p.designators):
+            new = _place(stack, tok, inline=n > 0)
             if new is None:
-                failed = True        # this paragraph's chain is unknown; the stack reverts and carries on,
-                stack = before       # as in the probe, so one bad designator doesn't break the rest
+                failed = True
                 break
             stack = new
+        # every level this paragraph opened ("(c)(1) ...") belongs to it
+        stack = [(lv, t, p.index if node is None and lv >= 0 else node) for lv, t, node in stack]
         if failed:
-            pass                                                # ancestry stays None
+            if not stack or stack[-1] is not UNKNOWN:
+                stack = stack + [UNKNOWN]
+        elif UNKNOWN in stack:
+            failed = True                                       # placed, but under an unknown chain
         elif p.designators:
-            # every level this paragraph opened ("(c)(1) ...") belongs to it
-            stack = [(lv, t, p.index if node is None else node) for lv, t, node in stack]
             p.level = stack[-1][0]
             p.parent = stack[-2][2] if len(stack) > 1 else None
             p.ancestry = [s[2] for s in stack[:-1] if s[2] != p.index]   # not itself, for "(2) ... —(i)"
-        elif not p.designators and stack and stack[-1][2] is not None:
+        elif stack:
             p.level, p.parent = stack[-1][0], stack[-1][2]     # an undesignated continuation
             p.ancestry = [s[2] for s in stack]
-        elif not p.designators:
+        else:
             p.ancestry = []                                     # top of a scope: no ancestors
         p.failed = failed
         stacks[p.scope] = stack
