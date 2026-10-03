@@ -246,12 +246,13 @@ def enclosing(paras: list[Para], at: int) -> tuple[Para | None, bool]:
 
 
 def applicability(paras: list[Para]) -> Para | None:
-    """The section's applicability paragraph: a main-scope paragraph whose heading (its first 120
-    characters) speaks of an effective or applicability date."""
-    for p in paras:
-        if p.scope == "main" and p.designators and APPLIES.search(p.text[:120]):
-            return p
-    return None
+    """The section's applicability paragraph: the last top-level, main-scope paragraph whose heading
+    (its first 120 characters) speaks of an effective or applicability date. "Last" because a
+    section's own date paragraph closes it, and an early "(a) Definitions and special effective
+    date" is not it (1.902-1). Falls back to the last match at any level."""
+    hits = [p for p in paras if p.scope == "main" and p.designators and APPLIES.search(p.text[:120])]
+    top = [p for p in hits if p.level == 0]
+    return (top or hits or [None])[-1]
 
 
 __all__ = ["Para", "paragraphs", "containing", "enclosing", "applicability", "designators", "tracked_normalize", "normalize"]

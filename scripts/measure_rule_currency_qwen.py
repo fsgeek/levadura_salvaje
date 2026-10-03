@@ -26,7 +26,6 @@ from pathlib import Path
 from levadura_salvaje.citations import normalize
 from levadura_salvaje.ledger import append, verify
 from levadura_salvaje.lenses import rule_currency as rc
-from levadura_salvaje.sections import sections
 
 TARGET = "902"
 MODEL = "qwen3.8-27b-q4km"
@@ -38,7 +37,8 @@ PARTIAL = Path(f"results/rule-currency-qwen-v{rc.LENS_VERSION}-{TARGET}-2025.par
 FINAL = Path(f"results/rule-currency-qwen-v{rc.LENS_VERSION}-{TARGET}-2025.jsonl")
 WORKERS = 2
 PREDICTIONS = {"1": "predictions/2026-10-02-rule-currency-claude.md",
-               "2": "predictions/2026-10-02-rule-currency-v2-claude.md"}
+               "2": "predictions/2026-10-02-rule-currency-v2-claude.md",
+               "3": "predictions/2026-10-03-rule-currency-v3-claude.md"}
 
 
 def _cached(line: str) -> dict | None:
@@ -70,33 +70,66 @@ def check_final(rows: list[dict], todo_all: list[dict]) -> None:
             sys.exit(f"{it['key']}: excerpt hash does not match this lens version's excerpt")
 
 
+def _sections_xml():
+    """(volume_file, ordinal, SECTION element) in the same order and numbering as sections.sections()."""
+    import io
+    import re
+    import xml.etree.ElementTree as ET
+    import zipfile
+    with zipfile.ZipFile(ZIP) as z:
+        names = sorted((n for n in z.namelist() if n.endswith(".xml")),
+                       key=lambda n: int(re.search(r"vol(\d+)", n).group(1)))
+        for name in names:
+            ordinal = 0
+            for _, el in ET.iterparse(io.BytesIO(z.read(name)), events=("end",)):
+                if el.tag != "SECTION":
+                    continue
+                ordinal += 1
+                yield name, ordinal, el
+                el.clear()
+
+
 def items() -> list[dict]:
-    """One item per citation of TARGET, with its excerpt. Refuses a sidecar or text that has moved."""
+    """One item per citation of TARGET, with its excerpt. Refuses a sidecar or text that has moved.
+    From v3 the excerpt is built from the section's paragraph structure (structure.py)."""
+    from levadura_salvaje import structure as st
+    from levadura_salvaje.sections import _flat
     data = CIT.read_bytes()
     if hashlib.sha256(data).hexdigest() != CIT_SHA256:
         sys.exit(f"{CIT} is not the pinned citations file")
     rows = {(r["volume_file"], r["ordinal"]): r for r in map(json.loads, data.decode().splitlines())}
     out = []
-    for s in sections(ZIP):
-        r = rows.get((s["volume_file"], s["ordinal"]))
+    for vol, ordinal, el in _sections_xml():
+        r = rows.get((vol, ordinal))
         if r is None:
             continue
         cits = [(i, c) for i, c in enumerate(r["citations"])
                 if c.get("path") and c["path"].split("/")[0] == TARGET and c.get("span")]
         if not cits:
             continue
-        if s["sha256"] != r["sha256"]:
-            sys.exit(f"{s['sectno']}: text does not hash to the citations row")
-        norm = normalize(s["text"])
+        flat = _flat(el)
+        if hashlib.sha256(flat.encode()).hexdigest() != r["sha256"]:
+            sys.exit(f"{r['sectno']}: text does not hash to the citations row")
+        sectno = " ".join("".join(el.find("SECTNO").itertext()).split()).lstrip("§ ").strip()
+        subj = el.find("SUBJECT")
+        subject = " ".join("".join(subj.itertext()).split()) if subj is not None else ""
+        if int(rc.LENS_VERSION) >= 3:
+            norm, paras = st.paragraphs(el)
+            if norm != normalize(flat):
+                sys.exit(f"{sectno}: structure text differs from the span coordinates")
+        else:
+            norm, paras = normalize(flat), None
         for i, c in cits:
             a, b = c["span"]
             if c["head"] == "section" and TARGET not in norm[a:b]:
-                sys.exit(f"{s['sectno']}#{i}: span does not cover the citation")
-            text = rc.excerpt(norm, (a, b), s["sectno"], s["subject"])
-            out.append({"key": f"{s['volume_file']}#{s['ordinal']}#{s['sha256']}#{i}",
-                        "volume_file": s["volume_file"], "ordinal": s["ordinal"], "sectno": s["sectno"],
-                        "sha256": s["sha256"], "index": i, "path": c["path"], "head": c["head"],
-                        "span": [a, b], "excerpt": text})
+                sys.exit(f"{sectno}#{i}: span does not cover the citation")
+            if paras is None:
+                text, mode = rc.excerpt(norm, (a, b), sectno, subject), "window"
+            else:
+                text, mode = rc.excerpt_v3(norm, paras, (a, b), sectno, subject)
+            out.append({"key": f"{vol}#{ordinal}#{r['sha256']}#{i}", "volume_file": vol, "ordinal": ordinal,
+                        "sectno": sectno, "sha256": r["sha256"], "index": i, "path": c["path"],
+                        "head": c["head"], "span": [a, b], "excerpt": text, "mode": mode})
     return out
 
 
@@ -153,7 +186,8 @@ def main() -> None:
         d = done[it["key"]]
         if d["excerpt_sha256"] != hashlib.sha256(it["excerpt"].encode()).hexdigest():
             sys.exit(f"{it['key']}: the partial answer was for a different excerpt")
-        rows.append({k: it[k] for k in ("volume_file", "ordinal", "sectno", "sha256", "index", "path", "head", "span")}
+        rows.append({k: it[k] for k in ("volume_file", "ordinal", "sectno", "sha256", "index", "path", "head", "span",
+                                        "mode")}
                     | {"label": d["label"], "excerpt_sha256": d["excerpt_sha256"]})
     check_final(rows, todo_all)
     FINAL.write_text("".join(json.dumps(r, sort_keys=True) + "\n" for r in rows))
@@ -189,7 +223,8 @@ def record() -> None:
                                                                   for r in rows}),
                   "sections": len(by_sec),
                   "labels": dict(Counter(r["label"] for r in rows)),
-                  "sections_with_no_untimed_citation": sum(1 for c in by_sec.values() if not c["untimed"])},
+                  "sections_with_no_untimed_citation": sum(1 for c in by_sec.values() if not c["untimed"]),
+                  "excerpt_modes": dict(Counter(r.get("mode", "window") for r in rows))},
         "derived_from": ["obs-0132", "obs-0146"],
     })
     print(rec["id"], json.dumps(rec["value"], indent=1))

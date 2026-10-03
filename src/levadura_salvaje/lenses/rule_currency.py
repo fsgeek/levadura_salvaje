@@ -30,6 +30,14 @@ v2 decides:
   date, are untimed;
 - pointers to rules elsewhere ("see § 1.909-6T for rules applicable to ...") are not_a_rule.
 
+Version 3 (2026-10-03) keeps v2's question and labels and changes what the judge sees
+(docs/rule-currency-v3-design.md). Codex's review of v2 found that a fixed window can miss
+the limit that governs a citation, such as an example heading 4,251 characters back. So v3
+builds the excerpt from the section's paragraph structure (structure.py): the opening of
+each ancestor paragraph, the example and what introduces it, the citation's own
+paragraph, and the applicability paragraph. Where the structure can't be placed, it falls
+back to v2's window and says so.
+
 Like the currency lens, it tests the text, not the law: the model must not use
 outside knowledge that the cited provision was repealed. Any edit to the wording
 is a new lens and must bump LENS_VERSION.
@@ -37,7 +45,7 @@ is a new lens and must bump LENS_VERSION.
 
 import json
 
-LENS_VERSION = "2"
+LENS_VERSION = "3"
 LABELS = ("untimed", "time_limited", "not_a_rule")
 BEFORE, AFTER = 1500, 700   # characters of context either side of the citation
 OPEN, CLOSE = "⟦", "⟧"
@@ -55,7 +63,11 @@ INSTRUCTIONS = (
     "words or by a limit that the excerpt shows covers it (for example a paragraph or "
     "section heading or an applicability sentence). Answer not_a_rule if the marked "
     "citation is not part of a rule: a cross-reference, a history or amendment note, a "
-    "statement of authority, or a heading."
+    "statement of authority, or a heading. The excerpt is made of labelled parts: the section heading; "
+    "the opening words of each paragraph above the one that contains the marked citation; for a citation "
+    "in a worked example, the example's heading and the paragraph that introduces it; the paragraph "
+    "that contains the marked citation; and the section's effective-date or applicability paragraph, if "
+    "it has one. A limit stated in any of these parts can cover the rule containing the marked citation."
 )
 
 CRITERIA = {
@@ -126,3 +138,66 @@ def excerpt(norm_text: str, span: tuple[int, int], sectno: str, subject: str) ->
 
 LENS_TEXT = json.dumps({"instructions": INSTRUCTIONS, "criteria": CRITERIA, "version": LENS_VERSION},
                        sort_keys=True)
+
+
+# --- v3: excerpts from structure ---------------------------------------------------------------
+
+OPENING = 300        # characters of each ancestor or introducing paragraph
+OWN = 2400           # characters of the citation's own paragraph, centred on the citation if longer
+APPLIES = 900        # characters of the applicability paragraph
+BUDGET = 5200
+
+
+def _mark(norm: str, a: int, b: int, lo: int, hi: int) -> str:
+    return norm[lo:a] + OPEN + norm[a:b] + CLOSE + norm[b:hi]
+
+
+def _opening(p) -> str:
+    return p.text if len(p.text) <= OPENING else p.text[:OPENING].rstrip() + " …"
+
+
+def excerpt_v3(norm: str, paras: list, span: tuple[int, int], sectno: str, subject: str) -> tuple[str, str]:
+    """(excerpt, mode). mode: "structure", "structure_attached" (the citation is in a table or extract,
+    attached to the paragraph before it), or "window" (v2's window, when the structure can't be placed)."""
+    from levadura_salvaje import structure as st
+    a, b = span
+    head = f"§ {sectno} {subject}".strip()
+    p, exact = st.enclosing(paras, a)
+    if p is None or p.ancestry is None:
+        why = "no paragraph contains it" if p is None else "its paragraph numbering could not be placed"
+        return (f"{head}\n\n[The section's structure is unavailable for this citation ({why}); "
+                f"a window of text around it follows.]\n\n" + excerpt(norm, span, "", "").split("\n\n", 1)[1],
+                "window")
+    by = {q.index: q for q in paras}
+    parts = [head]
+    above = [by[i] for i in p.ancestry]
+    if p.scope != "main":
+        first = min(q.index for q in paras if q.scope == p.scope)
+        intro = next((q for q in reversed(paras[:first]) if q.scope == "main"), None)
+        if intro is not None and intro.ancestry is not None:
+            parts.append("[Paragraphs above the worked example, opening words only:]\n"
+                         + "\n".join(_opening(by[i]) for i in intro.ancestry + [intro.index]))
+        parts.append(f"[The marked citation is inside a worked example: {p.example_heading or 'Example'}]")
+    if above:
+        parts.append("[Paragraphs above the one containing the marked citation, opening words only:]\n"
+                     + "\n".join(_opening(q) for q in above))
+    lo, hi = p.start, p.end
+    if not exact:                       # a table or extract after p: show p's opening, then the cited cell
+        parts.append("[The paragraph before the table or extract that contains the marked citation:]\n" + _opening(p))
+        lo, hi = max(0, a - 600), min(len(norm), b + 300)
+        parts.append("[The table or extract text around the marked citation:]\n… "
+                     + _mark(norm, a, b, lo, hi) + " …")
+    else:
+        if hi - lo > OWN:
+            lo, hi = max(lo, a - OWN * 2 // 3), min(hi, b + OWN // 3)
+        cut_l, cut_r = ("… " if lo > p.start else ""), (" …" if hi < p.end else "")
+        parts.append("[The paragraph containing the marked citation:]\n" + cut_l + _mark(norm, a, b, lo, hi) + cut_r)
+    ap = st.applicability(paras)
+    if ap is not None and ap.index != p.index and ap.index not in p.ancestry:
+        t = ap.text if len(ap.text) <= APPLIES else ap.text[:APPLIES].rstrip() + " …"
+        parts.append("[The section's effective-date or applicability paragraph:]\n" + t)
+    out = "\n\n".join(parts)
+    if len(out) > BUDGET:               # drop the outermost ancestors first, and say so
+        out = out[:BUDGET].rstrip() + " … [excerpt truncated]"
+    return out, ("structure" if exact else "structure_attached")
+

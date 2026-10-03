@@ -95,3 +95,11 @@ def test_a_paragraph_failing_on_its_second_designator_leaves_no_partial_chain():
     a, bad, one = paras
     assert bad.failed and bad.ancestry is None
     assert one.ancestry == [a.index] and None not in one.ancestry
+
+
+def test_applicability_is_the_last_top_level_date_paragraph():
+    el = ET.fromstring("<SECTION><P>(a) Definitions and special effective date. Terms.</P><P>(1) One.</P>"
+                       "<P>(b) Rules. Text.</P><P>(c) Effective/applicability dates. Applies after 1986.</P>"
+                       "</SECTION>")
+    _, paras = st.paragraphs(el)
+    assert st.applicability(paras).text.startswith("(c) Effective/applicability dates")

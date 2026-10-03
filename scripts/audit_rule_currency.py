@@ -31,6 +31,9 @@ SEED = int(V) - 1   # v1: seed 0; v2: seed 1, a fresh sample
 PACKET = Path(f"results/rule-currency-audit-v{V}-902-packet.jsonl")
 KEY = Path(f"results/rule-currency-audit-v{V}-902-key.jsonl")
 READERS = ("reader-a", "reader-b")
+# Fixed probes added to a version's sample (keys from measure_rule_currency_qwen.items()); marked in the key
+# file, not in the packet. v3: the 1.902-3 ownership exception both v2 readers mislabelled (v2 item 21).
+PROBES = {"3": ["CFR-2025-title26-vol11.xml#211#aaf2466f59ad66b3e0b1ed73563d27458a2c0b795761d9896754bdafecb8f0b2#49"]}
 
 
 def sample() -> None:
@@ -42,13 +45,16 @@ def sample() -> None:
     for lab in rc.LABELS:
         pool = [it for it in items if labels[(it["volume_file"], it["ordinal"], it["index"])] == lab]
         chosen += rng.sample(pool, min(PER_LABEL, len(pool)))
+    probes = set(PROBES.get(V, []))
+    chosen += [it for it in items if it["key"] in probes and it["key"] not in {c["key"] for c in chosen}]
     rng.shuffle(chosen)
     packet, key = [], []
     for n, it in enumerate(chosen, 1):
         item = f"item-{n:02d}"
         packet.append({"item": item, "excerpt": it["excerpt"]})
         key.append({"item": item, "key": it["key"], "sectno": it["sectno"], "index": it["index"],
-                    "qwen": labels[(it["volume_file"], it["ordinal"], it["index"])]})
+                    "qwen": labels[(it["volume_file"], it["ordinal"], it["index"])],
+                    "probe": it["key"] in probes})
     PACKET.write_text("".join(json.dumps(p, ensure_ascii=False) + "\n" for p in packet))
     KEY.write_text("".join(json.dumps(k) + "\n" for k in key))
     print(f"{len(packet)} items -> {PACKET}; key -> {KEY}; per label: {Counter(k['qwen'] for k in key)}")
@@ -76,11 +82,13 @@ def _load():
     if {p["item"] for p in packet} != set(key):
         sys.exit("packet and key disagree")
     a, b = (_answers(r, set(key)) for r in READERS)
-    return key, a, b
+    probes = {i: k for i, k in key.items() if k.get("probe")}
+    sampled = {i: k for i, k in key.items() if not k.get("probe")}   # probes aren't a random draw
+    return sampled, a, b, probes
 
 
 def score() -> None:
-    key, a, b = _load()
+    key, a, b, probes = _load()
     items = sorted(key)
     rr = sum(a[i] == b[i] for i in items)
     consensus = [i for i in items if a[i] == b[i]]
@@ -92,6 +100,8 @@ def score() -> None:
         "confusion_consensus_vs_qwen": dict(Counter(f"{a[i]}|{key[i]['qwen']}" for i in consensus)),
         "disagreements": [{"item": i, "sectno": key[i]["sectno"], "index": key[i]["index"], "a": a[i],
                            "b": b[i], "qwen": key[i]["qwen"]} for i in items if a[i] != b[i]],
+        "probes": [{"item": i, "sectno": k["sectno"], "index": k["index"], "a": a[i], "b": b[i],
+                    "qwen": k["qwen"]} for i, k in sorted(probes.items())],
     }, indent=1))
 
 
@@ -104,7 +114,7 @@ def adjust() -> None:
     - range for label L: every disputed item counted as not-L, then as L (when either reader said L).
     The bootstrap resamples within strata, conditional on the consensus items: it reflects sampling of
     those items only, not the disagreements, shared reader errors or what the excerpt didn't show."""
-    key, a, b = _load()
+    key, a, b, _ = _load()
     pop = Counter(r["label"] for r in map(json.loads, m.FINAL.read_text().splitlines()))
     n = sum(pop.values())
 
