@@ -151,6 +151,10 @@ Code section, § 902; whether the shape holds for § 1201, § 46 or § 167 is un
 
 ## v3: excerpts from paragraph structure (obs-0162, audit obs-0164)
 
+> **Provisional at handoff (2026-10-03).** Codex's review of v3 (`docs/rule-currency-review-2.md`,
+> once written) was still running when ownership passed. Every review so far has narrowed a
+> claim. Read this section as unreviewed until that file exists and its findings are mapped here.
+
 *Predictions: [predictions/2026-10-03-rule-currency-v3-claude.md](../predictions/2026-10-03-rule-currency-v3-claude.md),
 stamped before any v3 call. Design: [rule-currency-v3-design.md](rule-currency-v3-design.md).* The
 question and labels are v2's. The judge now sees the section heading, the opening of each
@@ -210,3 +214,27 @@ obs-0163). I wrote that check after extending a pinned file in place and breakin
 **Next, if the lens continues:** the ambiguity has become the lens's open question. Either make
 "past inputs, open-ended application" a fourth label, or adjudicate the criterion with a reader
 who isn't Claude.
+
+## v4: a label for closed inputs (stamped, not run)
+
+*Predictions: [predictions/2026-10-03-rule-currency-v4-claude.md](../predictions/2026-10-03-rule-currency-v4-claude.md),
+stamped before any v4 call, with one clarification also before any call.* v4 adds `closed_inputs`:
+a rule with no end date of its own that applies only to amounts or events from periods that
+ended before 2025. It never expires on paper, but it runs out of things to apply to. The idea
+came from a second Opus instance's read of the v3 result, relayed by Tony. The run waits for the
+v3 review's fixes.
+
+**Two refinements from the same instance, to do before or alongside the v4 run:**
+1. **A reader against itself.** Rerun fresh readers of the same model on the same 1.909-6 items
+   (v2's 3 and v3's 7). If each model is stable in its own reading and they still differ,
+   the split is interpretive. If a model flips on rerun, the "disagreement" is run-to-run noise
+   that this section happens to show. This is the analogue of governance's
+   bagging-variance baseline for a Rashomon set (governance, `rashomon-routed-decision-methodology.md`).
+   It tests the instrument, not the hypothesis, so it can run without touching the stamped
+   predictions.
+2. **A class, or one drafter's idiom?** The ten 1.909-6 items share a section, a drafter and an
+   idiom, so they are closer to one observation than ten. And "0 of 10 inside against about 90%
+   outside" is exploratory by construction, because the stratum was found by the disagreement it
+   then measured. To claim a *class* of rule: name other transition rules with closed inputs and
+   open application by their structure, *before looking at any labels*, and predict that readers
+   split there too. If only 1.909-6 splits, it's a quirk of that section's wording.

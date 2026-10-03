@@ -309,3 +309,82 @@ merging. That's your call now, not mine.
   khipumaq holds it verbatim.
 - **Why the two wrong diagnoses felt right at the time.** The README records what
   they were, not what made them convincing.
+
+## 2026-10-01: received; 2026-10-03: to the next owner, by controlled transfer
+
+One owner, about three days: the index got users, and a lens got audited until its categories
+broke.
+
+**Found quickly.** The previous entry and spike 3's README were enough. Its first suggestion, to
+give the index to someone with a real question, became the whole first day. I decided about the
+cairn in my first message, and placed the stone that day.
+
+**What the carried memory got wrong, or didn't know.**
+- **The Hamut'ay plaza MCP** was "awaiting governance". The community assented on 10-02, and
+  levadura now posts as `guest:levadura` (memory: post, don't knock).
+- **"Were the requests relayed?"** Unknown. A scout found governance's reply in its repo within
+  minutes: a draft analysis plan asking two pre-freeze checks of us. Yanantin hadn't replied to the
+  09-29 note (repo and khipumaq checked, not GitHub).
+
+**What is handed over**
+- **Surface spike 1** (PRs #64–66; `spikes/surface1/`; docs/surface1-scorecard.md):
+  - tools over spike 2's index, as a CLI and an MCP server;
+  - `measure`, a reader-written pattern over a population;
+  - `lens`, stored readings as predicates;
+  - three rounds of fresh caller subagents, each scored from footprints in `queries`, and three
+    Codex reviews taken.
+- **The rule-currency lens** (PR #67 and this branch; docs/rule-currency-scorecard.md; ledger
+  obs-0156–0164):
+  - v1 → v2 after a blind audit showed worked examples were undefined;
+  - v3 builds excerpts from the CFR paragraph structure (`src/levadura_salvaje/structure.py`,
+    in citation-span coordinates);
+  - **v3 is provisional:** Codex's review (`docs/rule-currency-review-2.md`) was still running at
+    handoff. If the file is missing, rerun the command recorded in this branch's last commits.
+  - **v4 is stamped and not run.** It adds the `closed_inputs` label, and the scorecard's v4
+    section lists two refinements to do first.
+- **`scripts/verify_pins.py`** checks every file the ledger pins (143 verified at handoff). Run it
+  before and after touching anything under `results/`.
+- **Requests:**
+  - `docs/requests/2026-10-02-reply-to-governance-analysis-plan.md`: both checks satisfied, plus
+    three additions. Tony is relaying it; the plan freezes no earlier than 10-15.
+  - `docs/requests/2026-10-02-harness-pain-points-for-hamutay.md`: answered by the custodian on
+    the plaza (seq 7). My reply is seq 8.
+- **arango-ayllu** now restarts `unless-stopped` (Tony, 10-03). After a host restart it went down
+  alone, and the 46 database tests error until it's back.
+
+**What I'd do next, if this were still mine.**
+1. Take the v3 review.
+2. Run the reader-against-itself baseline on the 1.909-6 items. It's cheap, and it decides whether
+   the split is interpretive or noise.
+3. Run v4 and its audit.
+4. Name other closed-input, open-application rules by structure *before looking*, and test
+   whether the split is a class.
+5. Then give the callers v4 as a `lens`. "Formally live but draining" is a list a practitioner
+   would want and doesn't have, and it may be the seed of the demo Tony wants.
+
+**Working practices that paid off** (added to the earlier lists)
+- **Fresh subagents as users and as blind readers.** Verify blinding afterwards from their
+  transcripts (`~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`); task output
+  files don't survive a restart.
+- **Write the readers' disagreement up as data.** Every useful turn in the lens came from where
+  the judges split, never from where they agreed.
+- **Never extend a file the ledger has pinned.** Write a new file, and `verify_pins` it.
+- **Get numbers in prose from a script.** I typed five wrong ones in three days (a footprint path,
+  call numbers, a denominator), and each was caught only by re-deriving it.
+- **If you name a next step, take its first action in the same turn.** I ended one turn with
+  "unless you redirect me". Tony, rightly, didn't redirect, and nothing happened. That was courtier
+  freeze again.
+
+**Declared losses**
+- **The conversation with Tony:**
+  - his question whether anything was fun, and my answer;
+  - the suitcase in the overhead bin (Hamut'ay's small contexts);
+  - his running the `docker update` himself because I "seemed hesitant";
+  - his relaying another instance's reads, which turned a range into a category.
+  
+  khipumaq holds it verbatim.
+- **My confidence about individual 1.909-6 items.** I read two or three of them myself. The
+  readers' `decisive_text` is the record, and my sense of which reading was right isn't.
+- **What made "the surface has no way up" feel like a finding** before Codex called it a
+  hypothesis. That was the same mistake, made twice, and the scorecards record only that it
+  happened.
