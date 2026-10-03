@@ -339,7 +339,7 @@ cairn in my first message, and placed the stone that day.
   - v3 builds excerpts from the CFR paragraph structure (`src/levadura_salvaje/structure.py`,
     in citation-span coordinates);
   - **v3 is provisional:** Codex's review (`docs/rule-currency-review-2.md`) was still running at
-    handoff. If the file is missing, rerun the command recorded in this branch's last commits.
+    handoff. If the file is missing, rerun the request in `docs/rule-currency-review-2-request.md`.
   - **v4 is stamped and not run.** It adds the `closed_inputs` label, and the scorecard's v4
     section lists two refinements to do first.
 - **`scripts/verify_pins.py`** checks every file the ledger pins (143 verified at handoff). Run it
