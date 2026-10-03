@@ -151,9 +151,20 @@ Code section, § 902; whether the shape holds for § 1201, § 46 or § 167 is un
 
 ## v3: excerpts from paragraph structure (obs-0162, audit obs-0164)
 
-> **Provisional at handoff (2026-10-03).** Codex's review of v3 (`docs/rule-currency-review-2.md`,
-> once written) was still running when ownership passed. Every review so far has narrowed a
-> claim. Read this section as unreviewed until that file exists and its findings are mapped here.
+> **Provisional at handoff (2026-10-03): the review has landed and is not yet taken.** Codex's
+> review of v3 (`docs/rule-currency-review-2.md`) reproduces the numbers but finds 5 P1 and 7 P2 issues.
+> - **The excerpts can omit the illustrated rule's own limit.** In 1.902-4 #4, a pre-1978 limit
+>   dropped out of context and Qwen moved the citation from `time_limited` to `untimed`. So the
+>   reading of W3 below, that structure "removed apparent limits", is partly wrong: some of those
+>   52 changes are real limits that disappeared.
+> - **Four `structure.py` ancestry bugs:** sibling preference over inline Roman children,
+>   discarded failures, applicability selection, and self-parents from combined designators.
+> - **"Reader A applied the carryover criterion" is not supported item by item.**
+> - **`verify_pins` doesn't check every pinned file**, and it waives superseded entries
+>   unconditionally.
+>
+> Until these are taken, treat v3's range, W3's interpretation and the 1.909-6 reading as
+> provisional, and don't run v4 on v3's excerpts.
 
 *Predictions: [predictions/2026-10-03-rule-currency-v3-claude.md](../predictions/2026-10-03-rule-currency-v3-claude.md),
 stamped before any v3 call. Design: [rule-currency-v3-design.md](rule-currency-v3-design.md).* The
