@@ -50,9 +50,29 @@ does.
   applicability paragraph are visible? That count is what the window had been hiding.
 - Item 21 (1.902-3, the ownership exception) goes into the audit as a fixed probe.
 
-## Open before building
+## Ancestry parses (probe, 2026-10-03: `scripts/probe_rule_ancestry.py`)
 
-- Whether designator-based ancestry holds for the sections in this population. Check:
-  rebuild the ancestry for all 73 sections and look for designator sequences that don't
-  parse.
+Over the 73 sections, 4,342 designators were taken from paragraph starts and inline
+headings. 487 fail to place:
+- **368 are in five tables of contents** (sections ending "-0"), which list designators
+  out of context. Only 16 of the 548 citations sit in those, and Qwen v2 already labels 14
+  of them `not_a_rule`.
+- **That leaves 119 of about 3,970 (3%) in real paragraphs.** 39 sections parse without a
+  failure, and none of the rest has more than 12.
+
+Getting there took five conventions:
+1. a second designator inline, after a heading dash ("(8) Post-1986 foreign income taxes
+   —(i) In general.");
+2. one after a short heading sentence ("(i) Facts. (A) On January 1, 2007, …");
+3. two italic levels below (A), which plain text flattens into "(1)" and "(i)";
+4. `<EXAMPLE>` elements, and paragraphs starting "Example N.", which number their own
+   paragraphs (1.704-1's examples are plain paragraphs);
+5. a real "(0)", in 1.704-1(b)(0).
+
+So v3 builds the ancestry where it parses. Where a citation's chain passes through a
+failed designator, it falls back to v2's window and says so in the excerpt. The number of
+fallbacks is reported with the results.
+
+## Still open
 - Tables (`GPOTABLE`) inside examples: include them or summarise them.
+- The flat-text offset of each `<P>`, so that sidecar spans map to paragraphs (compose with `tracked_normalize`).
