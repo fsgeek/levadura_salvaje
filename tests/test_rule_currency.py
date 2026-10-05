@@ -95,3 +95,41 @@ def test_answers_refuse(reader_file, rows):
     reader_file(rows)
     with pytest.raises(SystemExit):
         audit._answers("reader-a", {"item-01", "item-02"})
+
+
+def test_v4_example_excerpt_includes_the_paragraphs_the_example_cites():
+    """Codex review 2, P1 #1 (1.902-4 #4): an example's excerpt omitted the (a) and (b) it illustrates,
+    whose rules end before January 1, 1978, and Qwen moved the record from time_limited to untimed."""
+    import xml.etree.ElementTree as ET
+    from levadura_salvaje import structure as st
+    el = ET.fromstring(
+        "<SECTION><P>(a) In general. If a shareholder receives a distribution before January 1, 1978, "
+        "the credit is computed under the old rules.</P>"
+        "<P>(b) Combined distributions. If a distribution before January 1, 1978 is partly described in "
+        "paragraph (a) of this section, compute each portion separately.</P>"
+        "<P>(c) Other rule. Unrelated text.</P>"
+        "<P>(d) Illustrations. The application of this section may be illustrated by the following examples:</P>"
+        "<EXAMPLE><HD>Example 1.</HD><P>M is deemed under paragraphs (a) and (b) of this section to have "
+        "paid taxes under section 902(a) for 1976.</P></EXAMPLE></SECTION>")
+    norm, paras = st.paragraphs(el)
+    a = norm.index("section 902(a)") + len("section ")
+    text, mode = rc.excerpt_v3(norm, paras, (a - len("section "), a + len("902(a)")), "1.902-4", "Test")
+    assert mode == "structure"
+    assert "(a) In general. If a shareholder receives a distribution before January 1, 1978" in text
+    assert "(b) Combined distributions. If a distribution before January 1, 1978" in text
+    assert "(c) Other rule" not in text
+    # the citation itself comes before the cited paragraphs, so truncation eats them first
+    assert text.index(rc.OPEN) < text.index("(a) In general")
+
+
+def test_v4_example_excerpt_says_when_a_cited_paragraph_cannot_be_located():
+    import xml.etree.ElementTree as ET
+    from levadura_salvaje import structure as st
+    el = ET.fromstring(
+        "<SECTION><P>(a) In general. A rule.</P><P>(b) Illustrations. Examples:</P>"
+        "<EXAMPLE><HD>Example 1.</HD><P>Under paragraph (g)(1) of this section, section 902(a) applies.</P>"
+        "</EXAMPLE></SECTION>")
+    norm, paras = st.paragraphs(el)
+    a = norm.index("902(a)")
+    text, _ = rc.excerpt_v3(norm, paras, (a - len("section "), a + len("902(a)")), "1.9-9", "Test")
+    assert "also cites paragraph (g)(1) of this section, which could not be located" in text

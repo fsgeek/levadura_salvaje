@@ -132,3 +132,23 @@ def test_an_inline_roman_opens_a_child_before_continuing_a_letter():
     assert two.designators == ["2", "i"] and two.level == 2 and two.ancestry == [h.index]
     assert ii.level == 2 and ii.ancestry == [h.index, two.index]
     assert i_top.level == 0 and i_top.ancestry == []
+
+
+def test_placed_paragraphs_carry_their_path():
+    _, _, paras = _build()
+    assert _para(paras, "(ii) Pre-1987").path == ("a", "2", "ii")
+    assert _para(paras, "(b) Facts").path == ("b", "1")
+    assert _para(paras, "A flush").path is None          # a continuation isn't addressable
+
+
+def test_section_references_are_parsed_only_when_they_say_of_this_section():
+    t = ("M is deemed under paragraphs (a) and (b) of this section to have paid $63, and see paragraph "
+         "(c)(2)(ii) of this section; but paragraph (d) of § 1.902-1 and paragraph (e) of this example don't count.")
+    assert st.section_refs(t) == [("a",), ("b",), ("c", "2", "ii")]
+
+
+def test_addressed_finds_a_main_scope_paragraph_by_path():
+    _, _, paras = _build()
+    assert st.addressed(paras, ("a", "2", "ii")).text.startswith("(ii) Pre-1987")
+    assert st.addressed(paras, ("a", "2")).text.startswith("(2) Taxes")
+    assert st.addressed(paras, ("z",)) is None

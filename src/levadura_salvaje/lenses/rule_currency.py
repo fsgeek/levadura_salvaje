@@ -167,6 +167,8 @@ LENS_TEXT = json.dumps({"instructions": INSTRUCTIONS, "criteria": CRITERIA, "ver
 OPENING = 300        # characters of each ancestor or introducing paragraph
 OWN = 2400           # characters of the citation's own paragraph, centred on the citation if longer
 APPLIES = 900        # characters of the applicability paragraph
+CITED = 600          # v4: characters of each paragraph of the section a worked example cites
+CITED_TOTAL = 1800   # v4: at most this much of them in all
 BUDGET = 5200
 
 
@@ -214,6 +216,27 @@ def excerpt_v3(norm: str, paras: list, span: tuple[int, int], sectno: str, subje
             lo, hi = max(lo, a - OWN * 2 // 3), min(hi, b + OWN // 3)
         cut_l, cut_r = ("… " if lo > p.start else ""), (" …" if hi < p.end else "")
         parts.append("[The paragraph containing the marked citation:]\n" + cut_l + _mark(norm, a, b, lo, hi) + cut_r)
+    if p.scope != "main" and int(LENS_VERSION) >= 4:
+        # what the example illustrates: the paragraphs of this section it cites by number (review 2, P1 #1).
+        # After the citation's own paragraph, so a truncated excerpt loses these before the citation.
+        shown = set(p.ancestry) | {p.index}
+        if intro is not None and intro.ancestry is not None:
+            shown |= set(intro.ancestry) | {intro.index}
+        cited, lost, room = [], [], CITED_TOTAL
+        for path in st.section_refs(" ".join(q.text for q in paras if q.scope == p.scope)):
+            q = st.addressed(paras, path)
+            if q is None:
+                lost.append("paragraph " + "".join(f"({t})" for t in path))
+            if q is None or q.index in shown or room <= 0:
+                continue
+            t = q.text if len(q.text) <= min(CITED, room) else q.text[:min(CITED, room)].rstrip() + " …"
+            cited.append(t); shown.add(q.index); room -= len(t)
+        if cited:
+            parts.append("[Paragraphs of this section that the worked example cites, opening words:]\n"
+                         + "\n".join(cited))
+        if lost:
+            parts.append(f"[The worked example also cites {', '.join(lost)} of this section, which could "
+                         f"not be located in the section's structure; it is not shown.]")
     ap = st.applicability(paras)
     if ap is not None and ap.index != p.index and ap.index not in p.ancestry:
         t = ap.text if len(ap.text) <= APPLIES else ap.text[:APPLIES].rstrip() + " …"
