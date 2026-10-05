@@ -43,6 +43,7 @@ class Para:
     parent: int | None = None   # index of the parent paragraph
     failed: bool = False
     ancestry: list[int] | None = field(default=None)
+    path: tuple[str, ...] | None = None   # designators from the top, e.g. ("a", "2", "ii"); None if unplaced
 
 
 # --- flattening with offsets -----------------------------------------------------------------
@@ -236,6 +237,7 @@ def _levels(paras: list[Para]) -> None:
         elif UNKNOWN in stack:
             failed = True                                       # placed, but under an unknown chain
         elif p.designators:
+            p.path = tuple(t for _, t, _ in stack)
             p.level = stack[-1][0]
             p.parent = stack[-2][2] if len(stack) > 1 else None
             p.ancestry = [s[2] for s in stack[:-1] if s[2] != p.index]   # not itself, for "(2) ... —(i)"
@@ -267,6 +269,35 @@ def enclosing(paras: list[Para], at: int) -> tuple[Para | None, bool]:
     return (before[-1], False) if before else (None, False)
 
 
+_REF_TOKS = r"(?:\([0-9A-Za-z]{1,6}\))+"
+SECTION_REF = re.compile(rf"paragraphs?\s+({_REF_TOKS}(?:\s*(?:,|and|or|through|,\s*and)\s*{_REF_TOKS})*)"
+                         rf"\s+of\s+this\s+section")
+
+
+def section_refs(text: str) -> list[tuple[str, ...]]:
+    """Paths of this section's paragraphs that `text` cites ("paragraphs (a) and (b) of this section",
+    "paragraph (c)(2)(ii) of this section"), in order, without repeats. A reference that doesn't end
+    in "of this section" (another section, "of this example") is not this section's."""
+    out = []
+    for m in SECTION_REF.finditer(text):
+        for ref in re.findall(_REF_TOKS, m.group(1)):
+            path = tuple(re.findall(r"\(([0-9A-Za-z]{1,6})\)", ref))
+            if path not in out:
+                out.append(path)
+    return out
+
+
+def addressed(paras: list[Para], path: tuple[str, ...]) -> Para | None:
+    """The main-scope paragraph that opened `path`: the first, in document order, whose path starts with
+    it ("(2) Taxes —(i)" opens both (a)(2) and (a)(2)(i)). None if no paragraph did, or if the path
+    is opened twice (a numbering the structure can't tell apart)."""
+    n = len(path)
+    openers = [p for p in paras if p.scope == "main" and p.path is not None and p.path[:n] == path
+               and not any((paras[i].path or ())[:n] == path for i in p.ancestry or ())]   # not `parent`:
+    # a combined-designator paragraph can be its own parent (review 2, P2 #6); ancestry excludes itself
+    return openers[0] if len(openers) == 1 else None
+
+
 def applicability(paras: list[Para]) -> Para | None:
     """The section's applicability paragraph: the last top-level, main-scope paragraph whose heading
     (its first 120 characters) speaks of an effective or applicability date. "Last" because a
@@ -277,4 +308,4 @@ def applicability(paras: list[Para]) -> Para | None:
     return (top or hits or [None])[-1]
 
 
-__all__ = ["Para", "paragraphs", "containing", "enclosing", "applicability", "designators", "tracked_normalize", "normalize"]
+__all__ = ["Para", "paragraphs", "containing", "enclosing", "applicability", "section_refs", "addressed", "designators", "tracked_normalize", "normalize"]
