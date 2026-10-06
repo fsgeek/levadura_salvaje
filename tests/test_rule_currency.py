@@ -133,3 +133,20 @@ def test_v4_example_excerpt_says_when_a_cited_paragraph_cannot_be_located():
     a = norm.index("902(a)")
     text, _ = rc.excerpt_v3(norm, paras, (a - len("section "), a + len("902(a)")), "1.9-9", "Test")
     assert "also cites paragraph (g)(1) of this section, which could not be located" in text
+
+
+def test_v4_excerpt_shows_only_the_date_paragraph_that_governs_the_citation():
+    """Codex review 2, P1 #5 (1.338-9): a date expressly governing paragraph (d) was shown as the
+    section's date for a citation in (b)."""
+    import xml.etree.ElementTree as ET
+    from levadura_salvaje import structure as st
+    el = ET.fromstring("<SECTION><P>(a) A.</P><P>(b) Rule. Under section 902(a), text.</P><P>(c) C.</P>"
+                       "<P>(d) Taxes —(1) Rule. Text.</P>"
+                       "<P>(2) Applicability date. This paragraph (d) applies to taxes paid after 2021.</P></SECTION>")
+    norm, paras = st.paragraphs(el)
+    a = norm.index("902(a)")
+    text, _ = rc.excerpt_v3(norm, paras, (a - len("section "), a + len("902(a)")), "1.9-9", "Test")
+    assert "Applicability date" not in text
+    a2 = norm.index("Rule. Text.")
+    text2, _ = rc.excerpt_v3(norm, paras, (a2, a2 + 4), "1.9-9", "Test")
+    assert "[The effective-date paragraph governing paragraph (d) of this section:]\n(2) Applicability date" in text2

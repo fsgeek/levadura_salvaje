@@ -308,4 +308,84 @@ def applicability(paras: list[Para]) -> Para | None:
     return (top or hits or [None])[-1]
 
 
-__all__ = ["Para", "paragraphs", "containing", "enclosing", "applicability", "section_refs", "addressed", "designators", "tracked_normalize", "normalize"]
+_DATE_HEADING = re.compile(r"^(?:(?:effective|applicability)\b[^.]{0,40}\bdates?\b|applicability\s*$)", re.I)
+_SCOPE_PARA = re.compile(rf"\b(?:this|the)\s+paragraphs?\s+({_REF_TOKS})", re.I)
+_SCOPE_SECTION = re.compile(r"\b(?:this\s+section|these\s+regulations|this\s+§)", re.I)
+# the subject of "applies": what a date provision says it governs
+_SUBJECT = re.compile(rf"\b((?:the\s+rules\s+of\s+)?this\s+section(?:,\s+except\s+for\s+[^,]{{0,80}},)?|these\s+regulations|this\s+§[^,;]{{0,20}}?"
+                      rf"|(?:this|the)\s+paragraphs?\s+({_REF_TOKS})(?:\s+of\s+this\s+section)?)"
+                      rf"\s+(?:shall\s+)?(?:appl(?:y|ies)|(?:is|are)\s+(?:effective|applicable))", re.I)
+_APPLIES_STMT = re.compile(r"\b(?:appl(?:y|ies)|(?:is|are)\s+(?:effective|applicable)|effective\s+(?:on|for|with))\b", re.I)
+
+
+def _headings(p: Para) -> tuple[str, str]:
+    """(the first designator's heading, the paragraph's own last designator's heading).
+    "(m) Effective dates —(1) In general. This ..." gives ("Effective dates", "In general")."""
+    def after(tok: str, frm: int = 0) -> tuple[str, int]:
+        k = p.text.find(f"({tok})", frm, frm + 200)
+        if k < 0:
+            return "", frm
+        rest = p.text[k + len(tok) + 2:]
+        return re.split(r"\.\s|\s—|—\(", rest, maxsplit=1)[0].strip(" —-"), k + len(tok) + 2
+    if not p.designators:
+        return "", ""
+    first, at = after(p.designators[0])
+    own = first
+    for tok in p.designators[1:]:
+        own, at = after(tok, at)
+    return first, own
+
+
+def _own_heading(p: Para) -> str:
+    return _headings(p)[1]
+
+
+def date_scope(paras: list[Para], p: Para) -> tuple[str, ...] | None:
+    """If p is an effective/applicability date provision, the path it governs (() for the whole
+    section); otherwise None. Its own heading must name an effective or applicability date, or an
+    outer designator's heading does and the paragraph states an application ("(m) Effective dates
+    —(1) In general. This section applies ..."); a rate or a purpose paragraph doesn't count. Scope
+    is the subject of "applies": "this section"/"these regulations" is the section, "this paragraph
+    (f)" is (f) (review 2, P1 #5). Without a subject, a top-level provision governs the section and a
+    nested one its parent's subtree. An unplaced paragraph counts only when it's section-wide."""
+    if p.scope != "main" or not p.designators:
+        return None
+    first, own = _headings(p)
+    body = p.text[:500]
+    if not (_DATE_HEADING.match(own) or (_DATE_HEADING.match(first) and _APPLIES_STMT.search(body[len(first) + 4:]))):
+        return None
+    m = _SUBJECT.search(body)
+    if m is not None:
+        if m.group(2):
+            sc = tuple(re.findall(r"\(([0-9A-Za-z]{1,6})\)", m.group(2)))
+            return sc if p.path is not None else None
+        return ()
+    if p.path is None:
+        return () if _SCOPE_SECTION.search(body) else None
+    m = _SCOPE_PARA.search(body)
+    if m is not None:
+        return tuple(re.findall(r"\(([0-9A-Za-z]{1,6})\)", m.group(1)))
+    if _SCOPE_SECTION.search(body) or len(p.path) == 1:
+        return ()
+    return p.path[:-1]
+
+
+def governing_date(paras: list[Para], p: Para) -> tuple[Para, tuple[str, ...]] | None:
+    """(date provision, the path it governs) for the most specific provision whose scope covers p,
+    the last one in the section on a tie; None if none covers it (review 2, P1 #5). A paragraph whose
+    structure couldn't be placed is covered only by a section-wide provision."""
+    path = p.path
+    if path is None and p.ancestry:
+        path = next((paras[i].path for i in reversed(p.ancestry) if paras[i].path is not None), None)
+    best = None
+    for q in paras:
+        sc = date_scope(paras, q)
+        if sc is None or q.index == p.index:
+            continue
+        if sc == () or (path is not None and path[:len(sc)] == sc):
+            if best is None or len(sc) >= len(best[1]):
+                best = (q, sc)
+    return best
+
+
+__all__ = ["Para", "paragraphs", "containing", "enclosing", "applicability", "date_scope", "governing_date", "section_refs", "addressed", "designators", "tracked_normalize", "normalize"]

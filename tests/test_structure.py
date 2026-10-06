@@ -152,3 +152,57 @@ def test_addressed_finds_a_main_scope_paragraph_by_path():
     assert st.addressed(paras, ("a", "2", "ii")).text.startswith("(ii) Pre-1987")
     assert st.addressed(paras, ("a", "2")).text.startswith("(2) Taxes")
     assert st.addressed(paras, ("z",)) is None
+
+
+def _sec(body):
+    return st.paragraphs(ET.fromstring(f"<SECTION>{body}</SECTION>"))[1]
+
+
+def test_governing_date_is_scoped_to_what_it_says_it_governs():
+    """Codex review 2, P1 #5 (1.904-7, 1.338-9): a date paragraph governs the paragraph it names,
+    not the whole section; a special-topic date heading is not the section's date."""
+    P = _sec("<P>(a) Rule. Text.</P>"
+             "<P>(b) Special effective date for high withholding tax interest. For purposes of (a), text.</P>"
+             "<P>(c) Other rule. Text.</P><P>(d) D.</P><P>(e) E.</P>"
+             "<P>(f) Dividends. Text.</P><P>(1) A rule.</P>"
+             "<P>(2) Effective/applicability date. This paragraph (f) shall apply to dividends after 2020.</P>")
+    a, f1 = P[0], P[6]
+    d = st.governing_date(P, f1)
+    assert d is not None and d[0].text.startswith("(2) Effective/applicability date") and d[1] == ("f",)
+    assert st.governing_date(P, a) is None          # nothing governs (a): not (b)'s special date, not (f)(2)
+
+
+def test_governing_date_prefers_the_most_specific_scope():
+    """1.985-1: a section-wide date in (a)(2) and a date for (b)(2)(ii) only."""
+    P = _sec("<P>(a) Applicability and effective date —(1) Purpose and scope. These regulations provide guidance.</P>"
+             "<P>(2) Effective date. These regulations apply to taxable years beginning after December 31, 1986.</P>"
+             "<P>(b) Rules —(1) General. Text.</P><P>(2) Special —(i) One. Text.</P><P>(ii) Two. Text.</P>"
+             "<P>(A) Effective date. This paragraph (b)(2)(ii) applies to taxable years beginning after April 6, 1998.</P>")
+    b1, b2i, ii_eff = P[2], P[3], P[5]
+    assert st.governing_date(P, b1)[1] == ()                          # section-wide (a)(2)
+    assert st.governing_date(P, b2i)[1] == ()
+    assert st.governing_date(P, P[4])[1] == ("b", "2", "ii")          # (b)(2)(ii) is under its own date
+    assert st.governing_date(P, P[0]) is not None and st.governing_date(P, P[0])[0].index == 1
+
+
+def test_a_rate_is_not_a_date():
+    """1.963-2: 'effective foreign tax rate' is not an applicability provision."""
+    P = _sec("<P>(c) Effective foreign tax rate —(1) Single corporation. The term means the rate.</P>"
+             "<P>(e) Foreign income taxes used in determining effective foreign tax rate. Text.</P>")
+    assert st.governing_date(P, P[0]) is None
+
+
+def test_date_scope_follows_the_subject_of_applies():
+    """1.367(b)-7: 'Except as otherwise provided in this paragraph (h), this section applies' is
+    section-wide."""
+    P = _sec("<P>(a) A.</P><P>(b) Applicability dates. Except as otherwise provided in this paragraph (b), "
+             "this section applies to transactions after 2010.</P>")
+    assert st.date_scope(P, P[1]) == ()
+
+
+def test_a_date_heading_on_an_outer_designator_counts_when_the_paragraph_applies_something():
+    """1.6038-2: '(m) Effective/applicability dates —(1) In general. This section applies ...'"""
+    P = _sec("<P>(a) Applicability and effective date —(1) Purpose and scope. These regulations provide guidance.</P>"
+             "<P>(b) Effective/applicability dates —(1) In general. This section applies to years after 2020.</P>")
+    assert st.date_scope(P, P[0]) is None        # a purpose paragraph under a date heading applies nothing
+    assert st.date_scope(P, P[1]) == ()
