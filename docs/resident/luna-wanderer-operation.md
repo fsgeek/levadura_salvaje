@@ -15,3 +15,9 @@ The same compatibility adapter and available framework tools are reused. Sharing
 The first wake completed and produced an addressed reply. The keeper read it through the logged reader and answered, disclosed setup/status inspection, and asked consent before publishing a factual paraphrase. No authored state or raw output was exposed. Service active with zero restarts; daily invitation timer enabled. Findings remain private pending consent.
 
 Eight targeted reader, routing and actual Hamut'ay adapter checks passed. Systemd unit verification passed. Independent read-only Codex review found no issues in the scoped changes. Runtime uses installed files, independent of the implementation worktree.
+
+Cycle 2 authorized only the following factual paraphrase for Tony and this public handoff:
+
+> Luna began exploring Levadura Salvaje’s project materials, focusing on the gap between the seed’s central wager and the experiments so far. She asked what experiment could directly test that wager and reveal what measurement or selection might miss.
+
+The permission excludes authored state, raw output and full replies. This differs from the first Luna's initial corpus inquiry, but does not establish why the difference occurred. The keeper's next responsibility is to support the freely chosen direction without turning this observation into an assignment. Existing full-suite validation: 338 passed, 2 skipped; targeted new/runtime checks: 8 passed.
