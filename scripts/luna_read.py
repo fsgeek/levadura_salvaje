@@ -18,13 +18,15 @@ def main() -> None:
     ap.add_argument("--by", required=True)
     ap.add_argument("--why", required=True)
     ap.add_argument("--since", type=int, default=0)
+    ap.add_argument("--resident", choices=("luna", "luna-wanderer"), default="luna")
     a = ap.parse_args()
+    home = HOME if a.resident == "luna" else HOME.with_name(a.resident)
     shown = []
     output = []
     incomplete_tail = False
     error_line = None
     try:
-        lines = (HOME / "session.jsonl").read_text().splitlines(keepends=True)
+        lines = (home / "session.jsonl").read_text().splitlines(keepends=True)
     except FileNotFoundError:
         lines = []
     for index, line in enumerate(lines, 1):
@@ -45,7 +47,7 @@ def main() -> None:
         shown.append(cyc)
         status = " (failed wake)" if r.get("status") == "failed" else ""
         output.append(f"--- cycle {cyc} {r.get('timestamp', '')}{status}\n{r['response_text']}\n")
-    with (HOME / "reads.jsonl").open("a") as f:
+    with (home / "reads.jsonl").open("a") as f:
         f.write(json.dumps({"at": datetime.now(timezone.utc).isoformat(), "by": a.by, "why": a.why,
                             "read": "response_text and failed-wake status only", "cycles": shown,
                             "incomplete_tail": incomplete_tail, "error_line": error_line}) + "\n")

@@ -1,0 +1,7 @@
+[Unit]
+Description=Initial daily inquiry opportunity for Levadura Luna wanderer
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/projects/hamutay
+ExecStart=%h/projects/hamutay/.venv/bin/python %h/.config/levadura/luna_checkin.py --resident luna-wanderer

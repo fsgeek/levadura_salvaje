@@ -1,0 +1,14 @@
+[Unit]
+Description=Levadura Luna wanderer counterpart (taste_open, standalone)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projects/hamutay
+EnvironmentFile=%h/.config/levadura/resident.env
+ExecStart=%h/.local/bin/uv run python %h/.config/levadura/luna_heartbeat.py --log-path %h/.levadura/luna-wanderer/session.jsonl --project-root %h/projects/levadura_salvaje --persist %h/.levadura/luna-wanderer/memory.duckdb --model openai/gpt-6-luna --provider openrouter --wake-mode natural --context-limit 1050000 --daily-budget-usd 1.50 --daily-wake-cap 48 --capabilities-file %h/.config/levadura/luna-capabilities.json
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

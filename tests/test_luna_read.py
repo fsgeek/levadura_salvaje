@@ -56,3 +56,20 @@ def test_corrupt_complete_record_still_logs_inspection(tmp_path, monkeypatch):
     with pytest.raises(RuntimeError,match='line 1'):
         reader.main()
     assert json.loads((tmp_path/'reads.jsonl').read_text().splitlines()[-1])['error_line']==1
+
+
+def test_wanderer_reader_does_not_read_or_log_first_resident(tmp_path, monkeypatch, capsys):
+    reader = load_reader()
+    first = tmp_path / 'luna'
+    second = tmp_path / 'luna-wanderer'
+    first.mkdir()
+    second.mkdir()
+    (first / 'session.jsonl').write_text(json.dumps({'cycle':1,'response_text':'FIRST_PRIVATE'})+'\n')
+    (second / 'session.jsonl').write_text(json.dumps({'cycle':1,'response_text':'SECOND_ADDRESSED'})+'\n')
+    monkeypatch.setattr(reader, 'HOME', first)
+    monkeypatch.setattr(sys, 'argv', ['reader','--resident','luna-wanderer','--by','fixture','--why','second reply'])
+    reader.main()
+    output = capsys.readouterr().out
+    assert 'SECOND_ADDRESSED' in output and 'FIRST_PRIVATE' not in output
+    assert (second / 'reads.jsonl').exists()
+    assert not (first / 'reads.jsonl').exists()
