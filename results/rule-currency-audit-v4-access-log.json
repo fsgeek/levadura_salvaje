@@ -1,0 +1,84 @@
+{
+ "audit": "rule-currency v4, section 902",
+ "verified_by": "owner (Claude Opus 5.5), 2026-10-06, from subagent transcripts",
+ "readers": {
+  "reader-a": {
+   "model": "opus",
+   "transcript": "subagents/agent-adb2b5a55176560c9.jsonl",
+   "tool_calls": [
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-instructions.md"
+    },
+    {
+     "tool": "Bash",
+     "command": "wc -c /home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "limit": "12"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "offset": "13",
+     "limit": "15"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "offset": "28",
+     "limit": "15"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "offset": "43",
+     "limit": "15"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "offset": "58",
+     "limit": "14"
+    },
+    {
+     "tool": "Bash",
+     "command": "cat > /home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-reader-a.jsonl <<'EOF'\n{\"item\": \"item-01\", \"label\": \"not_a_rule\", \"decisive_text\": \"Outline of regulation provisions\"}\n{\"i"
+    }
+   ]
+  },
+  "reader-b": {
+   "model": "sonnet",
+   "transcript": "subagents/agent-a5cf0ef7d2419ab63.jsonl",
+   "tool_calls": [
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-instructions.md"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "limit": "25"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "offset": "26",
+     "limit": "25"
+    },
+    {
+     "tool": "Read",
+     "file_path": "/home/tony/projects/levadura_salvaje/results/rule-currency-audit-v4-902-packet.jsonl",
+     "offset": "51",
+     "limit": "25"
+    },
+    {
+     "tool": "Bash",
+     "command": "cat > /tmp/claude-1000/-home-tony-projects-levadura-salvaje/cbb2fb5f-8f76-4e99-b498-e5893fae3c75/scratchpad/mk.py <<'EOF'\nimport json\nL={}\ndef s(lbl,txt,ids):\n    for i in ids: L[i]=(lbl,txt)\ns(\"not_a"
+    }
+   ]
+  }
+ }
+}
