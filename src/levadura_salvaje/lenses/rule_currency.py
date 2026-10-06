@@ -237,10 +237,18 @@ def excerpt_v3(norm: str, paras: list, span: tuple[int, int], sectno: str, subje
         if lost:
             parts.append(f"[The worked example also cites {', '.join(lost)} of this section, which could "
                          f"not be located in the section's structure; it is not shown.]")
-    ap = st.applicability(paras)
+    if int(LENS_VERSION) >= 4:
+        # the date provision that covers this citation, labelled with what it governs (review 2, P1 #5)
+        got = st.governing_date(paras, p)
+        ap, sc = got if got is not None else (None, None)
+        label = ("[The section's effective-date or applicability paragraph:]" if sc == () else
+                 "[The effective-date paragraph governing paragraph "
+                 + "".join(f"({t})" for t in (sc or ())) + " of this section:]")
+    else:
+        ap, label = st.applicability(paras), "[The section's effective-date or applicability paragraph:]"
     if ap is not None and ap.index != p.index and ap.index not in p.ancestry:
         t = ap.text if len(ap.text) <= APPLIES else ap.text[:APPLIES].rstrip() + " …"
-        parts.append("[The section's effective-date or applicability paragraph:]\n" + t)
+        parts.append(label + "\n" + t)
     out = "\n\n".join(parts)
     if len(out) > BUDGET:               # drop the outermost ancestors first, and say so
         out = out[:BUDGET].rstrip() + " … [excerpt truncated]"
