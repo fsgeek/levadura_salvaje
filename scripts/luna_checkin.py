@@ -10,7 +10,9 @@ HAMUTAY = Path.home() / 'projects' / 'hamutay'
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument("--resident", choices=("luna", "luna-wanderer"), default="luna")
     args = parser.parse_args()
+    home = HOME if args.resident == "luna" else HOME.with_name(args.resident)
     now = datetime.now(timezone.utc)
     message = (f'Daily invitation, {now:%Y-%m-%d %H:%M} UTC. This is the initial daily opportunity '
                'described at your first wake. No task or reply is required. You may continue an '
@@ -21,7 +23,7 @@ def main():
         print(message)
         return
     subprocess.run(['/home/tony/.local/bin/uv', 'run', 'python', '-m', 'hamutay.events', 'send',
-                    '--log-path', str(HOME / 'session.jsonl'), '--message', message,
+                    '--log-path', str(home / 'session.jsonl'), '--message', message,
                     '--sender', 'Levadura keeper daily invitation (automatic)', '--label', 'daily-invitation'],
                    cwd=HAMUTAY, check=True, capture_output=True)
 
