@@ -37,7 +37,7 @@
 
 - [x] Record tools, exact guidance, obligations, launch commands, and limits in docs/resident/luna-operation.md.
 - [x] Record what changed in the keeper's understanding and any actual guidance failures, without attributing causal efficacy from a few wakes.
-- [ ] Commit only this branch's public artifacts after checking diffs; retain private home and live service independently of worktree.
+- [x] Commit only this branch's public artifacts after checking diffs; retain private home and live service independently of worktree.
 
 ## Rulings
 
@@ -47,3 +47,5 @@
 2026-10-06: Ruling: use a process-local LunaTasteBackend adapter to set function strict=false. Mechanical tracing found repeated placeholder selectors; guidance alone did not restore recall, while the one transport change did. Costs: dependency on an upstream private conversion method; covered by a payload test and a separate live probe. Shared Hamut'ay source and resident state remain unchanged.
 
 2026-10-06: Fresh Codex review found one P2: partial JSONL tail caused the reply reader to lose completed replies and omit the audit record. Reproduced with fixtures, fixed with tests for partial and malformed records, and installed the corrected reader. No other substantive findings.
+
+Final verification before integration: full project suite plus new reader tests: 248 passed, 2 optional suites skipped in 12.23s. The separate Hamut'ay-environment run exercised the Luna adapter and reader: 5 passed. First three live wakes completed; service active with zero restarts; daily timer enabled.

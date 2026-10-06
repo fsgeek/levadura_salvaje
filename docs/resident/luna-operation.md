@@ -67,3 +67,8 @@ in the keeper follow-up.
 A daily invitation is queued automatically, but answering it is not automatic. The current
 keeper and each inheriting owner owe the replies described above; the unit is not a substitute
 for that obligation.
+
+Final validation before integration: full project suite plus new reader checks, 248 passed
+and 2 optional suites skipped; separate Hamut'ay-environment adapter/reader checks, 5 passed.
+Systemd verification passed and installed scripts match the reviewed source. Three live
+wakes completed; service active with zero restarts; daily invitation timer enabled.
