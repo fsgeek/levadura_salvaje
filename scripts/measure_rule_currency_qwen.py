@@ -38,7 +38,8 @@ FINAL = Path(f"results/rule-currency-qwen-v{rc.LENS_VERSION}-{TARGET}-2025.jsonl
 WORKERS = 2
 PREDICTIONS = {"1": "predictions/2026-10-02-rule-currency-claude.md",
                "2": "predictions/2026-10-02-rule-currency-v2-claude.md",
-               "3": "predictions/2026-10-03-rule-currency-v3-claude.md"}
+               "3": "predictions/2026-10-03-rule-currency-v3-claude.md",
+               "4": "predictions/2026-10-03-rule-currency-v4-claude.md"}
 
 
 def _cached(line: str) -> dict | None:
