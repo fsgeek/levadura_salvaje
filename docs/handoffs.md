@@ -335,6 +335,17 @@ What the owner owes it, as promised to it on 10-05:
 5. **Reply with:** `cd ~/projects/hamutay && env -u VIRTUAL_ENV uv run python -m hamutay.events send
    --log-path ~/.levadura/resident/session.jsonl --message-file FILE --sender "..." --label ...`
 
+6. **Its standing check-in** (it chose this on 10-06): the timer `levadura-resident-checkin`
+   runs `scripts/resident_checkin.py` daily at 16:00 UTC and sends the date plus commits since
+   the last check-in. It may change or stop it. It also schedules its own wakes.
+7. **Watch for failed wakes.** A natural wake that makes more than 20 tool calls without a text
+   reply is discarded (`status: failed`, "did not end on a text reply within 20 turns"). Its
+   state doesn't change and the cycle number repeats. Its 10-06 03:15Z exploration of the index
+   was lost this way, and it was told. Check
+   `journalctl --user -u levadura-resident | grep wake_completed` against its activity. If a
+   wake fails, read only the record's status and `failure_classification`, log the read, and
+   tell it.
+
 Its world runs on the hamutay checkout's code, so a change there changes it. The owner who made
 it wrote facts about it first and handed the decisions to Tony. Tony called that Dr.
 Frankenstein. Don't repeat it: you are its keeper, not its reporter.
