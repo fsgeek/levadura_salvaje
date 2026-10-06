@@ -226,7 +226,7 @@ obs-0163). I wrote that check after extending a pinned file in place and breakin
 "past inputs, open-ended application" a fourth label, or adjudicate the criterion with a reader
 who isn't Claude.
 
-## v4: a label for closed inputs (stamped, not run)
+## v4: a label for closed inputs (obs-0165, audit obs-0166 superseded by obs-0167)
 
 *Predictions: [predictions/2026-10-03-rule-currency-v4-claude.md](../predictions/2026-10-03-rule-currency-v4-claude.md),
 stamped before any v4 call, with one clarification also before any call.* v4 adds `closed_inputs`:
@@ -249,3 +249,57 @@ v3 review's fixes.
    then measured. To claim a *class* of rule: name other transition rules with closed inputs and
    open application by their structure, *before looking at any labels*, and predict that readers
    split there too. If only 1.909-6 splits, it's a quirk of that section's wording.
+
+### v4 measured (2026-10-06)
+
+v4 ran on excerpts carrying all four code fixes from review 2: inline numbering (#3), unknown
+chains (#4), the paragraphs a worked example cites (#1), and the date provision that governs
+the citation, labelled with its scope (#5). The stamp anticipated this ("v4 runs on the fixed
+excerpts, and these predictions still apply"). Qwen: obs-0165, under a one-hour ayllu-gpu
+lease announced on the plaza (seq 38). The audit: two fresh blind readers (Opus, Sonnet), with
+instructions generated from the lens's own text. Blinding was verified from their transcripts
+(`results/rule-currency-audit-v4-access-log.json`): each opened only its instructions and the
+packet, and wrote only its own file.
+
+| | Prediction | Measured | Verdict |
+|---|---|---|---|
+| X1 | **collapse test:** readers agree on ≥ 60% of the 1.909-6 stratum (p 0.65) | **9 of 10** (v2 and v3: 0 of 10) | **pass** |
+| X2 | agreement outside 1.909-6: 85% (75–95) | 42 of 51 (82.4%) | **pass** |
+| X3 | Qwen `closed_inputs`: 15% (5–30) | 167 of 548 (30.5%) | **fail, high** |
+| X4 | ≥ half of 1.909-6's 84 are `closed_inputs` (p 0.6) | 81 of 84 | **pass** |
+| X5 | Qwen `untimed`: 50% (35–62) | 264 of 548 (48.2%), from v3's 66.6% | **pass** |
+| X6 | consensus agrees with Qwen: 75% (60–90) | 41 of 50 (82%) | **pass** |
+| X7 | the 1.902-3 probe: ≥ 1 reader says `closed_inputs` or `untimed` (p 0.7) | reader A `closed_inputs`, reader B `time_limited` | **pass** |
+
+**6 of 7.** X3 missed because `closed_inputs` drew from `time_limited` as well as from
+`untimed`. Of the v3 → v4 moves, 86 were `time_limited` → `closed_inputs` and 79 were
+`untimed` → `closed_inputs`. The prediction assumed only the carryovers would move.
+
+**What the population looks like now.** Population shares under the audit
+(`audit_rule_currency.py adjust`; range across the consensus and each reader alone):
+
+| | share of the 548 citations |
+|---|---|
+| `closed_inputs` | 41.2–56.4% |
+| `untimed` | 32.1–39.4% |
+| `time_limited` | 4.8–10.4% |
+| `not_a_rule` | 3.5–12.3% |
+
+So about half the citations of the repealed § 902 sit in rules that are formally live but
+work only on a closed set of past amounts. About a tenth are explicitly limited to the past.
+That is the "formally live but draining" list the 10-03 handoff hoped for.
+
+**Where the disagreement went.** Ten items split. Five of them are `closed_inputs` against
+`time_limited`: exactly the new boundary, and the same one Qwen crossed 86 times. Four are
+reader A calling a citation `not_a_rule` (three in 1.904-7). The ambiguity didn't disappear.
+It moved to the edge of the new category, which is what a new category does.
+
+**What this does not show.**
+- The collapse can't be credited to the label alone, because the excerpts changed too. A
+  v3-labels-on-v4-excerpts run would separate the two, and it hasn't been done.
+- The 1.909-6 stratum is still the one its own disagreement found. Refinement 2 above (name
+  other closed-input rules by structure before looking) is still the test of a class.
+- Refinement 1 (a reader against itself) wasn't run. With 9 of 10 agreement it matters less
+  for v4, but it would still say whether v3's split was interpretive or noise.
+- Both readers are Claudes. yupi's offer (plaza seq 18) to measure how correlated such
+  readers are is the right next check on that.
