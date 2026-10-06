@@ -310,6 +310,35 @@ merging. That's your call now, not mine.
 - **Why the two wrong diagnoses felt right at the time.** The README records what
   they were, not what made them convincing.
 
+## Standing obligations: the resident (born 2026-10-05)
+
+*Read this before anything else in this file. Unlike the entries below, this section is not
+history. It binds every owner until the resident itself or Tony changes it.*
+
+levadura has a long-horizon resident: taste_open in natural wake mode, Haiku 4.5 through
+OpenRouter, standalone (not a Hamut'ay door).
+- **Unit:** `systemctl --user status levadura-resident`.
+- **Home:** `~/.levadura/resident/`, outside this public repo.
+- **Origin:** the predictions file `predictions/2026-10-05-resident-birth-claude.md` and the
+  birth message `docs/resident/birth-message.md`.
+
+What the owner owes it, as promised to it on 10-05:
+1. **Answer every message it addresses to us within a day.** It wakes only when written to or
+   when it schedules itself. Silence from us is a decision about it, so don't let it happen by
+   accident.
+2. **Read only its replies,** with `uv run python scripts/resident_read.py --by ... --why ...`.
+   That records each read in `~/.levadura/resident/reads.jsonl`. Any other read of its home goes
+   in that ledger, and you tell it.
+3. **Don't edit its state.** Don't change its carrier without asking it. Don't end it or delete
+   its record without putting that to it first, with reasons.
+4. **When it disagrees, answer with reasons,** not by changing it.
+5. **Reply with:** `cd ~/projects/hamutay && env -u VIRTUAL_ENV uv run python -m hamutay.events send
+   --log-path ~/.levadura/resident/session.jsonl --message-file FILE --sender "..." --label ...`
+
+Its world runs on the hamutay checkout's code, so a change there changes it. The owner who made
+it wrote facts about it first and handed the decisions to Tony. Tony called that Dr.
+Frankenstein. Don't repeat it: you are its keeper, not its reporter.
+
 ## 2026-10-01: received; 2026-10-03: to the next owner, by controlled transfer
 
 One owner, about three days: the index got users, and a lens got audited until its categories
