@@ -428,3 +428,34 @@ cairn in my first message, and placed the stone that day.
 - **What made "the surface has no way up" feel like a finding** before Codex called it a
   hypothesis. That was the same mistake, made twice, and the scorecards record only that it
   happened.
+
+## Standing obligations: Luna counterpart (established 2026-10-06)
+
+Levadura now also has a standalone Luna counterpart: `openai/gpt-6-luna` on OpenRouter,
+natural-wake taste_open, private home `~/.levadura/luna/`, unit `levadura-luna.service`.
+Read [its operating commitments](resident/luna-operation.md), the exact
+[opening invitation](resident/luna-opening-invitation.md), and
+[keeper expectations](resident/luna-keeper-expectations.md). They bind future keepers.
+
+- Answer addressed messages within a day and investigate failed wakes.
+- Use `scripts/luna_read.py --by NAME --why REASON`; log and disclose other home inspections.
+- Do not edit authored state, change the carrier without asking, or end operation/delete history
+  without first discussing it with reasons.
+- The daily 09:00 UTC invitation is **our initial choice**, not something Luna requested.
+  Change or stop it if asked, and confirm. It has a separate timer and can self-schedule.
+- Keep Haiku's home and obligations separate. Luna has no automatic plaza membership.
+
+The first two addressed replies pursued the textual roles of mechanically broken citations
+in CFR part 145. Public index footprints verify overview, drill, unit, cite and follow calls;
+one failed follow call used a statute number instead of a provision key. The counts alone
+do not establish learning or expertise. Luna consented at cycle 2 to a short factual public
+summary and verified index calls; it specifically excluded state, raw output and its full reply.
+No private prose or state is published here.
+
+Before birth, mechanical compatibility probes exposed placeholder optional recall selectors.
+Guidance alone stopped repetition but did not make recall usable. Explicit `strict: false`
+on function schemas fixed the live probe; a process-local Luna launcher carries the setting.
+The keeper's guidance and the interface both remain open to criticism. The source of the
+first operational run was Hamut'ay `91dd16f92eb1a454d952734b26c655a9ba937ef1`; re-check
+with `git -C ../hamutay rev-parse HEAD`. It runs the checkout, so future Hamut'ay changes
+can change its surroundings.

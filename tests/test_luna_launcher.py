@@ -2,6 +2,10 @@
 import importlib.util
 from pathlib import Path
 
+import pytest
+
+pytest.importorskip("hamutay.taste_open")
+
 
 def test_luna_payload_preserves_optional_recall_selectors():
     from hamutay.taste_open import OpenAITasteBackend

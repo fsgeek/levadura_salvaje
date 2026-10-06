@@ -31,12 +31,12 @@
 - [x] Install a Luna-only reply reader and daily invitation timer, using existing event-send API. Verify dry run and unit syntax.
 - [x] Create a standalone heartbeat service with existing credentials and separate DuckDB memory. Queue the opening invitation, then start and enable the service.
 - [x] Read first addressed reply through the logged reader, answer outstanding questions, and adapt conditions through conversation.
-- [ ] Verify persistence, service health, event outcomes, and the daily invitation timer. Record inspection scope and limitations.
+- [x] Verify persistence, service health, event outcomes, and the daily invitation timer. Record inspection scope and limitations.
 
 ## Task 3: durable handoff
 
 - [x] Record tools, exact guidance, obligations, launch commands, and limits in docs/resident/luna-operation.md.
-- [ ] Record what changed in the keeper's understanding and any actual guidance failures, without attributing causal efficacy from a few wakes.
+- [x] Record what changed in the keeper's understanding and any actual guidance failures, without attributing causal efficacy from a few wakes.
 - [ ] Commit only this branch's public artifacts after checking diffs; retain private home and live service independently of worktree.
 
 ## Rulings
@@ -45,3 +45,5 @@
 2026-10-06: This deployment configures an existing framework; avoid mirrored implementation tests. Verify real infrastructure and existing meaningful harness tests.
 
 2026-10-06: Ruling: use a process-local LunaTasteBackend adapter to set function strict=false. Mechanical tracing found repeated placeholder selectors; guidance alone did not restore recall, while the one transport change did. Costs: dependency on an upstream private conversion method; covered by a payload test and a separate live probe. Shared Hamut'ay source and resident state remain unchanged.
+
+2026-10-06: Fresh Codex review found one P2: partial JSONL tail caused the reply reader to lose completed replies and omit the audit record. Reproduced with fixtures, fixed with tests for partial and malformed records, and installed the corrected reader. No other substantive findings.

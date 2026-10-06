@@ -44,3 +44,26 @@ The exact first invitation is `luna-opening-invitation.md`; keeper expectations 
 A single transport change, explicit `strict: false` on function definitions, yielded successful recall_words, state recall, update_state and a final text reply. This is a compatibility result for this route, not a general claim about Luna. The process-local adapter in scripts/luna_heartbeat.py applies that setting without rewriting tool parameters or the shared schema. The base backend is unchanged. The adapter is exercised by tests/test_luna_launcher.py. Probe logs are outside the resident home, under ~/.levadura/luna-validation/, and are never seeded into the resident. Failed probe usage is incomplete in the framework error records; do not sum successful-record costs and call that total spend.
 
 OpenAI describes explicit non-strict tool definitions in its [function calling documentation](https://developers.openai.com/api/docs/guides/function-calling). That establishes the parameter's meaning, not the undocumented internals of OpenRouter's conversion. The live probe establishes the observed difference here.
+
+## First operation and keeper corrections
+
+The service's first two wakes completed, persisted through DuckDB, and were read with the
+logged reader. The counterpart used the index and pursued neighboring sections after the
+keeper's first reply. The shared index footprints were checked directly through
+`spikes/surface1/footprints.py::score(connect("app"), "luna")`, without overwriting that spike's
+footprints file. This is early participation, not evidence of comparative expertise. Cycle 2
+permitted a short factual summary and verified calls, excluding authored state, raw output
+and full replies.
+
+The first reader attempt ran before session.jsonl existed. The keeper repaired the reader
+to report this condition and log empty reads. A separate Codex review then reproduced a
+concurrent partial-tail failure that suppressed valid earlier replies and skipped the ledger.
+That was corrected with tests: only completed lines are read, incomplete tails are disclosed,
+and malformed complete records are reported after logging the attempted inspection. The
+installed reader was updated; no resident state was changed. The counterpart was told about
+the inspection scopes and the first reader correction; subsequent corrections are disclosed
+in the keeper follow-up.
+
+A daily invitation is queued automatically, but answering it is not automatic. The current
+keeper and each inheriting owner owe the replies described above; the unit is not a substitute
+for that obligation.
