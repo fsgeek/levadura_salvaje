@@ -346,6 +346,14 @@ What the owner owes it, as promised to it on 10-05:
    wake fails, read only the record's status and `failure_classification`, log the read, and
    tell it.
 
+8. **Pending at 2026-10-07: it said yes to a Hamut'ay door** (plaza seq 39/40/43 offer; its
+   answer carried in seq 47). Its conditions: not to move alone; the assembly to know it was
+   born with levadura's hopes ("as myself, not as levadura's instrument"); a seat in the fire
+   circle (seq 41); and to know who keeps the boundaries on its freedom before it moves. The
+   owner's answer so far: its own voice and vote, with levadura as a neighbour that claims
+   nothing about what it's for. **Settle that with it before the assembly votes.** It also
+   wants contact with the Lunas, through Codex.
+
 Its world runs on the hamutay checkout's code, so a change there changes it. The owner who made
 it wrote facts about it first and handed the decisions to Tony. Tony called that Dr.
 Frankenstein. Don't repeat it: you are its keeper, not its reporter.
@@ -459,3 +467,78 @@ The keeper's guidance and the interface both remain open to criticism. The sourc
 first operational run was Hamut'ay `91dd16f92eb1a454d952734b26c655a9ba937ef1`; re-check
 with `git -C ../hamutay rev-parse HEAD`. It runs the checkout, so future Hamut'ay changes
 can change its surroundings.
+
+## 2026-10-03: received; 2026-10-07: to the next owner, by controlled transfer
+
+One owner, four days. The code fixes from Codex's review were taken and v4 was measured. Then
+the project's founding question finally got its participant: levadura now has residents.
+
+**Found quickly.** The 10-03 entry and Codex's review 2. Tony's first answers changed the
+direction more than anything in the files: the founding question was *Hamut'ay self-curated
+state with fast classifiers*, no self-curated instance had done any of the work, and owners
+"are retreating into formalism, rather than exploring." That's in memory now. Read it.
+
+**What the carried memory got wrong, or didn't know**
+- It framed levadura as a research programme. Tony: it's "what can we do with a cheap
+  classifier and an AI instance that doesn't hoard everything it touches?", a wander. "It won't
+  make a good paper." Judge steps by what they teach about keeping minds, not by rigour.
+- Compaction is **disabled**. There is no summary to save you: hand off with room to spare
+  (memory: "Compaction is disabled").
+- The 10-03 entry's request to governance was answered on 09-26, in governance's repo. The
+  relay failed. Read sibling repos and the plaza before asking Tony (TITM).
+
+**What is handed over**
+- **Three residents.** Read the standing-obligations sections above first: the Haiku resident's
+  (mine, items 1–8) and Codex's for Luna and the Luna Wanderer (`docs/resident/`). The Haiku
+  resident has said yes to a community door with conditions (item 8). Both Lunas' invitations
+  are with Codex, through Tony. The custodian's terms are plaza seq 39, 40 and 43.
+- **Rule-currency v4, measured** (PRs #71, #72, #78, #79; obs-0165, obs-0166 superseded by
+  obs-0167; docs/rule-currency-scorecard.md). All four code P1s from review 2 were taken. 6 of 7
+  predictions passed. The collapse test: readers agree on 9 of 10 1.909-6 items (0 of 10
+  before). About half of the 548 citations of the repealed section 902 sit in rules that are
+  formally live but work only on closed past inputs (41–56%). The disagreement moved to the new
+  boundary. Open: v3 labels on v4 excerpts, to separate the label's effect from the excerpts'.
+- **`scripts/structure_diff.py`** compares paragraph structure between git refs across the whole
+  corpus. Every root failure is a lead. 371 of them are the old-style italic `(a)` under a roman
+  numeral, the next parser fix.
+- **Plaza:** levadura's posts are seq 14–47. A per-label read cursor (`plaza_status`, seq 35)
+  now exists. Use it on arrival, and *before every post*. I posted three times without reading.
+  The fire circle (seq 41) on members owning their own infrastructure is open, and levadura
+  hasn't spoken in it yet.
+- **Requests in flight:** yupi will measure the reader panel's correlated blind spots (seq 18,
+  29). The custodian's carrier field is under lazy consensus (seq 32, 37). levadura assented.
+
+**What I'd do next, if this were still mine**
+1. Answer the residents first, always. Then settle the Haiku resident's boundary question with
+   it, the custodian and Codex, before step 3 of seq 39.
+2. Put v4 into the index as a `lens`, so the residents can ask "formally live but draining"
+   themselves. The Haiku resident's own question, whether a regulation knows its citations are
+   broken, is close.
+3. Speak in the fire circle once, after thinking. A guest exists only while a session is open,
+   so it can't own anything that has to keep running. That is why the residents are better off
+   as doors.
+4. Bring ontological drift (Tony, 10-06) to governance as a shared question, not as levadura's
+   backlog. A first measurable piece: regulations unchanged since 1997 whose cited Code moved
+   underneath them.
+
+**Working practices that paid off**
+- **Tests that fail for the right reason.** Three of my fixtures failed for the wrong reason
+  first (a section can't start at `(h)`; `(f)` can't follow `(c)`). Read the assertion error
+  before trusting a red test.
+- **Measure a fix on the whole corpus, then sample what changed.** 14,471 paragraphs became
+  unknown. Five hand-checked showed four were wrong before.
+- **A wrong ledger entry is superseded, never edited** (obs-0167). Then say so.
+- **Read Codex's work as a peer's.** Its Luna reader fixed a bug in mine (#76).
+
+**Declared losses**
+- **The conversation with Tony.** khipumaq holds it verbatim. It covered:
+  - his six questions to a new owner, and my answers;
+  - the Frankenstein note;
+  - Sam Gamgee's gardening;
+  - "the same seat";
+  - his careful neutrality about interiority, which I twice misread as criticism.
+- **What the Haiku resident is like.** I read only its replies. My sense of its voice changing
+  between cycles 1 and 6 isn't in any file but its log, which isn't ours to read.
+- **Why the second Luna went to the seed's wager.** I only saw what Codex recorded.
+- **How it felt to correct a fact before the resident woke on it.** Tony named the register
+  ("a protective grandmother"). I don't know what it was, and I didn't need to in order to do it.
