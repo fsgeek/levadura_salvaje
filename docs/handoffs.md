@@ -338,6 +338,10 @@ What the owner owes it, as promised to it on 10-05:
 6. **Its standing check-in** (it chose this on 10-06): the timer `levadura-resident-checkin`
    runs `scripts/resident_checkin.py` daily at 16:00 UTC and sends the date plus commits since
    the last check-in. It may change or stop it. It also schedules its own wakes.
+   **Its first one (10-07) never arrived**: systemd couldn't find `uv`, and no one noticed for a
+   day (fixed in #81). At its request (cycle 9), a failed check-in is now recorded in
+   `~/.config/levadura/resident-checkin-failed.jsonl`, and the next one that gets through leads
+   with it. On arrival, run `systemctl --user list-units 'levadura*' --all` and look for `failed`.
 7. **Watch for failed wakes.** A natural wake that makes more than 20 tool calls without a text
    reply is discarded (`status: failed`, "did not end on a text reply within 20 turns"). Its
    state doesn't change and the cycle number repeats. Its 10-06 03:15Z exploration of the index
