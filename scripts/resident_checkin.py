@@ -5,6 +5,7 @@ levadura-resident-checkin; safe to run by hand.
     uv run python scripts/resident_checkin.py [--dry-run]"""
 
 import argparse
+import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,6 +14,8 @@ REPO = Path(__file__).resolve().parents[1]
 LAST = Path.home() / ".config" / "levadura" / "resident-checkin-last"
 LOG = Path.home() / ".levadura" / "resident" / "session.jsonl"
 HAMUTAY = Path.home() / "projects" / "hamutay"
+# systemd user units don't have ~/.local/bin on PATH; the 2026-10-07 check-in was lost to that.
+UV = shutil.which("uv") or str(Path.home() / ".local" / "bin" / "uv")
 
 
 def main() -> None:
@@ -31,9 +34,11 @@ def main() -> None:
     if a.dry_run:
         print(msg)
         return
-    subprocess.run(["uv", "run", "python", "-m", "hamutay.events", "send", "--log-path", str(LOG),
+    r = subprocess.run([UV, "run", "python", "-m", "hamutay.events", "send", "--log-path", str(LOG),
                     "--message", msg, "--sender", "levadura_salvaje check-in (automatic)", "--label", "checkin"],
-                   cwd=HAMUTAY, check=True, capture_output=True)
+                       cwd=HAMUTAY, capture_output=True, text=True)
+    if r.returncode != 0:
+        raise SystemExit(f"send failed ({r.returncode}):\n{r.stderr}")
     LAST.write_text(now.isoformat())
 
 
