@@ -15,4 +15,8 @@ import luna_read  # noqa: E402
 luna_read.HOME = Path.home() / ".levadura" / "resident"
 
 if __name__ == "__main__":
+    # luna_read's --resident flag would be silently ignored here, since HOME is pinned above.
+    # On 2026-10-08 an owner passed --resident luna and re-read the Haiku resident instead.
+    if any(a == "--resident" or a.startswith("--resident=") for a in sys.argv[1:]):
+        sys.exit("resident_read.py reads only the Haiku resident; use scripts/luna_read.py --resident ...")
     luna_read.main()
