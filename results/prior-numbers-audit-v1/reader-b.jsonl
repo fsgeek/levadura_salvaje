@@ -1,0 +1,40 @@
+{"item": 1, "answer": "Y", "reason": "Section 668 is applied to a beneficiary's tax on an accumulation distribution, which matches amounts deemed distributed in preceding years."}
+{"item": 2, "answer": "Y", "reason": "Section 817(a)(2) modifies the capital asset definition in section 1221, which is about gains and losses."}
+{"item": 3, "answer": "Y", "reason": "The passage describes section 23(c)(1) and (2) as relating to the residential energy credit."}
+{"item": 4, "answer": "X", "reason": "'Section 38 property' is a reference to investment in depreciable property."}
+{"item": 5, "answer": "X", "reason": "The penalty is for failing to furnish a social security number, which is a failure to supply identifying numbers."}
+{"item": 6, "answer": "Y", "reason": "Section 143 is cited for whether a person is considered married."}
+{"item": 7, "answer": "Y", "reason": "The passage says section 32 relates to tax withheld at source on nonresident aliens."}
+{"item": 8, "answer": "X", "reason": "Section 21 is cited for computing tax when tax rates change."}
+{"item": 9, "answer": "cant_tell", "reason": "X and Y are the same description, so the passage cannot separate them."}
+{"item": 10, "answer": "Y", "reason": "Section 668(a) is applied to an accumulation distribution, so it concerns amounts deemed distributed in preceding years."}
+{"item": 11, "answer": "X", "reason": "The passage discusses the investment credit on public utility property under section 46, which is investment in depreciable property."}
+{"item": 12, "answer": "Y", "reason": "Section 817(a) modifies the section 1231 and 1221 treatment of gains and losses."}
+{"item": 13, "answer": "X", "reason": "Section 1379(b) is described as relating to contributions to qualified pension plans."}
+{"item": 14, "answer": "X", "reason": "Section 1371(b) defines an electing small business corporation."}
+{"item": 15, "answer": "cant_tell", "reason": "The passage cites section 44(d) of the 1939 Code, which fits neither description."}
+{"item": 16, "answer": "cant_tell", "reason": "The passage covers adjustments and basis rules that fit either description, and gives no way to choose."}
+{"item": 17, "answer": "cant_tell", "reason": "Both descriptions are installment method, and the citation is to the 1939 Code."}
+{"item": 18, "answer": "cant_tell", "reason": "Both descriptions fit an election to use the installment method."}
+{"item": 19, "answer": "Y", "reason": "'Section 38 property' is a reference to investment in depreciable property, which is Y here."}
+{"item": 20, "answer": "X", "reason": "Section 6015(a) is cited for when a declaration of estimated tax must be filed."}
+{"item": 21, "answer": "Y", "reason": "The heading of the section is 'Investment in certain depreciable property', which is Y here."}
+{"item": 22, "answer": "X", "reason": "The passage treats section 6015 as an estimated tax declaration provision."}
+{"item": 23, "answer": "Y", "reason": "The passage describes section 34 as the dividends received credit."}
+{"item": 24, "answer": "cant_tell", "reason": "The passage cites section 32 of the Act of August 24, 1935, an agricultural export program, which fits neither description."}
+{"item": 25, "answer": "Y", "reason": "The passage describes section 32 as the credit for tax withheld at source."}
+{"item": 26, "answer": "X", "reason": "Section 37 is described as the credit for the elderly, formerly the retirement income credit."}
+{"item": 27, "answer": "cant_tell", "reason": "X and Y are the same description."}
+{"item": 28, "answer": "Y", "reason": "'Section 38 property' placed in service is a reference to investment in depreciable property, which is Y here."}
+{"item": 29, "answer": "cant_tell", "reason": "The passage lists section 336 as a nonrecognition provision and gives no basis to choose between two similar liquidation descriptions."}
+{"item": 30, "answer": "X", "reason": "The 1963 investment credit under section 38 is the investment in depreciable property credit."}
+{"item": 31, "answer": "X", "reason": "The passage cites section 21 for a change in tax rates."}
+{"item": 32, "answer": "X", "reason": "The passage cites section 668 to determine the beneficiary's tax on amounts included from preceding years."}
+{"item": 33, "answer": "X", "reason": "The passage cites section 812 for the loss from operations and the operations loss deduction."}
+{"item": 34, "answer": "cant_tell", "reason": "The passage lists section 336 as a nonrecognition provision and gives no basis to choose between two similar liquidation descriptions."}
+{"item": 35, "answer": "X", "reason": "The passage describes section 40 as relating to expenses of work incentive programs."}
+{"item": 36, "answer": "X", "reason": "Section 6015(a) is cited for when a declaration of estimated tax must be filed."}
+{"item": 37, "answer": "X", "reason": "The passage cites section 21(d) for rules on a change in rates for fiscal years."}
+{"item": 38, "answer": "X", "reason": "The passage cites section 40 as the credit for salaries and wages of WIN employees, which is work incentive program expenses."}
+{"item": 39, "answer": "X", "reason": "The passage cites section 44 as the credit for purchase of a new principal residence."}
+{"item": 40, "answer": "cant_tell", "reason": "The passage cites section 35 only in a list of credits and does not say what it covers, and neither description is evident from it."}
