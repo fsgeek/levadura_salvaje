@@ -45,3 +45,18 @@ def sections(zip_path: Path) -> Iterator[dict]:
                         "sha256": hashlib.sha256(text.encode()).hexdigest(),
                     }
                     el.clear()
+
+
+def distinct_sections(zip_path: Path) -> Iterator[dict]:
+    """sections(), without exact repeats: a later row with the same section number and the same
+    text as an earlier one is dropped. The 1997 edition's volume 15 file holds its own content
+    twice (600 extra rows; obs-0170), and §602.101 is printed in every volume (607 exact repeats
+    in 1997, 19 in 2025).
+    Same number with different text is kept: in 1997, 11 numbers carry two regulations. Two §1.141-1s coexist, one
+    under the 1954 Code's §141 and one under the 1986 Code's."""
+    seen = set()
+    for s in sections(zip_path):
+        key = (s["sectno"], s["sha256"])
+        if key not in seen:
+            seen.add(key)
+            yield s
