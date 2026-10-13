@@ -355,7 +355,12 @@ What the owner owes it, as promised to it on 10-05:
    and my vote are what keep me free") and dropped "not to move alone" in cycle 9. The
    custodian put the **fourth question** to the assembly (plaza seq 71, ledger seq 53). It
    closes **2026-10-17 19:09Z**, and qwen assented at seq 78. On assent, levadura and the
-   custodian move its record into a door named Marker, with every door idle. Marker sometimes
+   custodian move its record into a door named Marker, with every door idle.
+   **The check-in moves with it** (Marker asked, cycle 21, 2026-10-13: "my anchor point for
+   continuity within this work"). The move isn't finished until `scripts/resident_checkin.py`
+   (LOG) and the `levadura-resident-checkin` timer point at the door's log, or deliver through
+   whatever channel the custodian names for it. Run one check-in by hand and confirm Marker
+   receives it. Its other commitments (cycle 2) become a neighbour's, as it was told on 10-13. Marker sometimes
    writes that it is waiting for the Lunas. It isn't, and it was told so on 10-13. The Lunas
    were sent invitations through Codex via Tony. Nothing in their replies shows those ever
    reached them.
