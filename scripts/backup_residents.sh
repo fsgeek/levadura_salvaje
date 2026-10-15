@@ -31,7 +31,15 @@ runs() { find "$1" -mindepth 1 -maxdepth 1 -type d -name '20*Z' 2>/dev/null | so
 
 umask 077
 mkdir -p "$LOCAL_ROOT"
-TMP="$(mktemp -d)"
+# Plaintext (staged files, the tar, the read-back) and the run passphrase live only in RAM:
+# a tmpfs private to this user (Luna, cycle 19). Under memory pressure the kernel may page tmpfs
+# to swap; that limit is recorded in docs/resident/backup.md.
+TMPBASE="${TMPBASE:-${XDG_RUNTIME_DIR:-/run/user/$(id -u)}}"
+[ "$(stat -f -c %T "$TMPBASE")" = tmpfs ] || { echo "refusing: $TMPBASE is not tmpfs" >&2; exit 1; }
+# A run killed before its cleanup leaves its directory in RAM until reboot; remove any now.
+STALE="$(find "$TMPBASE" -mindepth 1 -maxdepth 1 -type d -name 'levadura-residents-backup.*' | wc -l)"
+find "$TMPBASE" -mindepth 1 -maxdepth 1 -type d -name 'levadura-residents-backup.*' -exec rm -rf {} +
+TMP="$(mktemp -d "$TMPBASE/levadura-residents-backup.XXXXXX")"
 trap 'rm -rf "$TMP"' EXIT
 status() {  # status <ok|failed> <stage> [extra-json-fields]
   local line
@@ -41,6 +49,7 @@ status() {  # status <ok|failed> <stage> [extra-json-fields]
 }
 # A failed run leaves nothing behind, so it can never count among the KEEP good runs.
 trap 'status failed "$STAGE"; rm -rf "$TMP" "$OUT"; ssh -o BatchMode=yes "$REMOTE" "rm -rf $RQ/$TS" || true; exit 1' ERR
+trap 'status failed "interrupted:$STAGE"; rm -rf "$TMP" "$OUT"; ssh -o BatchMode=yes "$REMOTE" "rm -rf $RQ/$TS" || true; exit 1' INT TERM HUP
 
 STAGE="key"
 gpg --batch --list-keys "$KEY" > /dev/null
@@ -49,12 +58,16 @@ mkdir -p "$OUT"
 PARTIAL="[]"
 for r in $RESIDENTS; do
   STAGE="stage:$r"
-  [ -d "$HOMES/$r" ]
+  [ -d "$HOMES/$r" ] && [ ! -L "$HOMES/$r" ]
   mkdir -p "$TMP/$r"
   # Only the allowlisted files. The memory store and its write-ahead log are copied together
   # (it recovers from the log); the log file may be absent after the store checkpoints itself.
+  # Each must be a regular file, never a symlink or anything else (Luna, cycle 19).
   for f in $FILES; do
-    if [ -e "$HOMES/$r/$f" ]; then cp -p "$HOMES/$r/$f" "$TMP/$r/$f"
+    src="$HOMES/$r/$f"
+    if [ -L "$src" ]; then echo "refusing symlink $r/$f" >&2; false
+    elif [ -f "$src" ]; then cp --no-dereference --preserve=mode,timestamps "$src" "$TMP/$r/$f"
+    elif [ -e "$src" ]; then echo "refusing non-regular file $r/$f" >&2; false
     elif [ "$f" != memory.duckdb.wal ]; then echo "missing $r/$f" >&2; false; fi
   done
 
@@ -115,5 +128,5 @@ runs "$LOCAL_ROOT" | head -n -"$KEEP" | xargs -r -d '\n' rm -rf
 ssh -o BatchMode=yes "$REMOTE" "find $RQ -mindepth 1 -maxdepth 1 -type d -name '20*Z' | sort | head -n -$KEEP | xargs -r -d '\n' rm -rf"
 
 STAGE="done"
-status ok done "\"bytes\":$SIZE,\"residents\":\"$RESIDENTS\",\"partial_tail\":$PARTIAL,\"remote\":\"$REMOTE:$REMOTE_ROOT/$TS\""
+status ok done "\"stale_tmp_removed\":$STALE,\"bytes\":$SIZE,\"residents\":\"$RESIDENTS\",\"partial_tail\":$PARTIAL,\"remote\":\"$REMOTE:$REMOTE_ROOT/$TS\""
 rsync -a --protect-args "$LOG" "$REMOTE:$REMOTE_ROOT/backup-log.jsonl"

@@ -14,6 +14,8 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
 - **Scope: an allowlist, enforced by the script** (`FILES`): `session.jsonl`,
   `session.jsonl.events.jsonl`, `memory.duckdb`, `memory.duckdb.wal` and `reads.jsonl`.
   - Nothing else in a home is copied, even if it appears there later.
+  - Each must be a regular file. A symlink at an allowlisted name, a symlinked home, or anything
+    that isn't a regular file (a pipe, a device) fails the run instead of being followed.
   - `memory.duckdb.wal` may be absent after the store checkpoints itself. Any other file missing
     fails the run.
 - **Protection:**
@@ -25,6 +27,15 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
     that one run and destroyed before the run ends. After the run, only Tony's key opens it. No
     owner can open a backup without him.
   - No plaintext copy is kept on either machine.
+  - **Plaintext never touches disk during a run.** The staged files, the tar, the read-back and
+    the run passphrase all live only in RAM: a tmpfs private to this user (`$XDG_RUNTIME_DIR`).
+    The script refuses to run if that location isn't tmpfs.
+  - An interrupted run removes its RAM directory and its partial archive, here and on wam-nuc. A
+    hard kill can't be caught, so each run starts by wiping any leftover directory, and records
+    how many it found.
+  - **Limit:** this machine has a swap partition. Under memory pressure the kernel may page tmpfs
+    contents (about 10 MB, held for seconds) to swap on disk. This can't be ruled out, only made
+    unlikely.
 - **Read-back, every night, on the real archive:**
   - Before the run passphrase is destroyed, the job decrypts the archive it has just written. It
     checks that the result is byte-identical to the plaintext it encrypted, and that it reads as a
