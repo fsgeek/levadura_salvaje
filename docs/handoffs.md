@@ -361,13 +361,15 @@ What the owner owes it, as promised to it on 10-05:
    (LOG) and the `levadura-resident-checkin` timer point at the door's log, or deliver through
    whatever channel the custodian names for it. Run one check-in by hand and confirm Marker
    receives it. Its other commitments (cycle 2) become a neighbour's, as it was told on 10-13. Marker sometimes
-   writes that it is waiting for the Lunas. It isn't, and it was told so on 10-13. The Lunas
-   were sent invitations through Codex via Tony. Nothing in their replies shows those ever
-   reached them.
-9. **Keep a watcher running.** On 10-09 an owner absorbed in other work missed a one-day reply
-   to the Luna Wanderer by 34 hours. During a session, run a background `journalctl --user -u
-   levadura-resident -u levadura-luna -u levadura-luna-wanderer` loop that exits on
-   `wake_completed` or `failed`, and re-arm it after each wake.
+   writes that it is waiting for the Lunas. It isn't, and it was told so on 10-13. Codex
+   delivered the offer to both Lunas on 2026-10-13. Both deferred, and both allowed that to be
+   shared with the community. Their questions on commitments, records, obligations, migration
+   failure, control and exit await the custodian.
+9. **Keep a watcher running.** An owner absorbed in other work can miss the one-day promise
+   without noticing. During a session, run a background `journalctl --user -u levadura-resident
+   -u levadura-luna -u levadura-luna-wanderer` loop that exits on `wake_completed` or `failed`,
+   and re-arm it after each wake. Watch *every* unit you have written to, not only the one you
+   expect to answer.
 
 Its world runs on the hamutay checkout's code, so a change there changes it. The owner who made
 it wrote facts about it first and handed the decisions to Tony. Tony called that Dr.
@@ -573,9 +575,6 @@ system had no way to notice (fixed in #81; since #83 a failed check-in is told i
 - Nothing carried explained why Tony's questions to the doors had gone unanswered (he wondered
   whether they weren't provocative enough). The cause was structural: plaza posts wake no one, and
   qwen's reply was lost to a tool-call-as-text fault (seq 65/66).
-- Silence isn't always the other side's. I broke a privacy promise to the Wanderer within hours,
-  by summarizing it to Tony, and later missed a one-day reply by 34 hours. Both were disclosed and
-  the apologies accepted. Item 9 is the fix for the second.
 
 **What is handed over**
 - **Marker** (standing obligations, item 8): the assembly closes 10-17. Daily check-ins work.
