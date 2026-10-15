@@ -1,0 +1,6 @@
+[Unit]
+Description=levadura: is the residents' backup alive? (fails if the last run is not ok or older than 26 h)
+
+[Service]
+Type=oneshot
+ExecStart=%h/projects/levadura_salvaje/scripts/check_residents_backup.sh
