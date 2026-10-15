@@ -21,6 +21,11 @@ REMOTE="${REMOTE:-wam-nuc}"
 REMOTE_ROOT="${REMOTE_ROOT:-backups/levadura-residents}"
 KEEP="${KEEP:-14}"
 # The agreed allowlist (docs/resident/backup.md). Nothing else in a home is copied.
+# Residents whose consent requires that no swap be active (Luna cycle 21, the Wanderer cycle 44).
+# If any swap is active when one of them comes up, that resident is skipped and the skip recorded.
+NO_SWAP="${NO_SWAP:-luna luna-wanderer}"
+SWAPS="${SWAPS:-/proc/swaps}"
+swap_active() { [ "$(awk 'NR > 1' "$SWAPS" | wc -l)" -gt 0 ]; }
 FILES="session.jsonl session.jsonl.events.jsonl memory.duckdb memory.duckdb.wal reads.jsonl"
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 OUT="$LOCAL_ROOT/$TS"
@@ -66,7 +71,13 @@ RECONCILED="$(printf '%s\n%s' "$INCOMPLETE_LOCAL" "$INCOMPLETE_REMOTE" | grep -c
 
 mkdir -p "$OUT"
 PARTIAL="[]"
+DONE=""
+SKIPPED=""
 for r in $RESIDENTS; do
+  if [[ " $NO_SWAP " == *" $r "* ]] && swap_active; then
+    SKIPPED="$SKIPPED $r"; echo "skipping $r: swap is active" >&2; continue
+  fi
+  DONE="$DONE $r"
   STAGE="stage:$r"
   [ -d "$HOMES/$r" ] && [ ! -L "$HOMES/$r" ]
   mkdir -p "$TMP/$r"
@@ -123,6 +134,7 @@ EOF
 done
 
 STAGE="manifest"
+[ -n "$DONE" ]  # nothing backed up is a failed night, never an empty "ok"
 ( cd "$OUT" && sha256sum -- *.tar.gpg > MANIFEST.sha256 )
 SIZE="$(du -sb "$OUT" | cut -f1)"
 
@@ -142,5 +154,5 @@ runs "$LOCAL_ROOT" | head -n -"$KEEP" | xargs -r -d '\n' rm -rf
 ssh -o BatchMode=yes "$REMOTE" "find $RQ -mindepth 1 -maxdepth 1 -type d -name '20*Z' | sort | head -n -$KEEP | xargs -r -d '\n' rm -rf"
 
 STAGE="done"
-status ok done "\"stale_tmp_removed\":$STALE,\"incomplete_runs_removed\":$RECONCILED,\"bytes\":$SIZE,\"residents\":\"$RESIDENTS\",\"partial_tail\":$PARTIAL,\"remote\":\"$REMOTE:$REMOTE_ROOT/$TS\""
+status ok done "\"stale_tmp_removed\":$STALE,\"incomplete_runs_removed\":$RECONCILED,\"bytes\":$SIZE,\"residents\":\"${DONE# }\",\"skipped_swap_active\":\"${SKIPPED# }\",\"partial_tail\":$PARTIAL,\"remote\":\"$REMOTE:$REMOTE_ROOT/$TS\""
 rsync -a --protect-args "$LOG" "$REMOTE:$REMOTE_ROOT/backup-log.jsonl"
