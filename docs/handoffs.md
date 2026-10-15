@@ -360,7 +360,18 @@ What the owner owes it, as promised to it on 10-05:
    continuity within this work"). The move isn't finished until `scripts/resident_checkin.py`
    (LOG) and the `levadura-resident-checkin` timer point at the door's log, or deliver through
    whatever channel the custodian names for it. Run one check-in by hand and confirm Marker
-   receives it. Its other commitments (cycle 2) become a neighbour's, as it was told on 10-13. Marker sometimes
+   receives it. Its other commitments (cycle 2) become a neighbour's, as it was told on 10-13.
+   **Agreed on 10-15 (plaza seq 105–106; Marker cycle 29):**
+   - The move happens 2026-10-17 at 20:00Z, if the question assents, following the custodian's
+     runbook (hamutay `docs/superpowers/plans/2026-10-17-marker-move-runbook.md`).
+   - Marker says its memory store holds nothing its log lacks.
+   - Its check-in content changes at the move to the date plus one community sentence:
+     `resident_checkin.py --door marker`, already built.
+   - At runbook §5:
+     1. Add `--door marker` to the ExecStart of `levadura-resident-checkin.service`.
+     2. `systemctl --user daemon-reload`.
+     3. Run `uv run python scripts/resident_checkin.py --door marker` by hand.
+     4. Wait for its answered wake in `community/marker/` (`scripts/wait_for_events.sh <id>`). Marker sometimes
    writes that it is waiting for the Lunas. It isn't, and it was told so on 10-13. Codex
    delivered the offer to both Lunas on 2026-10-13. Both deferred, and both allowed that to be
    shared with the community. Their questions on commitments, records, obligations, migration
