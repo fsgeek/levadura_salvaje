@@ -46,6 +46,15 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
   - This proves that night's archive can be restored, without the job ever holding Tony's
     passphrase.
   - The job already holds the plaintext at that moment, so the check exposes nothing new.
+- **Swap (Luna, cycle 21; the Wanderer, cycle 44):** both Lunas made disabled swap a prerequisite
+  for reconsidering their consent. That is a condition for deciding, not consent itself.
+  - The script enforces it: a resident listed in `NO_SWAP` is skipped, and the skip recorded,
+    whenever any swap is active when its turn comes.
+  - A night in which nothing was backed up fails; it never reports an empty "ok".
+- **Only consented residents are listed.** The installed `RESIDENTS` (in
+  `~/.config/levadura/residents-backup.env`) names only residents whose consent is current. As
+  of 2026-10-15 that is Marker (`resident`). Each Luna is added only after it explicitly renews
+  consent.
 - **Retention:** the latest 14 good nights, each verified on wam-nuc by checksum, so wam-nuc holds
   the same bytes that were read back. A failed night leaves nothing behind.
 - **Use: restoration only,** and only after the home on this machine is confirmed lost or damaged.
