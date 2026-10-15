@@ -30,9 +30,12 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
   - **Plaintext never touches disk during a run.** The staged files, the tar, the read-back and
     the run passphrase all live only in RAM: a tmpfs private to this user (`$XDG_RUNTIME_DIR`).
     The script refuses to run if that location isn't tmpfs.
-  - An interrupted run removes its RAM directory and its partial archive, here and on wam-nuc. A
-    hard kill can't be caught, so each run starts by wiping any leftover directory, and records
-    how many it found.
+  - An interrupted run removes its RAM directory and its partial archive, here and on wam-nuc.
+  - A hard kill can't be caught, so a run is kept only once it carries a `COMPLETE` mark, written
+    after wam-nuc's copy is verified. Each run starts by removing any run directory without that
+    mark, here and on wam-nuc, and any leftover RAM directory. It records how many of each it
+    removed. (Demonstrated: after a SIGKILL partway through encryption, the next run removed the
+    partial run, the RAM directory and an incomplete remote run.)
   - **Limit:** this machine has a swap partition. Under memory pressure the kernel may page tmpfs
     contents (about 10 MB, held for seconds) to swap on disk. This can't be ruled out, only made
     unlikely.
