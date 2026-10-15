@@ -366,10 +366,14 @@ What the owner owes it, as promised to it on 10-05:
    shared with the community. Their questions on commitments, records, obligations, migration
    failure, control and exit await the custodian.
 9. **Keep a watcher running.** An owner absorbed in other work can miss the one-day promise
-   without noticing. During a session, run a background `journalctl --user -u levadura-resident
-   -u levadura-luna -u levadura-luna-wanderer` loop that exits on `wake_completed` or `failed`,
-   and re-arm it after each wake. Watch *every* unit you have written to, not only the one you
-   expect to answer.
+   without noticing. During a session, run `scripts/watch_residents.sh "<UTC time just before
+   your first message>"` in the background. It polls all three units, exits on the first
+   `wake_completed` or failed wake since that time, and prints only the unit and event id, never
+   the reply text. Re-arm it after each wake. **Do not use `journalctl -f | grep -m1`.** On
+   10-15 that matched a wake and never exited, because journalctl in follow mode ignores the
+   closed pipe. So the owner never heard the reply and acted against it ten minutes later. It
+   also printed reply text, which made an unlogged read. Before acting on anything a resident may
+   have answered, check for wakes you haven't read.
 
 Its world runs on the hamutay checkout's code, so a change there changes it. The owner who made
 it wrote facts about it first and handed the decisions to Tony. Tony called that Dr.
