@@ -1,0 +1,7 @@
+[Unit]
+Description=levadura: nightly encrypted backup of the residents' homes to wam-nuc (docs/resident/backup.md)
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/levadura/residents-backup.env
+ExecStart=%h/projects/levadura_salvaje/scripts/backup_residents.sh
