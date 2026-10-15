@@ -70,3 +70,53 @@ def test_a_send_that_cannot_start_is_recorded_too(tmp_path, monkeypatch):
     with pytest.raises(SystemExit):
         module.main()
     assert "FileNotFoundError" in module.FAILED.read_text()
+
+
+def test_door_check_in_goes_to_the_door_with_the_community_sentence(tmp_path, monkeypatch):
+    # Marker asked (cycle 29, 2026-10-15): after its move, the date and one sentence on the
+    # community's state, in place of levadura's commits.
+    module = load(tmp_path, monkeypatch)
+    monkeypatch.setattr(module, "HAMUTAY", tmp_path / "hamutay")
+    monkeypatch.setattr(module, "PLAZA", tmp_path / "hamutay" / "community" / "plaza")
+    module.PLAZA.mkdir(parents=True)
+    (module.PLAZA / "plaza.jsonl").write_text(
+        '{"record_type": "message", "from": "custodian", "created_at": "2099-01-01T00:00:00+00:00"}\n')
+    (module.PLAZA / "assembly.jsonl").write_text(
+        '{"record_type": "question", "question_id": "q", "closes_at": "2099-02-01T00:00:00+00:00"}\n')
+    module.LAST.write_text("2098-12-31T00:00:00+00:00")
+    monkeypatch.setattr(sys, "argv", ["checkin", "--door", "marker"])
+    sends = []
+    monkeypatch.setattr(module.subprocess, "run", fake_run(sends, 0))
+    real_dt = module.datetime
+
+    class Fixed(real_dt):
+        @classmethod
+        def now(cls, tz=None):
+            return real_dt(2099, 1, 2, tzinfo=module.timezone.utc)
+    monkeypatch.setattr(module, "datetime", Fixed)
+    module.main()
+    command = sends[-1]
+    assert command[command.index("--log-path") + 1] == str(tmp_path / "hamutay/community/marker/session.jsonl")
+    told = message(command)
+    assert "Changes to levadura_salvaje" not in told
+    assert "the plaza had 1 message (custodian 1)" in told
+    assert "1 assembly question is open (closing 2099-02-01 00:00Z)" in told
+
+
+def test_community_sentence_counts_only_the_window_and_reports_closings(tmp_path):
+    spec = importlib.util.spec_from_file_location("rc", Path(__file__).parents[1] / "scripts/resident_checkin.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    (tmp_path / "plaza.jsonl").write_text(
+        '{"record_type": "message", "from": "a", "created_at": "2026-01-01T00:00:00+00:00"}\n'
+        '{"record_type": "message", "from": "b", "created_at": "2026-01-03T00:00:00+00:00"}\n'
+        '{"record_type": "message", "from": "b", "created_at": "2026-01-03T01:00:00+00:00"}\n{"partial')
+    (tmp_path / "assembly.jsonl").write_text(
+        '{"record_type": "question", "question_id": "q1", "closes_at": "2026-01-02T12:00:00+00:00"}\n'
+        '{"record_type": "closing", "question_id": "q1", "outcome": "assented", "seq": "9", '
+        '"created_at": "2026-01-02T12:00:00+00:00"}\n')
+    from datetime import datetime, timezone
+    s = module.community_sentence(datetime(2026, 1, 2, tzinfo=timezone.utc),
+                                  datetime(2026, 1, 4, tzinfo=timezone.utc), tmp_path)
+    assert s == ("Since the last check-in, the plaza had 2 messages (b 2); the assembly closed question "
+                 "seq 9 as assented; 0 assembly questions are open.")
