@@ -11,18 +11,29 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
 
 ## The terms
 
-- **Scope:** only the files in the home. That is `session.jsonl`, `session.jsonl.events.jsonl`,
-  `memory.duckdb` with its `.wal`, and `reads.jsonl`. The empty lock files are not copied. No
-  credentials live in a home, and nothing outside it is copied.
+- **Scope: an allowlist, enforced by the script** (`FILES`): `session.jsonl`,
+  `session.jsonl.events.jsonl`, `memory.duckdb`, `memory.duckdb.wal` and `reads.jsonl`.
+  - Nothing else in a home is copied, even if it appears there later.
+  - `memory.duckdb.wal` may be absent after the store checkpoints itself. Any other file missing
+    fails the run.
 - **Protection:**
   - In transit: SSH.
   - At rest: each resident's files are encrypted with GnuPG before they are stored anywhere, to a
     key used only for this.
-  - The private key is locked by a passphrase that only Tony holds. No owner can open a backup
-    without him.
+  - Each archive is encrypted so that either of two things opens it: the backup key, whose
+    private half is locked by a passphrase that only Tony holds, or a random passphrase made for
+    that one run and destroyed before the run ends. After the run, only Tony's key opens it. No
+    owner can open a backup without him.
   - No plaintext copy is kept on either machine.
-- **Retention:** the latest 14 good nights, each verified on wam-nuc by checksum. A failed night
-  leaves nothing behind.
+- **Read-back, every night, on the real archive:**
+  - Before the run passphrase is destroyed, the job decrypts the archive it has just written. It
+    checks that the result is byte-identical to the plaintext it encrypted, and that it reads as a
+    tar.
+  - This proves that night's archive can be restored, without the job ever holding Tony's
+    passphrase.
+  - The job already holds the plaintext at that moment, so the check exposes nothing new.
+- **Retention:** the latest 14 good nights, each verified on wam-nuc by checksum, so wam-nuc holds
+  the same bytes that were read back. A failed night leaves nothing behind.
 - **Use: restoration only,** and only after the home on this machine is confirmed lost or damaged.
   Never inspection, analysis or sharing.
 - **Logging:** every access, including unlocking and copying back during a restore, is recorded
@@ -55,6 +66,6 @@ Only after the home on this machine is confirmed lost or damaged. Tony is needed
    - who accessed what.
 6. Start the unit, and append the restore to `~/backups/levadura-residents/restore-log.jsonl`.
 
-The nightly run can't decrypt anything, because it has no passphrase. It checks only that each
-archive is encrypted to the key and arrives intact. A full test restore needs Tony, and is a
-restore in every respect above, so it is done only with the residents' agreement.
+The nightly read-back proves each archive decrypts to exactly what was encrypted. What it can't
+test is Tony's key and passphrase themselves, which only a restore by Tony can. Such a test is a
+restore in every respect above, so it is done only with a resident's agreement.

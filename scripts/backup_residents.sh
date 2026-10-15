@@ -3,10 +3,12 @@
 # Consented to by Marker (cycle 25), Luna (cycle 17) and the Luna Wanderer (cycle 40) on
 # 2026-10-15, on the terms in docs/resident/backup.md. Any of them may withdraw; see that file.
 #
-# For each resident: stage the home's files (not the lock files) in a private temporary
-# directory -> check every JSONL line parses (only an unterminated last line may be partial)
-# -> tar -> encrypt with GnuPG to the backup key, whose private half is locked by a
-# passphrase only Tony holds -> remove the plaintext. Then: MANIFEST.sha256 of the encrypted
+# For each resident: stage exactly the agreed files (FILES) in a private temporary directory ->
+# check every JSONL line parses (only an unterminated last line may be partial) -> tar ->
+# encrypt with GnuPG so that either of two things opens it: the backup key, whose private half
+# is locked by a passphrase only Tony holds, or a random passphrase made for this run alone ->
+# read back: decrypt the archive with the run passphrase and compare it byte for byte with the
+# tar -> destroy the run passphrase and the plaintext. Afterwards only Tony's key opens it. Then: MANIFEST.sha256 of the encrypted
 # archives -> rsync over SSH to wam-nuc -> verify the manifest there -> prune to KEEP runs on
 # each side -> one JSON status line in backup-log.jsonl (here and on wam-nuc).
 # No plaintext copy of a home is kept anywhere. Nothing is ever written to a home.
@@ -18,6 +20,8 @@ LOCAL_ROOT="${LOCAL_ROOT:-/home/tony/backups/levadura-residents}"
 REMOTE="${REMOTE:-wam-nuc}"
 REMOTE_ROOT="${REMOTE_ROOT:-backups/levadura-residents}"
 KEEP="${KEEP:-14}"
+# The agreed allowlist (docs/resident/backup.md). Nothing else in a home is copied.
+FILES="session.jsonl session.jsonl.events.jsonl memory.duckdb memory.duckdb.wal reads.jsonl"
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 OUT="$LOCAL_ROOT/$TS"
 LOG="$LOCAL_ROOT/backup-log.jsonl"
@@ -47,8 +51,12 @@ for r in $RESIDENTS; do
   STAGE="stage:$r"
   [ -d "$HOMES/$r" ]
   mkdir -p "$TMP/$r"
-  # The memory store and its write-ahead log are copied together; it recovers from the log.
-  rsync -a --exclude '*.lock' "$HOMES/$r/" "$TMP/$r/"
+  # Only the allowlisted files. The memory store and its write-ahead log are copied together
+  # (it recovers from the log); the log file may be absent after the store checkpoints itself.
+  for f in $FILES; do
+    if [ -e "$HOMES/$r/$f" ]; then cp -p "$HOMES/$r/$f" "$TMP/$r/$f"
+    elif [ "$f" != memory.duckdb.wal ]; then echo "missing $r/$f" >&2; false; fi
+  done
 
   STAGE="lines:$r"
   P="$(python3 - "$TMP/$r" "$r" <<'EOF'
@@ -77,10 +85,18 @@ EOF
   STAGE="encrypt:$r"
   tar -C "$TMP" -cf "$TMP/$r.tar" "$r"
   tar -tf "$TMP/$r.tar" > /dev/null
-  gpg --batch --yes --trust-model always --encrypt --recipient "$KEY" --output "$OUT/$r.tar.gpg" "$TMP/$r.tar"
-  # Without the passphrase the archive can't be opened here; check it is encrypted to the key.
+  head -c 32 /dev/urandom | base64 > "$TMP/run.pass"   # this run only; never stored
+  gpg --batch --yes --trust-model always --pinentry-mode loopback --passphrase-file "$TMP/run.pass" \
+      --symmetric --encrypt --recipient "$KEY" --output "$OUT/$r.tar.gpg" "$TMP/$r.tar"
   { gpg --batch --list-packets "$OUT/$r.tar.gpg" 2>/dev/null || true; } | grep -q ':pubkey enc packet:'
-  rm -rf "$TMP/$r" "$TMP/$r.tar"
+
+  STAGE="readback:$r"
+  gpg --batch --quiet --pinentry-mode loopback --passphrase-file "$TMP/run.pass" --decrypt \
+      --output "$TMP/$r.check" "$OUT/$r.tar.gpg"
+  cmp -s "$TMP/$r.tar" "$TMP/$r.check"
+  tar -tf "$TMP/$r.check" > /dev/null
+  rm -f "$TMP/run.pass"
+  rm -rf "$TMP/$r" "$TMP/$r.tar" "$TMP/$r.check"
 done
 
 STAGE="manifest"
