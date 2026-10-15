@@ -54,6 +54,16 @@ trap 'status failed "interrupted:$STAGE"; rm -rf "$TMP" "$OUT"; ssh -o BatchMode
 STAGE="key"
 gpg --batch --list-keys "$KEY" > /dev/null
 
+# A run is kept only once it carries COMPLETE, written after wam-nuc's copy is verified. A run
+# killed outright (which no trap can catch) leaves a directory without it; remove any such
+# directory here and on wam-nuc before starting (Luna, cycle 20).
+STAGE="reconcile"
+INCOMPLETE_LOCAL="$(for d in $(runs "$LOCAL_ROOT"); do [ -f "$d/COMPLETE" ] || echo "$d"; done)"
+[ -z "$INCOMPLETE_LOCAL" ] || echo "$INCOMPLETE_LOCAL" | xargs -r -d '\n' rm -rf
+ssh -o BatchMode=yes "$REMOTE" "umask 077; mkdir -p $RQ"
+INCOMPLETE_REMOTE="$(ssh -o BatchMode=yes "$REMOTE" "for d in \$(find $RQ -mindepth 1 -maxdepth 1 -type d -name '20*Z' | sort); do [ -f \$d/COMPLETE ] || { echo \$d; rm -rf \$d; }; done")"
+RECONCILED="$(printf '%s\n%s' "$INCOMPLETE_LOCAL" "$INCOMPLETE_REMOTE" | grep -c . || true)"
+
 mkdir -p "$OUT"
 PARTIAL="[]"
 for r in $RESIDENTS; do
@@ -123,10 +133,14 @@ rsync -a --protect-args "$OUT/" "$REMOTE:$REMOTE_ROOT/$TS/"
 STAGE="verify-remote"
 ssh -o BatchMode=yes "$REMOTE" "cd $RQ/$TS && test -s MANIFEST.sha256 && sha256sum --quiet -c MANIFEST.sha256"
 
+STAGE="complete"
+touch "$OUT/COMPLETE"
+ssh -o BatchMode=yes "$REMOTE" "touch $RQ/$TS/COMPLETE"
+
 STAGE="prune"
 runs "$LOCAL_ROOT" | head -n -"$KEEP" | xargs -r -d '\n' rm -rf
 ssh -o BatchMode=yes "$REMOTE" "find $RQ -mindepth 1 -maxdepth 1 -type d -name '20*Z' | sort | head -n -$KEEP | xargs -r -d '\n' rm -rf"
 
 STAGE="done"
-status ok done "\"stale_tmp_removed\":$STALE,\"bytes\":$SIZE,\"residents\":\"$RESIDENTS\",\"partial_tail\":$PARTIAL,\"remote\":\"$REMOTE:$REMOTE_ROOT/$TS\""
+status ok done "\"stale_tmp_removed\":$STALE,\"incomplete_runs_removed\":$RECONCILED,\"bytes\":$SIZE,\"residents\":\"$RESIDENTS\",\"partial_tail\":$PARTIAL,\"remote\":\"$REMOTE:$REMOTE_ROOT/$TS\""
 rsync -a --protect-args "$LOG" "$REMOTE:$REMOTE_ROOT/backup-log.jsonl"
