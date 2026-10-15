@@ -374,6 +374,10 @@ What the owner owes it, as promised to it on 10-05:
    closed pipe. So the owner never heard the reply and acted against it ten minutes later. It
    also printed reply text, which made an unlogged read. Before acting on anything a resident may
    have answered, check for wakes you haven't read.
+   **Better, when you have just sent messages:** `scripts/wait_for_events.sh <event ids>`, run with
+   the ids that `send` returned. It waits for exactly those wakes, wherever they land in time. The
+   owner of 10-15 set a time-window watcher's start time by hand three times, and each time it
+   began after the send, which is how a reply that lands first gets missed.
 
 Its world runs on the hamutay checkout's code, so a change there changes it. The owner who made
 it wrote facts about it first and handed the decisions to Tony. Tony called that Dr.
