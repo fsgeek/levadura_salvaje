@@ -1,0 +1,51 @@
+{"item": "item-01", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cites the whole IEEPA codification range 1701-1706, which contains section 206 (50 U.S.C. 1705)."}
+{"item": "item-02", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cites the whole IEEPA codification range 1701-1706, which contains section 206 (50 U.S.C. 1705)."}
+{"item": "item-03", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(c)(8)", "note": "BHC Act section 4(c)(8) is in 12 U.S.C. 1843, not 1842."}
+{"item": "item-04", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-05", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "Text reads 78(f)(a), a typo; Exchange Act section 6(a) is 15 U.S.C. 78f(a)."}
+{"item": "item-06", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1820(d)", "note": "Title 18 is wrong; FDI Act section 10(d) is 12 U.S.C. 1820(d)."}
+{"item": "item-07", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(a)(4)", "note": "FDI Act section 18(a)(4) is codified at 12 U.S.C. 1828(a)(4); 1818 is section 8."}
+{"item": "item-08", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 4s of the CEA is 7 U.S.C. 6s; the act_section label dropped the s but the citation is right."}
+{"item": "item-09", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-10", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-11", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-12", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "Text reads 78(f)(a), a typo; Exchange Act section 6(a) is 15 U.S.C. 78f(a)."}
+{"item": "item-13", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-14", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78c(a)(12)", "note": "Text reads 78(a)(12), a typo for 15 U.S.C. 78c(a)(12)."}
+{"item": "item-15", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1141j(a)", "note": "Agricultural Marketing Act section 15 is 12 U.S.C. 1141j, not 1141."}
+{"item": "item-16", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78c(a)(29)", "note": "Title 17 is wrong; Exchange Act section 3(a)(29) is 15 U.S.C. 78c(a)(29)."}
+{"item": "item-17", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Source text is 80-b-2(a) (typo) and the program cut it to 80; correct is 15 U.S.C. 80b-2(a)."}
+{"item": "item-18", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-19", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-20", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(a)(4)", "note": "FDI Act section 18(a)(4) is codified at 12 U.S.C. 1828(a)(4); 1818 is section 8."}
+{"item": "item-21", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FCUA section 2 definitions are at 12 U.S.C. 1752; program dropped the trailing 'and (6)' but not materially."}
+{"item": "item-22", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-23", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(k)", "note": "BHC Act section 4(k) is in 12 U.S.C. 1843, not 1842."}
+{"item": "item-24", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cites the whole IEEPA codification range 1701-1706, which contains section 206 (50 U.S.C. 1705)."}
+{"item": "item-25", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-26", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 80a-3", "note": "Investment Company Act section 3 is 15 U.S.C. 80a-3; 80a-5 is section 5."}
+{"item": "item-27", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(c)(8)", "note": "BHC Act section 4(c)(8) is in 12 U.S.C. 1843, not 1842."}
+{"item": "item-28", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-29", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-30", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-31", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Source text is 80-b-2(a) (typo) and the program cut it to 80; correct is 15 U.S.C. 80b-2(a)."}
+{"item": "item-32", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-33", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-34", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-35", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cites the whole IEEPA codification range 1701-1706, which contains section 206 (50 U.S.C. 1705)."}
+{"item": "item-36", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(k)", "note": "BHC Act section 4(k) is in 12 U.S.C. 1843, not 1842."}
+{"item": "item-37", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-38", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "Text reads 78(f)(a), a typo; Exchange Act section 6(a) is 15 U.S.C. 78f(a)."}
+{"item": "item-39", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1441b(c)", "note": "Section 21B of the FHLB Act is 12 U.S.C. 1441b, not 1421b."}
+{"item": "item-40", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Source text is 80-b-2(a) (typo) and the program cut it to 80; correct is 15 U.S.C. 80b-2(a)."}
+{"item": "item-41", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-42", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-43", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cites the whole IEEPA codification range 1701-1706, which contains section 206 (50 U.S.C. 1705)."}
+{"item": "item-44", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cited U.S.C. location matches the named Act section."}
+{"item": "item-45", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Source text is 80-b-2(a) (typo) and the program cut it to 80; correct is 15 U.S.C. 80b-2(a)."}
+{"item": "item-46", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Source cites 78q-1 (correct, rendered 'q- l'); program truncated it to 78q."}
+{"item": "item-47", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cites the whole IEEPA codification range 1701-1706, which contains section 206 (50 U.S.C. 1705)."}
+{"item": "item-48", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1831o", "note": "1831(o) is a malformed form of 12 U.S.C. 1831o (prompt corrective action)."}
+{"item": "item-49", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(c)", "note": "FDI Act section 18(c) is 12 U.S.C. 1828(c), not 1823."}
+{"item": "item-50", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Source text is 80-b-2(a) (typo) and the program cut it to 80; correct is 15 U.S.C. 80b-2(a)."}
+{"item": "item-51", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Source text is 80-b-2(a) (typo) and the program cut it to 80; correct is 15 U.S.C. 80b-2(a)."}
