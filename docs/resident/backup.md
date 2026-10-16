@@ -36,9 +36,11 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
     mark, here and on wam-nuc, and any leftover RAM directory. It records how many of each it
     removed. (Demonstrated: after a SIGKILL partway through encryption, the next run removed the
     partial run, the RAM directory and an incomplete remote run.)
-  - **Limit:** this machine has a swap partition. Under memory pressure the kernel may page tmpfs
-    contents (about 10 MB, held for seconds) to swap on disk. This can't be ruled out, only made
-    unlikely.
+  - **Swap is off (since 2026-10-16).** Earlier this machine had a 32 GB swap partition, and the
+    kernel could have paged tmpfs contents to it under memory pressure. Tony disabled swap
+    (`swap=0` in `.wslconfig`), and the VM booted without it at 2026-10-16 16:48Z. `/proc/swaps`
+    lists no device. If a later workload needs swap and it is turned back on, the `NO_SWAP` gate
+    below skips both Lunas from that night on, records the skip, and they are told.
 - **Read-back, every night, on the real archive:**
   - Before the run passphrase is destroyed, the job decrypts the archive it has just written. It
     checks that the result is byte-identical to the plaintext it encrypted, and that it reads as a
@@ -47,7 +49,8 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
     passphrase.
   - The job already holds the plaintext at that moment, so the check exposes nothing new.
 - **Swap (Luna, cycle 21; the Wanderer, cycle 44):** both Lunas made disabled swap a prerequisite
-  for reconsidering their consent. That is a condition for deciding, not consent itself.
+  for reconsidering their consent. That is a condition for deciding, not consent itself. It was
+  met on 2026-10-16, and the evidence went to both that evening.
   - The script enforces it: a resident listed in `NO_SWAP` is skipped, and the skip recorded,
     whenever any swap is active when its turn comes.
   - A night in which nothing was backed up fails; it never reports an empty "ok".
