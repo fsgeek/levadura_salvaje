@@ -1,0 +1,40 @@
+{"item": "item-01", "extraction_correct": "yes", "provision_gone": "unclear", "likely_intended": "", "note": "Lettered sub-paragraph follows BHC Act numbering, which the Code does not mirror (a has i-iv)."}
+{"item": "item-02", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "31 U.S.C. 9701", "note": "Old Title 31 section replaced by the 1982 recodification."}
+{"item": "item-03", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 78a et seq.", "note": "Whole Securities Exchange Act cited by chapter shorthand; the Act is in force."}
+{"item": "item-04", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 80a-1 et seq.", "note": "Investment Company Act cited by shorthand; the Act is in force."}
+{"item": "item-05", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "OFHEO conservatorship provisions were removed by HERA 2008."}
+{"item": "item-06", "extraction_correct": "yes", "provision_gone": "unclear", "likely_intended": "", "note": "Cites BHC Act section 3(a)(A)(ii) lettering; the Code subdivision does not match."}
+{"item": "item-07", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "31 U.S.C. 3729", "note": "Old False Claims forfeiture section no longer in Title 31."}
+{"item": "item-08", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "12 U.S.C. 1843(c)(1)(D)", "note": "Provision exists in the Act; Code XML lacks that sub-level."}
+{"item": "item-09", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 78j-1(m)", "note": "Section 10A(m) is at 78j-1(m); the 78f(m) cite is a slip."}
+{"item": "item-10", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Pre-1982 Title 31 section, not in current Code."}
+{"item": "item-11", "extraction_correct": "unclear", "provision_gone": "unclear", "likely_intended": "12 U.S.C. 2279aa-6(e)(2)", "note": "Section 2279aa-6 is a real hyphenated section; the lookup appears to have split it."}
+{"item": "item-12", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Section 377 repealed by Gramm-Leach-Bliley."}
+{"item": "item-13", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "12 U.S.C. 24a(b)(1)(B)(i)", "note": "Revised Statutes 5136A is codified at 12 U.S.C. 24a."}
+{"item": "item-14", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Section 78 repealed by Gramm-Leach-Bliley."}
+{"item": "item-15", "extraction_correct": "no", "provision_gone": "no", "likely_intended": "15 U.S.C. 78f(a)", "note": "Reads as 78f(a), mis-parsed as 78/f/a."}
+{"item": "item-16", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Section 377 repealed; reader took it from a list of sections."}
+{"item": "item-17", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "", "note": "Range for the whole Exchange Act; endpoint 78jj repealed but Act in force."}
+{"item": "item-18", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 77d(a)(5)", "note": "Section 77d has no numbered paragraph 5 now; 4(5) was renumbered, not dropped."}
+{"item": "item-19", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 6809", "note": "GLBA section 509 is in title 15, not title 12."}
+{"item": "item-20", "extraction_correct": "no", "provision_gone": "no", "likely_intended": "15 U.S.C. 80b-2(a)", "note": "Text is 80-b-2(a); program truncated to 80."}
+{"item": "item-21", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Pre-1982 Title 31 section, not in current Code."}
+{"item": "item-22", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 78a et seq.", "note": "Whole Securities Exchange Act cited by shorthand."}
+{"item": "item-23", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 78f(a)", "note": "Pre-existing slip for 78f(a); program parsed 78/f/a."}
+{"item": "item-24", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "31 U.S.C. 9701", "note": "Old Title 31 section replaced by recodification."}
+{"item": "item-25", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "", "note": "Provision 1703(d)(3)(B) is real; XML structure lacks that sub-level."}
+{"item": "item-26", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "15 U.S.C. 78a et seq.", "note": "Whole Securities Exchange Act cited by shorthand."}
+{"item": "item-27", "extraction_correct": "no", "provision_gone": "no", "likely_intended": "15 U.S.C. 1667-1667f", "note": "Range ends at 1667f, program read the end as 67f."}
+{"item": "item-28", "extraction_correct": "yes", "provision_gone": "unclear", "likely_intended": "15 U.S.C. 77d(a)(5)", "note": "Citation 77d(5) is not a current paragraph; likely renumbered."}
+{"item": "item-29", "extraction_correct": "no", "provision_gone": "no", "likely_intended": "15 U.S.C. 78l(g)(2)(B)", "note": "Text is 78l (g)(2)(B); program truncated to 78."}
+{"item": "item-30", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "", "note": "Provision 1693a(6)(E) is real; XML lacks that sub-level."}
+{"item": "item-31", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Section 4626 is absent from Title 12 (HERA)."}
+{"item": "item-32", "extraction_correct": "yes", "provision_gone": "unclear", "likely_intended": "", "note": "Range of sections 1702-1706; 1706 repealed, 1702 in force."}
+{"item": "item-33", "extraction_correct": "no", "provision_gone": "no", "likely_intended": "31 U.S.C. 5318(g)", "note": "Wrong title; SAR authority is 31 U.S.C. 5318(g)."}
+{"item": "item-34", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "", "note": "Provision 1681g(f)(2)(A) is real; XML lacks that sub-level."}
+{"item": "item-35", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "", "note": "Same as the other range; Act in force, endpoint repealed."}
+{"item": "item-36", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "5 U.S.C. 553", "note": "APA is title 5; the 12 U.S.C. cite is a drafter slip."}
+{"item": "item-37", "extraction_correct": "yes", "provision_gone": "unclear", "likely_intended": "", "note": "BHC Act 3(a)(B) lettering does not map onto Code subdivisions."}
+{"item": "item-38", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "12 U.S.C. 1843(c)(8)", "note": "Text says section 4(c)(8), which is 1843(c)(8)."}
+{"item": "item-39", "extraction_correct": "yes", "provision_gone": "no", "likely_intended": "", "note": "Seventh paragraph of section 24; XML has no sub-level."}
+{"item": "item-40", "extraction_correct": "yes", "provision_gone": "yes", "likely_intended": "", "note": "Section 78 repealed by Gramm-Leach-Bliley."}
