@@ -6,6 +6,10 @@ title are read. Forms come from a survey of 12 CFR (1997, 2010, 2025) and 31 CFR
 2026-10-16: a title, "U.S.C.", an optional "App." or section sign, then a list of sections,
 each with designators (reusing citations.chain), "et seq." or "note".
 
+v2 (2026-10-16, found in the dry run before any ledger entry): the CFR XML sets a section's
+letter suffix in italics with spaces around it ("15 U.S.C. 78 o -11", "78 l (b)").
+``normalize`` closes those gaps; spans index the text it returns.
+
 A hyphen inside a section number is ambiguous: 15 U.S.C. 78fff-3 is a section, 50 U.S.C.
 1701-1706 is a range. The extractor keeps the token whole and flags it ``hyphen``; the
 resolver decides against the statute.
@@ -13,9 +17,10 @@ resolver decides against the statute.
 
 import re
 
-from levadura_salvaje.citations import chain, normalize
+from levadura_salvaje.citations import chain
+from levadura_salvaje.citations import normalize as _base_normalize
 
-VERSION = "1"
+VERSION = "2"
 
 HEAD = re.compile(r"\b(\d{1,2}) U\.\s?S\.\s?C\.?(?:A\.)?\s*([Aa]pp\.?\s*)?(?:§§?\s*|[Ss]ec(?:tion|\.)\s+)?")
 SECNUM = re.compile(r"(\d+[A-Za-z]{0,4}(?:-\d+[A-Za-z]{0,4})?)(?![A-Za-z0-9])")
@@ -26,6 +31,25 @@ REJECT = re.compile(r"\s?\.\d| U\.\s?S\.\s?C\.| CFR\b| Stat\.| FR\b"
 SEP = re.compile(r",\s*(?:(?:and|or)\s+)?|\s+(?:and|or)\s+")
 ET_SEQ = re.compile(r"\s*et seq\.?")
 NOTE = re.compile(r"\s+note\b")
+
+
+# "78 o -11" -> "78o-11", "78 l (b)" -> "78l(b)": a 1-3 letter lowercase suffix set apart by spaces,
+# followed by a hyphen, a designator, punctuation or a connective. Never a connective itself.
+_SPACED_SUFFIX = re.compile(r"(?<=\d) (?!(?:and|or|et|to|of|in|at|as|by)\b)([a-z]{1,3}) ?(?=-\d|\(|[,;.)]|\s+(?:and|or|et seq)\b)")
+_SPACED_HYPHEN = re.compile(r"(?<=[a-z\d]) -(?=\d)")
+
+
+def normalize(text: str) -> str:
+    text = _base_normalize(text)
+    out, last = [], 0
+    for h in HEAD.finditer(text):  # only inside a citation: from its head to 80 characters on
+        a = max(h.end(), last)
+        b = max(a, min(len(text), h.end() + 80))
+        out.append(text[last:a])
+        out.append(_SPACED_HYPHEN.sub("-", _SPACED_SUFFIX.sub(r"\1", text[a:b])))
+        last = b
+    out.append(text[last:])
+    return "".join(out)
 
 
 def _one(text: str, pos: int):

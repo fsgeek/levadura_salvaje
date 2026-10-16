@@ -102,3 +102,25 @@ def test_resolve_hyphen_section_before_range():
     assert resolve(c, st) == {"outcome": "resolves", "via": "range", "ends": ["resolves", "resolves"]}
     [c] = extract("12 U.S.C. 1701-1999")
     assert resolve(c, st)["outcome"] == "absent-section"
+
+
+def test_spaced_italic_suffixes():
+    assert paths("by section 15G of that Act (15 U.S.C. 78 o -11) and") == [("15", "78o-11")]
+    assert paths("exchange (15 U.S.C. 78 l (b)); or") == [("15", "78l/b")]
+    assert paths("15 U.S.C. 78 l (b), 78 o (d) and 78 m).") == [("15", "78l/b"), ("15", "78o/d"), ("15", "78m")]
+    assert paths("with 12 U.S.C. section 24 (Seventh) and") == [("12", "24")]
+
+
+def test_normalize_keeps_text_when_citations_are_close():
+    from levadura_salvaje.usc_cites import normalize
+    text = "(12 U.S.C. 1818) and (15 U.S.C. 78 o -4) and (12 U.S.C. 1819) end of the sentence here."
+    assert normalize(text) == text.replace("78 o -4", "78o-4")
+
+
+def test_connectives_are_not_suffixes():
+    assert paths("(42 U.S.C. 12183 and 12204)") == [("42", "12183"), ("42", "12204")]
+    [c] = extract("the Act (12 U.S.C. 2901 et seq.)")
+    assert c["path"] == "2901" and c["et_seq"]
+    long = "x" * 70
+    [c] = extract(f"(12 U.S.C. 3101 note) {long}")
+    assert c["path"] == "3101" and c["note"]
