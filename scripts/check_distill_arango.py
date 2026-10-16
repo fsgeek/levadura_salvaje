@@ -19,6 +19,12 @@ def call(method, path, body=None):
     req = urllib.request.Request("http://localhost:8530"+path, method=method, data=json.dumps(body).encode() if body is not None else None, headers={"Authorization": auth})
     try: return json.load(urllib.request.urlopen(req, timeout=120))
     except urllib.error.HTTPError as e: return json.load(e)
+# Refuse unless the server behind the port is the sandbox. Docker Desktop's forwarding can disagree
+# with `docker inspect` (it came back rotated by one after the 2026-10-16 restart, plaza seq 116-118),
+# and the sandbox's root password also opens production. So ask the server what it holds.
+dbs = call("GET", "/_api/database").get("result", [])
+if set(dbs) & {"apacheta", "llm_memory", "levadura", "hamutay"}:
+    sys.exit(f"refusing: localhost:8530 holds production databases ({sorted(dbs)}), not the sandbox")
 call("POST","/_api/database",{"name":"levadura_probe"})
 D="/_db/levadura_probe"
 print(call("POST",D+"/_api/analyzer",{"name":"student","type":"pipeline","properties":{"pipeline":[
