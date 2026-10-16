@@ -89,7 +89,7 @@ def extract(text: str, normalized: bool = False) -> list[dict]:
             if it["et_seq"] or it["note"]:  # the span is the citation, not its trailing words
                 span_end = it["start"] + len(it["section"]) + sum(len(t) + 2 for t in it["desig"])
             out.append({
-                "title": title, "app": app,
+                "title": title, "app": app, "group": h.start(),
                 "path": "/".join([it["section"], *it["desig"]]),
                 "section": it["section"], "desig": it["desig"], "levels": it["levels"],
                 "span": [start, span_end], "et_seq": it["et_seq"], "note": it["note"],

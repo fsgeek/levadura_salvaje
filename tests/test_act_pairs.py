@@ -43,3 +43,24 @@ def test_consensus_flags_the_odd_one_out():
     assert m[("GLB Act", "509")] == {"target": ("15", "6809"), "n": 5, "share": 0.8}
     m = consensus(ps[:3] + ps[4:] * 2, min_n=3, min_share=0.75)
     assert ("GLB Act", "509") not in m  # 3 of 5 is not a consensus
+
+
+def test_v2_whole_act_citations_do_not_pair():
+    assert short("section 10 of the Home Owners' Loan Act (12 U.S.C. 1461 et seq.), a") == []
+    assert short("section 203 of the IEEPA Act (50 U.S.C. 1701 note), a") == []
+
+
+def test_v2_lists_do_not_pair():
+    assert short("section 4(c)(13) of the BHC Act (12 U.S.C. 615, 1843(c)(13)), the") == []
+    assert short("section 7 of the International Banking Act of 1978 (12 U.S.C. 347d and 3105), a") == []
+
+
+def test_v2_the_act():
+    assert short("section 4(k) of the Act (12 U.S.C. 1843(k)), a") == [
+        ("Act", "4", ["k"], "12", "1843", "1843/k")]
+
+
+def test_v2_commas_in_long_names():
+    assert short("section 1101 of the Financial Institutions Reform, Recovery, and Enforcement Act of 1989 "
+                 "(12 U.S.C. 3331), a") == [("Financial Institutions Reform, Recovery, and Enforcement Act of 1989",
+                                            "1101", [], "12", "3331", "3331")]
