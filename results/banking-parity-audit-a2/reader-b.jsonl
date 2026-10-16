@@ -1,0 +1,60 @@
+{"item": "item-01", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Text reads 80-b-2(a), a typo for 80b-2(a), and the program cut it to 80."}
+{"item": "item-02", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78c(a)(12)", "note": "Cite 78(a)(12) omits the section letter c; definitions are at 78c(a)(12)."}
+{"item": "item-03", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Cite is the Act generally (et seq.); the program dropped 'et seq.'; paragraphs (3),(32) are at 1002."}
+{"item": "item-04", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "12 U.S.C. 1461 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-05", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "1379D is codified at 12 U.S.C. 4641."}
+{"item": "item-06", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 102 of the SBIA is 15 U.S.C. 662 (definitions)."}
+{"item": "item-07", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1831u", "note": "FDI Act section 44 (interstate bank mergers) is 1831u, not 1831a(u)."}
+{"item": "item-08", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 3 is 12 U.S.C. 1813."}
+{"item": "item-09", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "12 U.S.C. 1461 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-10", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "7 U.S.C. 1 et seq. cites the CEA generally; the program dropped 'et seq.'."}
+{"item": "item-11", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 3 is 12 U.S.C. 1813."}
+{"item": "item-12", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 1373 is 12 U.S.C. 4633."}
+{"item": "item-13", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78c(a)(29)", "note": "Title 17 is wrong; Exchange Act section 3 is in title 15."}
+{"item": "item-14", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Text reads 80-b-2(a), a typo for 80b-2(a), and the program cut it to 80."}
+{"item": "item-15", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(k)", "note": "BHC Act section 4(k) is 1843(k); 1842 is section 3."}
+{"item": "item-16", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 7(a)(36) of the SBA is 15 U.S.C. 636(a)(36)."}
+{"item": "item-17", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-18", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "Cite 78(f)(a) is malformed; section 6 is 78f(a)."}
+{"item": "item-19", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "List includes 1843(c)(13); the program cut at 615 and lost the correct cite."}
+{"item": "item-20", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "15 U.S.C. 80a-1 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-21", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-22", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the CEA codification in 7 U.S.C."}
+{"item": "item-23", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-24", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(c)(8)", "note": "BHC Act section 4(c)(8) is 1843(c)(8), not 1842."}
+{"item": "item-25", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "Cite 78(f)(a) is malformed; section 6 is 78f(a)."}
+{"item": "item-26", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "12 U.S.C. 1461 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-27", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 102 of the SBIA is 15 U.S.C. 662 (definitions)."}
+{"item": "item-28", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(k)", "note": "BHC Act section 4(k) is 1843(k); 1842 is section 3."}
+{"item": "item-29", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "Cite 78(f)(a) is malformed; section 6 is 78f(a)."}
+{"item": "item-30", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(c)", "note": "FDI Act section 18(c) (merger) is 1828(c); 1823 is a different section."}
+{"item": "item-31", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the CEA codification in 7 U.S.C."}
+{"item": "item-32", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1820(d)", "note": "Title 18 is wrong; FDI Act section 10(d) is 12 U.S.C. 1820(d)."}
+{"item": "item-33", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1831o", "note": "FDI Act section 38 is 1831o (prompt corrective action), not 1831(o)."}
+{"item": "item-34", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Cite is the Act generally (et seq.); the program dropped 'et seq.'; paragraphs (3),(32) are at 1002."}
+{"item": "item-35", "misaddressed": "yes", "program_misread": "no", "correct_address": "50 U.S.C. 4601 et seq.", "note": "The 50 U.S.C. App. 2401-2420 EAA location is outdated; replaced by ECRA."}
+{"item": "item-36", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 3 is 12 U.S.C. 1813."}
+{"item": "item-37", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "12 U.S.C. 1841 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-38", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(a)(4)", "note": "FDI Act section 18(a)(4) is 1828(a)(4), not 1818."}
+{"item": "item-39", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Exchange Act section 15 is 15 U.S.C. 78o."}
+{"item": "item-40", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(a)(4)", "note": "FDI Act section 18(a)(4) is 1828(a)(4), not 1818."}
+{"item": "item-41", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "80a-2(a)(20) is correct."}
+{"item": "item-42", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1141j(a)", "note": "Agricultural Marketing Act section 15 is codified at 1141j."}
+{"item": "item-43", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "15 U.S.C. 78 et seq. cites the Exchange Act generally; the program dropped 'et seq.'."}
+{"item": "item-44", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Text reads 80-b-2(a), a typo for 80b-2(a), and the program cut it to 80."}
+{"item": "item-45", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-46", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-47", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "12 U.S.C. 1461 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-48", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-49", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "15 U.S.C. 80a-1 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-50", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the CEA codification in 7 U.S.C."}
+{"item": "item-51", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(c)(8)", "note": "BHC Act section 4(c)(8) is 1843(c)(8), not 1842."}
+{"item": "item-52", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Text lists 347d, 3105; section 7 IBA is 3105, but the program cut after 347d."}
+{"item": "item-53", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "12 U.S.C. 1461 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-54", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "Text reads 80-b-2(a), a typo for 80b-2(a), and the program cut it to 80."}
+{"item": "item-55", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "15 U.S.C. 80a-1 et seq. cites the Act generally; the program dropped 'et seq.'."}
+{"item": "item-56", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Cite is the Act generally (et seq.); the program dropped 'et seq.'; paragraphs (3),(32) are at 1002."}
+{"item": "item-57", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Text gives 78q-1 (section 17A); the program cut it to 78q."}
+{"item": "item-58", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "Text also cites 50 U.S.C. 1702 (section 203); the program cut after 1701."}
+{"item": "item-59", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}
+{"item": "item-60", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Cite matches the codification of the named Act section."}

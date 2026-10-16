@@ -1,0 +1,60 @@
+{"item": "item-01", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "The regulation's '80-b-2(a)' is a typo for 80b-2(a), and the program cut the citation at '80'."}
+{"item": "item-02", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78c(a)(12)", "note": "Exchange Act section 3 is at 78c, so '78(a)(12)' leaves out the 'c'."}
+{"item": "item-03", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "The regulation cites the whole ERISA Act as '1001 et seq.', and the program dropped 'et seq.', which turned it into a section-level address."}
+{"item": "item-04", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'12 U.S.C. 1461 et seq.' cites the whole HOLA Act, and the program dropped 'et seq.'"}
+{"item": "item-05", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 1379D is codified at 12 U.S.C. 4641."}
+{"item": "item-06", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 661", "note": "Section 102 of the SBIA is at 661; 662 holds the definitions (section 103), so the likely error is the Act section number."}
+{"item": "item-07", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1831u", "note": "FDI Act section 44 is at 1831u; '1831a(u)' is a typo."}
+{"item": "item-08", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 3(q) is at 1813(q)."}
+{"item": "item-09", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1461 et seq.' cites the whole HOLA Act, and the program dropped 'et seq.'"}
+{"item": "item-10", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'7 U.S.C. 1 et seq.' cites the whole CEA, and the program dropped 'et seq.'"}
+{"item": "item-11", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 3(c) is at 1813(c)."}
+{"item": "item-12", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 1373 is at 12 U.S.C. 4633."}
+{"item": "item-13", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78c(a)(29)", "note": "Wrong title: the Exchange Act is in title 15, not 17."}
+{"item": "item-14", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "'80-b-2(a)' is a typo for 80b-2(a), and the program cut the citation at '80'."}
+{"item": "item-15", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(k)", "note": "BHC Act section 4 is at 1843, not 1842 (which is section 3)."}
+{"item": "item-16", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "SBA section 7(a)(36) is at 636(a)(36)."}
+{"item": "item-17", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 8(i)(1) is at 1818(i)(1)."}
+{"item": "item-18", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "'78(f)(a)' is a malformed form of 78f(a)."}
+{"item": "item-19", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "The regulation gives 1843(c)(13) for section 4(c)(13), but the program paired it with 615, the first item in a list that matches FRA section 25."}
+{"item": "item-20", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'80a-1 et seq.' cites the whole ICA, and the program dropped 'et seq.'"}
+{"item": "item-21", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "BHC Act section 4(k)(4) is at 1843(k)(4)."}
+{"item": "item-22", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "CEA section 1a(39) is at 7 U.S.C. 1a(39)."}
+{"item": "item-23", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "BHC Act section 2(c)(2)(D) is at 1841(c)(2)(D)."}
+{"item": "item-24", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(c)(8)", "note": "BHC Act section 4 is at 1843, not 1842."}
+{"item": "item-25", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "'78(f)(a)' is a malformed form of 78f(a)."}
+{"item": "item-26", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1461 et seq.' cites the whole HOLA Act, and the program dropped 'et seq.'"}
+{"item": "item-27", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 661", "note": "Section 102 of the SBIA is at 661; 662 holds the definitions (section 103), so the likely error is the Act section number."}
+{"item": "item-28", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(k)", "note": "BHC Act section 4 is at 1843, not 1842."}
+{"item": "item-29", "misaddressed": "yes", "program_misread": "no", "correct_address": "15 U.S.C. 78f(a)", "note": "'78(f)(a)' is a malformed form of 78f(a)."}
+{"item": "item-30", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(c)", "note": "FDI Act section 18(c), the Bank Merger Act, is at 1828(c); 1823 is section 13."}
+{"item": "item-31", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "CEA section 1a(47) is at 7 U.S.C. 1a(47)."}
+{"item": "item-32", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1820(d)", "note": "Wrong title: the FDI Act is in title 12, not 18."}
+{"item": "item-33", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1831o", "note": "FDI Act section 38 is at 1831o; '1831(o)' is a formatting error."}
+{"item": "item-34", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1001 et seq.' cites the whole ERISA Act, and the program dropped 'et seq.'"}
+{"item": "item-35", "misaddressed": "unclear", "program_misread": "no", "correct_address": "", "note": "This is a dated cite to the whole EAA in the 1979 appendix (section 5 was 50 App. 2404); that appendix location is now outdated, but the regulation marks it as historical."}
+{"item": "item-36", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FDI Act section 3(q) is at 1813(q)."}
+{"item": "item-37", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1841 et seq.' cites the whole BHC Act, and the program dropped 'et seq.'"}
+{"item": "item-38", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(a)(4)", "note": "FDI Act section 18(a)(4) is at 1828(a)(4); 1818 is section 8."}
+{"item": "item-39", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Exchange Act section 15 is at 78o."}
+{"item": "item-40", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1828(a)(4)", "note": "FDI Act section 18(a)(4) is at 1828(a)(4); 1818 is section 8."}
+{"item": "item-41", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "ICA section 2(a)(20) is at 80a-2(a)(20)."}
+{"item": "item-42", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1141j(a)", "note": "Section 15(a) of the Agricultural Marketing Act, which defines cooperative association, is at 1141j(a); 1141 is the policy section."}
+{"item": "item-43", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'15 U.S.C. 78 et seq.' cites the whole Exchange Act (strictly it starts at 78a), and the program dropped 'et seq.'"}
+{"item": "item-44", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "'80-b-2(a)' is a typo for 80b-2(a), and the program cut the citation at '80'."}
+{"item": "item-45", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 1376 is at 12 U.S.C. 4636."}
+{"item": "item-46", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "BHC Act section 2(d) is at 1841(d)."}
+{"item": "item-47", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1461 et seq.' cites the whole HOLA Act, and the program dropped 'et seq.'"}
+{"item": "item-48", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "HOLA section 10(o) is at 1467a(o)."}
+{"item": "item-49", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'80a-1 et seq.' cites the whole ICA, and the program dropped 'et seq.'"}
+{"item": "item-50", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "CEA section 2(h)(7)(A) is at 7 U.S.C. 2(h)(7)(A)."}
+{"item": "item-51", "misaddressed": "yes", "program_misread": "no", "correct_address": "12 U.S.C. 1843(c)(8)", "note": "BHC Act section 4 is at 1843, not 1842."}
+{"item": "item-52", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "The regulation gives both 347d and 3105 for IBA section 7, which is codified in both places; the program kept only 347d."}
+{"item": "item-53", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1461 et seq.' cites the whole HOLA Act, and the program dropped 'et seq.'"}
+{"item": "item-54", "misaddressed": "yes", "program_misread": "yes", "correct_address": "15 U.S.C. 80b-2(a)", "note": "'80-b-2(a)' is a typo for 80b-2(a), and the program cut the citation at '80'."}
+{"item": "item-55", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'80a-1 et seq.' cites the whole ICA, and the program dropped 'et seq.'"}
+{"item": "item-56", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "'1001 et seq.' cites the whole ERISA Act, and the program dropped 'et seq.'"}
+{"item": "item-57", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "The text reads '78q- l', meaning 78q-1 (the correct location of section 17A), and the program cut it to 78q."}
+{"item": "item-58", "misaddressed": "no", "program_misread": "yes", "correct_address": "", "note": "The regulation gives the Act as 1701 et seq. and section 203 as 1702, and the program paired the section with the Act-level 1701."}
+{"item": "item-59", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "FHLB Act section 21 is at 12 U.S.C. 1441."}
+{"item": "item-60", "misaddressed": "no", "program_misread": "no", "correct_address": "", "note": "Section 1372 is at 12 U.S.C. 4632."}
