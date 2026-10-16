@@ -1,0 +1,20 @@
+[
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:144",
+  "quote_a": "the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order)",
+  "loc_b": "ENCODING-V1.md:649",
+  "quote_b": "T is the time of the earliest verified attestation in the presented OTS proof.",
+  "kind": "term",
+  "explanation": "A9 C5 (revised 2026-10-14) explicitly replaces \"earliest\" with \"lowest block height\" because header times are non-monotone; ENCODING-V1 still uses the superseded wording, creating inconsistent selection rules for T.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:770",
+  "quote_a": "\"Earliest\" means chain order, not least nTime: header times are not monotone, and the two selection rules can give different verdicts on the same proof.",
+  "loc_b": "ENCODING-V1.md:649",
+  "quote_b": "T is the time of the earliest verified attestation in the presented OTS proof.",
+  "kind": "verdict",
+  "explanation": "V1-PROFILE records that the two phrasings produce different verdicts; ENCODING-V1 retains the phrasing that A9 and V1-PROFILE say yields different results.",
+  "confidence": "high"
+ }
+]

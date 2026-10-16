@@ -1,0 +1,23 @@
+You are one of several independent readers. You will not see the others' answers.
+
+Below are rule texts for a verification system, each with line numbers ("FILE:LINE| text"). The
+texts and their order of authority:
+1. phase-0-prereg-amendment-9.md: a signed amendment. It governs. Its table A9.7 must list every
+   earlier registered sentence it changes.
+2. V1-PROFILE.md: a draft profile.
+3. ENCODING-V1.md together with HYBRID-SUPPLEMENT.md: an encoding specification.
+
+Find places where two rules cannot both be true, or where one rule silently changes another.
+Most useful:
+- two rules that give different verdicts (VALID, INVALID, CANNOT VERIFY) for the same input;
+- a later text that changes an earlier text without saying so (for A9, a change missing from
+  table A9.7);
+- a word or term used with two different meanings in different places.
+
+The main paths are well tested; expect contradictions in rare cases or in wording. Report only
+conflicts you can point to in the text. Quote both places exactly. If you find none, say so.
+
+Answer with a JSON array only, no prose around it. Each element:
+{"loc_a": "FILE:LINE", "quote_a": "...", "loc_b": "FILE:LINE", "quote_b": "...",
+ "kind": "verdict" | "silent_change" | "term" | "other",
+ "explanation": "one sentence", "confidence": "high" | "medium" | "low"}

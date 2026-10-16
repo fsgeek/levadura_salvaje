@@ -1,0 +1,38 @@
+[
+ {
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "- **T \u2264 `issuance-not-after`**, where T is the time of the earliest verified attestation in the presented OTS",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "| C5 Time | The frames **and their exact signatures** existed no later than T, the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order); the three-conjunct predicate holds at k = 6. | Presentation-sensitive T. No lower bound, no priority. Header times are chain-time proxies. Reorganization deeper than k is a residual. |",
+  "kind": "verdict",
+  "explanation": "ENCODING defines T by earliest time while A9 defines T by lowest height, giving different T and ISSUANCE_WINDOW verdicts when header times are non-monotone.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:644",
+  "quote_a": "TXT record, and the git key-assertion blob (\u00a77.2). The window is therefore fixed in DNSSEC-authenticated and",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "quote_b": "DNSSEC evidence establishes no publication before issue.",
+  "kind": "other",
+  "explanation": "ENCODING claims the window is fixed in DNSSEC-authenticated evidence before any receipt while A9 states DNSSEC establishes no publication before issue.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:755",
+  "quote_a": "- Once a bundle is dispatched to `tessera-v1-strict`, every rejection here is `INVALID`. That includes a signed",
+  "loc_b": "V1-PROFILE.md:101",
+  "quote_b": "catalog**; a `common.spec.sha256` not in it gives `UNVERIFIABLE / SPEC_UNKNOWN`. The signed `vectors_sha256` and",
+  "kind": "verdict",
+  "explanation": "ENCODING requires INVALID for every post-dispatch rejection while the profile returns UNVERIFIABLE for an unknown spec hash.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:486",
+  "quote_a": "| 22 | \"numbers must be exactly representable as IEEE 754 doubles \u2026 string-encoded, never a JSON number\"; restated in A7's canonical-payload reading (\"under the precision rule of the original \u00a74.3\") | `phase-0-prereg.md:501-505`; `phase-0-prereg-amendment-7.md:33-39` | A9.8's value-preserving rule | R |",
+  "loc_b": "V1-PROFILE.md:1105",
+  "quote_b": "5. **Number rule restated in the spec.** SPEC V6 (1261) still reads \"numbers not exactly IEEE 754 doubles\". A9.7 rows",
+  "kind": "silent_change",
+  "explanation": "A9 replaces the number rule but its table lists only prereg and A7 sources and omits the SPEC V6 restatement.",
+  "confidence": "high"
+ }
+]

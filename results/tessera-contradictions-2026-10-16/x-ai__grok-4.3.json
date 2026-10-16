@@ -1,0 +1,65 @@
+{
+ "model": "x-ai/grok-4.3",
+ "seconds": 19.6,
+ "response": {
+  "id": "gen-1792184396-CMODkGNnmxM11NQ702m3",
+  "object": "chat.completion",
+  "created": 1792184396,
+  "model": "x-ai/grok-4.3",
+  "provider": "xAI",
+  "system_fingerprint": null,
+  "service_tier": "default",
+  "choices": [
+   {
+    "index": 0,
+    "logprobs": null,
+    "finish_reason": "stop",
+    "native_finish_reason": "completed",
+    "message": {
+     "role": "assistant",
+     "content": "```json\n[\n  {\"loc_a\": \"phase-0-prereg-amendment-9.md:144\", \"quote_a\": \"the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \\\"earliest\\\" means chain order)\", \"loc_b\": \"ENCODING-V1.md:649\", \"quote_b\": \"T is the time of the earliest verified attestation in the presented OTS proof.\", \"kind\": \"term\", \"explanation\": \"A9 C5 (revised 2026-10-14) explicitly replaces \\\"earliest\\\" with \\\"lowest block height\\\" because header times are non-monotone; ENCODING-V1 still uses the superseded wording, creating inconsistent selection rules for T.\", \"confidence\": \"high\"},\n  {\"loc_a\": \"phase-0-prereg-amendment-9.md:770\", \"quote_a\": \"\\\"Earliest\\\" means chain order, not least nTime: header times are not monotone, and the two selection rules can give different verdicts on the same proof.\", \"loc_b\": \"ENCODING-V1.md:649\", \"quote_b\": \"T is the time of the earliest verified attestation in the presented OTS proof.\", \"kind\": \"verdict\", \"explanation\": \"V1-PROFILE records that the two phrasings produce different verdicts; ENCODING-V1 retains the phrasing that A9 and V1-PROFILE say yields different results.\", \"confidence\": \"high\"}\n]\n```",
+     "refusal": null,
+     "reasoning": "I am comparing the rule texts to identify contradictions or silent changes.\n\nI am now checking specific lines in phase-0-prereg-amendment-9.md:149-150 for contradictions.\n\nThe encoding baseline and hybrid signer rules match across the three documents. I am now checking ENCODING-V1.md:147 for silent changes.\n\nA9.8 replaces the number rule with value-preserving, and A9.7 lists this change. ENCODING-V1.md still requires an author sentence, but A9.8 provides it. I am checking for verdict differences. V1-PROFILE.md contains withdrawn MEMBER_MISSING text with a correction. The hybrid branch is also under review.\n\nA term conflict exists between amendment-9.md:144 and ENCODING-V1.md:649. The former uses \"lowest block height\" while the latter uses \"earliest verified attestation.\" V1-PROFILE.md:770-775 notes this correction.",
+     "reasoning_details": [
+      {
+       "type": "reasoning.summary",
+       "summary": "I am comparing the rule texts to identify contradictions or silent changes.\n\nI am now checking specific lines in phase-0-prereg-amendment-9.md:149-150 for contradictions.\n\nThe encoding baseline and hybrid signer rules match across the three documents. I am now checking ENCODING-V1.md:147 for silent changes.\n\nA9.8 replaces the number rule with value-preserving, and A9.7 lists this change. ENCODING-V1.md still requires an author sentence, but A9.8 provides it. I am checking for verdict differences. V1-PROFILE.md contains withdrawn MEMBER_MISSING text with a correction. The hybrid branch is also under review.\n\nA term conflict exists between amendment-9.md:144 and ENCODING-V1.md:649. The former uses \"lowest block height\" while the latter uses \"earliest verified attestation.\" V1-PROFILE.md:770-775 notes this correction.",
+       "format": "xai-responses-v1",
+       "index": 0
+      },
+      {
+       "type": "reasoning.encrypted",
+       "data": "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.eyJlbmRwb2ludF9zbHVnIjoieC1haS9ncm9rLTQuMy0yMDI2MDQzMHx4YWkifQ",
+       "format": "xai-responses-v1",
+       "id": "rs_b2a68c47-d8ad-959b-8d31-bb71f700c497",
+       "index": 1
+      }
+     ]
+    }
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 112795,
+   "completion_tokens": 1123,
+   "total_tokens": 113918,
+   "cost": 0.14366685,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 128,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.14366685,
+    "upstream_inference_prompt_cost": 0.14085935,
+    "upstream_inference_completions_cost": 0.0028075
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 788,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  }
+ }
+}

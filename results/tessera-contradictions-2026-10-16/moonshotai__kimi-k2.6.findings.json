@@ -1,0 +1,20 @@
+[
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:304",
+  "quote_a": "an unsupported value gives `UNVERIFIABLE / GIT_OBJECT_FORMAT`",
+  "loc_b": "V1-PROFILE.md:191",
+  "quote_b": "a present non-string value, `null` included, is a schema failure (`INVALID / CONTAINER_SCHEMA`), not absence",
+  "kind": "verdict",
+  "explanation": "For `git.object_format` set to `null`, A9.5 classes it as an unsupported value yielding UNVERIFIABLE, while V1-PROFILE explicitly classes it as a schema failure yielding INVALID, producing different verdict classes for the same input.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "T \u2264 `issuance-not-after`, where T is the time of the **earliest** verified attestation in the presented OTS proof.",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "the verified attestation at the **lowest block height** in the presented OTS proof ... header times are not monotone, so \"earliest\" means chain order",
+  "kind": "term",
+  "explanation": "ENCODING-V1.md uses \"earliest\" to mean smallest nTime, while A9 redefines the same word to mean lowest block height; because Bitcoin header times are not monotone, the same OTS proof can select different attestations, producing different T values and therefore different ISSUANCE_WINDOW verdicts.",
+  "confidence": "high"
+ }
+]

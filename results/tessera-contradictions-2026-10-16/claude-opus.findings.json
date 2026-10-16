@@ -1,0 +1,236 @@
+[
+ {
+  "loc_a": "ENCODING-V1.md:644",
+  "quote_a": "The window is therefore fixed in DNSSEC-authenticated and",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "quote_b": "Pre-commitment is chain order, not UTC (A2.1); DNSSEC evidence establishes no publication before issue.",
+  "kind": "other",
+  "explanation": "ENC claims the window is fixed in DNSSEC evidence before any relying receipt, while A9 C4's non-claim says DNSSEC evidence establishes no publication before issue (the profile itself calls the ENC sentence an overstatement pending replacement).",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:257",
+  "quote_a": "V1 issues \"OPENPGP4-ECDSA-P256-SHA256\"",
+  "loc_b": "HYBRID-SUPPLEMENT.md:81",
+  "quote_b": "stays codec-known (rule O for both slots) and becomes policy-unsupported: `UNVERIFIABLE / ALG_UNKNOWN`.",
+  "kind": "verdict",
+  "explanation": "With the hybrid branch registered (ENC §5.2 'Branch recorded: hybrid, 2026-10-16'), a receipt carrying the id ENC §3.2 says V1 issues is UNVERIFIABLE/ALG_UNKNOWN under the catalog; ENC §3.2 was left stale because the supplement edits only §5.2.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:146",
+  "quote_a": "- **Branch recorded:** hybrid or fallback signer branch. `OPEN (other):` not yet taken.",
+  "loc_b": "V1-PROFILE.md:900",
+  "quote_b": "**Branch taken: HYBRID (registered 2026-10-16, A9.6).**",
+  "kind": "other",
+  "explanation": "The profile says in section 1 (and in 14.1/14.2 item 4: 'the signer branch, is still open') that no branch is taken, but section 8 records the hybrid branch as taken and registered, so the catalog alg the profile fixes is ambiguous.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "- **T ≤ `issuance-not-after`**, where T is the time of the earliest verified attestation in the presented OTS",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order)",
+  "kind": "term",
+  "explanation": "'Earliest' in ENC's C4 window rule (and D-17) reads naturally as least header time, while A9 C5 redefines T by lowest block height; the profile (7.1) notes the two selection rules can give different verdicts on the same proof, and ENC's sentence is unedited.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:696",
+  "quote_a": "- **The stamp targets the signed commit's object id.** That commit adds the assertion blob, and it carries a",
+  "loc_b": "V1-PROFILE.md:1407",
+  "quote_b": "- **Not checked:** that the commit introduced the blob.",
+  "kind": "other",
+  "explanation": "ENC requires the stamped commit to be the one that adds the assertion blob, but the profile's git rules explicitly do not check that, so a commit merely containing the blob passes.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:758",
+  "quote_a": "- The single in-profile `UNVERIFIABLE` that concerns these bytes is a well-formed unknown `alg` (stage (c)), and P8",
+  "loc_b": "V1-PROFILE.md:736",
+  "quote_b": "`STMT_DIRECT` is accepted, `STMT_DIGEST` gives `UNVERIFIABLE / BINDING_FORM_UNSUPPORTED`, any other id",
+  "kind": "verdict",
+  "explanation": "ENC says the only in-profile UNVERIFIABLE about the signed frame bytes is an unknown alg, yet the profile returns UNVERIFIABLE for other signed-byte values (binding_forms, unknown common.spec.sha256 → SPEC_UNKNOWN) and for a registered-but-unselected alg.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:568",
+  "quote_a": "**Type:** TXT. **RRset:** exactly **one** TXT record at the owner name (`DNS_RRSET` if there are zero or more).",
+  "loc_b": "V1-PROFILE.md:259",
+  "quote_b": "DNS_EVIDENCE_MISSING`. ENC's `DNS_RRSET` zero case stays a codec vector, unreachable from a V1 container.",
+  "kind": "verdict",
+  "explanation": "For zero TXT records ENC gives DNS_RRSET, which ENC §8 makes INVALID once dispatched, while the profile gives UNVERIFIABLE/DNS_EVIDENCE_MISSING for an absent TXT group.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:156",
+  "quote_a": "A bundle header outside the pins gives `UNVERIFIABLE / HEADERS_NOT_COVERED`.",
+  "loc_b": "V1-PROFILE.md:822",
+  "quote_b": "- **Conflict.** A supplied header at a pinned height with a different hash gives `INVALID / HEADER_CONFLICTS_PIN`:",
+  "kind": "verdict",
+  "explanation": "A header whose hash differs from the pin is literally outside the pin set (UNVERIFIABLE under the governing A9.1), but the draft profile reinterprets 'outside the pins' as uncovered height and returns INVALID.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:304",
+  "quote_a": "an unsupported value gives `UNVERIFIABLE / GIT_OBJECT_FORMAT`",
+  "loc_b": "V1-PROFILE.md:191",
+  "quote_b": "a present non-string value, `null` included, is a schema failure (`INVALID /",
+  "kind": "verdict",
+  "explanation": "A9.5 gives UNVERIFIABLE for any unsupported object_format value, while the profile's fail-closed owner choice gives INVALID/CONTAINER_SCHEMA for a non-string or null value, against the governing amendment.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:432",
+  "quote_a": "second packet. Fewer bytes give `TRUNCATED`.",
+  "loc_b": "HYBRID-SUPPLEMENT.md:91",
+  "quote_b": "boundary: a trailing byte (3310) is `LENGTH_CAP` and a truncation (3308) is `SIG_FORMAT`, never `TRAILING` or",
+  "kind": "other",
+  "explanation": "ENC §5.2's general slot rule assigns TRAILING/TRUNCATED to signature-extent errors, but for rule R the supplement (and the edited §5.2 row) assigns LENGTH_CAP/SIG_FORMAT, so the reported reason code for the same input depends on which sentence is applied.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:196",
+  "quote_a": "Every V1 byte string that a V1 key signs or that OTS stamps begins with the same header:",
+  "loc_b": "phase-0-prereg-amendment-9.md:306",
+  "quote_b": "For V1 the stamped message is exactly 40 lowercase ASCII hex digits naming the signed commit",
+  "kind": "other",
+  "explanation": "The git channel's OTS-stamped message (commit id hex plus LF) and the repository-key-signed commit carry no tessera-v1 header, contradicting ENC §2's universal claim (and §0's 'Nothing else in the bundle is signed or anchored directly').",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:1105",
+  "quote_a": "5. **Number rule restated in the spec.** SPEC V6 (1261) still reads \"numbers not exactly IEEE 754 doubles\". A9.7 rows",
+  "loc_b": "phase-0-prereg-amendment-9.md:486",
+  "quote_b": "| 22 | \"numbers must be exactly representable as IEEE 754 doubles … string-encoded, never a JSON number\"; restated in A7's canonical-payload reading",
+  "kind": "silent_change",
+  "explanation": "A9 changes the number rule but A9.7 rows 22-23 omit the implementation-spec restatement (SPEC V6), although A9.7 treats implementation-spec lines as registered sentences elsewhere (rows 15, 19) and must list every changed sentence.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:1109",
+  "quote_a": "7. **Spec revocation text.** SPEC R-5.21 (1358) requires the revocation conjunct for `VALID_STRICT`. A9.4 and A9.7 rows",
+  "loc_b": "phase-0-prereg-amendment-9.md:471",
+  "quote_b": "| 7 | P6: `key_authorized(declared) ∧ no revocation effective at or before anchor_time` | `phase-0-prereg-amendment-1.md:199-214` | Not evaluated; `revocation: NOT_EVALUATED` (A9.4) | W |",
+  "kind": "silent_change",
+  "explanation": "A9.4 drops the revocation conjunct from VALID_STRICT, but A9.7 rows 7-9 cite only prereg/A1/A4 and not the implementation-spec's R-5.21, which still requires it.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:1096",
+  "quote_a": "1. **Required set.** SPEC R-3.37 (635-638) and V21 (1300) say the envelope carries the required set. A9:137 and",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "quote_b": "The verifier fixes the required set.",
+  "kind": "silent_change",
+  "explanation": "A9 C4 makes the verifier fix the required set, contradicting SPEC R-3.37/V21 (envelope carries it), and no A9.7 row lists that change.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "HYBRID-SUPPLEMENT.md:482",
+  "quote_a": "compatibility met (HS-02); deployed-slot path **Met 2026-10-14**: see",
+  "loc_b": "HYBRID-SUPPLEMENT.md:529",
+  "quote_b": "- HS-02 deployed-slot evidence through the policy signer, by 21 Oct (§10.4).",
+  "kind": "other",
+  "explanation": "The supplement says HS-02 deployed-slot evidence is met, yet lists it as still open (and §11 item 2 says the deployed policy-signer path 'is still owed').",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:397",
+  "quote_a": "edit for rule R, and the completed pass-condition evidence, naming the exact ENCODING-V1 and specification",
+  "loc_b": "HYBRID-SUPPLEMENT.md:452",
+  "quote_b": "| frozen V1 verification-spec object | the A9.6 specification hash | *entered at the 30 Oct freeze* |",
+  "kind": "other",
+  "explanation": "A9.6 requires the registered supplement to carry completed pass-condition evidence and name the exact specification hash, but the supplement registered 2026-10-16 leaves the spec hash for later and states routing conformance cases (a)-(e) are not yet run.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:338",
+  "quote_a": "extensions preserve previously usable trust witnesses; newly covered evidence can improve an earlier UNVERIFIABLE",
+  "loc_b": "V1-PROFILE.md:529",
+  "quote_b": "eligibility granted through `as_of`. They do **not** preserve every verdict: appending pins can make an earlier",
+  "kind": "other",
+  "explanation": "A9.5/A9.4 present append-only configuration as only preserving or improving verdicts, while the profile states an appended pin can change T (and hence c1/chain-order outcomes) and makes no monotonic-verdict promise.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:155",
+  "quote_a": "publication, signing and reliance periods; the repository key; a signed, versioned set of pinned mainnet header hashes.",
+  "loc_b": "V1-PROFILE.md:391",
+  "quote_b": "Each verifier release compiles in the SHA-256 of exactly one trust configuration; the config file itself carries no",
+  "kind": "term",
+  "explanation": "A9.1 calls the pin set 'signed', while the profile's trust configuration carries no signature and is authenticated only by a hash compiled into a signed release.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:1059",
+  "quote_a": "Presenting the attacker's own DNS chain instead would give `UNVERIFIABLE / NO_TRUSTED_KSK_USABLE`, which",
+  "loc_b": "phase-0-prereg-amendment-9.md:178",
+  "quote_b": "| b | Reattribution under attacker keys | `INVALID` | Reject |",
+  "kind": "verdict",
+  "explanation": "A reattribution under attacker keys with the attacker's own DNS chain yields UNVERIFIABLE under the profile, while A9's registered mapping gives INVALID for case b; the profile resolves it only by choosing a fixture.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "HYBRID-SUPPLEMENT.md:1",
+  "quote_a": "> **REGISTERED 2026-10-16 by the owner instance under A9.6** (A9 signed by the author at `2ad3489`). This is the",
+  "loc_b": "phase-0-prereg-amendment-9.md:3",
+  "quote_b": "> **Status: PROPOSED. This document is the instrument and is not yet signed. The author's first commit containing",
+  "kind": "other",
+  "explanation": "The supplement's authority rests on A9 being signed, while the A9 text in the set (and V1-PROFILE's source table) still states it is PROPOSED and that nothing binds until signed.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:383",
+  "quote_a": "validates the complete V1 frame and enforces the declared-time check using its own clock before requesting a",
+  "loc_b": "HYBRID-SUPPLEMENT.md:495",
+  "quote_b": "- Stated limit: manifests carry no declared time, so the ε check does not apply to possession signing; C3 holds.",
+  "kind": "other",
+  "explanation": "A9.6 says the policy signer enforces the declared-time check before any signature request, but the slot-2 key also signs manifest possession frames, for which the supplement says the check does not apply.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:522",
+  "quote_a": "- `UNVERIFIABLE`: the algorithm id is not registered.",
+  "loc_b": "V1-PROFILE.md:907",
+  "quote_b": "because the classical id is in the baseline: the classical id uses rule O, then `ALG_UNKNOWN` for semantics (case",
+  "kind": "term",
+  "explanation": "ENC ties UNVERIFIABLE to an id being 'not registered', but under the hybrid installation the registered classical id is also UNVERIFIABLE/ALG_UNKNOWN; 'registered' versus 'catalog-supported' are conflated.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:548",
+  "quote_a": "S = header(\"tessera-v1/dnssec-snapshot\") ‖ u32 len(snapshot) ‖ snapshot        1 ≤ len ≤ 2^24",
+  "loc_b": "V1-PROFILE.md:263",
+  "quote_b": "G30] For an empty snapshot body this profile governs over ENC §6's `1 ≤ len` wording and over",
+  "kind": "other",
+  "explanation": "The draft profile overrides ENC §6 (and its vectors' SCHEMA code) with LENGTH_CAP for an empty snapshot, although A9.1 makes ENCODING-V1 the governing encoding.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:1297",
+  "quote_a": "satisfy this. (All 344 Bitcoin paths in the repository's 127 proofs have this shape, RES G20.)",
+  "loc_b": "V1-PROFILE.md:1307",
+  "quote_b": "transaction. All 352 Bitcoin paths in the repository's 129 proofs have this suffix (owner check 2026-10-14;",
+  "kind": "other",
+  "explanation": "The same evidence base is counted as 344 paths in 127 proofs and as 352 paths in 129 proofs.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "HYBRID-SUPPLEMENT.md:137",
+  "quote_a": "the bare 1952-byte key and PEM text (XK-01 to XK-12).",
+  "loc_b": "HYBRID-SUPPLEMENT.md:366",
+  "quote_b": "| Key encoding (13) | XK-01 to XK-13 (§3) | `KEY_FORMAT`, `KEY_MISMATCH` |",
+  "kind": "other",
+  "explanation": "§3 names twelve key-encoding vectors while §8 counts thirteen for the same group.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "phase-0-prereg-amendment-9.md:516",
+  "quote_a": "registration changed (row 17). Twenty-nine rows, plus one disposition left open and two process readings. A8",
+  "loc_b": "phase-0-prereg-amendment-9.md:497",
+  "quote_b": "establish public publication. **OWNER DECISION 2026-10-12: public publication remains an issuer duty, and the",
+  "kind": "other",
+  "explanation": "The A9.7 tally calls the public-publication item a disposition 'left open', but the same section records it as decided by an owner decision.",
+  "confidence": "low"
+ }
+]
