@@ -31,6 +31,7 @@ TS="$(date -u +%Y%m%dT%H%M%SZ)"
 OUT="$LOCAL_ROOT/$TS"
 LOG="$LOCAL_ROOT/backup-log.jsonl"
 STAGE="start"
+SKIPPED=""  # set before the traps, so a failed night's status line carries any skip (Luna, cycle 29)
 RQ="$(printf %q "$REMOTE_ROOT")"
 runs() { find "$1" -mindepth 1 -maxdepth 1 -type d -name '20*Z' 2>/dev/null | sort; }
 
@@ -53,8 +54,8 @@ status() {  # status <ok|failed> <stage> [extra-json-fields]
   echo "$line"
 }
 # A failed run leaves nothing behind, so it can never count among the KEEP good runs.
-trap 'status failed "$STAGE"; rm -rf "$TMP" "$OUT"; ssh -o BatchMode=yes "$REMOTE" "rm -rf $RQ/$TS" || true; exit 1' ERR
-trap 'status failed "interrupted:$STAGE"; rm -rf "$TMP" "$OUT"; ssh -o BatchMode=yes "$REMOTE" "rm -rf $RQ/$TS" || true; exit 1' INT TERM HUP
+trap 'status failed "$STAGE" "\"skipped_swap_active\":\"${SKIPPED# }\""; rm -rf "$TMP" "$OUT"; ssh -o BatchMode=yes "$REMOTE" "rm -rf $RQ/$TS" || true; exit 1' ERR
+trap 'status failed "interrupted:$STAGE" "\"skipped_swap_active\":\"${SKIPPED# }\""; rm -rf "$TMP" "$OUT"; ssh -o BatchMode=yes "$REMOTE" "rm -rf $RQ/$TS" || true; exit 1' INT TERM HUP
 
 STAGE="key"
 gpg --batch --list-keys "$KEY" > /dev/null
@@ -72,7 +73,6 @@ RECONCILED="$(printf '%s\n%s' "$INCOMPLETE_LOCAL" "$INCOMPLETE_REMOTE" | grep -c
 mkdir -p "$OUT"
 PARTIAL="[]"
 DONE=""
-SKIPPED=""
 for r in $RESIDENTS; do
   if [[ " $NO_SWAP " == *" $r "* ]] && swap_active; then
     SKIPPED="$SKIPPED $r"; echo "skipping $r: swap is active" >&2; continue
