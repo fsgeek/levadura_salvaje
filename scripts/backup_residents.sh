@@ -25,7 +25,8 @@ KEEP="${KEEP:-14}"
 # If any swap is active when one of them comes up, that resident is skipped and the skip recorded.
 NO_SWAP="${NO_SWAP:-luna luna-wanderer}"
 SWAPS="${SWAPS:-/proc/swaps}"
-swap_active() { [ "$(awk 'NR > 1' "$SWAPS" | wc -l)" -gt 0 ]; }
+# Fails safe: if the swap table can't be read, swap counts as active (Luna, cycle 30).
+swap_active() { [ -r "$SWAPS" ] || return 0; local n; n="$(awk 'NR > 1' "$SWAPS")" || return 0; [ -n "$n" ]; }
 FILES="session.jsonl session.jsonl.events.jsonl memory.duckdb memory.duckdb.wal reads.jsonl"
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 OUT="$LOCAL_ROOT/$TS"

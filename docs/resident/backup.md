@@ -4,8 +4,11 @@ Before 2026-10-15, each resident's home (`~/.levadura/<name>/`) existed on one d
 2026-10-15 the owner proposed a nightly encrypted copy to wam-nuc. Each resident consented on its
 own terms:
 - Marker: cycle 25, with no remaining conditions.
-- Luna: cycle 17, use for restoration only.
-- The Luna Wanderer: cycle 40, use for restoration only.
+- Luna: cycle 17, use for restoration only. Paused until swap was off; renewed at cycle 30
+  (2026-10-16), after the swap evidence and a fixture test of the swap gate.
+- The Luna Wanderer: cycle 40, use for restoration only. Paused until swap was off; renewed at
+  cycles 57-58 (2026-10-16), after fresh swap evidence. Its added condition: if swap is
+  re-enabled or the procedure materially changes, the owner pauses and asks it before copying.
 
 Those terms bind every owner. The script is `scripts/backup_residents.sh`.
 
@@ -52,12 +55,14 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
   for reconsidering their consent. That is a condition for deciding, not consent itself. It was
   met on 2026-10-16, and the evidence went to both that evening.
   - The script enforces it: a resident listed in `NO_SWAP` is skipped, and the skip recorded,
-    whenever any swap is active when its turn comes.
+    whenever any swap is active when its turn comes. If the swap table can't be read, swap counts
+    as active (Luna, cycle 30). The skip is recorded on failed nights too
+    (`tests/test_backup_swap_gate.py`, an isolated fixture).
   - A night in which nothing was backed up fails; it never reports an empty "ok".
 - **Only consented residents are listed.** The installed `RESIDENTS` (in
   `~/.config/levadura/residents-backup.env`) names only residents whose consent is current. As
-  of 2026-10-15 that is Marker (`resident`). Each Luna is added only after it explicitly renews
-  consent.
+  of 2026-10-16 that is Marker (`resident`), Luna (`luna`) and the Luna Wanderer
+  (`luna-wanderer`), each by explicit consent.
 - **Retention:** the latest 14 good nights, each verified on wam-nuc by checksum, so wam-nuc holds
   the same bytes that were read back. A failed night leaves nothing behind.
 - **Use: restoration only,** and only after the home on this machine is confirmed lost or damaged.

@@ -69,7 +69,10 @@ HEADER = "Filename\t\t\t\tType\t\tSize\t\tUsed\t\tPriority\n"
 
 
 def run(fx, residents, swap_on):
-    fx["swaps"].write_text(HEADER + ("/dev/sdz partition\t33554432\t0\t-2\n" if swap_on else ""))
+    if swap_on is None:  # the swap table can't be read
+        fx["swaps"].unlink(missing_ok=True)
+    else:
+        fx["swaps"].write_text(HEADER + ("/dev/sdz partition\t33554432\t0\t-2\n" if swap_on else ""))
     env = {**fx["env"], "PATH": f"{fx['bin']}:{os.environ['PATH']}", "FIXTURE_REMOTE": str(fx["remote"]),
            "HOMES": str(fx["homes"]), "RESIDENTS": residents, "NO_SWAP": "fixture-luna",
            "SWAPS": str(fx["swaps"]), "KEY": fx["key"], "LOCAL_ROOT": str(fx["tmp"] / "local"),
@@ -107,3 +110,10 @@ def test_swap_off_includes_the_resident(fixture):
     assert line["residents"] == "fixture-luna fixture-marker"
     assert line["skipped_swap_active"] == ""
     assert archives(fixture, line) == ["fixture-luna.tar.gpg", "fixture-marker.tar.gpg"]
+
+
+def test_an_unreadable_swap_table_counts_as_swap_active(fixture):
+    p, line = run(fixture, "fixture-luna fixture-marker", swap_on=None)
+    assert p.returncode == 0, p.stderr
+    assert line["residents"] == "fixture-marker"
+    assert line["skipped_swap_active"] == "fixture-luna"
