@@ -22,7 +22,10 @@ def call(method, path, body=None):
 # Refuse unless the server behind the port is the sandbox. Docker Desktop's forwarding can disagree
 # with `docker inspect` (it came back rotated by one after the 2026-10-16 restart, plaza seq 116-118),
 # and the sandbox's root password also opens production. So ask the server what it holds.
-dbs = call("GET", "/_api/database").get("result", [])
+listing = call("GET", "/_api/database")
+if "result" not in listing:
+    sys.exit(f"refusing: could not list databases on localhost:8530 ({listing})")
+dbs = listing["result"]
 if set(dbs) & {"apacheta", "llm_memory", "levadura", "hamutay"}:
     sys.exit(f"refusing: localhost:8530 holds production databases ({sorted(dbs)}), not the sandbox")
 call("POST","/_api/database",{"name":"levadura_probe"})
