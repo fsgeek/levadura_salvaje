@@ -1,0 +1,492 @@
+[
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:644",
+  "quote_a": "The window is therefore fixed in DNSSEC-authenticated and",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "quote_b": "Pre-commitment is chain order, not UTC (A2.1); DNSSEC evidence establishes no publication before issue.",
+  "kind": "other",
+  "explanation": "ENC claims the window is fixed in DNSSEC evidence before any relying receipt, while A9 C4's non-claim says DNSSEC evidence establishes no publication before issue (the profile itself calls the ENC sentence an overstatement pending replacement).",
+  "id": "c000"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:257",
+  "quote_a": "V1 issues \"OPENPGP4-ECDSA-P256-SHA256\"",
+  "loc_b": "HYBRID-SUPPLEMENT.md:81",
+  "quote_b": "stays codec-known (rule O for both slots) and becomes policy-unsupported: `UNVERIFIABLE / ALG_UNKNOWN`.",
+  "kind": "verdict",
+  "explanation": "With the hybrid branch registered (ENC \u00a75.2 'Branch recorded: hybrid, 2026-10-16'), a receipt carrying the id ENC \u00a73.2 says V1 issues is UNVERIFIABLE/ALG_UNKNOWN under the catalog; ENC \u00a73.2 was left stale because the supplement edits only \u00a75.2.",
+  "id": "c001"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "V1-PROFILE.md:146",
+  "quote_a": "- **Branch recorded:** hybrid or fallback signer branch. `OPEN (other):` not yet taken.",
+  "loc_b": "V1-PROFILE.md:900",
+  "quote_b": "**Branch taken: HYBRID (registered 2026-10-16, A9.6).**",
+  "kind": "other",
+  "explanation": "The profile says in section 1 (and in 14.1/14.2 item 4: 'the signer branch, is still open') that no branch is taken, but section 8 records the hybrid branch as taken and registered, so the catalog alg the profile fixes is ambiguous.",
+  "id": "c002"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "- **T \u2264 `issuance-not-after`**, where T is the time of the earliest verified attestation in the presented OTS",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order)",
+  "kind": "term",
+  "explanation": "'Earliest' in ENC's C4 window rule (and D-17) reads naturally as least header time, while A9 C5 redefines T by lowest block height; the profile (7.1) notes the two selection rules can give different verdicts on the same proof, and ENC's sentence is unedited.",
+  "id": "c003"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:696",
+  "quote_a": "- **The stamp targets the signed commit's object id.** That commit adds the assertion blob, and it carries a",
+  "loc_b": "V1-PROFILE.md:1407",
+  "quote_b": "- **Not checked:** that the commit introduced the blob.",
+  "kind": "other",
+  "explanation": "ENC requires the stamped commit to be the one that adds the assertion blob, but the profile's git rules explicitly do not check that, so a commit merely containing the blob passes.",
+  "id": "c004"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:758",
+  "quote_a": "- The single in-profile `UNVERIFIABLE` that concerns these bytes is a well-formed unknown `alg` (stage (c)), and P8",
+  "loc_b": "V1-PROFILE.md:736",
+  "quote_b": "`STMT_DIRECT` is accepted, `STMT_DIGEST` gives `UNVERIFIABLE / BINDING_FORM_UNSUPPORTED`, any other id",
+  "kind": "verdict",
+  "explanation": "ENC says the only in-profile UNVERIFIABLE about the signed frame bytes is an unknown alg, yet the profile returns UNVERIFIABLE for other signed-byte values (binding_forms, unknown common.spec.sha256 \u2192 SPEC_UNKNOWN) and for a registered-but-unselected alg.",
+  "id": "c005"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:568",
+  "quote_a": "**Type:** TXT. **RRset:** exactly **one** TXT record at the owner name (`DNS_RRSET` if there are zero or more).",
+  "loc_b": "V1-PROFILE.md:259",
+  "quote_b": "DNS_EVIDENCE_MISSING`. ENC's `DNS_RRSET` zero case stays a codec vector, unreachable from a V1 container.",
+  "kind": "verdict",
+  "explanation": "For zero TXT records ENC gives DNS_RRSET, which ENC \u00a78 makes INVALID once dispatched, while the profile gives UNVERIFIABLE/DNS_EVIDENCE_MISSING for an absent TXT group.",
+  "id": "c006"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:156",
+  "quote_a": "A bundle header outside the pins gives `UNVERIFIABLE / HEADERS_NOT_COVERED`.",
+  "loc_b": "V1-PROFILE.md:822",
+  "quote_b": "- **Conflict.** A supplied header at a pinned height with a different hash gives `INVALID / HEADER_CONFLICTS_PIN`:",
+  "kind": "verdict",
+  "explanation": "A header whose hash differs from the pin is literally outside the pin set (UNVERIFIABLE under the governing A9.1), but the draft profile reinterprets 'outside the pins' as uncovered height and returns INVALID.",
+  "id": "c007"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:304",
+  "quote_a": "an unsupported value gives `UNVERIFIABLE / GIT_OBJECT_FORMAT`",
+  "loc_b": "V1-PROFILE.md:191",
+  "quote_b": "a present non-string value, `null` included, is a schema failure (`INVALID /",
+  "kind": "verdict",
+  "explanation": "A9.5 gives UNVERIFIABLE for any unsupported object_format value, while the profile's fail-closed owner choice gives INVALID/CONTAINER_SCHEMA for a non-string or null value, against the governing amendment.",
+  "id": "c008"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:432",
+  "quote_a": "second packet. Fewer bytes give `TRUNCATED`.",
+  "loc_b": "HYBRID-SUPPLEMENT.md:91",
+  "quote_b": "boundary: a trailing byte (3310) is `LENGTH_CAP` and a truncation (3308) is `SIG_FORMAT`, never `TRAILING` or",
+  "kind": "other",
+  "explanation": "ENC \u00a75.2's general slot rule assigns TRAILING/TRUNCATED to signature-extent errors, but for rule R the supplement (and the edited \u00a75.2 row) assigns LENGTH_CAP/SIG_FORMAT, so the reported reason code for the same input depends on which sentence is applied.",
+  "id": "c009"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:196",
+  "quote_a": "Every V1 byte string that a V1 key signs or that OTS stamps begins with the same header:",
+  "loc_b": "phase-0-prereg-amendment-9.md:306",
+  "quote_b": "For V1 the stamped message is exactly 40 lowercase ASCII hex digits naming the signed commit",
+  "kind": "other",
+  "explanation": "The git channel's OTS-stamped message (commit id hex plus LF) and the repository-key-signed commit carry no tessera-v1 header, contradicting ENC \u00a72's universal claim (and \u00a70's 'Nothing else in the bundle is signed or anchored directly').",
+  "id": "c010"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "V1-PROFILE.md:1105",
+  "quote_a": "5. **Number rule restated in the spec.** SPEC V6 (1261) still reads \"numbers not exactly IEEE 754 doubles\". A9.7 rows",
+  "loc_b": "phase-0-prereg-amendment-9.md:486",
+  "quote_b": "| 22 | \"numbers must be exactly representable as IEEE 754 doubles \u2026 string-encoded, never a JSON number\"; restated in A7's canonical-payload reading",
+  "kind": "silent_change",
+  "explanation": "A9 changes the number rule but A9.7 rows 22-23 omit the implementation-spec restatement (SPEC V6), although A9.7 treats implementation-spec lines as registered sentences elsewhere (rows 15, 19) and must list every changed sentence.",
+  "id": "c011"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "V1-PROFILE.md:1109",
+  "quote_a": "7. **Spec revocation text.** SPEC R-5.21 (1358) requires the revocation conjunct for `VALID_STRICT`. A9.4 and A9.7 rows",
+  "loc_b": "phase-0-prereg-amendment-9.md:471",
+  "quote_b": "| 7 | P6: `key_authorized(declared) \u2227 no revocation effective at or before anchor_time` | `phase-0-prereg-amendment-1.md:199-214` | Not evaluated; `revocation: NOT_EVALUATED` (A9.4) | W |",
+  "kind": "silent_change",
+  "explanation": "A9.4 drops the revocation conjunct from VALID_STRICT, but A9.7 rows 7-9 cite only prereg/A1/A4 and not the implementation-spec's R-5.21, which still requires it.",
+  "id": "c012"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "V1-PROFILE.md:1096",
+  "quote_a": "1. **Required set.** SPEC R-3.37 (635-638) and V21 (1300) say the envelope carries the required set. A9:137 and",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "quote_b": "The verifier fixes the required set.",
+  "kind": "silent_change",
+  "explanation": "A9 C4 makes the verifier fix the required set, contradicting SPEC R-3.37/V21 (envelope carries it), and no A9.7 row lists that change.",
+  "id": "c013"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "HYBRID-SUPPLEMENT.md:482",
+  "quote_a": "compatibility met (HS-02); deployed-slot path **Met 2026-10-14**: see",
+  "loc_b": "HYBRID-SUPPLEMENT.md:529",
+  "quote_b": "- HS-02 deployed-slot evidence through the policy signer, by 21 Oct (\u00a710.4).",
+  "kind": "other",
+  "explanation": "The supplement says HS-02 deployed-slot evidence is met, yet lists it as still open (and \u00a711 item 2 says the deployed policy-signer path 'is still owed').",
+  "id": "c014"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:397",
+  "quote_a": "edit for rule R, and the completed pass-condition evidence, naming the exact ENCODING-V1 and specification",
+  "loc_b": "HYBRID-SUPPLEMENT.md:452",
+  "quote_b": "| frozen V1 verification-spec object | the A9.6 specification hash | *entered at the 30 Oct freeze* |",
+  "kind": "other",
+  "explanation": "A9.6 requires the registered supplement to carry completed pass-condition evidence and name the exact specification hash, but the supplement registered 2026-10-16 leaves the spec hash for later and states routing conformance cases (a)-(e) are not yet run.",
+  "id": "c015"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:338",
+  "quote_a": "extensions preserve previously usable trust witnesses; newly covered evidence can improve an earlier UNVERIFIABLE",
+  "loc_b": "V1-PROFILE.md:529",
+  "quote_b": "eligibility granted through `as_of`. They do **not** preserve every verdict: appending pins can make an earlier",
+  "kind": "other",
+  "explanation": "A9.5/A9.4 present append-only configuration as only preserving or improving verdicts, while the profile states an appended pin can change T (and hence c1/chain-order outcomes) and makes no monotonic-verdict promise.",
+  "id": "c016"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:155",
+  "quote_a": "publication, signing and reliance periods; the repository key; a signed, versioned set of pinned mainnet header hashes.",
+  "loc_b": "V1-PROFILE.md:391",
+  "quote_b": "Each verifier release compiles in the SHA-256 of exactly one trust configuration; the config file itself carries no",
+  "kind": "term",
+  "explanation": "A9.1 calls the pin set 'signed', while the profile's trust configuration carries no signature and is authenticated only by a hash compiled into a signed release.",
+  "id": "c017"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "V1-PROFILE.md:1059",
+  "quote_a": "Presenting the attacker's own DNS chain instead would give `UNVERIFIABLE / NO_TRUSTED_KSK_USABLE`, which",
+  "loc_b": "phase-0-prereg-amendment-9.md:178",
+  "quote_b": "| b | Reattribution under attacker keys | `INVALID` | Reject |",
+  "kind": "verdict",
+  "explanation": "A reattribution under attacker keys with the attacker's own DNS chain yields UNVERIFIABLE under the profile, while A9's registered mapping gives INVALID for case b; the profile resolves it only by choosing a fixture.",
+  "id": "c018"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "HYBRID-SUPPLEMENT.md:1",
+  "quote_a": "> **REGISTERED 2026-10-16 by the owner instance under A9.6** (A9 signed by the author at `2ad3489`). This is the",
+  "loc_b": "phase-0-prereg-amendment-9.md:3",
+  "quote_b": "> **Status: PROPOSED. This document is the instrument and is not yet signed. The author's first commit containing",
+  "kind": "other",
+  "explanation": "The supplement's authority rests on A9 being signed, while the A9 text in the set (and V1-PROFILE's source table) still states it is PROPOSED and that nothing binds until signed.",
+  "id": "c019"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:383",
+  "quote_a": "validates the complete V1 frame and enforces the declared-time check using its own clock before requesting a",
+  "loc_b": "HYBRID-SUPPLEMENT.md:495",
+  "quote_b": "- Stated limit: manifests carry no declared time, so the \u03b5 check does not apply to possession signing; C3 holds.",
+  "kind": "other",
+  "explanation": "A9.6 says the policy signer enforces the declared-time check before any signature request, but the slot-2 key also signs manifest possession frames, for which the supplement says the check does not apply.",
+  "id": "c020"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:522",
+  "quote_a": "- `UNVERIFIABLE`: the algorithm id is not registered.",
+  "loc_b": "V1-PROFILE.md:907",
+  "quote_b": "because the classical id is in the baseline: the classical id uses rule O, then `ALG_UNKNOWN` for semantics (case",
+  "kind": "term",
+  "explanation": "ENC ties UNVERIFIABLE to an id being 'not registered', but under the hybrid installation the registered classical id is also UNVERIFIABLE/ALG_UNKNOWN; 'registered' versus 'catalog-supported' are conflated.",
+  "id": "c021"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "ENCODING-V1.md:548",
+  "quote_a": "S = header(\"tessera-v1/dnssec-snapshot\") \u2016 u32 len(snapshot) \u2016 snapshot        1 \u2264 len \u2264 2^24",
+  "loc_b": "V1-PROFILE.md:263",
+  "quote_b": "G30] For an empty snapshot body this profile governs over ENC \u00a76's `1 \u2264 len` wording and over",
+  "kind": "other",
+  "explanation": "The draft profile overrides ENC \u00a76 (and its vectors' SCHEMA code) with LENGTH_CAP for an empty snapshot, although A9.1 makes ENCODING-V1 the governing encoding.",
+  "id": "c022"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "V1-PROFILE.md:1297",
+  "quote_a": "satisfy this. (All 344 Bitcoin paths in the repository's 127 proofs have this shape, RES G20.)",
+  "loc_b": "V1-PROFILE.md:1307",
+  "quote_b": "transaction. All 352 Bitcoin paths in the repository's 129 proofs have this suffix (owner check 2026-10-14;",
+  "kind": "other",
+  "explanation": "The same evidence base is counted as 344 paths in 127 proofs and as 352 paths in 129 proofs.",
+  "id": "c023"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "HYBRID-SUPPLEMENT.md:137",
+  "quote_a": "the bare 1952-byte key and PEM text (XK-01 to XK-12).",
+  "loc_b": "HYBRID-SUPPLEMENT.md:366",
+  "quote_b": "| Key encoding (13) | XK-01 to XK-13 (\u00a73) | `KEY_FORMAT`, `KEY_MISMATCH` |",
+  "kind": "other",
+  "explanation": "\u00a73 names twelve key-encoding vectors while \u00a78 counts thirteen for the same group.",
+  "id": "c024"
+ },
+ {
+  "reader": "claude-opus",
+  "loc_a": "phase-0-prereg-amendment-9.md:516",
+  "quote_a": "registration changed (row 17). Twenty-nine rows, plus one disposition left open and two process readings. A8",
+  "loc_b": "phase-0-prereg-amendment-9.md:497",
+  "quote_b": "establish public publication. **OWNER DECISION 2026-10-12: public publication remains an issuer duty, and the",
+  "kind": "other",
+  "explanation": "The A9.7 tally calls the public-publication item a disposition 'left open', but the same section records it as decided by an owner decision.",
+  "id": "c025"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:140",
+  "quote_a": "| C1 Bytes | The verifier reconstructs each signer's exact frame; both bind the same content and common metadata, the designated fingerprint in its slot. The receipt-anchor preimage `A_sig` over both frames and both signatures is unambiguous. | Nothing about meaning or truth. Payload identity is not frame equality. |",
+  "loc_b": "ENCODING-V1.md:308-310",
+  "quote_b": "F_kms = 11 'tessera-v1/attest' 0001 u32(L_kms) '{\"common\":' JCS(C) ',\"signer\":{\"key_fp\":' JCS(fp_kms) '}}'\nF_gpg = 11 'tessera-v1/attest' 0001 u32(L_gpg) '{\"common\":' JCS(C) ',\"signer\":{\"key_fp\":' JCS(fp_gpg) '}}'",
+  "kind": "term",
+  "explanation": "C1 says both frames bind the same content and common metadata, but ENCODING-V1 shows the frames differ in length and signer member, not just fingerprint; payload identity is not frame equality.",
+  "id": "c026"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:144",
+  "quote_a": "| C4 Authority | DNSSEC (owner name D, evaluated at the snapshot's own anchored time) and the anchored git key assertion (full commit\u2192tree\u2192blob path) authenticated K for D, with the issuance window, at their evidence times. **Chain-order pre-commitment** (OWNER DECISION 2026-10-14, BROADEN; `docs/reviews/spec-sufficiency/` F01): the git assertion's selected anchor height plus 5 is lower than the receipt's selected anchor height, so the window was confirmed at k = 6 in the chain before the receipt was anchored. The verifier fixes the required set. | Revocation not evaluated. Not public publication of the commit. Neither channel commits to any receipt (CODEX-REVIEW 3). Pre-commitment is chain order, not UTC (A2.1); DNSSEC evidence establishes no publication before issue. |",
+  "loc_b": "V1-PROFILE.md:710-713",
+  "quote_b": "- **chain-order pre-commitment: h_git + 5 < h_receipt**, else `INVALID / GIT_NOT_PRECOMMITTED` (A9 C4 as revised 2026-10-14, OWNER DECISION, BROADEN);",
+  "kind": "verdict",
+  "explanation": "C4 says git assertion's selected anchor height plus 5 is lower than receipt's selected anchor height; V1-PROFILE says h_git + 5 < h_receipt else INVALID. This matches, but note the term 'selected anchor height' vs 'h_git' and 'h_receipt'.",
+  "id": "c027"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase0-prereg-amendment-9.md:145",
+  "quote_a": "| C5 Time | The frames **and their exact signatures** existed no later than T, the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order); the three-conjunct predicate holds at k = 6. | Presentation-sensitive T. No lower bound, no priority. Header times are chain-time proxies. Reorganization deeper than k is a residual. |",
+  "loc_b": "V1-PROFILE.md:770-775",
+  "quote_b": "- T is the time of the verified attestation at the **lowest block height** in the presented OTS proof; both T and\n  its confirmations come from that attestation. It is presentation-sensitive: a different presentation of the same\n  receipt can select a different T. [A9 C5 as revised 2026-10-14; DD:56, 98-99; OWNER 2026-10-14, G03] *Dated\n  correction 2026-10-14: this bullet previously read \"T is the time of the earliest verified attestation\", A9's\n  earlier wording. \"Earliest\" means chain order, not least nTime: header times are not monotone, and the two\n  selection rules can give different verdicts on the same proof.*",
+  "kind": "term",
+  "explanation": "C5 says 'lowest block height' and 'earliest' means chain order; V1-PROFILE clarifies that 'earliest' was earlier wording and now uses 'lowest block height'. This is a clarification, not a contradiction.",
+  "id": "c028"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:150",
+  "quote_a": "- **Trust configuration** (ships with the verifier, never from the bundle): root KSK-2017 and KSK-2024 with separate\n  publication, signing and reliance periods; the repository key; a signed, versioned set of pinned mainnet header hashes.\n  A bundle header outside the pins gives `UNVERIFIABLE / HEADERS_NOT_COVERED`. The trust configuration's KSK\n  periods are as known at release; snapshots after an unlisted rollover are `UNVERIFIABLE`.",
+  "loc_b": "V1-PROFILE.md:532-534",
+  "quote_b": "- **Header pins.** A bundle header at a height with no pin gives `UNVERIFIABLE / HEADERS_NOT_COVERED`. A **selected**\n  anchor (section 7.1) beyond the newest pin is `UNVERIFIABLE`; an unselected attestation without its headers\n  supplies no fact and is not a failure. [A9:150; A9 C6 as revised 2026-10-14; OWNER 2026-10-14, G05]",
+  "kind": "verdict",
+  "explanation": "Both agree on UNVERIFIABLE / HEADERS_NOT_COVERED for a header outside pins, but V1-PROFILE adds nuance about selected anchor beyond newest pin.",
+  "id": "c029"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:291-292",
+  "quote_a": "- **Receipt anchor.** OTS stamps `SHA256(A_sig)`, tag `tessera-v1/receipt-anchor-sig`, which commits to both frames\n  and their exact detached signatures in manifest slot order (ENCODING-V1 \u00a75, D-8, D-14). The verifier verifies the\n  committed signature bytes only. The frame-only layout is withdrawn, with no fallback.",
+  "loc_b": "ENCODING-V1.md:375-378",
+  "quote_b": "A_sig = header(\"tessera-v1/receipt-anchor-sig\") \u2016 u8 0x02\n        \u2016 u32 len(F_kms) \u2016 F_kms \u2016 u32 len(S_kms) \u2016 S_kms\n        \u2016 u32 len(F_gpg) \u2016 F_gpg \u2016 u32 len(S_gpg) \u2016 S_gpg\nanchor digest = SHA256(A_sig), the value OpenTimestamps stamps",
+  "kind": "term",
+  "explanation": "Both describe the same receipt anchor construction, committing to frames and exact signatures.",
+  "id": "c030"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:297-298",
+  "quote_a": "- **Git stamp target (D-16).** The git channel's OTS stamp targets the **signed commit's object id**, never a tree,\n  blob or unsigned commit. The verifier recomputes the id, verifies `gpgsig`, follows commit\u2192tree\u2192blob, and checks\n  the stamped id. SHA-1 linkage remains a stated residual. The git evidence names its object format, and V1\n  accepts only `sha1`: the key-assertion repository stays in SHA-1 format at a host that supports it, whatever\n  git's default becomes (the author, 2026-10-13: Git 3 moves to SHA-256 in 2027; GitHub does not support it).\n  The pre-freeze bundle schema (V1-PROFILE \u00a72.1, G-26) defines the git-evidence member `object_format` as the string\n  `\"sha1\"`. It is an evidence descriptor, not a new signed-frame or key-publication field. A missing descriptor gives\n  `UNVERIFIABLE / GIT_OBJECT_FORMAT_MISSING`; an unsupported value gives `UNVERIFIABLE / GIT_OBJECT_FORMAT`. The\n  verifier recomputes the SHA-1 object ids from the raw commit/tree/blob bytes, so this descriptor cannot override\n  their interpretation. For V1 the stamped message is exactly 40 lowercase ASCII hex digits naming the signed commit\n  id followed by one LF byte. The schema/check specification and conformance cases are fixed before the 30 Oct\n  profile freeze; no P8 frame or key-publication vector changes are required.",
+  "loc_b": "V1-PROFILE.md:648-655",
+  "quote_b": "The OTS stamp targets the signed commit's object id, never a tree, blob or unsigned commit. [A9:282-284; ENC\n\u00a77.2:685-691] The verifier does four things:\n\n1. Recomputes the commit id from the presented raw commit object.\n2. Verifies `gpgsig` over the object without that header, under the pinned repository key.\n3. Follows commit, then tree, then blob, down the fixed path below.\n4. Checks that the stamped bytes name that id.",
+  "kind": "term",
+  "explanation": "Both describe the same git stamp target and verification steps.",
+  "id": "c031"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:309-310",
+  "quote_a": "- **Root-KSK rule.** The root DNSKEY set is valid at the snapshot's anchored time **if some trusted KSK whose reliance\n  period contains that time validates it**. Each KSK entry records signing-start, signing-end and a sourced reliance\n  lifetime L, with the reliance interval [signing-start, signing-end + L]. L is the registered acceptance-policy\n  value derived from the cited root DNSKEY RRSIG validity evidence; a largest observed lifetime is labelled observed,\n  not asserted to be a proven global maximum. A candidate must also satisfy cryptographic validation and the selected\n  RRSIG's inception/expiration checks at the snapshot's own verified anchored time. This extension permits authentic\n  pre-retirement evidence anchored later; it does not establish that signing occurred before retirement. A thief of\n  a retired KSK can manufacture eligible root evidence during the extension. Exposure is bounded by the reliance\n  endpoint in snapshot chain time, not by a finite UTC duration under A2.1. Historical authority-key safety and the\n  continuing anchor/history assumptions remain necessary and are not evaluated by V1. **AUTHOR ADOPTED, 2026-10-13**\n  (`docs/reviews/v1-profile/` F2; kind CORRECT: the withdrawn cutoff claimed a protection DNSSEC itself does not\n  supply, since resolvers accept a retired KSK's signatures until they expire). The author: *\"I'd argue that the\n  'narrowing of protection' wasn't a real narrowing, it was us admitting the real level of protection given the\n  constraints of the project.\"* The rule is existential and order-independent: a candidate that fails is\n  informational, and the result is computed once, after every eligible key has been tried (F1). A trusted KSK that\n  is published but did not sign is informational, never a failure. The trust configuration records signing and\n  reliance periods separately from publication and revocation dates.",
+  "loc_b": "V1-PROFILE.md:415-424",
+  "quote_b": "- **Root rule.** The root DNSKEY set is valid at the snapshot's anchored time if some trusted KSK whose **reliance\n  period** contains that time validates it. Each KSK entry records signing-start, signing-end and a sourced reliance lifetime L; the reliance\n  interval is [signing-start, signing-end + L]. L is an acceptance-policy value from cited RRSIG validity evidence,\n  labelled observed, not a proven global maximum. The extension admits authentic pre-retirement evidence anchored\n  later and does not prove signing before retirement: a thief of a retired KSK can manufacture eligible evidence\n  during it (A9.5; AUTHOR ADOPTED 2026-10-13, kind CORRECT). *Dated correction 2026-10-13: the earlier wording\n  (\"maximum validity \u2026 it made\"; \"usable for that long and no longer\") overclaimed provenance and is withdrawn.* The rule is existential and\n  order-independent: a candidate that fails is informational, and the result is computed once, after every eligible\n  key has been tried. A trusted KSK that is published but did not sign is informational, never a failure.\n  [A9.5, A9:296-303, OWNER DECISION 2026-10-13 after `docs/reviews/v1-profile/` F1, F2]",
+  "kind": "term",
+  "explanation": "Both describe the same root-KSK rule with reliance periods.",
+  "id": "c032"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:333-334",
+  "quote_a": "- **Trust configuration is append-only** (OWNER DECISION 2026-10-13). Trust configuration entries are append-only: KSKs, header\n  pins and repository keys are never removed, and finalized period endpoints never change. Repository trust entries\n  name D, the key and an inclusive signing interval; the git assertion passes this trust check if some configured\n  entry for D verifies gpgsig and its interval contains the signed commit's own verified anchored time. Repository\n  entries have no KSK-style reliance extension. Unknown material cannot establish this required check. Append-only\n  extensions preserve previously usable trust witnesses; newly covered evidence can improve an earlier UNVERIFIABLE\n  result. Exact stable-field identity remains the contract for identical declared inputs. Closing an open period must\n  not retrospectively exclude evidence previously accepted under that entry; the pre-freeze configuration records the\n  endpoint/update convention explicitly. **Rollover control:** a snapshot taken while one trusted KSK is published but not signing must pass\n  (SPIKE-REPORT, KSK-2024 re-capture; without it every receipt from 2026-10-11 would be falsely rejected).",
+  "loc_b": "V1-PROFILE.md:529-531",
+  "quote_b": "They do **not** preserve every verdict: appending pins can make an earlier\n  attestation qualify and change T. A9.4's contract is exact output for identical declared inputs (the config is one);\n  no monotonic-verdict promise is made.",
+  "kind": "verdict",
+  "explanation": "A9 says append-only preserves previously usable trust witnesses; V1-PROFILE says appending pins can change T and verdict, not preserving every verdict. This is a clarification, not a contradiction.",
+  "id": "c033"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:419-420",
+  "quote_a": "- **Verifier rule (C4).** A receipt is `INVALID / ISSUANCE_WINDOW` unless the declared issue time is not earlier\n  than not-before and the verified chain-time T is not later than not-after, with T as registered and no margin.\n  T itself is not compared with not-before.",
+  "loc_b": "V1-PROFILE.md:638-640",
+  "quote_b": "- A receipt is `INVALID / ISSUANCE_WINDOW` unless `issuance-not-before` \u2264 declared issue time and T \u2264\n  `issuance-not-after`. Both bounds are inclusive. T is compared as registered, with no margin. T is not compared\n  with not-before. [A9:338-340; ENC \u00a77.1:636-643, 662-663]",
+  "kind": "verdict",
+  "explanation": "Both describe the same issuance window rule with same verdict.",
+  "id": "c034"
+ },
+ {
+  "reader": "deepseek-v3.2",
+  "loc_a": "phase-0-prereg-amendment-9.md:519-524",
+  "quote_a": "prereg \u00a74.3 and A1 P8 reject a number not exactly representable as an IEEE 754 double. That rule does not compose\nwith RFC 8785: it accepts inputs whose canonical form it then rejects (ENCODING-V1 \u00a71.2). For `tessera-v1-strict`\nit is replaced by: **accept a number exactly when RFC 8785's canonical serialization preserves its value; reject\notherwise.** Proof: `formal/p8/PROOF.md` Lemma 3. Vectors: `formal/p8/vectors/`.",
+  "loc_b": "V1-PROFILE.md:1010-1013",
+  "quote_b": "Accept a number exactly when RFC 8785's canonical serialization preserves its value. Reject otherwise. The three\nconditions (not negative zero, finite after round-half-even, exact decimal value of `ES(d)` equals the literal) and\nthe accepted and rejected examples are in ENC \u00a71.2. [A9:438-443; ENC \u00a71.2:118-148; ENC D-1:752-755] Proof:\n`formal/p8/PROOF.md` Lemma 3. Vectors: `formal/p8/vectors/`.",
+  "kind": "term",
+  "explanation": "Both describe the same number rule replacement for V1.",
+  "id": "c035"
+ },
+ {
+  "reader": "muse-spark-1.3",
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "- **T \u2264 `issuance-not-after`**, where T is the time of the earliest verified attestation in the presented OTS",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "| C5 Time | The frames **and their exact signatures** existed no later than T, the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order); the three-conjunct predicate holds at k = 6. | Presentation-sensitive T. No lower bound, no priority. Header times are chain-time proxies. Reorganization deeper than k is a residual. |",
+  "kind": "verdict",
+  "explanation": "ENCODING defines T by earliest time while A9 defines T by lowest height, giving different T and ISSUANCE_WINDOW verdicts when header times are non-monotone.",
+  "id": "c036"
+ },
+ {
+  "reader": "muse-spark-1.3",
+  "loc_a": "ENCODING-V1.md:644",
+  "quote_a": "TXT record, and the git key-assertion blob (\u00a77.2). The window is therefore fixed in DNSSEC-authenticated and",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "quote_b": "DNSSEC evidence establishes no publication before issue.",
+  "kind": "other",
+  "explanation": "ENCODING claims the window is fixed in DNSSEC-authenticated evidence before any receipt while A9 states DNSSEC establishes no publication before issue.",
+  "id": "c037"
+ },
+ {
+  "reader": "muse-spark-1.3",
+  "loc_a": "ENCODING-V1.md:755",
+  "quote_a": "- Once a bundle is dispatched to `tessera-v1-strict`, every rejection here is `INVALID`. That includes a signed",
+  "loc_b": "V1-PROFILE.md:101",
+  "quote_b": "catalog**; a `common.spec.sha256` not in it gives `UNVERIFIABLE / SPEC_UNKNOWN`. The signed `vectors_sha256` and",
+  "kind": "verdict",
+  "explanation": "ENCODING requires INVALID for every post-dispatch rejection while the profile returns UNVERIFIABLE for an unknown spec hash.",
+  "id": "c038"
+ },
+ {
+  "reader": "muse-spark-1.3",
+  "loc_a": "phase-0-prereg-amendment-9.md:486",
+  "quote_a": "| 22 | \"numbers must be exactly representable as IEEE 754 doubles \u2026 string-encoded, never a JSON number\"; restated in A7's canonical-payload reading (\"under the precision rule of the original \u00a74.3\") | `phase-0-prereg.md:501-505`; `phase-0-prereg-amendment-7.md:33-39` | A9.8's value-preserving rule | R |",
+  "loc_b": "V1-PROFILE.md:1105",
+  "quote_b": "5. **Number rule restated in the spec.** SPEC V6 (1261) still reads \"numbers not exactly IEEE 754 doubles\". A9.7 rows",
+  "kind": "silent_change",
+  "explanation": "A9 replaces the number rule but its table lists only prereg and A7 sources and omits the SPEC V6 restatement.",
+  "id": "c039"
+ },
+ {
+  "reader": "kimi-k2.6",
+  "loc_a": "phase-0-prereg-amendment-9.md:304",
+  "quote_a": "an unsupported value gives `UNVERIFIABLE / GIT_OBJECT_FORMAT`",
+  "loc_b": "V1-PROFILE.md:191",
+  "quote_b": "a present non-string value, `null` included, is a schema failure (`INVALID / CONTAINER_SCHEMA`), not absence",
+  "kind": "verdict",
+  "explanation": "For `git.object_format` set to `null`, A9.5 classes it as an unsupported value yielding UNVERIFIABLE, while V1-PROFILE explicitly classes it as a schema failure yielding INVALID, producing different verdict classes for the same input.",
+  "id": "c040"
+ },
+ {
+  "reader": "kimi-k2.6",
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "T \u2264 `issuance-not-after`, where T is the time of the **earliest** verified attestation in the presented OTS proof.",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "the verified attestation at the **lowest block height** in the presented OTS proof ... header times are not monotone, so \"earliest\" means chain order",
+  "kind": "term",
+  "explanation": "ENCODING-V1.md uses \"earliest\" to mean smallest nTime, while A9 redefines the same word to mean lowest block height; because Bitcoin header times are not monotone, the same OTS proof can select different attestations, producing different T values and therefore different ISSUANCE_WINDOW verdicts.",
+  "id": "c041"
+ },
+ {
+  "reader": "grok-4.3",
+  "loc_a": "phase-0-prereg-amendment-9.md:144",
+  "quote_a": "the verified attestation at the lowest block height in the presented OTS proof (both T and its confirmations come from that attestation; OWNER DECISION 2026-10-14, F03: header times are not monotone, so \"earliest\" means chain order)",
+  "loc_b": "ENCODING-V1.md:649",
+  "quote_b": "T is the time of the earliest verified attestation in the presented OTS proof.",
+  "kind": "term",
+  "explanation": "A9 C5 (revised 2026-10-14) explicitly replaces \"earliest\" with \"lowest block height\" because header times are non-monotone; ENCODING-V1 still uses the superseded wording, creating inconsistent selection rules for T.",
+  "id": "c042"
+ },
+ {
+  "reader": "grok-4.3",
+  "loc_a": "phase-0-prereg-amendment-9.md:770",
+  "quote_a": "\"Earliest\" means chain order, not least nTime: header times are not monotone, and the two selection rules can give different verdicts on the same proof.",
+  "loc_b": "ENCODING-V1.md:649",
+  "quote_b": "T is the time of the earliest verified attestation in the presented OTS proof.",
+  "kind": "verdict",
+  "explanation": "V1-PROFILE records that the two phrasings produce different verdicts; ENCODING-V1 retains the phrasing that A9 and V1-PROFILE say yields different results.",
+  "id": "c043"
+ },
+ {
+  "reader": "glm-4.7",
+  "loc_a": "HYBRID-SUPPLEMENT.md:1",
+  "quote_a": "REGISTERED 2026-10-16 by the owner instance under A9.6",
+  "loc_b": "HYBRID-SUPPLEMENT.md:8",
+  "quote_b": "STATUS: DRAFT, 2026-10-14. Owner instance (Claude Opus 5.5). Not registered.",
+  "kind": "other",
+  "explanation": "The header says the supplement is REGISTERED 2026-10-16, but the body status block says DRAFT and Not registered \u2014 a direct internal contradiction about the document's registration state.",
+  "id": "c044"
+ },
+ {
+  "reader": "glm-4.7",
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "T is the time of the earliest verified attestation in the presented OTS proof",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "the verified attestation at the lowest block height in the presented OTS proof",
+  "kind": "verdict",
+  "explanation": "When Bitcoin header times are not monotone, 'earliest' (by nTime) and 'lowest block height' select different attestations, yielding different T values that can flip an ISSUANCE_WINDOW verdict from VALID_STRICT to INVALID or vice versa.",
+  "id": "c045"
+ },
+ {
+  "reader": "glm-4.7",
+  "loc_a": "ENCODING-V1.md:758",
+  "quote_a": "The single in-profile UNVERIFIABLE that concerns these bytes is a well-formed unknown alg",
+  "loc_b": "",
+  "quote_b": "The profile adds further in-profile UNVERIFIABLE outcomes (missing members, unknown spec hash, binding forms, and the evidence outcomes below); they are not turned INVALID by this sentence",
+  "kind": "term",
+  "explanation": "ENCODING-V1 \u00a78 says there is a single in-profile UNVERIFIABLE (unknown alg), while V1-PROFILE adds more; the V1-PROFILE correction re-scopes the ENCODING-V1 sentence to 'codec-level', but the ENCODING-V1 text still uses the unqualified 'single'.",
+  "id": "c046"
+ },
+ {
+  "reader": "glm-4.7",
+  "loc_a": "V1-PROFILE.md:1105",
+  "quote_a": "SPEC V6 (1261) still reads 'numbers not exactly IEEE 754 doubles'. A9.7 rows 22 and 23 (A9:405-406) do not list SPEC:1261, though row 15 lists spec restatements",
+  "loc_b": "phase-0-prereg-amendment-9.md:487",
+  "quote_b": "A9.8's value-preserving rule [replacing] 'numbers must be exactly representable as IEEE 754 doubles'",
+  "kind": "silent_change",
+  "explanation": "SPEC V6 at line 1261 still contains the old number rule that contradicts A9.8, but A9.7 does not list SPEC:1261 as a changed registered sentence, so the change is not tracked in the amendment's change table.",
+  "id": "c047"
+ },
+ {
+  "reader": "glm-4.7",
+  "loc_a": "ENCODING-V1.md:645",
+  "quote_a": "It is therefore fixed in DNSSEC-authenticated and anchored authority evidence before any receipt that relies on it",
+  "loc_b": "V1-PROFILE.md:722",
+  "quote_b": "ENC \u00a77.1's 'fixed in DNSSEC-authenticated and anchored authority evidence before any receipt that relies on it' overstates both channels; the replacement wording for ENC is pending",
+  "kind": "other",
+  "explanation": "ENCODING-V1 \u00a77.1 claims the window is 'fixed before any receipt' in both channels, but V1-PROFILE says this overstates the guarantee and the corrected wording is still pending.",
+  "id": "c048"
+ }
+]

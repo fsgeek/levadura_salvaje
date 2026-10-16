@@ -1,0 +1,394 @@
+[
+ {
+  "id": "c000",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:644",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "why": "ENC §7.1 \"fixed in DNSSEC-authenticated and anchored authority evidence before any receipt\" vs A9 C4 \"DNSSEC evidence establishes no publication before issue\"; profile calls the ENC sentence an overstatement, replacement still pending."
+ },
+ {
+  "id": "c001",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:257",
+  "loc_b": "HYBRID-SUPPLEMENT.md:81",
+  "why": "ENC §3.2 comment \"V1 issues OPENPGP4-ECDSA-P256-SHA256\" is stale; with hybrid registered the V1 catalog alg is the pair id and the classical id is UNVERIFIABLE/ALG_UNKNOWN (HS:80-81, PROFILE:902-907)."
+ },
+ {
+  "id": "c002",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "V1-PROFILE.md:146",
+  "loc_b": "V1-PROFILE.md:900",
+  "why": "PROFILE §1 \"not yet taken\" and §14 \"still open\" contradict PROFILE §8 \"Branch taken: HYBRID (registered 2026-10-16)\"."
+ },
+ {
+  "id": "c003",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:649",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "why": "ENC:649 \"earliest verified attestation\" vs A9 C5 \"lowest block height\"; profile says the two rules can give different verdicts and ENC edit is still pending (PROFILE:1203)."
+ },
+ {
+  "id": "c004",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:696",
+  "loc_b": "V1-PROFILE.md:1407",
+  "why": "ENC:696 \"That commit adds the assertion blob\" vs PROFILE \"Not checked: that the commit introduced the blob\"; profile lists ENC edit as pending."
+ },
+ {
+  "id": "c005",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:758",
+  "loc_b": "V1-PROFILE.md:736",
+  "why": "ENC:758 \"The single in-profile UNVERIFIABLE that concerns these bytes\" vs profile returning UNVERIFIABLE for binding_forms/SPEC_UNKNOWN; profile calls ENC wording stale, ENC unedited."
+ },
+ {
+  "id": "c006",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:568",
+  "loc_b": "V1-PROFILE.md:259",
+  "why": "PROFILE:259 explicitly says the DNS_RRSET zero case \"stays a codec vector, unreachable from a V1 container\"; acknowledged and resolved."
+ },
+ {
+  "id": "c007",
+  "verdict": "unclear",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:156",
+  "loc_b": "V1-PROFILE.md:822",
+  "why": "A9.1 \"outside the pins\" is read by profile G23 as \"height the pins do not cover\" so a wrong-hash header at a pinned height is INVALID; ambiguous whether A9 permits that reading."
+ },
+ {
+  "id": "c008",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:304",
+  "loc_b": "V1-PROFILE.md:191",
+  "why": "A9.5 defines the member as the string \"sha1\" and covers missing/unsupported values; non-string/null is a gap that the profile fills as schema failure, not a contradiction."
+ },
+ {
+  "id": "c009",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:432",
+  "loc_b": "HYBRID-SUPPLEMENT.md:91",
+  "why": "ENC rule R (lines 483-489) and the §5.2 table give the specific LENGTH_CAP/SIG_FORMAT codes for the pair; specific rule overrides the general TRAILING/TRUNCATED text within ENC itself."
+ },
+ {
+  "id": "c010",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:196",
+  "loc_b": "phase-0-prereg-amendment-9.md:306",
+  "why": "ENC:196 \"Every V1 byte string that ... OTS stamps begins with the same header\" vs A9:306 git stamp message is exactly 40 hex digits plus LF, no header."
+ },
+ {
+  "id": "c011",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "V1-PROFILE.md:1105",
+  "loc_b": "phase-0-prereg-amendment-9.md:486",
+  "why": "A9.7 rows 22-23 list prereg/A1/A7 sources but not SPEC V6 (1261), though row 15 lists spec restatements; profile:1105 itself notes the omission."
+ },
+ {
+  "id": "c012",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "V1-PROFILE.md:1109",
+  "loc_b": "phase-0-prereg-amendment-9.md:471",
+  "why": "A9.7 rows 7-9 do not cite SPEC R-5.21, which still requires the revocation conjunct; profile:1109 notes it only as a reader warning."
+ },
+ {
+  "id": "c013",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "V1-PROFILE.md:1096",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "why": "A9 C4 \"The verifier fixes the required set\" vs SPEC R-3.37/V21 envelope carries it; no A9.7 row lists the change (profile:1096)."
+ },
+ {
+  "id": "c014",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "HYBRID-SUPPLEMENT.md:482",
+  "loc_b": "HYBRID-SUPPLEMENT.md:529",
+  "why": "HS:481-483 says deployed-slot path \"Met 2026-10-14\" while HS:519-520 and 529 say it is \"still owed\"/\"Still open\"."
+ },
+ {
+  "id": "c015",
+  "verdict": "unclear",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:397",
+  "loc_b": "HYBRID-SUPPLEMENT.md:452",
+  "why": "A9.6 requires the supplement to name exact hashes and carry completed evidence; HS registered 16 Oct defers hashes to the 30 Oct record and leaves HS-02/HS-04 open, but A9 timing (\"before the freeze\") may allow this."
+ },
+ {
+  "id": "c016",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:338",
+  "loc_b": "V1-PROFILE.md:529",
+  "why": "A9 says append-only \"preserve[s] previously usable trust witnesses\" and \"can improve\", not that verdicts are preserved; profile:529-531 agrees."
+ },
+ {
+  "id": "c017",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:155",
+  "loc_b": "V1-PROFILE.md:391",
+  "why": "A9.5 trust-configuration authority (A9:326-332) itself says authenticity is by a hash compiled into an authenticated release; \"signed\" in A9.1 is reconciled by profile G08."
+ },
+ {
+  "id": "c018",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "V1-PROFILE.md:1059",
+  "loc_b": "phase-0-prereg-amendment-9.md:178",
+  "why": "PROFILE:1055-1060 states A9 names the outcome not the fixture and chooses the fixture explicitly; acknowledged and resolved."
+ },
+ {
+  "id": "c019",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "HYBRID-SUPPLEMENT.md:1",
+  "loc_b": "phase-0-prereg-amendment-9.md:3",
+  "why": "A9 header says its signing act is the first commit containing the file, so the PROPOSED text necessarily remains in the signed bytes; HS cites that commit."
+ },
+ {
+  "id": "c020",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:383",
+  "loc_b": "HYBRID-SUPPLEMENT.md:495",
+  "why": "HS:495 states the limit for manifests openly; A9 declared-time check concerns the gpg-slot attestation frame (A9:401)."
+ },
+ {
+  "id": "c021",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:522",
+  "loc_b": "V1-PROFILE.md:907",
+  "why": "ENC:522 \"algorithm id is not registered\" vs hybrid installation where the registered classical id is also UNVERIFIABLE/ALG_UNKNOWN (PROFILE:906-907); \"registered\" has two senses."
+ },
+ {
+  "id": "c022",
+  "verdict": "unclear",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:548",
+  "loc_b": "V1-PROFILE.md:263",
+  "why": "PROFILE:263 says it \"governs over ENC §6's 1 ≤ len wording\" for empty snapshot (LENGTH_CAP vs SCHEMA); explicit but a draft overriding the encoding spec, authority unclear."
+ },
+ {
+  "id": "c023",
+  "verdict": "real",
+  "same_as": "",
+  "loc_a": "V1-PROFILE.md:1297",
+  "loc_b": "V1-PROFILE.md:1307",
+  "why": "PROFILE:1297 \"344 Bitcoin paths ... 127 proofs\" vs PROFILE:369/1307 \"352 ... 129 proofs\" for the same repository evidence."
+ },
+ {
+  "id": "c024",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "HYBRID-SUPPLEMENT.md:137",
+  "loc_b": "HYBRID-SUPPLEMENT.md:366",
+  "why": "XK-01 to XK-12 are the KEY_FORMAT subset (HS:137); XK-13 is the KEY_MISMATCH vector, total 13."
+ },
+ {
+  "id": "c025",
+  "verdict": "unclear",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:516",
+  "loc_b": "phase-0-prereg-amendment-9.md:497",
+  "why": "A9.7 tally says \"one disposition left open\" while the public-publication item has an OWNER DECISION; unclear which item the tally means."
+ },
+ {
+  "id": "c026",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:140",
+  "loc_b": "ENCODING-V1.md:308-310",
+  "why": "Same row C1 says \"Payload identity is not frame equality\"; frames differing in signer/length is expected."
+ },
+ {
+  "id": "c027",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:144",
+  "loc_b": "V1-PROFILE.md:710-713",
+  "why": "C4 and profile:710 state the same chain-order rule (h_git + 5 < h_receipt)."
+ },
+ {
+  "id": "c028",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase0-prereg-amendment-9.md:145",
+  "loc_b": "V1-PROFILE.md:770-775",
+  "why": "Profile restates A9 C5 and records its own earlier wording as corrected; consistent."
+ },
+ {
+  "id": "c029",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:150",
+  "loc_b": "V1-PROFILE.md:532-534",
+  "why": "Both give UNVERIFIABLE/HEADERS_NOT_COVERED for unpinned headers; profile adds detail only."
+ },
+ {
+  "id": "c030",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:291-292",
+  "loc_b": "ENCODING-V1.md:375-378",
+  "why": "Same A_sig construction in A9 and ENC §5."
+ },
+ {
+  "id": "c031",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:297-298",
+  "loc_b": "V1-PROFILE.md:648-655",
+  "why": "Same git stamp target in A9 and profile."
+ },
+ {
+  "id": "c032",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:309-310",
+  "loc_b": "V1-PROFILE.md:415-424",
+  "why": "Same root-KSK reliance rule."
+ },
+ {
+  "id": "c033",
+  "verdict": "not_real",
+  "same_as": "c016",
+  "loc_a": "phase-0-prereg-amendment-9.md:333-334",
+  "loc_b": "V1-PROFILE.md:529-531",
+  "why": "Same as c016: profile clarifies, no contradiction."
+ },
+ {
+  "id": "c034",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:419-420",
+  "loc_b": "V1-PROFILE.md:638-640",
+  "why": "Same ISSUANCE_WINDOW rule, inclusive bounds."
+ },
+ {
+  "id": "c035",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "phase-0-prereg-amendment-9.md:519-524",
+  "loc_b": "V1-PROFILE.md:1010-1013",
+  "why": "Same value-preserving number rule in A9.8 and profile."
+ },
+ {
+  "id": "c036",
+  "verdict": "real",
+  "same_as": "c003",
+  "loc_a": "ENCODING-V1.md:649",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "why": "Duplicate of c003: ENC \"earliest\" vs A9 \"lowest block height\"."
+ },
+ {
+  "id": "c037",
+  "verdict": "real",
+  "same_as": "c000",
+  "loc_a": "ENCODING-V1.md:644",
+  "loc_b": "phase-0-prereg-amendment-9.md:143",
+  "why": "Duplicate of c000."
+ },
+ {
+  "id": "c038",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "ENCODING-V1.md:755",
+  "loc_b": "V1-PROFILE.md:101",
+  "why": "ENC:755 \"every rejection here\" scopes to ENC codec rejections; SPEC_UNKNOWN is a profile-level outcome, not \"here\"."
+ },
+ {
+  "id": "c039",
+  "verdict": "real",
+  "same_as": "c011",
+  "loc_a": "phase-0-prereg-amendment-9.md:486",
+  "loc_b": "V1-PROFILE.md:1105",
+  "why": "Duplicate of c011."
+ },
+ {
+  "id": "c040",
+  "verdict": "not_real",
+  "same_as": "c008",
+  "loc_a": "phase-0-prereg-amendment-9.md:304",
+  "loc_b": "V1-PROFILE.md:191",
+  "why": "Same as c008."
+ },
+ {
+  "id": "c041",
+  "verdict": "real",
+  "same_as": "c003",
+  "loc_a": "ENCODING-V1.md:649",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "why": "Duplicate of c003."
+ },
+ {
+  "id": "c042",
+  "verdict": "real",
+  "same_as": "c003",
+  "loc_a": "phase-0-prereg-amendment-9.md:144",
+  "loc_b": "ENCODING-V1.md:649",
+  "why": "Duplicate of c003."
+ },
+ {
+  "id": "c043",
+  "verdict": "real",
+  "same_as": "c003",
+  "loc_a": "phase-0-prereg-amendment-9.md:770",
+  "loc_b": "ENCODING-V1.md:649",
+  "why": "Duplicate of c003."
+ },
+ {
+  "id": "c044",
+  "verdict": "not_real",
+  "same_as": "",
+  "loc_a": "HYBRID-SUPPLEMENT.md:1",
+  "loc_b": "HYBRID-SUPPLEMENT.md:8",
+  "why": "HS:1-4 says body is byte-identical to the draft \"with this header added\"; the DRAFT status block is the retained draft text, acknowledged."
+ },
+ {
+  "id": "c045",
+  "verdict": "real",
+  "same_as": "c003",
+  "loc_a": "ENCODING-V1.md:649",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "why": "Duplicate of c003."
+ },
+ {
+  "id": "c046",
+  "verdict": "real",
+  "same_as": "c005",
+  "loc_a": "ENCODING-V1.md:758",
+  "loc_b": "",
+  "why": "Duplicate of c005."
+ },
+ {
+  "id": "c047",
+  "verdict": "real",
+  "same_as": "c011",
+  "loc_a": "V1-PROFILE.md:1105",
+  "loc_b": "phase-0-prereg-amendment-9.md:487",
+  "why": "Duplicate of c011."
+ },
+ {
+  "id": "c048",
+  "verdict": "real",
+  "same_as": "c000",
+  "loc_a": "ENCODING-V1.md:645",
+  "loc_b": "V1-PROFILE.md:722",
+  "why": "Duplicate of c000."
+ }
+]

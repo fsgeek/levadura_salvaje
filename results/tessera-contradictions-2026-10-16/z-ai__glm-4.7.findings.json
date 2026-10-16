@@ -1,0 +1,47 @@
+[
+ {
+  "loc_a": "HYBRID-SUPPLEMENT.md:1",
+  "quote_a": "REGISTERED 2026-10-16 by the owner instance under A9.6",
+  "loc_b": "HYBRID-SUPPLEMENT.md:8",
+  "quote_b": "STATUS: DRAFT, 2026-10-14. Owner instance (Claude Opus 5.5). Not registered.",
+  "kind": "other",
+  "explanation": "The header says the supplement is REGISTERED 2026-10-16, but the body status block says DRAFT and Not registered \u2014 a direct internal contradiction about the document's registration state.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:649",
+  "quote_a": "T is the time of the earliest verified attestation in the presented OTS proof",
+  "loc_b": "phase-0-prereg-amendment-9.md:144",
+  "quote_b": "the verified attestation at the lowest block height in the presented OTS proof",
+  "kind": "verdict",
+  "explanation": "When Bitcoin header times are not monotone, 'earliest' (by nTime) and 'lowest block height' select different attestations, yielding different T values that can flip an ISSUANCE_WINDOW verdict from VALID_STRICT to INVALID or vice versa.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:758",
+  "quote_a": "The single in-profile UNVERIFIABLE that concerns these bytes is a well-formed unknown alg",
+  "loc_b!": "V1-PROFILE.md:228",
+  "quote_b": "The profile adds further in-profile UNVERIFIABLE outcomes (missing members, unknown spec hash, binding forms, and the evidence outcomes below); they are not turned INVALID by this sentence",
+  "kind": "term",
+  "explanation": "ENCODING-V1 \u00a78 says there is a single in-profile UNVERIFIABLE (unknown alg), while V1-PROFILE adds more; the V1-PROFILE correction re-scopes the ENCODING-V1 sentence to 'codec-level', but the ENCODING-V1 text still uses the unqualified 'single'.",
+  "confidence": "!medium"
+ },
+ {
+  "loc_a": "V1-PROFILE.md:1105",
+  "quote_a": "SPEC V6 (1261) still reads 'numbers not exactly IEEE 754 doubles'. A9.7 rows 22 and 23 (A9:405-406) do not list SPEC:1261, though row 15 lists spec restatements",
+  "loc_b": "phase-0-prereg-amendment-9.md:487",
+  "quote_b": "A9.8's value-preserving rule [replacing] 'numbers must be exactly representable as IEEE 754 doubles'",
+  "kind": "silent_change",
+  "explanation": "SPEC V6 at line 1261 still contains the old number rule that contradicts A9.8, but A9.7 does not list SPEC:1261 as a changed registered sentence, so the change is not tracked in the amendment's change table.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "ENCODING-V1.md:645",
+  "quote_a": "It is therefore fixed in DNSSEC-authenticated and anchored authority evidence before any receipt that relies on it",
+  "loc_b": "V1-PROFILE.md:722",
+  "quote_b": "ENC \u00a77.1's 'fixed in DNSSEC-authenticated and anchored authority evidence before any receipt that relies on it' overstates both channels; the replacement wording for ENC is pending",
+  "kind": "other",
+  "explanation": "ENCODING-V1 \u00a77.1 claims the window is 'fixed before any receipt' in both channels, but V1-PROFILE says this overstates the guarantee and the corrected wording is still pending.",
+  "confidence": "medium"
+ }
+]
