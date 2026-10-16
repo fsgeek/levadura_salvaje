@@ -6,9 +6,14 @@ to its Code section is taken from the corpus itself: for each (act as written, a
 consensus U.S.C. section across every pair. A pair that disagrees with a strong consensus is a
 candidate wrong address. A blind audit decides whether it is one.
 
-v1 limits: only singular "section N of the <Name> Act|Code"; the act is keyed as written
+v2 (after audit A2): a U.S.C. citation marked "et seq." or "note" names a whole act, so it doesn't
+pair with one section; nor does a U.S.C. citation that is one item of a list, since the program
+can't tell which item the act section means; and "the Act" is read (resolved per part, by
+act_names).
+
+Limits: only singular "section N of the <Name> Act|Code"; the act is keyed as written
 (locally defined short names such as "the Bank Act" are not merged with their long forms);
-"the Act" is not read; the map is at section level, not subdivision.
+the map is at section level, not subdivision.
 """
 
 import re
@@ -16,12 +21,12 @@ from collections import Counter
 
 from levadura_salvaje import usc_cites
 
-VERSION = "1"
+VERSION = "2"
 
 _WORD = r"(?:[A-Z][\w.'&-]*|of|and|for|the|on|to|in)"
 ACT_CITE = re.compile(
     r"\b[Ss]ection\s+(\d+[A-Za-z]{0,3}(?:-\d+)?)((?:\([A-Za-z0-9]{1,6}\))*)\s+of\s+the\s+"
-    rf"([A-Z][\w.'&-]*(?:\s+{_WORD})*?\s+(?:Act|Code)(?:\s+of\s+\d{{4}})?)(?![\w-])")
+    rf"((?:[A-Z][\w.'&-]*(?:,?\s+{_WORD})*?\s+)?(?:Act|Code)(?:\s+of\s+\d{{4}})?)(?![\w-])")
 BRIDGE = re.compile(r"\s*,?\s*\(?\s*")
 
 
@@ -35,6 +40,8 @@ def pairs(text: str, normalized: bool = False) -> list[dict]:
         if not cites or cites[0]["span"][0] != 0:
             continue
         c = cites[0]
+        if c["et_seq"] or c["note"] or (len(cites) > 1 and cites[1]["group"] == c["group"]):
+            continue
         out.append({"act": m.group(3), "act_section": m.group(1),
                     "act_desig": re.findall(r"\(([^)]+)\)", m.group(2)),
                     "title": c["title"], "usc_section": c["section"], "usc_path": c["path"],
