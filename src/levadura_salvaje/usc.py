@@ -23,6 +23,11 @@ TAGS = {NS + level: level for level in LEVELS}
 PREFIX = "/us/usc/t26/"
 
 
+def title_of(zip_path: Path) -> str:
+    """xml_usc12@119-120.zip -> "12"."""
+    return str(int(re.search(r"usc(\d+)@", zip_path.name).group(1)))
+
+
 def _flat(el) -> str:
     """Element text without its notes (editorial matter, not law)."""
     parts = []
@@ -47,19 +52,20 @@ def release_point(zip_path: Path) -> str:
     return re.search(r"@(\d+-\d+)", zip_path.name).group(1)
 
 
-def provisions(zip_path: Path) -> Iterator[dict]:
+def provisions(zip_path: Path, title: str = "26") -> Iterator[dict]:
     """Yield every identified provision, innermost first (iterparse end order)."""
-    with zipfile.ZipFile(zip_path) as z, z.open("usc26.xml") as f:
+    prefix = f"/us/usc/t{title}/"
+    with zipfile.ZipFile(zip_path) as z, z.open(f"usc{int(title):02d}.xml") as f:
         for _, el in ET.iterparse(f, events=("end",)):
             level = TAGS.get(el.tag)
             ident = el.get("identifier", "")
-            if level is None or not ident.startswith(PREFIX):
+            if level is None or not ident.startswith(prefix):
                 continue
             num, heading = el.find(NS + "num"), el.find(NS + "heading")
             text = _flat(el)
             yield {
                 "identifier": ident,
-                "path": ident[len(PREFIX):],
+                "path": ident[len(prefix):],
                 "level": level,
                 "status": el.get("status"),
                 "num": num.get("value") if num is not None else None,

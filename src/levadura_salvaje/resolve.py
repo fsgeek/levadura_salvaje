@@ -35,8 +35,8 @@ class Statute:
     ranges: list[tuple[tuple[int, str, int], tuple[int, str, int], str | None]] = field(default_factory=list)
 
     @classmethod
-    def load(cls, release_point: str, results: Path | None = None) -> "Statute":
-        path = results or Path(f"results/usc26-provisions-{release_point}.jsonl")
+    def load(cls, release_point: str, results: Path | None = None, title: str = "26") -> "Statute":
+        path = results or Path(f"results/usc{title}-provisions-{release_point}.jsonl")
         st = cls(release_point)
         for line in path.read_text().splitlines():
             p = json.loads(line)
