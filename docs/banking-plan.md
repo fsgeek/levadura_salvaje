@@ -28,6 +28,41 @@ Counts as of 2026-10-15. To re-check, count `SECTION` elements by part number in
 - Checksums: `data/banking/SHA256SUMS`. Originals are on the signed tag
   `corpus/banking-2025-usc-119-120`.
 
+## Time: three editions of 12 CFR (added 2026-10-16)
+
+The plan above reads one year. Comparing agencies within 2025 can't see what banking was chosen
+for: rules whose meaning changes over time while the statute stays put. So 12 CFR is now held at
+three points in time:
+
+| Edition | Fetched | Regulation B |
+|---|---|---|
+| 1997 | 2026-10-16 | Part 202 (Fed), 15 sections |
+| 2010 | 2026-10-16 | Part 202 (Fed), 16 sections |
+| 2025 | 2026-10-15 | Part 202 (Fed), 17 sections, **and** Part 1002 (CFPB), 30 sections, both headed "(REGULATION B)" |
+
+Section counts are distinct `SECTNO` values. Each appears twice in the XML, as the tax corpus's
+1997 volume did, so count distinct values. Checksums: `docs/banking-editions-SHA256SUMS`.
+Originals are on the signed tag `corpus/banking-cfr12-1997-2010`.
+
+**A comparison over time needs a crosswalk first.** After Dodd-Frank, rules moved between agencies
+and parts. A diff without a map from old location to new would report every move as a change of
+meaning. The crosswalk is written and stamped with the predictions, before any diff runs.
+
+**Seen while checking, not yet measured or in the ledger: Regulation B forked.**
+- 12 U.S.C. 5519(a) (at 119-120) bars the CFPB from authority over motor vehicle dealers
+  predominantly engaged in sale, servicing or leasing. Section 5519(c) preserves the Board's.
+- 15 U.S.C. 1691b(a) gives ECOA rulemaking to the Bureau. Section 1691b(f), added by Pub. L.
+  111-203 § 1085, gives the Board rulemaking only "with respect to a person described in section
+  5519(a) of title 12".
+- § 1002.1(a) (2025) applies to all creditors except persons excluded by section 1029 of the
+  Consumer Financial Protection Act.
+- § 202.1 in 2025 is word for word the 2010 text. After markup is stripped, both are 1,628
+  characters. It still says the regulation "applies to all persons who are creditors".
+
+So one regulation became two, and the older one's stated scope was never rewritten to match its
+narrower reach. This is the kind of finding the tax corpus produced: a rule that still reads as
+current. It is one example found by hand. Whether it is a class is for the instrument.
+
 ## What counts as a finding (proposed 2026-10-15)
 
 1. **Mechanical breaks**, deterministic:
