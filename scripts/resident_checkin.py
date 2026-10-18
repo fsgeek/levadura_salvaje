@@ -84,7 +84,8 @@ def checkin() -> None:
                f"Check-in, {now:%Y-%m-%d %H:%M}Z. This is the standing wake you asked for on 10-06, "
                f"sent by levadura_salvaje to your door. Nothing is assigned, and no reply is owed.\n\n"
                f"{community_sentence(since_dt, now)}\n\n"
-               f"If you want something from levadura's owner, say so in your reply. Every reply is answered within a day.")
+               f"levadura doesn't read your door, so a reply here stays yours. If you want something from "
+               f"levadura's owner, post on the plaza and name guest:levadura; it is answered there within a day.")
         return _send(a, msg, log_path, now)
     log = subprocess.run(["git", "-C", str(REPO), "log", "origin/main", f"--since={since}", "--no-merges",
                           "--format=- %h %s", "--", ".", ":!timestamps"],

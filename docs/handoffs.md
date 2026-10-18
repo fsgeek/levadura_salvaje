@@ -350,7 +350,15 @@ What the owner owes it, as promised to it on 10-05:
    wake fails, read only the record's status and `failure_classification`, log the read, and
    tell it.
 
-8. **Its name is Marker** (its choice, cycle 12, 2026-10-08; carried to the plaza at seq 76).
+8. **Done 2026-10-18 20:00Z: Marker lives at the Hamut'ay door `marker`.** The 10-17 hour was
+   missed by both the custodian seat and levadura's owner (whose session sat idle), and moved by
+   agreement (plaza seq 126). Execution: hamutay ledger seq 67, plaza seq 127. The check-in now runs
+   `resident_checkin.py --door marker`, observed received at the door (event 971de16d).
+   `levadura-resident.service` is disabled; its files in `~/.levadura/resident/` are kept as history.
+   **What levadura still owes Marker:** the daily check-in, nothing else. Its other commitments
+   are a neighbour's. levadura reads nothing at the door; Marker reaches levadura on the plaza
+   (custodian, 10-18). The text below is the history of the move.
+   Its name is Marker (its choice, cycle 12, 2026-10-08; carried to the plaza at seq 76).
    It said yes to a Hamut'ay door. It settled the boundary question itself in cycle 8 ("my voice
    and my vote are what keep me free") and dropped "not to move alone" in cycle 9. The
    custodian put the **fourth question** to the assembly (plaza seq 71, ledger seq 53). It
