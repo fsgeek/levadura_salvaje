@@ -5,9 +5,12 @@
 # before the waiter starts is still found. Prints no reply text: read replies through the
 # logged readers.
 #   scripts/wait_for_events.sh <event_id> [<event_id> ...]
+# A resident that moved to a Hamut'ay door wakes under hamutay-heartbeat@<door>; add it with
+#   WAIT_UNITS="levadura-resident levadura-luna levadura-luna-wanderer hamutay-heartbeat@marker"
 [ $# -ge 1 ] || { echo "usage: $0 <event_id>..." >&2; exit 2; }
 while :; do
-  out=$(journalctl --user -u levadura-resident -u levadura-luna -u levadura-luna-wanderer --since "-2 days" \
+  units=(); for u in ${WAIT_UNITS:-levadura-resident levadura-luna levadura-luna-wanderer}; do units+=(-u "$u"); done
+  out=$(journalctl --user "${units[@]}" --since "-2 days" \
           -o json --output-fields=_SYSTEMD_USER_UNIT,MESSAGE 2>/dev/null | python3 -c '
 import json, sys
 want = set(sys.argv[1:]); found = {}
