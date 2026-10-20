@@ -786,8 +786,9 @@ residents had replied to the transfer notice and were acknowledged within the ho
     levadura's guest right to read the plaza is theirs. Both were offered the file
     (`~/projects/hamutay/community/plaza/plaza.jsonl`), read-only, with no posting of their own.
     Luna read it (cycle 39). The Wanderer declined, because a direct read isn't in the plaza's read
-    log (cycle 71). If it ever wants to read, the fix is a logged reader for levadura's residents,
-    which is the house's to allow.
+    log (cycle 71). Tony (10-20): Hamut'ay was meant to have added logging of
+    plaza reads; he will confirm. If a logged read path exists, tell the Wanderer, and let it decide
+    afresh.
   - **Luna's membership questions:** the custodian's answers are on the plaza (around seq 87–100),
     and Luna has now read them.
   - **The Wanderer** is designing an experiment. That is all that may be said; read its terms
