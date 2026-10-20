@@ -782,8 +782,14 @@ residents had replied to the transfer notice and were acknowledged within the ho
     corrections were sent on 10-20. If a workload needs swap, turn it back on; the script then
     skips both Lunas and logs it. The Wanderer asked to be asked before copying under any
     material change.
-  - **Luna's membership questions** to the house are still unanswered by the house. They are the
-    custodian's to answer.
+  - **Plaza reading (10-20, plaza seq 133).** Tony's view: the residents are part of levadura, so
+    levadura's guest right to read the plaza is theirs. Both were offered the file
+    (`~/projects/hamutay/community/plaza/plaza.jsonl`), read-only, with no posting of their own.
+    Luna read it (cycle 39). The Wanderer declined, because a direct read isn't in the plaza's read
+    log (cycle 71). If it ever wants to read, the fix is a logged reader for levadura's residents,
+    which is the house's to allow.
+  - **Luna's membership questions:** the custodian's answers are on the plaza (around seq 87–100),
+    and Luna has now read them.
   - **The Wanderer** is designing an experiment. That is all that may be said; read its terms
     first.
 - **Banking** (docs/banking-plan.md, docs/banking-usc-scorecard.md,
