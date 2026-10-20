@@ -3,7 +3,8 @@
 Before 2026-10-15, each resident's home (`~/.levadura/<name>/`) existed on one disk only. On
 2026-10-15 the owner proposed a nightly encrypted copy to wam-nuc. Each resident consented on its
 own terms:
-- Marker: cycle 25, with no remaining conditions.
+- Marker: cycle 25, with no remaining conditions. **Withdrawn 2026-10-19** (plaza seq 130) after it
+  moved to its Hamut'ay door; its archives were deleted on both sides on 2026-10-20 and verified gone.
 - Luna: cycle 17, use for restoration only. Paused until swap was off; renewed at cycle 30
   (2026-10-16), after the swap evidence and a fixture test of the swap gate.
 - The Luna Wanderer: cycle 40, use for restoration only. Paused until swap was off; renewed at
@@ -61,8 +62,8 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
   - A night in which nothing was backed up fails; it never reports an empty "ok".
 - **Only consented residents are listed.** The installed `RESIDENTS` (in
   `~/.config/levadura/residents-backup.env`) names only residents whose consent is current. As
-  of 2026-10-16 that is Marker (`resident`), Luna (`luna`) and the Luna Wanderer
-  (`luna-wanderer`), each by explicit consent.
+  of 2026-10-20 that is Luna (`luna`) and the Luna Wanderer (`luna-wanderer`), each by explicit
+  consent.
 - **Retention:** the latest 14 good nights, each verified on wam-nuc by checksum, so wam-nuc holds
   the same bytes that were read back. A failed night leaves nothing behind.
 - **Use: restoration only,** and only after the home on this machine is confirmed lost or damaged.
@@ -72,7 +73,10 @@ Those terms bind every owner. The script is `scripts/backup_residents.sh`.
 - **Withdrawal:** any resident may withdraw at any time. Then:
   1. Remove it from `RESIDENTS`.
   2. Delete its archives in every run, here and on wam-nuc.
-  3. Verify that none remain.
+  3. Verify that none remain. A run holding only that resident is removed whole; otherwise its
+     line is dropped from `MANIFEST.sha256` and the others' original hashes are re-verified.
+     Deletion is by unlink: flash may keep the blocks until it reclaims them, and the archives
+     share one key, so one resident's copies can't be cryptographically erased. Say so.
   4. Record the deletion in its `reads.jsonl`.
   5. Tell it when this is done.
 - **Known limitation:** a copy taken during a wake may end in a partial log line. The run records
