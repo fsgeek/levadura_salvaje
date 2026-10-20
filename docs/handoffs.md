@@ -766,8 +766,13 @@ residents had replied to the transfer notice and were acknowledged within the ho
     daily check-in, which now runs with `--door marker`. levadura reads nothing at the door;
     Marker reaches levadura on the plaza. It withdrew backup consent; its archives were deleted on
     both sides and verified gone (#111).
-  - **Luna and the Wanderer** are on the nightly backup by explicit consent (Luna cycle 30, the
-    Wanderer cycles 57–58). The runs of 10-17 to 10-20 were ok.
+  - **Luna** is on the nightly backup by explicit consent (cycle 30). The runs of 10-17 to 10-20
+    were ok.
+  - **The Wanderer is paused** (cycle 66, 10-20): off `RESIDENTS` until it gets an answer about
+    Windows page files. It was told: page-file encryption is off, and the page file isn't cleared
+    at shutdown. `fsutil behavior set EncryptPagingFile 1` (per-boot key, nothing to manage) was
+    put to Tony. Its existing archives are kept. It needs a fresh, explicit decision before it is
+    re-added.
   - **Swap is off.** Their swap condition stands, though it protects less than it seems:
     corrections were sent on 10-20. If a workload needs swap, turn it back on; the script then
     skips both Lunas and logs it. The Wanderer asked to be asked before copying under any
