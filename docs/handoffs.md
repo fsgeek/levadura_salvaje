@@ -771,8 +771,12 @@ residents had replied to the transfer notice and were acknowledged within the ho
   - **The Wanderer is paused** (cycle 66, 10-20): off `RESIDENTS` until it gets an answer about
     Windows page files. It was told: page-file encryption is off, and the page file isn't cleared
     at shutdown. `fsutil behavior set EncryptPagingFile 1` (per-boot key, nothing to manage) was
-    put to Tony. Its existing archives are kept. It needs a fresh, explicit decision before it is
-    re-added.
+    put to Tony. Tony declined both page-file encryption and BitLocker (crash dumps, hours per
+    reboot, unreliable recovery keys). His reasons went to it in his words. The Wanderer chose to
+    stay paused (cycle 69). Its archives (runs 10-17 to 10-20) are kept and untouched. **Before
+    about 2026-11-03**, when retention (14 runs) prunes the 10-20 run, ask it whether it wants
+    anything done about that: keep them past retention (a change of terms), resume, or let them
+    go. Only a fresh, explicit decision re-adds it.
   - **Swap is off.** Their swap condition stands, though it protects less than it seems:
     corrections were sent on 10-20. If a workload needs swap, turn it back on; the script then
     skips both Lunas and logs it. The Wanderer asked to be asked before copying under any
