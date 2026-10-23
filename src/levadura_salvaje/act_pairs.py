@@ -14,8 +14,8 @@ act_names).
 v3 (after audit A3): a range names the whole act too. "50 U.S.C. 1701 through 1706" never pairs;
 a hyphenated token ("1701-1706", but also "78o-11") pairs only if ``is_section`` says the statute
 has it as one section, so a range in a title not held is left unpaired. And "section 4(s)" is
-re-keyed as section 4s where the corpus itself maps 4s to the cited U.S.C. section
-(``rekey_letters``).
+re-keyed as section 4s where it would otherwise disagree and the corpus itself maps 4s to the
+cited U.S.C. section (``rekey_letters``).
 
 Limits: only singular "section N of the <Name> Act|Code"; the act is keyed as written
 (locally defined short names such as "the Bank Act" are not merged with their long forms);
@@ -78,14 +78,18 @@ def consensus(ps: list[dict], min_n: int = 3, min_share: float = 0.75) -> dict:
 
 
 def rekey_letters(ps: list[dict], cons: dict) -> list[dict]:
-    """Read "section 4(s)" as section 4s where the consensus for (act, "4s") is the very U.S.C.
-    section the pair cites. Everything else is returned unchanged."""
+    """Read "section 4(s)" as section 4s where the pair disagrees with the consensus for (act, "4")
+    and the consensus for (act, "4s") is the very U.S.C. section it cites. Only a disagreement is
+    re-read: "section 10(a)" of HOLA at 1467a(a) is subsection (a) of section 10, and stays so
+    (found in v3's dry run, before any ledger entry). Everything else is returned unchanged."""
     out = []
     for p in ps:
         d = p["act_desig"]
         if d and re.fullmatch(r"[a-z]{1,2}", d[0]):
+            here = (p["title"], p["usc_section"])
+            base = cons.get((p["act"], p["act_section"]))
             c = cons.get((p["act"], p["act_section"] + d[0]))
-            if c and c["target"] == (p["title"], p["usc_section"]):
+            if base and base["target"] != here and c and c["target"] == here:
                 p = dict(p, act_section=p["act_section"] + d[0], act_desig=d[1:], rekeyed=True)
         out.append(p)
     return out

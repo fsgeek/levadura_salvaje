@@ -101,3 +101,12 @@ def test_v3_lettered_section_rekeyed_only_when_the_corpus_says_so():
     assert rekey_letters([other], cons)[0]["act_section"] == "4"
     fdi = {"act": "FDI Act", "act_section": "8", "act_desig": ["b"], "title": "12", "usc_section": "1818"}
     assert rekey_letters([fdi], cons) == [fdi]
+
+
+def test_v3_rekey_only_to_explain_a_disagreement():
+    from levadura_salvaje.act_pairs import rekey_letters
+    p = {"act": "HOLA", "act_section": "10", "act_desig": ["a"], "title": "12", "usc_section": "1467a"}
+    cons = {("HOLA", "10a"): {"target": ("12", "1467a"), "n": 4, "share": 1.0},
+            ("HOLA", "10"): {"target": ("12", "1467a"), "n": 30, "share": 1.0}}
+    assert rekey_letters([p], cons) == [p]  # 10(a) is subsection (a) of section 10
+    assert rekey_letters([p], {k: v for k, v in cons.items() if k[1] == "10a"}) == [p]  # no disagreement to explain
