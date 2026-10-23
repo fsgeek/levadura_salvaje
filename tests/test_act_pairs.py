@@ -64,3 +64,40 @@ def test_v2_commas_in_long_names():
     assert short("section 1101 of the Financial Institutions Reform, Recovery, and Enforcement Act of 1989 "
                  "(12 U.S.C. 3331), a") == [("Financial Institutions Reform, Recovery, and Enforcement Act of 1989",
                                             "1101", [], "12", "3331", "3331")]
+
+
+def is_section(title, section):
+    return (title, section) in {("15", "78o-11"), ("15", "78fff-3")}
+
+
+def short3(text):
+    return [(p["act"], p["act_section"], p["title"], p["usc_section"])
+            for p in pairs(text, is_section=is_section)]
+
+
+def test_v3_hyphenated_ranges_do_not_pair():
+    assert short3("section 206 of the IEEPA (50 U.S.C. 1701-1706), a") == []
+    assert short3("section 5 of the Bank Secrecy Act (12 U.S.C. 1951-1959), a") == []
+
+
+def test_v3_hyphenated_sections_still_pair():
+    assert short3("section 15G of the Exchange Act (15 U.S.C. 78o-11), a") == [
+        ("Exchange Act", "15G", "15", "78o-11")]
+
+
+def test_v3_worded_ranges_do_not_pair():
+    assert short3("section 206 of the IEEPA (50 U.S.C. 1701 through 1706), a") == []
+    assert short3("section 206 of the IEEPA (50 U.S.C. 1701 to 1706), a") == []
+
+
+def test_v3_lettered_section_rekeyed_only_when_the_corpus_says_so():
+    from levadura_salvaje.act_pairs import rekey_letters
+    p = {"act": "CEA", "act_section": "4", "act_desig": ["s"], "title": "7", "usc_section": "6s"}
+    cons = {("CEA", "4s"): {"target": ("7", "6s"), "n": 5, "share": 1.0},
+            ("CEA", "4"): {"target": ("7", "6"), "n": 9, "share": 1.0}}
+    assert rekey_letters([p], cons)[0]["act_section"] == "4s"
+    assert rekey_letters([p], cons)[0]["act_desig"] == []
+    other = dict(p, usc_section="6")  # 4(s) at 7 U.S.C. 6(s)? stays section 4
+    assert rekey_letters([other], cons)[0]["act_section"] == "4"
+    fdi = {"act": "FDI Act", "act_section": "8", "act_desig": ["b"], "title": "12", "usc_section": "1818"}
+    assert rekey_letters([fdi], cons) == [fdi]

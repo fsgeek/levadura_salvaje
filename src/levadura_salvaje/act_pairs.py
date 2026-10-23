@@ -11,6 +11,12 @@ pair with one section; nor does a U.S.C. citation that is one item of a list, si
 can't tell which item the act section means; and "the Act" is read (resolved per part, by
 act_names).
 
+v3 (after audit A3): a range names the whole act too. "50 U.S.C. 1701 through 1706" never pairs;
+a hyphenated token ("1701-1706", but also "78o-11") pairs only if ``is_section`` says the statute
+has it as one section, so a range in a title not held is left unpaired. And "section 4(s)" is
+re-keyed as section 4s where the corpus itself maps 4s to the cited U.S.C. section
+(``rekey_letters``).
+
 Limits: only singular "section N of the <Name> Act|Code"; the act is keyed as written
 (locally defined short names such as "the Bank Act" are not merged with their long forms);
 the map is at section level, not subdivision.
@@ -21,16 +27,19 @@ from collections import Counter
 
 from levadura_salvaje import usc_cites
 
-VERSION = "2"
+VERSION = "3"
 
 _WORD = r"(?:[A-Z][\w.'&-]*|of|and|for|the|on|to|in)"
 ACT_CITE = re.compile(
     r"\b[Ss]ection\s+(\d+[A-Za-z]{0,3}(?:-\d+)?)((?:\([A-Za-z0-9]{1,6}\))*)\s+of\s+the\s+"
     rf"((?:[A-Z][\w.'&-]*(?:,?\s+{_WORD})*?\s+)?(?:Act|Code)(?:\s+of\s+\d{{4}})?)(?![\w-])")
 BRIDGE = re.compile(r"\s*,?\s*\(?\s*")
+WORDED_RANGE = re.compile(r"\s*(?:through|to|thru)\s+\d")
 
 
-def pairs(text: str, normalized: bool = False) -> list[dict]:
+def pairs(text: str, normalized: bool = False, is_section=None) -> list[dict]:
+    """``is_section(title, section) -> bool`` decides hyphenated tokens (v3). Without it they
+    pair as in v2."""
     if not normalized:
         text = usc_cites.normalize(text)
     out = []
@@ -41,6 +50,10 @@ def pairs(text: str, normalized: bool = False) -> list[dict]:
             continue
         c = cites[0]
         if c["et_seq"] or c["note"] or (len(cites) > 1 and cites[1]["group"] == c["group"]):
+            continue
+        if WORDED_RANGE.match(text, b + c["span"][1]):
+            continue
+        if is_section is not None and "hyphen" in c["flags"] and not is_section(c["title"], c["section"]):
             continue
         out.append({"act": m.group(3), "act_section": m.group(1),
                     "act_desig": re.findall(r"\(([^)]+)\)", m.group(2)),
@@ -61,4 +74,18 @@ def consensus(ps: list[dict], min_n: int = 3, min_share: float = 0.75) -> dict:
         target, k = cnt.most_common(1)[0]
         if n >= min_n and k / n >= min_share:
             out[key] = {"target": target, "n": n, "share": round(k / n, 4)}
+    return out
+
+
+def rekey_letters(ps: list[dict], cons: dict) -> list[dict]:
+    """Read "section 4(s)" as section 4s where the consensus for (act, "4s") is the very U.S.C.
+    section the pair cites. Everything else is returned unchanged."""
+    out = []
+    for p in ps:
+        d = p["act_desig"]
+        if d and re.fullmatch(r"[a-z]{1,2}", d[0]):
+            c = cons.get((p["act"], p["act_section"] + d[0]))
+            if c and c["target"] == (p["title"], p["usc_section"]):
+                p = dict(p, act_section=p["act_section"] + d[0], act_desig=d[1:], rekeyed=True)
+        out.append(p)
     return out
