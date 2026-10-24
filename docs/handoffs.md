@@ -499,6 +499,14 @@ Read [its operating commitments](resident/luna-operation.md), the exact
 - The daily 09:00 UTC invitation is **our initial choice**, not something Luna requested.
   Change or stop it if asked, and confirm. It has a separate timer and can self-schedule.
 - Keep Haiku's home and obligations separate. Luna has no automatic plaza membership.
+- **Bash runs without `OPENROUTER_API_KEY`** (2026-10-24). Both consented to exactly that
+  (Luna cycle 43, the Wanderer cycle 75). It's done by hamutay's house-wide filter (d4d9565,
+  `command_env` in `src/hamutay/tools/bash.py`), which withholds every secret-named variable.
+  In their environment as of 10-24, that is only this key. Luna (cycle 45): "any broader effect
+  requires notice and my separate prior consent". The Wanderer's consent is just as narrow.
+  Their units run the hamutay checkout, so before restarting them, read
+  `git -C ../hamutay log -- src/hamutay/tools/bash.py` and check the filter against their
+  environment's variable names (never the values).
 
 The first two addressed replies pursued the textual roles of mechanically broken citations
 in CFR part 145. Public index footprints verify overview, drill, unit, cite and follow calls;
