@@ -1,0 +1,197 @@
+{"diverged": true, "kind": "pair", "new": "1002.1", "new_words": 310, "old": "202.1", "old_words": 247, "ratio": 0.8654, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.2", "new_words": 1667, "old": "202.2", "old_words": 1645, "ratio": 0.9885, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.3", "new_words": 526, "old": "202.3", "old_words": 526, "ratio": 0.9867, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.4", "new_words": 274, "old": "202.4", "old_words": 276, "ratio": 0.9527, "regulation": "B"}
+{"diverged": true, "kind": "pair", "new": "1002.5", "new_words": 1865, "old": "202.5", "old_words": 892, "ratio": 0.6427, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.6", "new_words": 769, "old": "202.6", "old_words": 771, "ratio": 0.9948, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.7", "new_words": 729, "old": "202.7", "old_words": 731, "ratio": 0.9973, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.8", "new_words": 526, "old": "202.8", "old_words": 526, "ratio": 0.9905, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.9", "new_words": 1229, "old": "202.9", "old_words": 1229, "ratio": 0.9862, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.10", "new_words": 180, "old": "202.10", "old_words": 180, "ratio": 1.0, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.11", "new_words": 512, "old": "202.11", "old_words": 512, "ratio": 0.9746, "regulation": "B"}
+{"diverged": true, "kind": "pair", "new": "1002.12", "new_words": 880, "old": "202.12", "old_words": 816, "ratio": 0.9292, "regulation": "B"}
+{"diverged": true, "kind": "pair", "new": "1002.13", "new_words": 501, "old": "202.13", "old_words": 376, "ratio": 0.8415, "regulation": "B"}
+{"diverged": true, "kind": "pair", "new": "1002.14", "new_words": 616, "old": "202.14", "old_words": 381, "ratio": 0.3009, "regulation": "B"}
+{"diverged": false, "kind": "pair", "new": "1002.15", "new_words": 831, "old": "202.15", "old_words": 831, "ratio": 0.9952, "regulation": "B"}
+{"diverged": true, "kind": "pair", "new": "1002.16", "new_words": 719, "old": "202.16", "old_words": 715, "ratio": 0.9191, "regulation": "B"}
+{"kind": "only-old", "new": "1002.17", "old": "202.17", "regulation": "B"}
+{"kind": "only-new", "new": "1002.101", "old": "202.101", "regulation": "B"}
+{"kind": "only-new", "new": "1002.102", "old": "202.102", "regulation": "B"}
+{"kind": "only-new", "new": "1002.103", "old": "202.103", "regulation": "B"}
+{"kind": "only-new", "new": "1002.104", "old": "202.104", "regulation": "B"}
+{"kind": "only-new", "new": "1002.105", "old": "202.105", "regulation": "B"}
+{"kind": "only-new", "new": "1002.106", "old": "202.106", "regulation": "B"}
+{"kind": "only-new", "new": "1002.107", "old": "202.107", "regulation": "B"}
+{"kind": "only-new", "new": "1002.108", "old": "202.108", "regulation": "B"}
+{"kind": "only-new", "new": "1002.109", "old": "202.109", "regulation": "B"}
+{"kind": "only-new", "new": "1002.110", "old": "202.110", "regulation": "B"}
+{"kind": "only-new", "new": "1002.111", "old": "202.111", "regulation": "B"}
+{"kind": "only-new", "new": "1002.112", "old": "202.112", "regulation": "B"}
+{"kind": "only-new", "new": "1002.113", "old": "202.113", "regulation": "B"}
+{"kind": "only-new", "new": "1002.114", "old": "202.114", "regulation": "B"}
+{"diverged": true, "kind": "pair", "new": "1005.1", "new_words": 147, "old": "205.1", "old_words": 118, "ratio": 0.883, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.2", "new_words": 1043, "old": "205.2", "old_words": 644, "ratio": 0.6829, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.3", "new_words": 1215, "old": "205.3", "old_words": 1404, "ratio": 0.8683, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.4", "new_words": 323, "old": "205.4", "old_words": 358, "ratio": 0.9457, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.5", "new_words": 193, "old": "205.5", "old_words": 193, "ratio": 1.0, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.6", "new_words": 583, "old": "205.6", "old_words": 583, "ratio": 1.0, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.7", "new_words": 439, "old": "205.7", "old_words": 445, "ratio": 0.948, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.8", "new_words": 269, "old": "205.8", "old_words": 266, "ratio": 0.9907, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.9", "new_words": 889, "old": "205.9", "old_words": 909, "ratio": 0.9867, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.10", "new_words": 657, "old": "205.10", "old_words": 578, "ratio": 0.936, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.11", "new_words": 1209, "old": "205.11", "old_words": 1198, "ratio": 0.978, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.12", "new_words": 847, "old": "205.12", "old_words": 605, "ratio": 0.7686, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.13", "new_words": 155, "old": "205.13", "old_words": 157, "ratio": 0.9038, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.14", "new_words": 674, "old": "205.14", "old_words": 671, "ratio": 0.9933, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.15", "new_words": 1551, "old": "205.15", "old_words": 672, "ratio": 0.4786, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.16", "new_words": 226, "old": "205.16", "old_words": 372, "ratio": 0.6722, "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.17", "new_words": 1236, "old": "205.17", "old_words": 1205, "ratio": 0.9627, "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1005.18", "new_words": 9866, "old": "205.18", "old_words": 755, "ratio": 0.1311, "regulation": "E"}
+{"kind": "only-new", "new": "1005.19", "old": "205.19", "regulation": "E"}
+{"diverged": false, "kind": "pair", "new": "1005.20", "new_words": 2022, "old": "205.20", "old_words": 2039, "ratio": 0.983, "regulation": "E"}
+{"kind": "only-new", "new": "1005.30", "old": "205.30", "regulation": "E"}
+{"kind": "only-new", "new": "1005.31", "old": "205.31", "regulation": "E"}
+{"kind": "only-new", "new": "1005.32", "old": "205.32", "regulation": "E"}
+{"kind": "only-new", "new": "1005.33", "old": "205.33", "regulation": "E"}
+{"kind": "only-new", "new": "1005.34", "old": "205.34", "regulation": "E"}
+{"kind": "only-new", "new": "1005.35", "old": "205.35", "regulation": "E"}
+{"kind": "only-new", "new": "1005.36", "old": "205.36", "regulation": "E"}
+{"diverged": true, "kind": "pair", "new": "1013.1", "new_words": 257, "old": "213.1", "old_words": 231, "ratio": 0.8525, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.2", "new_words": 710, "old": "213.2", "old_words": 730, "ratio": 0.9764, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.3", "new_words": 636, "old": "213.3", "old_words": 662, "ratio": 0.9784, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.4", "new_words": 1750, "old": "213.4", "old_words": 1768, "ratio": 0.9886, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.5", "new_words": 249, "old": "213.5", "old_words": 266, "ratio": 0.967, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.6", "new_words": 3, "old": "213.6", "old_words": 3, "ratio": 1.0, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.7", "new_words": 687, "old": "213.7", "old_words": 717, "ratio": 0.9772, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.8", "new_words": 53, "old": "213.8", "old_words": 53, "ratio": 1.0, "regulation": "M"}
+{"diverged": false, "kind": "pair", "new": "1013.9", "new_words": 241, "old": "213.9", "old_words": 241, "ratio": 0.971, "regulation": "M"}
+{"diverged": true, "kind": "pair", "new": "1022.1", "new_words": 400, "old": "222.1", "old_words": 684, "ratio": 0.2601, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.2", "new_words": 49, "old": "222.2", "old_words": 55, "ratio": 0.9423, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.3", "new_words": 1260, "old": "222.3", "old_words": 382, "ratio": 0.4032, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.20", "new_words": 1502, "old": "222.20", "old_words": 1527, "ratio": 0.9389, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.21", "new_words": 3424, "old": "222.21", "old_words": 3428, "ratio": 0.9775, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.22", "new_words": 847, "old": "222.22", "old_words": 847, "ratio": 0.987, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.23", "new_words": 810, "old": "222.23", "old_words": 810, "ratio": 0.9975, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.24", "new_words": 484, "old": "222.24", "old_words": 485, "ratio": 0.9845, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.25", "new_words": 336, "old": "222.25", "old_words": 338, "ratio": 0.9881, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.26", "new_words": 265, "old": "222.26", "old_words": 267, "ratio": 0.9774, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.27", "new_words": 803, "old": "222.27", "old_words": 803, "ratio": 0.9975, "regulation": "V"}
+{"kind": "only-old", "new": "1022.28", "old": "222.28", "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.30", "new_words": 3127, "old": "222.30", "old_words": 3211, "ratio": 0.9741, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.31", "new_words": 117, "old": "222.31", "old_words": 160, "ratio": 0.5921, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.32", "new_words": 306, "old": "222.32", "old_words": 331, "ratio": 0.8509, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.40", "new_words": 59, "old": "222.40", "old_words": 97, "ratio": 0.2051, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.41", "new_words": 387, "old": "222.41", "old_words": 405, "ratio": 0.9697, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.42", "new_words": 127, "old": "222.42", "old_words": 127, "ratio": 1.0, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.43", "new_words": 1081, "old": "222.43", "old_words": 1084, "ratio": 0.9977, "regulation": "V"}
+{"kind": "only-new", "new": "1022.50-1022.53", "old": "222.50-1022.53", "regulation": "V"}
+{"kind": "only-new", "new": "1022.54", "old": "222.54", "regulation": "V"}
+{"kind": "only-new", "new": "1022.55-1022.59", "old": "222.55-1022.59", "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.70", "new_words": 195, "old": "222.70", "old_words": 214, "ratio": 0.7579, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.71", "new_words": 639, "old": "222.71", "old_words": 637, "ratio": 0.9718, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.72", "new_words": 2684, "old": "222.72", "old_words": 2685, "ratio": 0.9972, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.73", "new_words": 1899, "old": "222.73", "old_words": 1930, "ratio": 0.9872, "regulation": "V"}
+{"diverged": false, "kind": "pair", "new": "1022.74", "new_words": 3065, "old": "222.74", "old_words": 3083, "ratio": 0.9919, "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.75", "new_words": 776, "old": "222.75", "old_words": 900, "ratio": 0.9248, "regulation": "V"}
+{"kind": "only-old", "new": "1022.80-222.81", "old": "222.80-222.81", "regulation": "V"}
+{"kind": "only-new", "new": "1022.80-1022.81", "old": "222.80-1022.81", "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1022.82", "new_words": 533, "old": "222.82", "old_words": 587, "ratio": 0.8929, "regulation": "V"}
+{"kind": "only-old", "new": "1022.83", "old": "222.83", "regulation": "V"}
+{"kind": "only-old", "new": "1022.90", "old": "222.90", "regulation": "V"}
+{"kind": "only-old", "new": "1022.91", "old": "222.91", "regulation": "V"}
+{"kind": "only-new", "new": "1022.120", "old": "222.120", "regulation": "V"}
+{"kind": "only-new", "new": "1022.121", "old": "222.121", "regulation": "V"}
+{"kind": "only-new", "new": "1022.122", "old": "222.122", "regulation": "V"}
+{"kind": "only-new", "new": "1022.123", "old": "222.123", "regulation": "V"}
+{"kind": "only-new", "new": "1022.124-1022.129", "old": "222.124-1022.129", "regulation": "V"}
+{"kind": "only-new", "new": "1022.130", "old": "222.130", "regulation": "V"}
+{"kind": "only-new", "new": "1022.131-1022.135", "old": "222.131-1022.135", "regulation": "V"}
+{"kind": "only-new", "new": "1022.136", "old": "222.136", "regulation": "V"}
+{"kind": "only-new", "new": "1022.137", "old": "222.137", "regulation": "V"}
+{"kind": "only-new", "new": "1022.138", "old": "222.138", "regulation": "V"}
+{"kind": "only-new", "new": "1022.139", "old": "222.139", "regulation": "V"}
+{"kind": "only-new", "new": "1022.140", "old": "222.140", "regulation": "V"}
+{"kind": "only-new", "new": "1022.141", "old": "222.141", "regulation": "V"}
+{"kind": "only-new", "new": "1022.142", "old": "222.142", "regulation": "V"}
+{"diverged": true, "kind": "pair", "new": "1026.1", "new_words": 1524, "old": "226.1", "old_words": 1114, "ratio": 0.8067, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.2", "new_words": 2145, "old": "226.2", "old_words": 1640, "ratio": 0.8428, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.3", "new_words": 902, "old": "226.3", "old_words": 540, "ratio": 0.7184, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.4", "new_words": 1912, "old": "226.4", "old_words": 1663, "ratio": 0.9231, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.5", "new_words": 1955, "old": "226.5", "old_words": 1979, "ratio": 0.9832, "regulation": "Z"}
+{"kind": "only-old", "new": "1026.5a", "old": "226.5a", "regulation": "Z"}
+{"kind": "only-old", "new": "1026.5b", "old": "226.5b", "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.6", "new_words": 4258, "old": "226.6", "old_words": 4134, "ratio": 0.9759, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.7", "new_words": 3112, "old": "226.7", "old_words": 2817, "ratio": 0.9408, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.8", "new_words": 472, "old": "226.8", "old_words": 493, "ratio": 0.9762, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.9", "new_words": 6042, "old": "226.9", "old_words": 5334, "ratio": 0.9311, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.10", "new_words": 862, "old": "226.10", "old_words": 877, "ratio": 0.9914, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.11", "new_words": 535, "old": "226.11", "old_words": 540, "ratio": 0.986, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.12", "new_words": 1543, "old": "226.12", "old_words": 1464, "ratio": 0.9551, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.13", "new_words": 1503, "old": "226.13", "old_words": 1415, "ratio": 0.9342, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.14", "new_words": 884, "old": "226.14", "old_words": 906, "ratio": 0.9765, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.15", "new_words": 1009, "old": "226.15", "old_words": 1461, "ratio": 0.8154, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.16", "new_words": 2703, "old": "226.16", "old_words": 2720, "ratio": 0.9891, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.17", "new_words": 1673, "old": "226.17", "old_words": 1643, "ratio": 0.9059, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.18", "new_words": 3013, "old": "226.18", "old_words": 3009, "ratio": 0.9489, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.19", "new_words": 5007, "old": "226.19", "old_words": 1375, "ratio": 0.3463, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.20", "new_words": 3714, "old": "226.20", "old_words": 557, "ratio": 0.1985, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.21", "new_words": 165, "old": "226.21", "old_words": 165, "ratio": 1.0, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.22", "new_words": 912, "old": "226.22", "old_words": 911, "ratio": 0.96, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.23", "new_words": 1600, "old": "226.23", "old_words": 1864, "ratio": 0.7956, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.24", "new_words": 2012, "old": "226.24", "old_words": 2046, "ratio": 0.9882, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.25", "new_words": 544, "old": "226.25", "old_words": 107, "ratio": 0.3134, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.26", "new_words": 162, "old": "226.26", "old_words": 162, "ratio": 1.0, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.27", "new_words": 51, "old": "226.27", "old_words": 57, "ratio": 0.9259, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.28", "new_words": 786, "old": "226.28", "old_words": 744, "ratio": 0.9085, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.29", "new_words": 173, "old": "226.29", "old_words": 182, "ratio": 0.9127, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.30", "new_words": 73, "old": "226.30", "old_words": 82, "ratio": 0.9161, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.31", "new_words": 1070, "old": "226.31", "old_words": 768, "ratio": 0.778, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.32", "new_words": 3677, "old": "226.32", "old_words": 1186, "ratio": 0.3134, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.33", "new_words": 546, "old": "226.33", "old_words": 546, "ratio": 1.0, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.34", "new_words": 2316, "old": "226.34", "old_words": 829, "ratio": 0.3313, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.35", "new_words": 4102, "old": "226.35", "old_words": 789, "ratio": 0.1701, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.36", "new_words": 5000, "old": "226.36", "old_words": 1149, "ratio": 0.3018, "regulation": "Z"}
+{"kind": "only-new", "new": "1026.37", "old": "226.37", "regulation": "Z"}
+{"kind": "only-old", "new": "1026.37-226.38", "old": "226.37-226.38", "regulation": "Z"}
+{"kind": "only-new", "new": "1026.38", "old": "226.38", "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.39", "new_words": 1257, "old": "226.39", "old_words": 902, "ratio": 0.8272, "regulation": "Z"}
+{"kind": "only-new", "new": "1026.40", "old": "226.40", "regulation": "Z"}
+{"kind": "only-old", "new": "1026.40-226.41", "old": "226.40-226.41", "regulation": "Z"}
+{"kind": "only-new", "new": "1026.41", "old": "226.41", "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.42", "new_words": 2587, "old": "226.42", "old_words": 2490, "ratio": 0.9707, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.43", "new_words": 8412, "old": "226.43", "old_words": 2449, "ratio": 0.0705, "regulation": "Z"}
+{"kind": "only-old", "new": "1026.44-226.45", "old": "226.44-226.45", "regulation": "Z"}
+{"kind": "only-new", "new": "1026.44-1026.45", "old": "226.44-1026.45", "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.46", "new_words": 1439, "old": "226.46", "old_words": 1432, "ratio": 0.9955, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.47", "new_words": 1537, "old": "226.47", "old_words": 1537, "ratio": 0.9967, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.48", "new_words": 1015, "old": "226.48", "old_words": 1015, "ratio": 0.997, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.51", "new_words": 804, "old": "226.51", "old_words": 656, "ratio": 0.8548, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.52", "new_words": 1171, "old": "226.52", "old_words": 845, "ratio": 0.8105, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.53", "new_words": 324, "old": "226.53", "old_words": 339, "ratio": 0.9774, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.54", "new_words": 183, "old": "226.54", "old_words": 183, "ratio": 1.0, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.55", "new_words": 1958, "old": "226.55", "old_words": 1473, "ratio": 0.8522, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.56", "new_words": 1187, "old": "226.56", "old_words": 1187, "ratio": 1.0, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.57", "new_words": 637, "old": "226.57", "old_words": 665, "ratio": 0.9724, "regulation": "Z"}
+{"diverged": false, "kind": "pair", "new": "1026.58", "new_words": 2919, "old": "226.58", "old_words": 2831, "ratio": 0.9767, "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1026.59", "new_words": 1354, "old": "226.59", "old_words": 1032, "ratio": 0.8583, "regulation": "Z"}
+{"kind": "only-new", "new": "1026.60", "old": "226.60", "regulation": "Z"}
+{"kind": "only-new", "new": "1026.61", "old": "226.61", "regulation": "Z"}
+{"kind": "only-new", "new": "1026.62", "old": "226.62", "regulation": "Z"}
+{"diverged": true, "kind": "pair", "new": "1016.1", "new_words": 608, "old": "332.1", "old_words": 259, "ratio": 0.5144, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.2", "new_words": 78, "old": "332.2", "old_words": 84, "ratio": 0.9259, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.3", "new_words": 4607, "old": "332.3", "old_words": 2446, "ratio": 0.6701, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.4", "new_words": 1277, "old": "332.4", "old_words": 773, "ratio": 0.7463, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.5", "new_words": 1420, "old": "332.5", "old_words": 346, "ratio": 0.3828, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.6", "new_words": 1262, "old": "332.6", "old_words": 1228, "ratio": 0.9655, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.7", "new_words": 1905, "old": "332.7", "old_words": 1052, "ratio": 0.6919, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.8", "new_words": 259, "old": "332.8", "old_words": 250, "ratio": 0.9627, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.9", "new_words": 963, "old": "332.9", "old_words": 609, "ratio": 0.7608, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.10", "new_words": 456, "old": "332.10", "old_words": 450, "ratio": 0.9845, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.11", "new_words": 703, "old": "332.11", "old_words": 682, "ratio": 0.9819, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.12", "new_words": 262, "old": "332.12", "old_words": 257, "ratio": 0.9865, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.13", "new_words": 288, "old": "332.13", "old_words": 283, "ratio": 0.9912, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.14", "new_words": 452, "old": "332.14", "old_words": 452, "ratio": 0.9956, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.15", "new_words": 503, "old": "332.15", "old_words": 498, "ratio": 0.979, "regulation": "P"}
+{"diverged": false, "kind": "pair", "new": "1016.16", "new_words": 63, "old": "332.16", "old_words": 63, "ratio": 1.0, "regulation": "P"}
+{"diverged": true, "kind": "pair", "new": "1016.17", "new_words": 160, "old": "332.17", "old_words": 135, "ratio": 0.7932, "regulation": "P"}
+{"kind": "only-old", "new": "1016.18", "old": "332.18", "regulation": "P"}
