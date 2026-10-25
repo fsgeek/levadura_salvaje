@@ -7,7 +7,7 @@ requires byte-identical canonical JSON. Exits non-zero on any mismatch.
 Mapping:
   entry            -> Vorpal (tulgey = quantity; id = uuid5 of the ledger id)
   recorded_at      -> Vorpal.brillig
-  observed_at      -> Vorpal extra field gyre_from (Vorpal has no first-class gyre)
+  observed_at      -> Vorpal.gyre_from (typed since Yanantin b3afa593, #41)
   instrument       -> Bandersnatch: a Jabberwock with a Tove in wabe
                       "levadura.instrument"
   population       -> Jabberwock with Toves in "sha256" and "levadura.source"
@@ -17,6 +17,7 @@ Mapping:
 Run: uv run --with-editable ../yanantin python scripts/jabberwock_roundtrip.py
 """
 
+import hashlib
 import json
 import sys
 import tempfile
@@ -25,9 +26,8 @@ from pathlib import Path
 from uuid import NAMESPACE_URL, uuid5
 
 from yanantin.activity.backends.duckdb import DuckDBActivityStreamStore
-from yanantin.activity.models import FactRecord
 from yanantin.jabberwock import Brillig, register_normalizer
-from yanantin.jabberwock.models import VORPAL_PROVIDER, Vorpal
+from yanantin.jabberwock.models import Vorpal
 
 LEDGER = Path("ledger/observations.jsonl")
 NS = uuid5(NAMESPACE_URL, "https://github.com/fsgeek/levadura_salvaje/ledger")
@@ -56,12 +56,14 @@ def main() -> None:
         and derived measurements name the results file they summarize."""
         if "source" in pop:
             base = pop["source"]
-        elif "edition" in pop:
-            base = edition_source[pop["edition"]]
+        elif "edition" in pop and not {"title", "titles", "citations"} & pop.keys():
+            base = edition_source[pop["edition"]]  # the 26 CFR volumes of that edition
         elif "release_points" in pop:
             return f"{pop['title']}@{'..'.join(pop['release_points'])}"
-        else:
+        elif "results_file" in pop:
             return pop["results_file"]
+        else:  # later instruments (banking, probes, folds): the population is its own name
+            return "population:" + hashlib.sha256(canon(pop).encode()).hexdigest()[:16]
         return base + (f"#{pop['volume_file']}" if "volume_file" in pop else "")
     db = Path(tempfile.mkdtemp()) / "jabberwock.duckdb"
     b = Brillig(DuckDBActivityStreamStore(db))
@@ -85,9 +87,11 @@ def main() -> None:
         pop = e["population"]
         source = subject_of(pop)
         subject = entity_for("levadura.source", source, "population")
-        if pop.get("sha256"):
-            if not hasattr(b.galumph("sha256", pop["sha256"]), "jabberwock"):
-                b.slithy(subject, "sha256", pop["sha256"])
+        digests = pop.get("sha256")
+        digests = list(digests.values()) if isinstance(digests, dict) else [digests] if digests else []
+        for digest in digests:  # one file, or many
+            if not hasattr(b.galumph("sha256", digest), "jabberwock"):
+                b.slithy(subject, "sha256", digest)
 
         if "edition" in pop and "source" in pop:  # structure entries place a volume in its edition
             ed = editions.get(pop["edition"])
@@ -104,10 +108,9 @@ def main() -> None:
             snicker_snack=payload,
             bandersnatch=instrument,
             brillig=at(e["recorded_at"]),
-            gyre_from=e["observed_at"],
+            gyre_from=at(e["observed_at"]),
         )
-        b._store.store_fact(FactRecord(provider_id=VORPAL_PROVIDER, timestamp=vorpal.brillig,
-                                       data=vorpal.model_dump(mode="json")))
+        b.import_record(vorpal)  # Yanantin #42: no reaching into the store
 
     # Read back through the fold, never through what we just wrote.
     mismatches = 0
@@ -117,6 +120,8 @@ def main() -> None:
         (v,) = [v for v in view.vorpals if str(v.id) == vid]
         rebuilt = {**v.snicker_snack, "quantity": v.tulgey,
                    "recorded_at": e["recorded_at"] if at(e["recorded_at"]) == v.brillig else "DRIFT"}
+        if v.gyre_from != at(e["observed_at"]):
+            rebuilt["observed_at"] = "DRIFT"
         if canon(rebuilt) != canon(e):
             mismatches += 1
             print("MISMATCH", e["id"])
