@@ -1,0 +1,390 @@
+{
+ "wrong_addresses": [
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 3.2",
+   "cfr_title": "12",
+   "sectno": "3.2",
+   "act_section": "section 4(k) of the Bank Holding Company Act",
+   "cited_usc": "12 U.S.C. 1842/k",
+   "correct_usc_consensus": "12 U.S.C. 1843"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 45.2",
+   "cfr_title": "12",
+   "sectno": "45.2",
+   "act_section": "section 202(a) of the Investment Advisers Act of 1940",
+   "cited_usc": "15 U.S.C. 80",
+   "correct_usc_consensus": "15 U.S.C. 80b-2"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 47.2",
+   "cfr_title": "12",
+   "sectno": "47.2",
+   "act_section": "section 202(a) of the Investment Advisers Act of 1940",
+   "cited_usc": "15 U.S.C. 80",
+   "correct_usc_consensus": "15 U.S.C. 80b-2"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 48.2",
+   "cfr_title": "12",
+   "sectno": "48.2",
+   "act_section": "section 6(a) of the Securities Exchange Act of 1934",
+   "cited_usc": "15 U.S.C. 78/f/a",
+   "correct_usc_consensus": "15 U.S.C. 78f"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 48.2",
+   "cfr_title": "12",
+   "sectno": "48.2",
+   "act_section": "section 6(a) of the Securities Exchange Act of 1934",
+   "cited_usc": "15 U.S.C. 78/f/a",
+   "correct_usc_consensus": "15 U.S.C. 78f"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 208.31",
+   "cfr_title": "12",
+   "sectno": "208.31",
+   "act_section": "section 17A of the Securities Exchange Act of 1934",
+   "cited_usc": "15 U.S.C. 78q",
+   "correct_usc_consensus": "15 U.S.C. 78q-1"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 208.77",
+   "cfr_title": "12",
+   "sectno": "208.77",
+   "act_section": "section 10(d) of the Federal Deposit Insurance Act",
+   "cited_usc": "18 U.S.C. 1820/d",
+   "correct_usc_consensus": "12 U.S.C. 1820"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 223.3",
+   "cfr_title": "12",
+   "sectno": "223.3",
+   "act_section": "section 3(a)(29) of the Securities Exchange Act of 1934",
+   "cited_usc": "17 U.S.C. 78c/a/29",
+   "correct_usc_consensus": "15 U.S.C. 78c"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 225.28",
+   "cfr_title": "12",
+   "sectno": "225.28",
+   "act_section": "section 4(c)(8) of the Bank Holding Company Act",
+   "cited_usc": "12 U.S.C. 1842/c/8",
+   "correct_usc_consensus": "12 U.S.C. 1843"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 225.91",
+   "cfr_title": "12",
+   "sectno": "225.91",
+   "act_section": "section 38 of the Federal Deposit Insurance Act",
+   "cited_usc": "12 U.S.C. 1831/o",
+   "correct_usc_consensus": "12 U.S.C. 1831o"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 237.2",
+   "cfr_title": "12",
+   "sectno": "237.2",
+   "act_section": "section 202(a) of the Investment Advisers Act of 1940",
+   "cited_usc": "15 U.S.C. 80",
+   "correct_usc_consensus": "15 U.S.C. 80b-2"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 262.3",
+   "cfr_title": "12",
+   "sectno": "262.3",
+   "act_section": "section 18(c) of the Federal Deposit Insurance Act",
+   "cited_usc": "12 U.S.C. 1823",
+   "correct_usc_consensus": "12 U.S.C. 1828"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 324.2",
+   "cfr_title": "12",
+   "sectno": "324.2",
+   "act_section": "section 4(k) of the Bank Holding Company Act",
+   "cited_usc": "12 U.S.C. 1842/k",
+   "correct_usc_consensus": "12 U.S.C. 1843"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 328.107",
+   "cfr_title": "12",
+   "sectno": "328.107",
+   "act_section": "section 18(a)(4) of the FDI Act",
+   "cited_usc": "12 U.S.C. 1818/a/4",
+   "correct_usc_consensus": "12 U.S.C. 1828"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 328.107",
+   "cfr_title": "12",
+   "sectno": "328.107",
+   "act_section": "section 18(a)(4) of the FDI Act",
+   "cited_usc": "12 U.S.C. 1818/a/4",
+   "correct_usc_consensus": "12 U.S.C. 1828"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 349.2",
+   "cfr_title": "12",
+   "sectno": "349.2",
+   "act_section": "section 202(a) of the Investment Advisers Act of 1940",
+   "cited_usc": "15 U.S.C. 80",
+   "correct_usc_consensus": "15 U.S.C. 80b-2"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 349.14",
+   "cfr_title": "12",
+   "sectno": "349.14",
+   "act_section": "section 6(a) of the Securities Exchange Act of 1934",
+   "cited_usc": "15 U.S.C. 78/f/a",
+   "correct_usc_consensus": "15 U.S.C. 78f"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 380.8",
+   "cfr_title": "12",
+   "sectno": "380.8",
+   "act_section": "section 4(c)(8) of the BHC Act",
+   "cited_usc": "12 U.S.C. 1842/c/8",
+   "correct_usc_consensus": "12 U.S.C. 1843"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 624.2",
+   "cfr_title": "12",
+   "sectno": "624.2",
+   "act_section": "section 202(a) of the Investment Advisers Act of 1940",
+   "cited_usc": "15 U.S.C. 80",
+   "correct_usc_consensus": "15 U.S.C. 80b-2"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 810.6",
+   "cfr_title": "12",
+   "sectno": "810.6",
+   "act_section": "section 3(a)(12) of the Securities Exchange Act of 1934",
+   "cited_usc": "15 U.S.C. 78/a/12",
+   "correct_usc_consensus": "15 U.S.C. 78c"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 1221.2",
+   "cfr_title": "12",
+   "sectno": "1221.2",
+   "act_section": "section 202(a) of the Investment Advisers Act of 1940",
+   "cited_usc": "15 U.S.C. 80",
+   "correct_usc_consensus": "15 U.S.C. 80b-2"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "12 CFR 1510.2",
+   "cfr_title": "12",
+   "sectno": "1510.2",
+   "act_section": "section 21B(c) of the Act",
+   "cited_usc": "12 U.S.C. 1421b/c",
+   "correct_usc_consensus": "12 U.S.C. 1441b"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "31 CFR 6.4",
+   "cfr_title": "31",
+   "sectno": "6.4",
+   "act_section": "section 15(a) of the Agricultural Marketing Act",
+   "cited_usc": "12 U.S.C. 1141/a",
+   "correct_usc_consensus": "12 U.S.C. 1141j"
+  },
+  {
+   "kind": "wrong_address",
+   "cfr": "31 CFR 1010.651",
+   "cfr_title": "31",
+   "sectno": "1010.651",
+   "act_section": "section 3 of the Investment Company Act of 1940",
+   "cited_usc": "15 U.S.C. 80a-5",
+   "correct_usc_consensus": "15 U.S.C. 80a-3"
+  }
+ ],
+ "stale_twins": [
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.3",
+   "new": "12 CFR 1026.3",
+   "ratio_2025": 0.7184,
+   "reader_note": "A has paragraph (h), the 2013 partial exemption for certain subordinate-lien housing-assistance loans, plus a note on a 2024 paragraph (i), while B stops at (g) with a 2011 citation; the other differences are wording."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 205.16",
+   "new": "12 CFR 1005.16",
+   "ratio_2025": 0.6722,
+   "reader_note": "A keeps the old two-part ATM fee notice (a sign on the machine plus a screen or paper notice) and a 2004 temporary exemption, citing 2006, while B has the 2013 amendment that requires only the screen or paper notice."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.31",
+   "new": "12 CFR 1026.31",
+   "ratio_2025": 0.778,
+   "reader_note": "A has the 2013 HOEPA amendments (high-cost mortgages including open-end account opening, open-end APR tolerances, and the new paragraph (h) on corrections and unintentional violations), while B keeps the 2007 closed-end-only version."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.52",
+   "new": "12 CFR 1026.52",
+   "ratio_2025": 0.8105,
+   "reader_note": "B lacks the later amendments in A: the first-year fee cap no longer counts fees before account opening, the safe-harbor amounts have been raised ($32/$43), and there is an $8 late-fee safe harbor with a smaller-card-issuer exception; B keeps the 2010 $25/$35 safe harbors."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 202.12",
+   "new": "12 CFR 1002.12",
+   "ratio_2025": 0.9292,
+   "reader_note": "B adds the record-retention provisions for subpart B (small business lending data) and for information collected under \u00a7 N.5(a)(4), from the 2017 and 2023 amendments, which A, last amended in 2011, lacks."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.51",
+   "new": "12 CFR 1026.51",
+   "ratio_2025": 0.8548,
+   "reader_note": "B keeps the 2010 rule that ability to pay must rest on the consumer's independent income or assets, and lacks A's 2013 amendment allowing income and assets to which the consumer has a reasonable expectation of access, along with the matching credit-line-increase provision for young consumers in (b)(2)(i)."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.59",
+   "new": "12 CFR 1026.59",
+   "ratio_2025": 0.8583,
+   "reader_note": "B (2010) lacks the 2021/2023 LIBOR-transition amendments that A has: the replacement-index termination of the review obligation in (f)(3) and the LIBOR-transition exception in (h)(3)."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.28",
+   "new": "12 CFR 1026.28",
+   "ratio_2025": 0.9085,
+   "reader_note": "B has the 2013 amendment that A lacks, which sends preemption of the RESPA sections 4 and 5 integrated-disclosure requirements (\u00a7\u00a7 N.19(e)-(f), N.37, N.38) through this section; B also updates the card-disclosure cross-reference to \u00a7 N.60."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 202.16",
+   "new": "12 CFR 1002.16",
+   "ratio_2025": 0.9191,
+   "reader_note": "B is pre-Dodd-Frank: it lists the Office of Thrift Supervision, has no consumer-financial-protection agency, and sets a two-year limitations period, whereas A has the post-2010 five-year period and the CFPB-era enforcement assignments."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.13",
+   "new": "12 CFR 1026.13",
+   "ratio_2025": 0.9342,
+   "reader_note": "A's paragraph (i) carries the prepaid-account/hybrid prepaid-credit card amendments and cites 12 CFR 1005.11 and 1005.18(e), while B keeps the 2010 text citing 12 CFR 205.11 with no prepaid provisions."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.1",
+   "new": "12 CFR 1026.1",
+   "ratio_2025": 0.8067,
+   "reader_note": "B is the 2010 text lacking the later RESPA/TILA integrated-disclosure, FIRREA, high-cost mortgage and section 1029 coverage amendments that A has taken, along with older cross-references (N.5a/N.5b)."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.34",
+   "new": "12 CFR 1026.34",
+   "ratio_2025": 0.3313,
+   "reader_note": "B is the 2001/2008 HOEPA version keyed to loans subject to \u00a7 N.32 with a seven-year repayment-ability presumption, lacking the 2013 high-cost mortgage amendments (open-end coverage, pre-loan counseling, ATR cross-reference to \u00a7 N.43) that A has."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 202.5",
+   "new": "12 CFR 1002.5",
+   "ratio_2025": 0.6427,
+   "reader_note": "B lacks paragraph (a)(4) permitting collection of demographic information for HMDA-excluded loans (2017) and small-business applications (2023), which A has taken."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 205.12",
+   "new": "12 CFR 1005.12",
+   "ratio_2025": 0.7686,
+   "reader_note": "B is the 2009/2010 text citing Regulation Z part 226 and lacking the 2016 prepaid-account and hybrid prepaid-credit card provisions that A has (A also corrects the civil liability section from 915 to 916)."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.23",
+   "new": "12 CFR 1026.23",
+   "ratio_2025": 0.7956,
+   "reader_note": "A keeps the expired 1993-1994 disaster-area rescission waivers, the old footnote structure and a material-disclosures cross-reference to N.35(b)(2), and lacks the 2013-era N.43(g) reference and total-of-payments tolerances that B has; A appears older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.35",
+   "new": "12 CFR 1026.35",
+   "ratio_2025": 0.1701,
+   "reader_note": "A is the 2008/2011 higher-priced mortgage loan rule (repayment ability, prepayment penalties, 365-day escrow cancellation), while B has the later rewrite with small-creditor and rural/underserved escrow exemptions, five-year escrow cancellation and appraisal rules; A appears older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.20",
+   "new": "12 CFR 1026.20",
+   "ratio_2025": 0.1985,
+   "reader_note": "B keeps the 1987 variable-rate adjustment notice (25-120 days, footnote 45c), while A has the 2013 ARM rate-adjustment disclosure rules with coverage, exemptions, 60-120 day timing and tabular format; B appears older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 205.3",
+   "new": "12 CFR 1005.3",
+   "ratio_2025": 0.8683,
+   "reader_note": "B (amended through 2010) lacks the 2011-2012 coverage changes in A (the Dodd-Frank section 1029 exclusion and remittance transfer providers under subpart B) and still carries the expired 2007/2009 transitional notice provisions; B appears older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 205.18",
+   "new": "12 CFR 1005.18",
+   "ratio_2025": 0.1311,
+   "reader_note": "B is the 2006 payroll card account rule, while A is the later prepaid accounts rule with pre-acquisition short/long form disclosures and 12/24-month histories; B appears older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 202.14",
+   "new": "12 CFR 1002.14",
+   "ratio_2025": 0.3009,
+   "reader_note": "B has the 2013 rule requiring creditors to provide copies of all appraisals and written valuations for first-lien dwelling loans, with timing, notice and waiver rules; A keeps the older rule of providing appraisal reports routinely or on written request, with a credit-union carve-out."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.55",
+   "new": "12 CFR 1026.55",
+   "ratio_2025": 0.8522,
+   "reader_note": "B adds the (b)(7) index-replacement and margin-change exception (including the LIBOR transition) that A lacks, and updates a cross-reference from N.5b to N.40; A seems older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 226.17",
+   "new": "12 CFR 1026.17",
+   "ratio_2025": 0.9059,
+   "reader_note": "B has the integrated mortgage disclosure (N.19(e), (f), (g)) carve-outs and the N.20(d) separate-document requirement, which A lacks; A seems older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 202.13",
+   "new": "12 CFR 1002.13",
+   "ratio_2025": 0.8415,
+   "reader_note": "B has the 2017 amendment that allows disaggregated ethnicity and race categories from appendix B to part 1003 and makes collection from co-applicants optional; A lacks it and seems older."
+  },
+  {
+   "kind": "stale_twin",
+   "old": "12 CFR 205.15",
+   "new": "12 CFR 1005.15",
+   "ratio_2025": 0.4786,
+   "reader_note": "A has the prepaid-account amendments (pre-acquisition disclosures, an electronic history covering 12 months, a written history covering 24 months, and modified liability and error-resolution rules); B keeps the 1997 version with a 60-day written history, so B seems older."
+  }
+ ]
+}
