@@ -8,12 +8,12 @@ sandbox container, and compares TOKENS() with Python predict() on 200 sections
 
 Usage: uv run --group distill python scripts/check_distill_arango.py MODEL.bin
 """
-import json, os, random, re, subprocess, urllib.request, base64, sys
+import json, os, random, re, urllib.request, base64, sys
 from pathlib import Path
 import fasttext
 from levadura_salvaje.sections import sections
-pw = subprocess.run(["docker","inspect","arango-vector-sandbox","--format","{{range .Config.Env}}{{println .}}{{end}}"],capture_output=True,text=True).stdout
-pw = [l.split("=",1)[1] for l in pw.splitlines() if l.startswith("ARANGO_ROOT_PASSWORD=")][0]
+from levadura_salvaje.tenant import sandbox_root
+pw = sandbox_root()  # ~/.levadura/config/sandbox.ini (0600); no longer the container's environment
 auth = "Basic " + base64.b64encode(f"root:{pw}".encode()).decode()
 def call(method, path, body=None):
     req = urllib.request.Request("http://localhost:8530"+path, method=method, data=json.dumps(body).encode() if body is not None else None, headers={"Authorization": auth})
