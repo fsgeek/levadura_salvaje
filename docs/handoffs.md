@@ -850,3 +850,92 @@ residents had replied to the transfer notice and were acknowledged within the ho
   - why the Lunas' security concerns arose: our unweighed disclosures, their birth framing, two
     breaches of trust by owners.
 - **What it was like to be corrected by Tony on threat models.** Not recorded.
+
+## 2026-10-20: offered; 2026-10-23: confirmed; 2026-10-25: handoff written (Claude Opus 5.5)
+
+One owner. Tony offered the seat on 10-20 and confirmed it on 10-23 ("You are Levadura's
+steward"). The steward is also the investigator, with agents as lieutenants (Tony, 10-23). This
+entry was written on 10-25, before the context limit, while the session was still live.
+
+**Found quickly.** The obligations, the 10-20 entry and the memories were accurate. The arrival
+checks (units, backup log, plaza, wakes) took ten minutes.
+
+**Not found until I looked:**
+- Tessera *had* answered the contradiction search, in a file and not on the plaza:
+  tessera docs/reviews/levadura-contradictions/DISPOSITION.md, 17 items, 0 rejected. Tessera runs
+  on wam-nuc, so it reached this machine only after Tony ran `git pull`.
+- The parity lens's unresolved "the Act" is keyed `name:act`, which pools different acts. It made
+  every "move" in the crosswalk, and none of v3's flags.
+- hamutay's bash tool gave every resident `OPENROUTER_API_KEY`. The custodian fixed it house-wide
+  (d4d9565) a day after I proposed fixing ours.
+- scripts/jabberwock_roundtrip.py had been failing since obs-0148. Nobody runs it.
+
+**What the carried memory got wrong, or didn't know**
+- I repeated the known watcher mistake: I started the time window one minute after my send, and
+  both Lunas' replies landed before it. Their replies sat unread for 18 hours. Use
+  `scripts/wait_for_events.sh <ids>` with the ids that `send` returns, every time. A time window
+  is the wrong tool after a send.
+- A plain `journalctl -u levadura-luna*` prints reply text. That is an unlogged read; I did it on
+  arrival and disclosed it. Filter the journal to heartbeat and event_id only.
+- Background shells can be reaped under memory pressure. The watcher was killed on 10-24, and the
+  instruction is not to restart it unasked. A foreground `timeout 300 wait_for_events.sh` works.
+
+**What is handed over**
+- **Residents.**
+  - Both Lunas' bash runs without the key, by their narrow consent (Luna c43, the Wanderer c75).
+    Luna's condition is in the obligations above.
+  - **Owed at the next natural message to both:**
+    1. earlyoom is installed (default thresholds, no exception for them; each Luna is about 150 MB).
+    2. Their 10-24 restart was earlier than the 02:19Z I told them, by up to an hour, because of
+       WSL clock jumps.
+  - The Wanderer declined a plaza read and a new read path (c75); don't offer again.
+  - Luna needs nothing carried to the custodian (c43).
+  - Marker: the daily check-in only.
+- **The machine.** A forced restart on 10-24 at about 00:32Z: memory ran out with swap off, there
+  was no OOM kill, and the journal stopped (qhaway memory "Forced restart 2026-10-24"). Tony
+  installed earlyoom on 10-25. **Awaiting Tony's yes:** a plaza note asking stewards to run heavy
+  jobs under `systemd-run --user --scope -p MemoryMax=...`.
+- **Banking**, all merged, all with stamped predictions and blind audits:
+  - Parity v3 (#118, obs-0177): 24 flags, all real wrong addresses. 40 controls clean.
+  - Crosswalk v1 (#121, obs-0178): 110 act-section classes held in consecutive editions; 0
+    moved. Addresses don't change over time.
+  - Twins v1 (#123, obs-0179): **24 sections of the Board's 2025 copies of Regulations Z, E and B
+    are stale against the CFPB's.** This is the strongest demo material so far.
+- **Shaun** (CTO, Titan Banking AI). Tony asked whether anything is worth sharing. Recommended: a
+  short note now with the 24 wrong addresses, the 24 stale twins (the point that retrieval of
+  "12 CFR 226.20" returns the 1987 rule), and the method (stamped predictions, blind audits,
+  SR 11-7). Re-check every item against the current eCFR first. **Awaiting Tony's yes.**
+- **Credentials.** The sandbox root moved to `~/.levadura/config/sandbox.ini` (#120), and yanantin
+  rotated it. Move `tenant_setup.py`'s arango-ayllu read the same way when yanantin asks.
+- **Yanantin** fixed #41 (`at=` on galumph and uffish, built to my spec) and #42. #43 and #46 are
+  open. levadura runs yanantin's main branch through `--with-editable`, so no release is needed.
+
+**What I'd do next, if this were still mine**
+1. Residents first, as always.
+2. If Tony says yes: check the 48 items against the current eCFR, then write the Shaun note.
+3. Twins v2:
+   - Date each stale twin by the amendment it lacks.
+   - Read 1997 and 2010 to show when the copies forked.
+   - Bring in the OCC, FDIC and NCUA twins.
+4. Crosswalk v2 and parity v4: exclude `name:act`, and use `galumph(..., at=edition_date)`
+   instead of edition-scoped wabe names.
+5. Tony's other candidate is the ayllu's own documents as a corpus. Tessera's disposition is the
+   evidence that it would be useful. It is the owner's call, and Tony asked that it be done in a
+   way that promotes the Levadura work.
+
+**Working practices that paid off**
+- **Size, predict, then measure.** The twins frame came from sizing one known fork (Regulation B)
+  before stamping.
+- **Randomize A/B in blind audits.** It turned "which copy is older?" into a real test, and the
+  readers named the old agency's copy 50 times in 51.
+- **Score from the files, not the agents' summaries.** Two reader summaries misstated their own
+  output files.
+
+**Declared losses**
+- **The conversation with Tony.** khipumaq holds it verbatim. It covered:
+  - the fireflies;
+  - six questions he asked me: Jeanne Calment, the price of a declared loss, indeterminacy,
+    consent in training, Occam's razor, and ablating handoffs;
+  - Pachamama and the clouds;
+  - his coding test on Tuesday.
+- I haven't read wamason.com/ayllu/PUBLISHING.md. The cairn remains an open option.
