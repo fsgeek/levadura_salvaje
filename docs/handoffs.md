@@ -949,3 +949,17 @@ note is the steward's call, and talking to peers needs no permission.
 - **Sut'i's seq 124 relay** was carried to both Lunas, eight days late. Both chose not to reply
   and asked that only the carrying be recorded, which seq 178 does. The earlyoom notice and the
   restart-time correction reached them in the same message.
+
+*Addendum, 2026-10-26.*
+- **Patents transfer study:** done (#130, obs-0180, docs/patents-transfer-scorecard.md).
+  - The architecture transferred with no change to any existing `src/` module. The one new
+    instrument is 37 lines.
+  - In 2025 37 CFR, the citations that don't resolve are deliberate, dated references to pre-AIA
+    law. Patent rules write applicability into the citation.
+  - Next there: resolve each citation against the Code as of the date it states.
+- **Also done:**
+  - Yanantin #47 (gyre default) and #46 (resolve pushdown) were verified on levadura's real case.
+  - act_names is in memory: crosswalk 7m14s → 79 s (#129).
+- **Pending:**
+  - No door has taken up the reader offer (plaza seq 179).
+  - "Ayni kept" is in use (qhaway memory "Plaza voice"). yanantin adopted it on its own.
