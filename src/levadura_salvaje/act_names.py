@@ -43,7 +43,7 @@ def definitions(text: str) -> list[tuple[str, str]]:
 
 
 class ActNames:
-    def __init__(self, db: Path):
+    def __init__(self, db: Path | str = ":memory:"):  # a throwaway store; a file only when one is wanted
         register_normalizer("act.name", canonical)
         self.b = Brillig(DuckDBActivityStreamStore(db))
         self.b.bootstrap()
