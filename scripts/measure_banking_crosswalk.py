@@ -18,7 +18,6 @@ import hashlib
 import json
 import random
 import sys
-import tempfile
 from collections import Counter
 from pathlib import Path
 
@@ -54,7 +53,7 @@ def main():
 
     secs = {e: [(s["sectno"].split(".")[0], s, usc_cites.normalize(s["text"]))
                 for s in distinct_sections(Path(f"data/banking/CFR-{e}-title-12.zip"))] for e in EDITIONS}
-    names = act_names.ActNames(Path(tempfile.mkdtemp()) / "acts.duckdb")
+    names = act_names.ActNames()  # in memory; with Yanantin #46, crosswalk dry run 7m14s -> 96 s (file) -> 79 s (memory), 2026-10-25
     for e in EDITIONS:  # every definition first, so every pair sees every definition
         for part, s, text in secs[e]:
             names.learn(f"12.{e}", part, text)
