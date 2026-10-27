@@ -1,4 +1,4 @@
-"""Read a GPO U.S. Code title 26 package (GovInfo HTML) as a set of provisions.
+"""Read a GPO U.S. Code title package (GovInfo HTML) as a set of provisions (written for title 26; any title since 2026-10-27).
 
 The output has the same shape as usc.provisions (USLM), so resolve.Statute
 can load either. GPO's HTML has no identifiers below the section, so the
@@ -29,7 +29,7 @@ LEVELS = ("section", "subsection", "paragraph", "subparagraph", "clause", "subcl
 HEAD_LEVEL = {"subsection-head": 1, "paragraph-head": 2, "subparagraph-head": 3, "clause-head": 4,
               "subclause-head": 5, "item-head": 6, "subitem-head": 7}
 BODY = re.compile(r"statutory-body(?:-(\d)em)?$")
-DOC = re.compile(r"<!-- documentid:26_(\S+)\s[^>]*currentthrough:(\d+)")
+DOC = re.compile(r"<!-- documentid:(\d+)_(\S+)\s[^>]*currentthrough:(\d+)")  # any title (was 26 only; 2026-10-27)
 SECHEAD = re.compile(r'<h3 class="section-head">(.*?)</h3>', re.S)
 ELEM = re.compile(r'<(h4|p) class="([^"]+)">(.*?)</\1>', re.S)
 LEAD = re.compile(r"^\[?\((\w{1,6})\)")
@@ -90,10 +90,10 @@ def provisions(path: Path) -> Iterator[dict]:
         a = block.find("field-start:statute")
         b = block.find("field-end:statute", a)
         statute = block[a:b] if a >= 0 and b > a else ""
-        yield {"identifier": f"/us/usc/t26/s{sec}", "path": f"s{sec}", "level": "section", "status": status,
+        yield {"identifier": f"/us/usc/t{m.group(1)}/s{sec}", "path": f"s{sec}", "level": "section", "status": status,
                "num": sec, "heading": re.sub(r"^\[?§+\s*\S+\.?\s*", "", heading).strip(" ]"),
                "chars": len(_text(statute)), "text_sha256": hashlib.sha256(_text(statute).encode()).hexdigest(),
-               "current_through": m.group(2)}
+               "current_through": m.group(3)}
         if status:
             continue
         stack: dict[int, str] = {}
@@ -114,8 +114,8 @@ def provisions(path: Path) -> Iterator[dict]:
                 continue
             emitted.add(p)
             rest = body[lead.end():].strip()
-            yield {"identifier": f"/us/usc/t26/{p}", "path": p, "level": LEVELS[lv], "num": tok,
+            yield {"identifier": f"/us/usc/t{m.group(1)}/{p}", "path": p, "level": LEVELS[lv], "num": tok,
                    "status": "repealed" if re.match(r"\[?Repealed\b", rest) else None,
                    "heading": rest[:120] if cls.endswith("-head") else "",
                    "chars": len(body), "text_sha256": hashlib.sha256(body.encode()).hexdigest(),
-                   "current_through": m.group(2)}
+                   "current_through": m.group(3)}
