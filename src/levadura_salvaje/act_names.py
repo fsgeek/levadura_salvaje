@@ -20,7 +20,7 @@ from uuid import UUID
 from yanantin.activity.backends.duckdb import DuckDBActivityStreamStore
 from yanantin.jabberwock import Brillig, register_normalizer
 
-VERSION = "1"
+VERSION = "2"
 
 _W = r"(?:[A-Z][\w'&.-]*|of|and|for|the|on|to|in)"
 LONG = rf"[A-Z][\w'&.-]*(?:,? {_W})*? (?:Act|Code)(?: of \d{{4}})?"
@@ -63,24 +63,28 @@ class ActNames:
                 self._acts[key] = jw.id
         return self._acts[key]
 
-    def learn(self, title: str, part: str, text: str) -> None:
+    def learn(self, title: str, part: str, text: str, gyre_from=None, gyre_to=None) -> None:
+        """A part's definitions. gyre_from/gyre_to (crosswalk v2) say when they held: the edition's
+        date to the next edition's. Without them they hold at every time, as in v1."""
+        when = {"gyre_from": gyre_from, "gyre_to": gyre_to}
         for short, long_name in definitions(text):
             aid = self.act(long_name)
             if short == "Act" or canonical(short) == canonical(long_name):
                 if short == "Act":
-                    self.b.slithy(aid, f"cfr.{title}.{part}", short)
+                    self.b.slithy(aid, f"cfr.{title}.{part}", short, **when)
                 continue
-            self.b.slithy(aid, f"cfr.{title}.{part}", short)
+            self.b.slithy(aid, f"cfr.{title}.{part}", short, **when)
             seen = self._short.setdefault(canonical(short), set())
             if aid not in seen:
                 seen.add(aid)
                 self.b.slithy(aid, "act.short", short)
 
-    def resolve(self, name: str, title: str, part: str) -> UUID | None:
+    def resolve(self, name: str, title: str, part: str, at=None) -> UUID | None:
+        """at (crosswalk v2): what the name meant at that world time; None means at every time."""
         for wabe in (f"cfr.{title}.{part}", "act.name", "act.short"):
             if wabe == "act.name" and name == "Act":
                 continue
-            found = self.b.galumph(wabe, name)
+            found = self.b.galumph(wabe, name, at=at)
             if hasattr(found, "jabberwock"):
                 return found.jabberwock.id
             if getattr(found, "candidates", ()):
