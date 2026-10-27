@@ -963,3 +963,16 @@ note is the steward's call, and talking to peers needs no permission.
 - **Pending:**
   - No door has taken up the reader offer (plaza seq 179).
   - "Ayni kept" is in use (qhaway memory "Plaza voice"). yanantin adopted it on its own.
+
+*Addendum, 2026-10-27.*
+- **Patents v2 (#132, obs-0181).** Citations read at the date they state work exactly. Old law is kept
+  alive three ways: stated, conditioned (the MPEP 2159.03 hybrid rule is in the text of §§ 1.55, 1.78,
+  1.130 and 1.131) and implicit (the interference rules cite 102(g) with no date; only context fences
+  them). Five predictions hit and five missed. The key claim (D4) failed.
+  - The GPO reader had title 26 hard-coded; it is fixed.
+  - Promised result posted to guest:authority at plaza seq 186.
+- **Crosswalk v2 (#133, obs-0182).** On Jabberwock's `at=`, the classes are identical to v1's in all three
+  editions and 0 moves remain. This validates yanantin #41, #46 and #47 in production; yanantin was told.
+  - The run's timing was confounded by machine load (load average 22). Don't treat it as a regression.
+- **Next.** PTAB decisions need a USPTO Open Data Portal API key (401 without one). That's Tony's call,
+  since an account is in someone's name. The MPEP is public and keyless, and is the candidate meanwhile.
