@@ -1,0 +1,19 @@
+{"item": "b-01", "condition": "yes", "note": "Applicability depends on the application containing a claim with an effective filing date on or after March 16, 2013, or a specific reference to such an application."}
+{"item": "b-02", "condition": "yes", "note": "Although the March 16, 2013 date only fixes the statute version, the sentence conditions treatment on filing/pendency/grant dates of the application and an ownership statement."}
+{"item": "b-03", "condition": "no", "note": "The date only identifies the version of 102(e) used to set a reference's effective date; nothing about the application is conditioned."}
+{"item": "b-04", "condition": "yes", "note": "The statement requirement turns on whether the application contains or ever contained a claim with an effective filing date on or after March 16, 2013."}
+{"item": "b-05", "condition": "yes", "note": "The dates fix statute versions, but the sentence conditions the procedure on a claim being rejected, the inventions not being patentably distinct, and common ownership."}
+{"item": "b-06", "condition": "yes", "note": "The paragraph (d) sentence makes applicability depend on containing a claim with an effective filing date before March 16, 2013, or a specific reference to such an application."}
+{"item": "b-07", "condition": "yes", "note": "Requirement depends on filing date, foreign priority claim, application type, and containing a claim with an effective filing date on or after March 16, 2013."}
+{"item": "b-08", "condition": "no", "note": "States only that references to 102 or 135 mean the statute in effect on March 15, 2013."}
+{"item": "b-09", "condition": "yes", "note": "Applicability depends on a claim's effective filing date before March 16, 2013, and paragraph (e) on whether 1.130 applies to the application."}
+{"item": "b-10", "condition": "yes", "note": "Time period applies to an original 111(a) application filed on or after March 16, 2013, excluding design applications and stated exceptions, so it depends on application type as well as date."}
+{"item": "b-11", "condition": "yes", "note": "The statement requirement depends on the application containing a claim with an effective filing date on or after March 16, 2013."}
+{"item": "b-12", "condition": "yes", "note": "The statement requirement depends on whether the application contains or ever contained a claim with an effective filing date on or after March 16, 2013."}
+{"item": "b-13", "condition": "yes", "note": "Requirement depends on filing date, foreign priority to a pre-March 16, 2013 application, and containing a claim with an effective filing date on or after March 16, 2013."}
+{"item": "b-14", "condition": "yes", "note": "Applicability depends on the application containing a claim with an effective filing date before March 16, 2013, or a specific reference to such an application."}
+{"item": "b-15", "condition": "yes", "note": "The date fixes the statute version, but treatment is conditioned on pendency/grant dates and a joint research agreement statement."}
+{"item": "b-16", "condition": "yes", "note": "Requirement depends on filing date, a benefit claim to a pre-March 16, 2013 provisional, and containing a claim with an effective filing date on or after March 16, 2013."}
+{"item": "b-17", "condition": "yes", "note": "Applicability depends on claims' effective filing dates and specific references, and paragraph (e) on whether 1.130 applies."}
+{"item": "b-18", "condition": "yes", "note": "The date fixes the statute version, but treatment is conditioned on pendency/grant dates and a joint research agreement statement."}
+{"item": "b-19", "condition": "yes", "note": "The dates fix statute versions, but the sentence conditions the procedure on rejection, lack of patentable distinctness, and common ownership."}
