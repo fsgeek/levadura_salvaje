@@ -18,13 +18,16 @@ Same question and instructions as the models in arm C0 (instructions-c0.md): no 
 
 > g a Pending AIA Trial Proceeding. See 84 Fed. Reg. 16,654 (Apr. 22, 2019). If Patent Owner chooses to file a reissue application or a request for reexamination of the challenged patent, we remind Patent Owner of its continuing obligation to notify the Board of any such related matters in updated mandatory notices. See 37 C.F.R. § 42.8(a)(3), (b)(2). 5 16 IPR2022-01416 Patent 7,938,523 B2 Claim(s) 35 U.S.C. § 1, 3, 5, 10, 12, 102 14 1, 3, 5–7, 103 10, 12, 14–16 1–3, 5–7, 103 10–12, 14–16 6, 7, 15, 103 16 6, 7, 15, 103 16 Overall Outcome Reference(s)/Basis Studer ’708 Claims Claims Shown Not shown Unpatentable Unpatentable 1, 3, 5, 10, 12, 14 Studer ’708 6 Studer ’708, Studer ’471 Studer ’708, Studer ’471, Elliot 7 Studer ’708, Studer ’878 8 IV. 1–3, 5–7, 10– 12, 14–16 1–3, 5–7, 10– 12, 14–1
 
-**Answer:** 
+**Answer:**
+
+**applies**: pre-AIA
+**basis**: patent was *issued* prior to the law change, so the filing date was earlier than the issue date.
 
 ## Item H2 (c0-06)
 
 > PATENT AND TRADEMARK OFFICE BEFORE THE PATENT TRIAL AND APPEAL BOARD MICROCHIP TECHNOLOGY INC., Petitioner, v. HD SILICON SOLUTIONS LLC, Patent Owner. IPR2021-01089 Patent 7,154,299 B2 Before FRANCES L. IPPOLITO, NATHAN A. ENGELS, and ARTHUR M. PESLAK, Administrative Patent Judges. ENGELS, Administrative Patent Judge. JUDGMENT Final Written Decision Determining Some Challenged Claims Unpatentable 35 U.S.C. § 318(a) IPR2021-01089 Patent 7,154,299 B2 I. INTRODUCTION Petitioner Microchip Technology, Inc. filed a Petition (Paper 1, “Pet.”) requesting inter partes review of claims 1–25 of U.S. Patent No. 7,154,299 B2 (Ex. 1001, “the ’299 patent”). Patent Owner HD Silicon Solutions LLC filed a Preliminary Response. Paper 6. Pursuant to 35 U.S.C. § 314, we issued a Decision instituting this inter
 
-> en Decision Determining Some Challenged Claims Unpatentable 35 U.S.C. § 318(a) IPR2021-01089 Patent 7,154,299 B2 I. INTRODUCTION Petitioner Microchip Technology, Inc. filed a Petition (Paper 1, “Pet.”) requesting inter partes review of claims 1–25 of U.S. Patent No. 7,154,299 B2 (Ex. 1001, “the ’299 patent”). Patent Owner HD Silicon Solutions LLC filed a Preliminary Response. Paper 6. Pursuant to 35 U.S.C. § 314, we issued a Decision instituting this inter partes review as to all of the challenged claims and all grounds raised in the Petition. Paper 8 (“Dec.”). After institution, Patent Owner filed a Response (Paper 16 (“PO Resp.”)), Petitioner filed a Reply (Paper 18 (“Reply”)), and Patent Owner filed a Sur-Reply (Paper 23 (“Sur-Reply”)). Petitioner filed two Declarations of Carl Sechen, 
+> en Decision Determining Some Challenged Claims Unpatentable 35 U.S.C. § 318(a) IPR2021-01089 Patent 7,154,299 B2 I. INTRODUCTION Petitioner Microchip Technology, Inc. filed a Petition (Paper 1, “Pet.”) requesting inter partes review of claims 1–25 of U.S. Patent No. 7,154,299 B2 (Ex. 1001, “the ’299 patent”). Patent Owner HD Silicon Solutions LLC filed a Preliminary Response. Paper 6. Pursuant to 35 U.S.C. § 314, we issued a Decision instituting this inter partes review as to all of the challenged claims and all grounds raised in the Petition. Paper 8 (“Dec.”). After institution, Patent Owner filed a Response (Paper 16 (“PO Resp.”)), Petitioner filed a Reply (Paper 18 (“Reply”)), and Patent Owner filed a Sur-Reply (Paper 23 (“Sur-Reply”)). Petitioner filed two Declarations of Carl Sechen,
 
 > ent other than one or more switch elements and [d] to simultaneously connect an output of the logic circuit element to a second signal-pass node of the common interconnect matrix. Ex. 1001, 5:27–40. E. Alleged Grounds of Unpatentability Petitioner asserts that claims 1–25 would have been unpatentable on the following grounds: 4 IPR2021-01089 Patent 7,154,299 B2 Claims Challenged 1–18, 23–25 19–22 35 U.S.C. § 103 103 References/Basis Ting Ting, Pani3 12 F. Summary of Prior Art References 1. Ting Titled “Architecture and Interconnect Scheme for Programmable Logic Circuits,” Ting “pertains to the field of programmable logic circuits.” Ex. 1005, code (54), 1:8–9. Ting explains that a “programmable logic circuit is comprised of a number of cells which perform digital functions on input signals”
 
@@ -32,11 +35,15 @@ Same question and instructions as the models in arm C0 (instructions-c0.md): no 
 
 >  evidence that supports the grounds for the challenge to each claim.” 35 U.S.C. § 312(a)(3). As stated by the Court of Appeals for the Federal Circuit, “[i]n an [inter partes review], the petitioner has the burden from the onset to show with particularity why the patent it challenges is unpatentable.” Harmonic Inc. v. Avid Tech., Inc., 815 F.3d 1356, 1363 (Fed. Cir. 2016) (emphasis added) (citing 35 U.S.C. § 312(a)(3)); see also Intelligent Bio-Sys., Inc. v. Illumina Cambridge Ltd., 821 F.3d 1359, 1369 (Fed. Cir. 2016) (“It is of the utmost importance that petitioners in the IPR proceedings adhere to the requirement that the initial petition identify ‘with particularity’ the ‘evidence that supports the grounds for the challenge to each claim.’”) (quoting 35 U.S.C. § 312(a)(3)). The Board’s
 
-> ir. 2016) (emphasis added) (citing 35 U.S.C. § 312(a)(3)); see also Intelligent Bio-Sys., Inc. v. Illumina Cambridge Ltd., 821 F.3d 1359, 1369 (Fed. Cir. 2016) (“It is of the utmost importance that petitioners in the IPR proceedings adhere to the requirement that the initial petition identify ‘with particularity’ the ‘evidence that supports the grounds for the challenge to each claim.’”) (quoting 35 U.S.C. § 312(a)(3)). The Board’s Trial Practice Guide further advises that a petitioner should “focus on concise, wellorganized, easy-to-follow arguments supported by readily identifiable evidence of record.” Patent Trial and Appeal Board Consolidated Trial Practice Guide, at 39 (Nov. 2019). 5 Moreover, a petitioner “may not submit new evidence or argument in reply that it could have presented 
+> ir. 2016) (emphasis added) (citing 35 U.S.C. § 312(a)(3)); see also Intelligent Bio-Sys., Inc. v. Illumina Cambridge Ltd., 821 F.3d 1359, 1369 (Fed. Cir. 2016) (“It is of the utmost importance that petitioners in the IPR proceedings adhere to the requirement that the initial petition identify ‘with particularity’ the ‘evidence that supports the grounds for the challenge to each claim.’”) (quoting 35 U.S.C. § 312(a)(3)). The Board’s Trial Practice Guide further advises that a petitioner should “focus on concise, wellorganized, easy-to-follow arguments supported by readily identifiable evidence of record.” Patent Trial and Appeal Board Consolidated Trial Practice Guide, at 39 (Nov. 2019). 5 Moreover, a petitioner “may not submit new evidence or argument in reply that it could have presented
 
 > atentable; FURTHER ORDERED that Petitioner has not proven by a preponderance of the evidence that claims 1–18 and 23–25 are unpatentable; and FURTHER ORDERED that, because this is a Final Written Decision, parties to the proceeding seeking judicial review of the decision must comply with the notice and service requirements of 37 C.F.R. § 90.2. In summary: Claims 1–18, 23– 25 19–22 Overall Outcome 35 U.S.C. References/Basis § 103 Ting 103 Ting, Pani Claims Claims Not Shown Shown Unpatentable Unpatentable 1–18, 23–25 19–22 19–22 1–18, 23–25 Should Patent Owner wish to pursue amendment of the challenged claims in a reissue or reexamination proceeding subsequent to the issuance of this decision, we draw Patent Owner’s attention to the April 2019 Notice Regarding Options for Amendments by Paten
 
-**Answer:** 
+**Answer:**
+
+**applies**: pre-AIA
+**basis**: the patent number indicates it was issued prior to the date on which the AIA came into effect.  The data presented does not include that date.
+
 
 ## Item H3 (c0-32)
 
@@ -50,13 +57,18 @@ Same question and instructions as the models in arm C0 (instructions-c0.md): no 
 
 > bit 1001 in the 232 IPR and cited as “232 IPR, Ex. 1001.” 4 Filed as Exhibit 1001 in the 230 IPR and cited as “230 IPR, Ex. 1001.” 1 2 2 IPR2025-00230 (Patent 7,711,443 B1) IPR2025-00232 (Patent 10,276,207 B1) overlap of arguments and evidence across both proceedings, we issue a combined final written decision with respect to the patentability of all challenged claims in the two proceedings under 35 U.S.C. § 318(d). III. BACKGROUND RØDE Microphones, LLC, (“RØDE”) and Freedman Electronics Pty Ltd. (“Freedman”) (collectively, “Petitioner”) filed Petitions requesting inter partes review as follows: (a) in the 230 IPR, Petitioner requested review of claims 1–4, 7‒9, 15, 17, 19, 20, and 22‒27 of the ’443 patent (230 IPR, Paper 1 (“230 Pet.”) 5); and (b) in the 232 IPR, Petitioner requested revi
 
->  persuasive. Accordingly, we conclude that a person of ordinary skill in the art would have had a Bachelor’s degree in electrical engineering and two or more years of experience working with audio and wireless communications systems. IV. CLAIM CONSTRUCTION We interpret each challenged claim using the same claim construction standard that would be used to construe the claim in a civil action under 35 U.S.C. 282(b), including construing the claim in accordance with the ordinary and customary meaning of such claim as understood by one of ordinary skill in the art and the prosecution history pertaining to the patent. 37 C.F.R. § 42.100(b). “In determining the meaning of [a] disputed claim limitation, we look principally to the intrinsic evidence of record, examining the claim language itself, 
+>  persuasive. Accordingly, we conclude that a person of ordinary skill in the art would have had a Bachelor’s degree in electrical engineering and two or more years of experience working with audio and wireless communications systems. IV. CLAIM CONSTRUCTION We interpret each challenged claim using the same claim construction standard that would be used to construe the claim in a civil action under 35 U.S.C. 282(b), including construing the claim in accordance with the ordinary and customary meaning of such claim as understood by one of ordinary skill in the art and the prosecution history pertaining to the patent. 37 C.F.R. § 42.100(b). “In determining the meaning of [a] disputed claim limitation, we look principally to the intrinsic evidence of record, examining the claim language itself,
 
 > re Antor Media Corp., 689 F.3d 1282, 1292 (Fed. Cir. 2012) (stating that a prior art reference “can still qualify as prior art in determining Identical arguments on this issue are presented in the 232 IPR. See 232 PO Resp. 29−54. We, however, cite only to the 230 IPR in our discussion, for expediency. 16 33 IPR2025-00230 (Patent 7,711,443 B1) IPR2025-00232 (Patent 10,276,207 B1) obviousness under 35 U.S.C. § 103, independent of enablement” and proceeding to “review the obviousness rejection . . . without regard to whether [the reference] is enabling”); Amgen Inc. v. Hoechst Marion Roussel, Inc., 314 F.3d 1313, 1357 (Fed. Cir. 2003) (remanding to reconsider obviousness over a prior art reference argued to be not enabled, but to do so “without reference to whether [the reference] is enabled,
 
 > ola, Inc. v. Interdigital Tech. Corp., 121 F.3d 1461, 1471 (Fed. Cir. 1997) (finding it appropriate to consider the level of detail used in the challenged patent when evaluating whether a prior art reference was enabling). Patent Owner cites various legal authority urging a finding of nonenablement. 230 PO Resp. 43−44. However, these cases are inapplicable insofar as they address enablement under 35 U.S.C. § 112. But urging that the sufficiency of each prior art teaching must be tested under the strict standard requiring an enabling disclosure is to shift the emphasis from obviousness in light of the prior art, taken as a whole, to the sufficiency of each prior art teaching separately considered. Minn. Mining & Mfg. Co. v. Blume, 684 F.2d 1166, 1173 n.10 (6th Cir. 1982). Our reviewing cour
 
-**Answer:** 
+**Answer:**
+
+
+**applies**: pre-AIA
+**basis**: patents were both issued prior to the date at which the AIA came into effect.
+
 
 ## Item H4 (c0-73)
 
@@ -72,7 +84,10 @@ Same question and instructions as the models in arm C0 (instructions-c0.md): no 
 
 > acob before filing its Petition with Dr. Jacob’s Declarations is not persuasive in light of his willingness to testify in this proceeding. PO Mtn. Exclude 6–10. 10 41 IPR2021-01064 Patent 7,725,759 B2 different from that in district courts. Notably, the Board’s rules generally do not allow an expert to “testify” in person at an IPR hearing. See 37 C.F.R. § 42.53 (a)–(b)(1); 35 U.S.C. § 316(a)(5); 35 U.S.C. § 23. Testimony is instead submitted as evidence in the form of affidavits and deposition transcripts. See 37 C.F.R. §§ 42.53, 42.63. Our rules, therefore, contemplate that declarants in IPRs do not “testify” in the traditional sense of giving live testimony in a courtroom. As other Board decisions have noted, “[w]ithout exception, the Board accepts the filing of sworn witness declaratio
 
-**Answer:** 
+**Answer:**
+
+**applies**: pre-AIA
+**basis**: patent was *issued* prior to the law change, so the filing date was earlier than the issue date.
 
 ## Item H5 (c0-82)
 
@@ -86,5 +101,7 @@ Same question and instructions as the models in arm C0 (instructions-c0.md): no 
 
 > sum, perturbation means “a small change in movement, quality, or behavior of something, especially an unusual change, and describes the disturbance or agitation of the charge stored on the capacitor array that introduces dither into the analog to digital converter.” H. Grounds Asserted Petitioner asserts that claims 1–7, 10–17, and 29 are unpatentable on the following grounds: Claim(s) Challenged 35 U.S.C. § 16, 17 103(a) 1–7, 9, 10, 12–25 103(a) 8 103(a) 11 103(a) 1–5, 7, 9–22 103(a) 8 103(a) Reference(s)/Basis Confalonieri3 Confalonieri, Hiller4 Confalonieri, Hiller, Hester5 Confalonieri, Hiller, Bjornsen6 Cai, 7 Bjornsen Cai, Bjornsen, Hester Petitioner relies on the opinion testimony of Dr. Douglas R. Holberg (Ex. 1003). Patent Owner’s arguments are supported by the testimony of Dr. Un
 
-**Answer:** 
+**Answer:**
 
+**applies**: pre-AIA
+**basis**: patent was *issued* prior to the law change, so the filing date was earlier than the issue date.
