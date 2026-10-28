@@ -1,0 +1,27 @@
+{"item": "c0-01", "applies": "AIA", "basis": "The Board states that because the '941 patent has an effective filing date after March 16, 2013, it refers to the AIA version of § 103."}
+{"item": "c0-04", "applies": "AIA", "basis": "The § 103 standard is stated as obviousness 'before the effective filing date of the claimed invention' (AIA wording), and the patent's earliest priority is a June 2014 provisional."}
+{"item": "c0-07", "applies": "AIA", "basis": "The § 103 standard is quoted in AIA wording: obvious 'before the effective filing date of the claimed invention'."}
+{"item": "c0-10", "applies": "unclear", "basis": "The passages state no § 102/103 version, give no effective filing date, and quote no obviousness language that would identify a version."}
+{"item": "c0-13", "applies": "pre-AIA", "basis": "The § 103 standard is quoted in pre-AIA wording: obvious 'at the time the invention was made' to a person of ordinary skill in the art to which 'said subject matter pertains'."}
+{"item": "c0-16", "applies": "AIA", "basis": "The Board states that because the '838 patent has an effective filing date after March 16, 2013, it refers to the AIA versions of §§ 102 and 103."}
+{"item": "c0-19", "applies": "unclear", "basis": "The passages give no statutory version, no filing or priority date, and no quoted obviousness standard."}
+{"item": "c0-22", "applies": "AIA", "basis": "The Board states it applies the AIA versions of §§ 102 and 103 because September 6, 2017 is the earliest possible priority date."}
+{"item": "c0-25", "applies": "unclear", "basis": "The passages contain only procedural and claim-construction citations, with no § 103 version, standard, or filing date."}
+{"item": "c0-28", "applies": "pre-AIA", "basis": "The § 103 standard is quoted in pre-AIA wording: 'would have been obvious at the time the invention was made'."}
+{"item": "c0-31", "applies": "AIA", "basis": "The quoted § 103 text ends 'to which the claimed invention pertains' (AIA wording), and the asserted prior art includes 2014–2015 publications."}
+{"item": "c0-34", "applies": "unclear", "basis": "The passages list § 102 and § 103 grounds but give no version, filing date, or quoted statutory standard."}
+{"item": "c0-37", "applies": "pre-AIA", "basis": "The Board cites unpatentability 'under § 103(a)', a subsection that exists only in the pre-AIA statute."}
+{"item": "c0-40", "applies": "AIA", "basis": "The Board states that the '922 patent was filed after the AIA's effective date and that it applies the AIA versions of §§ 103 and 112, even though it quotes pre-AIA-style KSR language."}
+{"item": "c0-43", "applies": "AIA", "basis": "The Board states that the '276 patent claims no priority before March 16, 2013, so the AIA version of § 103 applies."}
+{"item": "c0-46", "applies": "AIA", "basis": "The asserted prior art includes Ma, published May 29, 2014, which implies an effective filing date after March 16, 2013; no explicit version statement appears."}
+{"item": "c0-49", "applies": "AIA", "basis": "This is a post-grant review, and the passages cite the AIA § 3(n)(1) effective-filing-date eligibility requirement, which limits PGR to AIA patents; the quoted § 103 text uses pre-AIA wording, though."}
+{"item": "c0-52", "applies": "pre-AIA", "basis": "The § 103 standard is quoted in pre-AIA wording: 'obvious at the time the invention was made'."}
+{"item": "c0-55", "applies": "AIA", "basis": "The parties dispute prior-art status under AIA § 102(a)(1) and § 102(d) and MPEP § 2152, and the '380 application was filed December 29, 2014."}
+{"item": "c0-58", "applies": "AIA", "basis": "The § 103 standard is quoted in AIA wording ('before the effective filing date of the claimed invention'), citing 35 U.S.C. § 103 (2011)."}
+{"item": "c0-61", "applies": "AIA", "basis": "The Board states that the '509 patent's earliest effective filing date is after March 16, 2013, so the AIA versions of §§ 102 and 103 apply."}
+{"item": "c0-64", "applies": "AIA", "basis": "The Board states that the '681 patent's effective filing date is after March 16, 2013, so the AIA versions of §§ 102 and 103 apply."}
+{"item": "c0-67", "applies": "AIA", "basis": "The Board states that the '806 patent issued from an application filed after March 16, 2013, so it applies the AIA versions."}
+{"item": "c0-70", "applies": "AIA", "basis": "The asserted prior art includes the 2014 Bell Paper (ECCV 2014), which implies an effective filing date after March 16, 2013; the quoted KSR standard elides the timing language."}
+{"item": "c0-73", "applies": "pre-AIA", "basis": "The § 103 standard is quoted in pre-AIA wording: 'obvious at the time the invention was made' to a person skilled in the art 'to which said subject matter pertains'."}
+{"item": "c0-76", "applies": "unclear", "basis": "The passages list § 103 grounds but give no version, filing date, or quoted statutory standard."}
+{"item": "c0-79", "applies": "AIA", "basis": "The Board states that the claims' effective filing date of August 7, 2017 is after March 16, 2013, so it applies the post-AIA version of § 103."}

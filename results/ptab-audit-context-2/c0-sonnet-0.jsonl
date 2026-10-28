@@ -1,0 +1,27 @@
+{"item": "c0-01", "applies": "AIA", "basis": "The decision states the '941 patent has an effective filing date after March 16, 2013, so it applies the AIA version of 103."}
+{"item": "c0-04", "applies": "AIA", "basis": "The 103 standard is quoted as 'before the effective filing date of the claimed invention', and the application was filed in 2015."}
+{"item": "c0-07", "applies": "AIA", "basis": "The decision frames obviousness as 'before the effective filing date of the claimed invention', which is AIA 103 wording."}
+{"item": "c0-10", "applies": "AIA", "basis": "The decision applies the post-2013 103 standard to a recent patent (11,643,462) with no pre-AIA indication, though it does not say so expressly."}
+{"item": "c0-13", "applies": "pre-AIA", "basis": "The decision quotes 103 as 'obvious at the time the invention was made', the pre-AIA wording."}
+{"item": "c0-16", "applies": "AIA", "basis": "The decision states the '838 patent has an effective filing date after March 16, 2013 and refers to the AIA version of 102 and 103."}
+{"item": "c0-19", "applies": "unclear", "basis": "The excerpts cite 103 without saying which version applies or giving a priority date."}
+{"item": "c0-22", "applies": "AIA", "basis": "The decision says it applies the AIA versions of 102 and 103 because the earliest priority date is September 6, 2017."}
+{"item": "c0-25", "applies": "unclear", "basis": "The excerpts cite only 103 with no statement of version or priority date."}
+{"item": "c0-28", "applies": "pre-AIA", "basis": "The decision quotes 103 as 'obvious at the time the invention was made', the pre-AIA wording."}
+{"item": "c0-31", "applies": "AIA", "basis": "The decision frames 103 as 'before the effective filing date of the claimed invention', and the prior art dates from 2014-2015."}
+{"item": "c0-34", "applies": "unclear", "basis": "The excerpts cite 102 and 103 generically with no version statement or filing date."}
+{"item": "c0-37", "applies": "pre-AIA", "basis": "The decision refers to the claim being unpatentable under '103(a)', the pre-AIA subsection designation."}
+{"item": "c0-40", "applies": "AIA", "basis": "The decision states the '922 patent was filed after the AIA effective date and applies the AIA versions of 103 and 112."}
+{"item": "c0-43", "applies": "AIA", "basis": "A footnote says the '276 patent has no pre-March 16, 2013 priority claim, so the AIA version of 103 applies."}
+{"item": "c0-46", "applies": "unclear", "basis": "The excerpts cite 102 and 103 generically and give no version statement or priority date."}
+{"item": "c0-49", "applies": "AIA", "basis": "This is a post-grant review, available only for AIA first-inventor-to-file patents, and the decision notes the AIA first-to-file requirement, even though it quotes older 103 wording."}
+{"item": "c0-52", "applies": "pre-AIA", "basis": "The decision quotes 103 as 'obvious at the time the invention was made', the pre-AIA wording."}
+{"item": "c0-55", "applies": "AIA", "basis": "The parties and the decision cite 102(a)(1) and 102(d), and the application was filed December 29, 2014."}
+{"item": "c0-58", "applies": "AIA", "basis": "The decision quotes 35 U.S.C. 103 (2011) as 'before the effective filing date of the claimed invention'."}
+{"item": "c0-61", "applies": "AIA", "basis": "The decision states the earliest effective filing date is after March 16, 2013, so the AIA versions of 102 and 103 apply."}
+{"item": "c0-64", "applies": "AIA", "basis": "The decision states the application has an effective filing date after March 16, 2013, so the AIA versions of 102 and 103 apply."}
+{"item": "c0-67", "applies": "AIA", "basis": "The decision states the patent issued from an application filed after March 16, 2013, so it applies the AIA statutory bases."}
+{"item": "c0-70", "applies": "unclear", "basis": "The only 103 text is the KSR quotation, elided and with no statement on version or priority date."}
+{"item": "c0-73", "applies": "pre-AIA", "basis": "The decision quotes 103 as 'obvious at the time the invention was made' and the ground is listed as 102(a), pre-AIA wording."}
+{"item": "c0-76", "applies": "unclear", "basis": "The excerpts cite only 103 with no version statement or priority date."}
+{"item": "c0-79", "applies": "AIA", "basis": "The decision states the effective filing date is August 7, 2017 and applies the post-AIA version of 103."}
