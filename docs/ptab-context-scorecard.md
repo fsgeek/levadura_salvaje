@@ -38,5 +38,9 @@ Written 2026-10-28.*
   patent numbers stripped, would be the next, sharper test.
 - The readers are Claude models with legal training data. That is part of what was measured, not a flaw to
   correct: a model reading regulations brings this knowledge with it.
-- A human sample (five C0 items, results/ptab-audit-context/human-tony.md) has been offered to Tony and is not
-  yet answered.
+- **A human reader agrees, by the same route.** Tony read five C0 items blind (no grant date;
+  results/ptab-audit-context/human-tony.md, items c0-05, c0-06, c0-32, c0-73, c0-82) on 2026-10-28. He judged
+  all five pre-AIA, which is correct for all five: "One explicitly lists the filing dates, the others use patent
+  numbers that were prior to the AIA coming into effect." This is levadura's first judgement from outside Claude.
+  The mechanism the models reported (dating the patent by its number) is the one a human expert uses, so the
+  redundant encoding is a property of the text, not of model readers.
