@@ -17,6 +17,7 @@ import json
 import sys
 import time
 import urllib.parse
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -36,6 +37,12 @@ def get(url: str) -> bytes:
             with open(DIR / "requests.log", "a") as log:
                 log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} 200 {url.split('?')[0]}\n")
             return body
+        except urllib.error.HTTPError as e:
+            with open(DIR / "requests.log", "a") as log:
+                log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} {e.code} {url.split('?')[0]}\n")
+            if e.code in (400, 404):  # an answer, not a transient failure: don't retry (fixed 2026-10-28)
+                raise LookupError(e.code)
+            time.sleep(10 * (attempt + 1))
         except Exception as e:  # rate limit or transient: back off
             with open(DIR / "requests.log", "a") as log:
                 log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} ERR {type(e).__name__} {url.split('?')[0]}\n")
@@ -91,15 +98,18 @@ def fitf():
                    and r["patentOwnerData"].get("applicationNumberText")} - have)
     print(f"fitf: {len(apps)} to fetch, {len(have)} already", flush=True)
     for i, app in enumerate(apps, 1):
+        status = "ok"
         try:
             d = json.loads(get(f"https://api.uspto.gov/api/v1/patent/applications/{app}/meta-data"))
+        except LookupError as e:
+            d, status = {}, f"http-{e.args[0]}"
         except RuntimeError:
-            d = {}
+            d, status = {}, "failed"
         md = (d.get("patentFileWrapperDataBag") or [{}])[0].get("applicationMetaData", {}) if d else {}
         with out.open("a") as f:
             f.write(json.dumps({"app": app, "fitf": md.get("firstInventorToFileIndicator"),
                                 "effective_filing_date": md.get("effectiveFilingDate"),
-                                "filing_date": md.get("filingDate")}, sort_keys=True) + "\n")
+                                "filing_date": md.get("filingDate"), "status": status}, sort_keys=True) + "\n")
         if i % 100 == 0:
             print(f"fitf {i}/{len(apps)}", flush=True)
         time.sleep(PAUSE)
