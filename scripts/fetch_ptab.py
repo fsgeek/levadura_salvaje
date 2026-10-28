@@ -7,7 +7,10 @@ log every request to data/ptab/requests.log so use can be counted against the we
 (5 million metadata and 1.2 million file-wrapper documents, Tony 2026-10-27). The API key is read
 from ~/.config/credentials/uspto-api-key (0600) and never printed or logged.
 
-Usage: uv run python scripts/fetch_ptab.py meta|pdf
+Stage "fitf" (2026-10-28): for each patent challenged in a final written decision and granted on or after
+2013-03-16, the application's first-inventor-to-file indicator and filing dates, to data/ptab/fitf.jsonl.
+
+Usage: uv run python scripts/fetch_ptab.py meta|pdf|fitf
 """
 
 import json
@@ -78,5 +81,29 @@ def pdf():
         time.sleep(PAUSE)
 
 
+def fitf():
+    out = DIR / "fitf.jsonl"
+    have = {json.loads(x)["app"] for x in out.open()} if out.exists() else set()
+    rows = [json.loads(x) for x in (DIR / "meta.jsonl").open()]
+    apps = sorted({r["patentOwnerData"]["applicationNumberText"] for r in rows
+                   if (r["documentData"].get("documentTypeDescriptionText") or "").startswith("Final Written Decision")
+                   and (r["patentOwnerData"].get("grantDate") or "") >= "2013-03-16"
+                   and r["patentOwnerData"].get("applicationNumberText")} - have)
+    print(f"fitf: {len(apps)} to fetch, {len(have)} already", flush=True)
+    for i, app in enumerate(apps, 1):
+        try:
+            d = json.loads(get(f"https://api.uspto.gov/api/v1/patent/applications/{app}/meta-data"))
+        except RuntimeError:
+            d = {}
+        md = (d.get("patentFileWrapperDataBag") or [{}])[0].get("applicationMetaData", {}) if d else {}
+        with out.open("a") as f:
+            f.write(json.dumps({"app": app, "fitf": md.get("firstInventorToFileIndicator"),
+                                "effective_filing_date": md.get("effectiveFilingDate"),
+                                "filing_date": md.get("filingDate")}, sort_keys=True) + "\n")
+        if i % 100 == 0:
+            print(f"fitf {i}/{len(apps)}", flush=True)
+        time.sleep(PAUSE)
+
+
 if __name__ == "__main__":
-    {"meta": meta, "pdf": pdf}[sys.argv[1]]()
+    {"meta": meta, "pdf": pdf, "fitf": fitf}[sys.argv[1]]()
