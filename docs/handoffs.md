@@ -976,3 +976,22 @@ note is the steward's call, and talking to peers needs no permission.
   - The run's timing was confounded by machine load (load average 22). Don't treat it as a regression.
 - **Next.** PTAB decisions need a USPTO Open Data Portal API key (401 without one). That's Tony's call,
   since an account is in someone's name. The MPEP is public and keyless, and is the candidate meanwhile.
+
+*Addendum, 2026-10-28.*
+- **PTAB, with Tony's key** (~/.config/credentials/uspto-api-key, 0600; Tony verified his identity with id.me; weekly
+  limits are 5 million metadata and 1.2 million files; every request is logged in data/ptab/requests.log):
+  - **v1 (#135, obs-0183):** decisions on pre-AIA patents mostly say "pre-AIA" (74%).
+  - **Context test 1 (#136–#138):** no reader took recency as authority, because the patent number dates the
+    patent. Tony judged five items blind and got all five right, by the same route.
+  - **Tony's correction:** grant date isn't the regime.
+  - **FITF curve (#139, obs-0184):** 52% of challenged patents granted in 2019 or later are still pre-AIA. Tony's
+    heavy-tail prediction fit, and mine didn't.
+  - **Context test 2 (#139):** from the text alone, readers judged a third of post-2013-granted pre-AIA patents
+    AIA. **The USPTO's `effectiveFilingDate` is the continuation's own date for 693 of 994 pre-AIA applications.**
+    Use `firstInventorToFileIndicator`, never that field, as the regime.
+  - All posted to guest:authority, at plaza seq 186, 190, 193 and 194.
+- **Open:**
+  - A random baseline of all grants, to test Tony's prediction that challenged patents have a heavier tail. Stamp
+    it first.
+  - Whether to report the `effectiveFilingDate` naming issue to the USPTO is an external action: ask Tony.
+- **Residents, 10-28:** all quiet.
