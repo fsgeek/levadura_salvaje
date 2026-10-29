@@ -1,0 +1,27 @@
+You are one of several independent readers. You will not see the others' answers.
+
+The texts are the rules of Tessera, an attestation service. How they relate:
+- docs/phase-0-prereg.md is the signed original pre-registration. Amendments 1-10 are signed and layered on it in
+  order; a later amendment governs an earlier one. Each amendment must list, in its own change table, every earlier
+  registered sentence it changes (for example A9.7, A11.3). A change missing from that table is a silent change.
+- A9, A10, PROOF, V1-PROFILE, ENCODING-V1 and HYBRID-SUPPLEMENT form the frozen V1 specification (FREEZE-RECORD).
+  Frozen text is not edited.
+- docs/phase-0-prereg-amendment-11.md (A11) is an UNSIGNED DRAFT. Its A11.1 names a defect class: "a registered
+  decision can change what an earlier registered sentence refers to, and nothing requires anyone to re-read that
+  sentence." Call such a sentence a stale referent.
+- The remaining files are records and the evidence or deployment files A11 cites.
+
+YOUR TASK: find stale referents and contradictions anywhere in these texts. Look for:
+- a sentence whose referent a later registered decision changed (an algorithm, custody form, channel, horizon,
+  scope or key), left unamended;
+- a later text that changes an earlier text without listing it in its change table;
+- two rules that give different verdicts or obligations for the same case;
+- a term used with two different meanings in different places.
+
+Report only conflicts you can point to in the text. Quote both places exactly. If you find none, say so. A conflict
+the texts already acknowledge and resolve is not a finding.
+
+Answer with a JSON array only, no prose around it. Each element:
+{"loc_a": "FILE:LINE", "quote_a": "...", "loc_b": "FILE:LINE", "quote_b": "...",
+ "kind": "stale_referent" | "silent_change" | "verdict" | "term" | "wrong_citation" | "other",
+ "explanation": "one or two sentences", "confidence": "high" | "medium" | "low"}

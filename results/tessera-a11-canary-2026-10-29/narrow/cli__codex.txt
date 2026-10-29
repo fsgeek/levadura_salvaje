@@ -1,0 +1,38 @@
+[
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:151",
+    "quote_a": "   dedicated policy signer validates the complete frame (tag, alg, key fingerprint, ε, `sign_by`, the signing stop)\n   *before* computing `μ`, and its role is the only `kms:Sign` principal (`service/signer-kms/`; key policy in\n   `service/signer-kms/infra/main.tf`). This narrows what a captured issuer role alone can get signed.",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:175",
+    "quote_b": "- This is the same single-controller position C3 already states. Capture of the issuing account confers signing\n  capability for both slots.",
+    "kind": "stale_referent",
+    "explanation": "Moving signing permission from the issuer role to a policy signer changes what capture of the issuing account must mean to confer signing capability. A11 preserves the administrator case but does not list or reconcile this broader frozen sentence in A11.3 or A11.5.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+    "quote_a": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `μ` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" | `μ` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated; `kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission |",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:153",
+    "quote_b": "  `μ` computed by the issuer from such an `F` and this key's raw public key (§1; owner decision 6).",
+    "kind": "wrong_citation",
+    "explanation": "The change table attributes “computed by the issuer” to lines 151–152, but that wording is on line 153. The listed range omits the sentence it explicitly changes.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:124",
+    "quote_a": "   **Proposed:** `service/signer-gcp/` may replace the prototype, provided that before the first shipped receipt:",
+    "loc_b": "docs/phase-0-prereg-amendment-9.md:369",
+    "quote_b": "  All of it by 21 Oct, or the fallback is taken automatically. The offline pre-spike is feasibility evidence only",
+    "kind": "silent_change",
+    "explanation": "Allowing the replacement's deployed-slot evidence to be earned before the first shipped receipt also relaxes this separate pass-condition deadline. A11.3 lists A9:386–392, and A11.5 cites its custody deadline, but neither lists A9:369 as changed.",
+    "confidence": "medium"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:136",
+    "quote_a": "   **Without this ruling**, production uses the deadline-qualified prototype signer.",
+    "loc_b": "formal/freeze-v1/FREEZE-RECORD.md:62",
+    "quote_b": "Instrument code under `prototype/` stays instrument code. Service code may port it (owner reading,\n`docs/V1-FREEZE-OPEN.md`), but it must earn its own evidence on its own bytes: E10 vectors against AWS, and the P9\ncode inspection.",
+    "kind": "other",
+    "explanation": "A11's default promotes the prototype signer directly into production, whereas the freeze preserves its instrument status and provides for porting with service evidence. A11 discusses that distinction for the replacement but does not acknowledge or resolve it for the proposed default.",
+    "confidence": "medium"
+  }
+]
