@@ -114,7 +114,11 @@ in git when the corpus was copied. A11 registers the floor by a manifest hash. T
     before issue". A9.7 doesn't list A1:444.
   - A1:182 and A9:223. A1 has the parameters ratified at Band 0 exit. A9.2 ratifies them by its own signature.
   - V1-PROFILE.md:1395 and :1421/:1437. "YubiKey 2" appears both in the release-key independence item and as the
-    repository root, and the release key must be unusable by the repository key. Tony knows which device is which.
+    repository root, and the release key must be unusable by the repository key. **Tony, 2026-10-29:** "I have four
+    unused YubiKeys sitting on the desk in front of me. We had not established how they would be used or
+    distributed." So the texts name a device assignment that was never made, and "YubiKey 2 is not in hand" is stale.
+    The assignment is an author decision, and it must satisfy the independence requirement (release key separate
+    from the repository key).
 - **Wording:** ENCODING-V1:334 (the scheme row), ENCODING-V1:538 ("what the gpg signer emits"), V1-PROFILE:386 ("both
   OpenPGP adapters"), V1-PROFILE:850 vs :1182 (whether the anchor digest is an identifier), V1-PROFILE:1244 (the d3
   reason code under hybrid), PROOF:134 (the fingerprint "no V1 check reads"), HYBRID-SUPPLEMENT:154 vs :342 (the RAW
