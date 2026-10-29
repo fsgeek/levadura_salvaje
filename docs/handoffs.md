@@ -1016,3 +1016,4 @@ note is the steward's call, and talking to peers needs no permission.
   made before Tony's key reached wam-nuc. Tony ruled out rewriting history ("less honest") and chose this: disable the
   "Require Signed commits" ruleset (id 23853563), push, re-enable. The same window is needed again when the PR merges.
   Each disable and re-enable is logged in this file, with times.
+  - Window 1 (push): disabled 2026-10-29T17:56:45Z, re-enabled 17:56:49Z, verified `active` with `required_signatures`.
