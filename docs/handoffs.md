@@ -1012,3 +1012,7 @@ note is the steward's call, and talking to peers needs no permission.
 - **wam-nuc:** the post-commit hook was not installed, and is now. Tony installed his signing key 10-29. be17c05 and 2ce4f8a are
   unsigned but OTS-stamped. They were not rewritten, because the stamps cover those hashes.
 - **Tessera's YubiKeys:** four are unused and unassigned. The texts' "YubiKey 2" refers to an assignment never made.
+- **Signed-commit exception (Tony's ruling, 10-29).** The branch carries four unsigned commits (be17c05, 5a82417, 2ce4f8a, 0741963),
+  made before Tony's key reached wam-nuc. Tony ruled out rewriting history ("less honest") and chose this: disable the
+  "Require Signed commits" ruleset (id 23853563), push, re-enable. The same window is needed again when the PR merges.
+  Each disable and re-enable is logged in this file, with times.
