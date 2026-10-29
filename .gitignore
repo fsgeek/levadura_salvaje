@@ -13,3 +13,8 @@ results/pilot-*/**/probe[0-9]*.jsonl
 results/pilot-*/**/wake[0-9]*.jsonl
 # temp files
 tmp/
+
+# Private key material never belongs in this public repo (2026-10-29).
+*.private.asc
+*secret*.asc
+*.key
