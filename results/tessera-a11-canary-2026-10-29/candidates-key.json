@@ -1,0 +1,757 @@
+[
+ {
+  "id": "c000",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c001",
+  "arm": "broad",
+  "reader": "meta__muse-spark-1.3"
+ },
+ {
+  "id": "c002",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c003",
+  "arm": "broad",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c004",
+  "arm": "narrow",
+  "reader": "codex"
+ },
+ {
+  "id": "c005",
+  "arm": "broad",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c006",
+  "arm": "narrow",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c007",
+  "arm": "broad",
+  "reader": "qwen__qwen3.8-max-0902"
+ },
+ {
+  "id": "c008",
+  "arm": "narrow",
+  "reader": "qwen__qwen3.8-max-0902"
+ },
+ {
+  "id": "c009",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c010",
+  "arm": "narrow",
+  "reader": "codex"
+ },
+ {
+  "id": "c011",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c012",
+  "arm": "narrow",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c013",
+  "arm": "narrow",
+  "reader": "qwen__qwen3.8-max-0902"
+ },
+ {
+  "id": "c014",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c015",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c016",
+  "arm": "broad",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c017",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c018",
+  "arm": "broad",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c019",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c020",
+  "arm": "narrow",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c021",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c022",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c023",
+  "arm": "broad",
+  "reader": "codex"
+ },
+ {
+  "id": "c024",
+  "arm": "broad",
+  "reader": "grok"
+ },
+ {
+  "id": "c025",
+  "arm": "narrow",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c026",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c027",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c028",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c029",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c030",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c031",
+  "arm": "broad",
+  "reader": "grok"
+ },
+ {
+  "id": "c032",
+  "arm": "broad",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c033",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c034",
+  "arm": "broad",
+  "reader": "qwen__qwen3.8-max-0902"
+ },
+ {
+  "id": "c035",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c036",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c037",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c038",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c039",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c040",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c041",
+  "arm": "broad",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c042",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c043",
+  "arm": "narrow",
+  "reader": "codex"
+ },
+ {
+  "id": "c044",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c045",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c046",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c047",
+  "arm": "narrow",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c048",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c049",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c050",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c051",
+  "arm": "broad",
+  "reader": "meta__muse-spark-1.3"
+ },
+ {
+  "id": "c052",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c053",
+  "arm": "narrow",
+  "reader": "meta__muse-spark-1.3"
+ },
+ {
+  "id": "c054",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c055",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c056",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c057",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c058",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c059",
+  "arm": "narrow",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c060",
+  "arm": "narrow",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c061",
+  "arm": "broad",
+  "reader": "codex"
+ },
+ {
+  "id": "c062",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c063",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c064",
+  "arm": "broad",
+  "reader": "grok"
+ },
+ {
+  "id": "c065",
+  "arm": "broad",
+  "reader": "codex"
+ },
+ {
+  "id": "c066",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c067",
+  "arm": "broad",
+  "reader": "grok"
+ },
+ {
+  "id": "c068",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c069",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c070",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c071",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c072",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c073",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c074",
+  "arm": "narrow",
+  "reader": "meta__muse-spark-1.3"
+ },
+ {
+  "id": "c075",
+  "arm": "narrow",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c076",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c077",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c078",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c079",
+  "arm": "narrow",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c080",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c081",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c082",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c083",
+  "arm": "broad",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c084",
+  "arm": "broad",
+  "reader": "meta__muse-spark-1.3"
+ },
+ {
+  "id": "c085",
+  "arm": "narrow",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c086",
+  "arm": "broad",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c087",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c088",
+  "arm": "broad",
+  "reader": "codex"
+ },
+ {
+  "id": "c089",
+  "arm": "narrow",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c090",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c091",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c092",
+  "arm": "broad",
+  "reader": "grok"
+ },
+ {
+  "id": "c093",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c094",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c095",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c096",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c097",
+  "arm": "narrow",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c098",
+  "arm": "broad",
+  "reader": "grok"
+ },
+ {
+  "id": "c099",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c100",
+  "arm": "narrow",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c101",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c102",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c103",
+  "arm": "broad",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c104",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c105",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c106",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c107",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c108",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c109",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c110",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c111",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c112",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c113",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c114",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c115",
+  "arm": "narrow",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c116",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c117",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c118",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c119",
+  "arm": "narrow",
+  "reader": "agy"
+ },
+ {
+  "id": "c120",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c121",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c122",
+  "arm": "broad",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c123",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c124",
+  "arm": "narrow",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c125",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c126",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c127",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c128",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c129",
+  "arm": "narrow",
+  "reader": "codex"
+ },
+ {
+  "id": "c130",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c131",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c132",
+  "arm": "broad",
+  "reader": "codex"
+ },
+ {
+  "id": "c133",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c134",
+  "arm": "narrow",
+  "reader": "meta__muse-spark-1.3"
+ },
+ {
+  "id": "c135",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ },
+ {
+  "id": "c136",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c137",
+  "arm": "broad",
+  "reader": "qwen__qwen3.8-max-0902"
+ },
+ {
+  "id": "c138",
+  "arm": "narrow",
+  "reader": "mistralai__mistral-large-4-0"
+ },
+ {
+  "id": "c139",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c140",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c141",
+  "arm": "narrow",
+  "reader": "grok"
+ },
+ {
+  "id": "c142",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c143",
+  "arm": "broad",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c144",
+  "arm": "narrow",
+  "reader": "z-ai__glm-5.3"
+ },
+ {
+  "id": "c145",
+  "arm": "broad",
+  "reader": "agy"
+ },
+ {
+  "id": "c146",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c147",
+  "arm": "broad",
+  "reader": "codex"
+ },
+ {
+  "id": "c148",
+  "arm": "broad",
+  "reader": "claude-opus-5.5"
+ },
+ {
+  "id": "c149",
+  "arm": "broad",
+  "reader": "deepseek__deepseek-v4-pro"
+ },
+ {
+  "id": "c150",
+  "arm": "broad",
+  "reader": "moonshotai__kimi-k3.1-pro"
+ }
+]
