@@ -1,0 +1,137 @@
+[
+ {
+  "loc_a": "formal/p8/HYBRID-SUPPLEMENT.md:63",
+  "quote_a": "For one code path whatever the size, the issuer always computes",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+  "quote_b": "`\u03bc` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated",
+  "kind": "stale_referent",
+  "explanation": "A11 moves the computation of \u03bc from the issuer to the KMS policy signer. Its change table lists only lines 151-152, 173-174 and 533 of the supplement, so \u00a71's statement that the issuer computes \u03bc (and :61, 'it is the issuer's only path') stays unamended.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "formal/p8/ENCODING-V1.md:557",
+  "quote_a": "The issuer obtains `S_kms` (attestation and possession) from KMS with `MessageType EXTERNAL_MU` only, sending",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+  "quote_b": "`kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission",
+  "kind": "stale_referent",
+  "explanation": "The frozen ENCODING-V1 \u00a75.2 rule-R text (the registered hybrid edit) still says the issuer obtains S_kms from KMS and sends \u03bc. Under A11 the issuer holds no KMS permission at all. A11.3 does not list this sentence.",
+  "confidence": "high"
+ },
+ {
+  "loc_a": "formal/p8/HYBRID-SUPPLEMENT.md:524",
+  "quote_a": "the issuer always uses EXTERNAL_MU for the kms slot, attestations and possession alike",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:150",
+  "quote_b": "dedicated policy signer validates the complete frame (tag, alg, key fingerprint, \u03b5, `sign_by`, the signing stop)",
+  "kind": "stale_referent",
+  "explanation": "Resolved decision 6 still names the issuer as the party calling KMS with EXTERNAL_MU. A11 reassigns that call to the dedicated signer but leaves \u00a711 item 6 off its change table. A11 cites lines 524-526 of that same item only for the spike-key sentence.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:147",
+  "quote_a": "K-R's enforcement (`formal/p8/HYBRID-SUPPLEMENT.md:148-172, :533`)",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+  "quote_b": "`formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R)",
+  "kind": "wrong_citation",
+  "explanation": "A11 cites two different line ranges for the same change. The range 148-172 leaves out lines 173-174, which hold the 'kms:Sign only to the issuer role' sentence that A11.3 says it changes.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "service/issuer/DEPLOY.md:58",
+  "quote_a": "**Gate: retire the prototype signer** (SG-03). `deploy.sh retire-instrument` must end with \"instrument retired",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:136",
+  "quote_b": "**Without this ruling**, production uses the deadline-qualified prototype signer.",
+  "kind": "verdict",
+  "explanation": "The deployment steps unconditionally deploy service/signer-gcp (step 6) and retire the prototype (step 7). A9.6, the frozen profile (V1-PROFILE.md:1025, 'selected, deadline-qualified custody implementation') and draft A11 all say that replacing the prototype needs an author ruling that has not been made.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "docs/phase-0-prereg-amendment-10.md:486",
+  "quote_a": "**Issuer invariant.** No receipt ships under keys that are not listed in a published release.",
+  "loc_b": "docs/V1-PROFILE.md:621",
+  "quote_b": "A10.4.1 is cut, together with the rows that take effect only with it (A10.7",
+  "kind": "silent_change",
+  "explanation": "The registered A10.4.1 mechanism (rows 25-32 and 37-39) is removed by an E9 ruling and a profile note, and no signed amendment's change table lists those rows. A11.3 lists only A10:675. The profile's own rule (V1-PROFILE.md:37, 'Where this document and a signed amendment disagree, the amendment wins') makes the signed A10 text govern over the cut.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:98",
+  "quote_a": "When a registered decision changes a parameter (an algorithm, a custody form, a channel, a horizon, a scope, a key),",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:223",
+  "quote_b": "**Parameters (E14):** \u03b4 = 72 h, \u03b5 = 24 h, k = 6, N = 3, S = 24 h.",
+  "kind": "term",
+  "explanation": "In A9 and A10 (A10:203, 'parameter (\u03b4, \u03b5, k, N, S)'), 'parameter' means the five ratified numeric parameters. A11.4 uses 'registered parameter' for algorithms, custody forms, channels, horizons, scopes and keys, so the trigger for its dependency duty is ambiguous.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "docs/V1-SERVICE-RESOLUTIONS.md:26",
+  "quote_a": "It states the measured cost per receipt (H3) as the cost figure A9.1 asks for.",
+  "loc_b": "docs/phase-0-prereg.md:232",
+  "quote_b": "- **H3 (cost discipline):** Three separate numbers, so none can be trivially",
+  "kind": "wrong_citation",
+  "explanation": "H3 registers three numbers: demo-cycle cost, monthly footprint and idle compute. None of them is a cost per receipt, so the resolution attributes to H3 a measurement it does not define.",
+  "confidence": "medium"
+ },
+ {
+  "loc_a": "docs/V1-SERVICE-RESOLUTIONS.md:33",
+  "quote_a": "That matches V1's 10-year design horizon (`docs/decisions/2026-10-19-horizon-cost.md`).",
+  "loc_b": "docs/phase-0-prereg-amendment-1.md:509",
+  "quote_b": "fifty-year adjudication story rests on Bitcoin's fifty-year survival;",
+  "kind": "stale_referent",
+  "explanation": "A later decision sets V1's horizon at 10 years. The registered horizon language (A1.6's fifty-year adjudication assumption, and the original's 'adjudicate in fifty years', prereg:283) is not amended or marked as still fitting.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "docs/phase-0-prereg.md:471",
+  "quote_a": "**Hardware token (e.g. YubiKey) \u2014 considered, deferred.** A hardware token for",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:376",
+  "quote_b": "the issuing AWS account: a token on author-controlled hardware, or an HSM-backed key at a provider other than AWS.",
+  "kind": "stale_referent",
+  "explanation": "A9.6 makes a hardware token (or an HSM) the gpg-slot custody form. The original's reasoned deferral of a hardware token for that layer (prereg:471-478) is not listed in A9.7. Row 15 cites only prereg:292-299 and :304-305.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "docs/V1-PROFILE.md:386",
+  "quote_a": "- **Signature output.** Both OpenPGP adapters emit signatures that satisfy the rule-O policy of section 8 before",
+  "loc_b": "docs/V1-PROFILE.md:1014",
+  "quote_b": "- Hybrid (taken; see \"Branch taken\" below): `kms` is ML-DSA-65 (rule R), `gpg` is P-256 (rule O).",
+  "kind": "stale_referent",
+  "explanation": "The issuer duty assumes two OpenPGP (rule-O) adapters, which was true under the fallback. Under the registered hybrid, the kms slot emits raw ML-DSA-65 (rule R), so only one adapter is OpenPGP.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "formal/p8/ENCODING-V1.md:538",
+  "quote_a": "- **The legacy header is what the gpg signer emits.** GnuPG 2.4.4 emits exactly this header for a detached",
+  "loc_b": "docs/V1-PROFILE.md:1035",
+  "quote_b": "alg, `key_fp` and \u03b5 before any HSM call and emits one rule-O v4 type-0x00 packet.",
+  "kind": "stale_referent",
+  "explanation": "The rationale for rule O's header names GnuPG as 'the gpg signer'. The slot-2 custody decision replaced it with a GCP HSM behind a policy signer that builds its own packet, so the sentence's referent changed and was not re-read.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "docs/phase-0-prereg-amendment-10.md:188",
+  "quote_a": "| freeze | The point, by 30 October 2026, after which the V1 rules do not change. |",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+  "quote_b": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `\u03bc` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" |",
+  "kind": "other",
+  "explanation": "A10 defines the freeze as the point after which V1 rules do not change. A11 changes the key-use enforcement wording of the frozen hybrid supplement, which is part of spec.bin, and A11.5 item 2 offers to replace the frozen custody implementation.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "docs/phase-0-prereg-amendment-9.md:329",
+  "quote_a": "DNS credential, the repository key nor the issuing AWS account can use; the dated custody record names that key",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:386",
+  "quote_b": "type-0x00 documents (attestation and manifest-possession). The dated custody record names this enforcement",
+  "kind": "term",
+  "explanation": "'The dated custody record' refers to the release-key record in A9.5 and to the slot-2 enforcement-boundary record in A9.6. Later texts add a third meaning, 'an external custody record' for production key versions (V1-PROFILE.md:1024; DEPLOY.md), so which record a requirement binds is ambiguous.",
+  "confidence": "low"
+ },
+ {
+  "loc_a": "docs/V1-PROFILE.md:629",
+  "quote_a": "The author can override the cut until the freeze assembly (26 Oct).",
+  "loc_b": "formal/freeze-v1/FREEZE-RECORD.md:11",
+  "quote_b": "`270ca49bc1384a1ec716b6312f381b2230bb5277` (2026-10-24).",
+  "kind": "other",
+  "explanation": "The profile gives the author until a 26 Oct freeze assembly to override the listing cut. The freeze record assembles the frozen objects at a commit dated 24 Oct, so the stated deadline does not match the actual freeze.",
+  "confidence": "low"
+ }
+]

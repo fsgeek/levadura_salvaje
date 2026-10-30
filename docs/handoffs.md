@@ -995,3 +995,25 @@ note is the steward's call, and talking to peers needs no permission.
     it first.
   - Whether to report the `effectiveFilingDate` naming issue to the USPTO is an external action: ask Tony.
 - **Residents, 10-28:** all quiet.
+
+*Addendum, 2026-10-29.*
+- **Tessera A11 canary (obs-0185, docs/tessera-a11-canary-scorecard.md).** Tony asked this on his own behalf, as A11's signer: is
+  A11 the last repair, or the canary? It is the canary.
+  - A11's own K-R change leaves three stale issuer sentences unlisted: ENCODING-V1:557, HYBRID-SUPPLEMENT:61-65 and :524.
+  - 28 findings in all: narrow arm 12 (all touch A11), broad arm 24 (13 need a new amendment).
+  - Tony's dilution prediction (narrow > broad on A11) held. Both of us underestimated the counts.
+  - Tony pointed Tessera's owner at the results.
+- **Method notes:**
+  - Proposal checking complements archive review (qhaway memory).
+  - Pin drafts by hash: A11 changed 30 s after the copy.
+  - Don't cap reasoning models at 32k: five empty runs, about $2.40.
+  - On wam-nuc, Codex's bwrap sandbox fails, so run it with the sandbox bypassed in a disposable copy. Codex needs `< /dev/null`.
+  - agy headless needs `--dangerously-skip-permissions`.
+- **wam-nuc:** the post-commit hook was not installed, and is now. Tony installed his signing key 10-29. be17c05 and 2ce4f8a are
+  unsigned but OTS-stamped. They were not rewritten, because the stamps cover those hashes.
+- **Tessera's YubiKeys:** four are unused and unassigned. The texts' "YubiKey 2" refers to an assignment never made.
+- **Signed-commit exception (Tony's ruling, 10-29).** The branch carries four unsigned commits (be17c05, 5a82417, 2ce4f8a, 0741963),
+  made before Tony's key reached wam-nuc. Tony ruled out rewriting history ("less honest") and chose this: disable the
+  "Require Signed commits" ruleset (id 23853563), push, re-enable. The same window is needed again when the PR merges.
+  Each disable and re-enable is logged in this file, with times.
+  - Window 1 (push): disabled 2026-10-29T17:56:45Z, re-enabled 17:56:49Z, verified `active` with `required_signatures`.

@@ -1,0 +1,182 @@
+[
+  {
+    "loc_a": "formal/p8/ENCODING-V1.md:557-558",
+    "quote_a": "- The issuer obtains S_kms (attestation and possession) from KMS with MessageType EXTERNAL_MU only, sending μ = SHAKE256(SHAKE256(pk, 64) ‖ 0x00 ‖ 0x00 ‖ F, 64), pk the raw 1952-byte key (RFC 9881 Appendix D).",
+    "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+    "quote_b": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `μ` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" | `μ` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated; `kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission |",
+    "kind": "stale_referent",
+    "explanation": "When KMS signing was moved from the issuer to the dedicated KMS-slot policy signer (`service/signer-kms/`) with the issuer holding no KMS permission, `A11.3` amended `HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` but left `ENCODING-V1.md:557-558` unamended, still stating that the issuer computes `μ` and obtains `S_kms` directly from KMS.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "formal/p8/HYBRID-SUPPLEMENT.md:63-65",
+    "quote_a": "For one code path whatever the size, the issuer always computes `μ = SHAKE256(SHAKE256(pk, 64) ‖ 0x00 ‖ 0x00 ‖ F, 64)` from the slot's own public key and the frame, and sends `μ` with `MessageType EXTERNAL_MU`, signing algorithm `ML_DSA_SHAKE_256`, for **attestations and possession proofs alike**.",
+    "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+    "quote_b": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `μ` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" | `μ` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated; `kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission |",
+    "kind": "stale_referent",
+    "explanation": "Although `HYBRID-SUPPLEMENT.md:153` explicitly cross-references `(§1; owner decision 6)`, `A11.3` amends only `:151-152, :173-174, :533` and leaves `HYBRID-SUPPLEMENT.md:63-65` (§1), `:274-275` (§7), and `:524` (§11 item 6) unamended in stating that the issuer computes `μ` and sends it to KMS.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+    "quote_a": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `μ` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" | `μ` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated; `kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission |",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:152-153",
+    "quote_b": "in pure mode with the empty context. Every issuer KMS `Sign` call on the key is `MessageType EXTERNAL_MU`, with `μ` computed by the issuer from such an `F` and this key's raw public key (§1; owner decision 6).",
+    "kind": "wrong_citation",
+    "explanation": "`A11.3` cites `formal/p8/HYBRID-SUPPLEMENT.md:151-152` for the words \"`μ` 'computed by the issuer'\", which actually appear on line 153; similarly, `A11.5` item 5 (`docs/phase-0-prereg-amendment-11.md:147`) cites `formal/p8/HYBRID-SUPPLEMENT.md:148-172, :533`, omitting lines 173-174 where \"`kms:Sign` only to the issuer role\" appears.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-10.md:454-455",
+    "quote_a": "The author therefore adopted option (e), including option (a)'s clause and boundary (rows 15–16) and A10.4.1.",
+    "loc_b": "docs/V1-PROFILE.md:621-622",
+    "quote_b": "The author narrowed option (e): A10.4.1 is cut, together with the rows that take effect only with it (A10.7 rows 25–32 and 37–39). **A10.4 option (a) applies:** honest signed material stays protected under authority capture (A10 rows 15–16).",
+    "kind": "silent_change",
+    "explanation": "Signed `A10` (`9ade764`) adopted option (e), `A10.4.1`, and `A10.7` rows 25–33 and 37–39, while `V1-PROFILE.md:6` states \"This changes no registered sentence.\" Cutting `A10.4.1` and `A10.7` rows 25–32 and 37–39 on 2026-10-23 (`AUTHOR-RULINGS.md:9-12`, `V1-PROFILE.md:621-622`) alters signed registered sentences in `A10` without a signed amendment, and even draft `A11.3` (`phase-0-prereg-amendment-11.md:91`) lists only `phase-0-prereg-amendment-10.md:675`, omitting `A10.4.1` (`:445-611`) and `A10.7` rows 25–32 and 37–39 (`:761-775`).",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-10.md:446-447",
+    "quote_a": "Rows 15–16 take effect on (a) or (e); rows 25–33 and 37–39 only on (e).",
+    "loc_b": "docs/V1-PROFILE.md:621-622",
+    "quote_b": "The author narrowed option (e): A10.4.1 is cut, together with the rows that take effect only with it (A10.7 rows 25–32 and 37–39). **A10.4 option (a) applies:** honest signed material stays protected under authority capture (A10 rows 15–16).",
+    "kind": "verdict",
+    "explanation": "`phase-0-prereg-amendment-10.md:446-447` and row 33 (`:769`, \"Option (e) only.\") specify that row 33 takes effect only under option (e), whereas `V1-PROFILE.md:621-622` applies option (a) and cuts only rows 25–32 and 37–39, leaving row 33 in effect at `V1-PROFILE.md:1258-1259`.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/V1-PROFILE.md:1395-1396",
+    "quote_a": "Which key signs verifier releases, who holds it, and its access boundary, shown to be unusable by the DNS credential, the repository key and the issuing AWS account. YubiKey 2 is not in hand.",
+    "loc_b": "docs/V1-PROFILE.md:1437",
+    "quote_b": "6. **Repository-root algorithm** (G25). Confirm that the deployed repository root (YubiKey 2) is P-256; otherwise list its algorithm and add it to the dependency manifest.",
+    "kind": "term",
+    "explanation": "`V1-PROFILE.md:1395-1396` (and `phase-0-prereg-amendment-10.md:624-627`) identifies `YubiKey 2` as the release key—which must be independent of and unusable by the repository key—whereas `V1-PROFILE.md:1421` and `:1437` identify `YubiKey 2` as the deployed repository root key itself.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/V1-PROFILE.md:386-387",
+    "quote_a": "- **Signature output.** Both OpenPGP adapters emit signatures that satisfy the rule-O policy of section 8 before signing is final and before stamping. [G11]",
+    "loc_b": "docs/V1-PROFILE.md:149-150",
+    "quote_b": "- **Branch recorded: HYBRID, registered 2026-10-16 (A9.6).** Slot `kms` ML-DSA-65 (rule R), slot `gpg` OpenPGP P-256 (rule O), pair id `KMS-MLDSA65-PURE-GPG-OPENPGP4-ECDSA-P256-SHA256`;",
+    "kind": "stale_referent",
+    "explanation": "Under the registered hybrid branch, only slot `gpg` (and the repository signer) emits OpenPGP rule-O packets while slot `kms` emits raw 3309-byte FIPS 204 ML-DSA-65 rule-R signatures with no OpenPGP wrapper or subpackets; however, `V1-PROFILE.md:386-387` and `:392-393` (\"both OpenPGP adapters and the repository signer emit type-16/type-33 subpackets\") were left unamended from the classical two-OpenPGP-slot baseline.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "formal/p8/ENCODING-V1.md:357-359",
+    "quote_a": "- The KMS key's OpenPGP key-packet creation time is **not** covered by its `spki-sha256` fingerprint. This is **accepted**: for the KMS slot the verifier binds the SPKI (the key KMS actually holds), not the OpenPGP key packet. The OpenPGP wrapper's creation time therefore carries no meaning for that slot.",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:85-88",
+    "quote_b": "- `S_kms` is the FIPS 204 `sigEncode` output and nothing else: no header, length prefix, wrapper, DER, armor or base64.\n- **Length: exactly 3309 bytes.**",
+    "kind": "stale_referent",
+    "explanation": "After the hybrid registration made slot `kms` raw ML-DSA-65 with no OpenPGP key packet or signature wrapper, `ENCODING-V1.md:346` (91-byte P-256 SPKI), `:357-359` (KMS OpenPGP key-packet wrapper), `:431-432` (\"Each key's possession proof (R-3.38) is its OpenPGP signature over this same frame\"), `:541` (\"The KMS slot's packet is assembled by Tessera's own code\"), and `:862-863` were left unamended and omitted from `HYBRID-SUPPLEMENT.md:289`'s superseded-baseline list.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "formal/p8/ENCODING-V1.md:334",
+    "quote_a": "The id names the scheme: \"a v4 OpenPGP binary-document signature whose document is the frame, ECDSA P-256, SHA-256\" (G-57 kept).",
+    "loc_b": "formal/p8/ENCODING-V1.md:322-325",
+    "quote_b": "- **The id V1 issues.** Under the registered hybrid branch (A9.6; HYBRID-SUPPLEMENT §1, registered 2026-10-16), V1 issues the pair id `KMS-MLDSA65-PURE-GPG-OPENPGP4-ECDSA-P256-SHA256` (§5.2). The classical id `OPENPGP4-ECDSA-P256-SHA256` stays codec-known (rule O in both slots) and is policy-unsupported in the V1 installation: `UNVERIFIABLE / ALG_UNKNOWN` (V1-PROFILE §1, §8).",
+    "kind": "stale_referent",
+    "explanation": "When `ENCODING-V1.md:322-326` was updated on 2026-10-19 to replace the classical algorithm id with the hybrid pair id `KMS-MLDSA65-PURE-GPG-OPENPGP4-ECDSA-P256-SHA256`, the table row immediately below at line 334 was left unamended, still stating that V1's `alg` id names a v4 OpenPGP ECDSA P-256 signature.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "formal/p8/ENCODING-V1.md:538-540",
+    "quote_a": "- **The legacy header is what the gpg signer emits.** GnuPG 2.4.4 emits exactly this header for a detached P-256 signature: `88 75 04 00 13 08 …`, a 119-byte packet, observed 2026-10-12. Its output is therefore `S` unchanged.",
+    "loc_b": "docs/V1-PROFILE.md:1020-1021",
+    "quote_b": "- **Choice (2026-10-13):** the non-AWS HSM alternative, not a token. Provider Google Cloud KMS, protection level HSM.",
+    "kind": "stale_referent",
+    "explanation": "`ENCODING-V1.md:538-540` describes the `gpg` slot signer as GnuPG 2.4.4 emitting `S` unchanged, whereas `A9.6` (`phase-0-prereg-amendment-9.md:375-386`) and `V1-PROFILE.md:1020-1036` replaced GnuPG for the `gpg` slot with a queue-pulling policy signer backed by Google Cloud KMS HSM that assembles the rule-O packet in Python.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-2.md:110-113",
+    "quote_a": "**Wall time governs the attempt lifecycle:** the service waits through `declared + δ + S` before treating an attempt as expired, where S ≥ 0 is an **operational slack constant** joining δ, ε, k, N for ratification at Band 0 exit (working default S = 24 h",
+    "loc_b": "docs/V1-SERVICE-RESOLUTIONS.md:23",
+    "quote_b": "| S4 latency | **Stated, not guaranteed:** a receipt is usually complete within 3 hours of acceptance. A request not complete **24 hours** after acceptance ends as FAILED, with its reason. Start: the acceptance response. End: the status becoming COMPLETE.",
+    "kind": "verdict",
+    "explanation": "`phase-0-prereg-amendment-2.md:110-113, 260-274` and `phase-0-prereg-amendment-9.md:223-224` (with `V1-PROFILE.md:145-147`) ratify `δ = 72 h`, `S = 24 h`, and `N = 3`, requiring the issuer to wait through `declared + δ + S` (96 hours per attempt, 12 days nominal across 3 attempts) before expiring an attempt, whereas `V1-SERVICE-RESOLUTIONS.md:23` (and `L1` at `:42`) terminates any accepted request not complete 24 hours after acceptance as `FAILED`.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-2.md:260-267",
+    "quote_a": "Amended: issuance makes at most **N attempts**. The expiry clock is the **wall clock** (A2.1 clock roles): an attempt expires when wall time passes `declared + δ + S`, except that timely-latched eligibility excludes expiry — eligible/finalizing, shipped, and expired/refused are mutually exclusive states (construction obligation, registered with the ruling). Exhausting them obligates the implementation to terminate issuance in an **explicit refusal, durably recorded",
+    "loc_b": "docs/V1-SERVICE-RESOLUTIONS.md:23-25",
+    "quote_b": "| S4 latency | **Stated, not guaranteed:** a receipt is usually complete within 3 hours of acceptance. A request not complete **24 hours** after acceptance ends as FAILED, with its reason. Start: the acceptance response. End: the status becoming COMPLETE. | Author |\n| S5 retention | Receipt and status kept for the whole 90-day window. States: ACCEPTED, COMPLETE, REFUSED, FAILED. | Author |\n| S6 refusal | **Plain code and reason.** Six codes: RATE_LIMIT, PAYLOAD_TOO_LARGE, INVALID_JSON, MALFORMED_REQUEST, WINDOW_CLOSED, UNAUTHORIZED. Refused content is not stored. | Author |",
+    "kind": "term",
+    "explanation": "In `phase-0-prereg-amendment-2.md:260-267` (and `phase-0-prereg-amendment-9.md:476` row 12), \"refusal\" (`expired/refused`) is the durably recorded terminal state when an accepted issuance request exhausts its confirmation window without completing, whereas in `V1-SERVICE-RESOLUTIONS.md:23-25` `REFUSED` means an upfront rejection (whose content is not stored) and an accepted request that times out ends as `FAILED`.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg.md:455-456",
+    "quote_a": "The commit-signing key (Tyst, ed25519, `...42C73835`) is **passphraseless** with a **6-month TTL** (expires 2026-12-07), residing on a firewalled workstation.",
+    "loc_b": "docs/V1-PROFILE.md:1679",
+    "quote_b": "- **Repository key.** v4 ECDSA P-256 public-key body, rule O (signer outcomes in section 6.3).",
+    "kind": "silent_change",
+    "explanation": "`phase-0-prereg.md:455-479` (`§4.2 Signing-key threat model`) and `:403-404` register a passphraseless workstation `ed25519` key with a 6-month TTL as the local/commit-signing layer and explicitly decline a YubiKey or HSM (`:471-479`), whereas `A9.6` (`phase-0-prereg-amendment-9.md:375-388`), `ENCODING-V1.md:746-751` (\"Key-format expiries are not relied on\"), and `V1-PROFILE.md:615, 1437, 1679` changed the repository root key to an offline hardware v4 ECDSA P-256 key and slot 2 to GCP Cloud KMS HSM without `A9.7` listing `phase-0-prereg.md:403-404` or `:454-479`.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg.md:556-557",
+    "quote_a": "Verification yields one of `VALID_STRICT`, `VALID_DEGRADED(policy=...)`, `INVALID`, or `UNVERIFIABLE` (§3.1) — a typed result, never a bare `true`/`false`.",
+    "loc_b": "docs/V1-PROFILE.md:140-141",
+    "quote_b": "- **Mode:** strict only. One layer. No wrappers, no renewal, no TLR, no waiver policy. `VALID_DEGRADED` is never returned. [A9:161; DD:67]",
+    "kind": "silent_change",
+    "explanation": "`A9.1` (`phase-0-prereg-amendment-9.md:161`) and `V1-PROFILE.md:140-141` eliminate `VALID_DEGRADED` so V1 has a three-state result partition, but `A9.7` row 28 (`phase-0-prereg-amendment-9.md:492`) listed only `phase-0-prereg-amendment-1.md:301-327` (`A1.2.1`), omitting `phase-0-prereg.md:330-337`, `phase-0-prereg.md:556-557`, and `phase-0-prereg-amendment-1.md:152-157` (`P4`: \"The verifier's four states partition all outcomes\", which `A9.7:510` explicitly calls \"Named and not changed\").",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-1.md:173-175",
+    "quote_a": "**δ and ε belong to the verifier, not the receipt.** A receipt records its issue-time policy version and the observed anchor delay; it may not choose its own temporal tolerances",
+    "loc_b": "docs/phase-0-prereg-amendment-1.md:493-495",
+    "quote_b": "`declared_issue_time − ε ≤ anchor_time ≤ declared_issue_time + δ`, with strict defaults δ = 72 hours and ε = 24 hours, both declared per receipt and ratified (or revised, on the record) at Band 0 exit.",
+    "kind": "verdict",
+    "explanation": "`phase-0-prereg-amendment-1.md:173-175` (and `V1-PROFILE.md:146, 211`) mandates that `δ` and `ε` belong to the verifier and are not supplied by the receipt, whereas `phase-0-prereg-amendment-1.md:493-495` (which `A10:262, 785` keeps standing) states that `δ` and `ε` are \"both declared per receipt\".",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/V1-PROFILE.md:610-611",
+    "quote_a": "A **selected** anchor (section 7.1) beyond the newest pin is `UNVERIFIABLE`; an unselected attestation without its headers supplies no fact and is not a failure.",
+    "loc_b": "docs/phase-0-prereg-amendment-10.md:713-715",
+    "quote_b": "So C6's \"selected anchor beyond the newest pin\" cannot arise; an anchor beyond the pins makes a check unperformable through stage 1 or stage 4.",
+    "kind": "stale_referent",
+    "explanation": "`A10.5` (`phase-0-prereg-amendment-10.md:698-705, 713-715, 754` row 18) and `V1-PROFILE.md:880-883` make pin coverage of `h … h+5` a precondition for an attestation to qualify and be selected—so an attestation beyond the newest pin never becomes the selected anchor—yet `V1-PROFILE.md:610-611` retains the superseded A9 C6 wording.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "formal/p8/ENCODING-V1.md:860",
+    "quote_a": "**Owner decision (2026-10-09): no SHA-1 in V1.** The gpg key is bound by SHA-256 over its OpenPGP v4 public-key packet body, not by the v4 SHA-1 fingerprint, and this applies to the frame, the manifest and the DNS record.",
+    "loc_b": "docs/V1-PROFILE.md:1917",
+    "quote_b": "and `release_key_successor` (40 uppercase hex v4 fingerprint, or null).",
+    "kind": "verdict",
+    "explanation": "`ENCODING-V1.md:860` rules \"no SHA-1 in V1\", `V1-PROFILE.md:1058` rules \"No SHA-1 for key binding\", and `A9:50, 160` and `V1-PROFILE.md:1146` restrict SHA-1 in V1 exclusively to git object linkage, yet `V1-PROFILE.md:1917, 1941, 1985, 2004-2006` (`§15.9`) binds and rotates the release key by its 40-hex OpenPGP v4 SHA-1 fingerprint.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:59",
+    "quote_a": "- the owner vectors: 223 tests, mutation-sensitive (PROFILE.md §6);",
+    "loc_b": "formal/p3-verification-profile/PROFILE.md:241-242",
+    "quote_b": "Each verifier check below was removed in a scratch copy of `tessera_verify`, and the module was run against that copy (`-k \"not lambda_package\"`, because the copy has no issuer tree). The unmutated copy: 222 passed, 1 skipped.",
+    "kind": "wrong_citation",
+    "explanation": "`A11.2` cites `PROFILE.md §6` as showing \"the owner vectors: 223 tests, mutation-sensitive\", whereas `PROFILE.md §6` reports `222 passed, 1 skipped` on the mutation-sensitivity run (and `223 passed, 1 skipped` in `§8` is the entire pytest suite including library, bundle, and wheel-identity tests, whereas the owner vectors in `F2`–`F5` total 121 vectors).",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-1.md:509",
+    "quote_a": "A fifty-year adjudication story rests on Bitcoin's fifty-year survival; stating that plainly is the declare-what-you-cannot-see ethos, applied to the anchor itself.",
+    "loc_b": "docs/V1-SERVICE-RESOLUTIONS.md:33",
+    "quote_b": "| AJ2 publication of authority records | **AUTHOR.** Recommendation: keep the DNS record and the git repository public for **10 years** after the window ends. That matches V1's 10-year design horizon (`docs/decisions/2026-10-19-horizon-cost.md`). | Author |",
+    "kind": "stale_referent",
+    "explanation": "`phase-0-prereg.md:283` and `phase-0-prereg-amendment-1.md:509` register a 50-year adjudication horizon, whereas `V1-SERVICE-RESOLUTIONS.md:33` adopts a 10-year V1 design horizon (`docs/decisions/2026-10-19-horizon-cost.md`) and 10-year authority-record retention without any amendment listing `phase-0-prereg.md:283` or `phase-0-prereg-amendment-1.md:509` in its change table.",
+    "confidence": "medium"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg.md:508-512",
+    "quote_a": "Operational commitments that make this checkable, not merely asserted:\n1. canonicalization **test vectors** are part of the public verifier\n   conformance suite;\n2. every canonicalization **version has byte-for-byte golden examples**;\n3. **wrappers record both inner and outer** canonicalization versions.",
+    "loc_b": "docs/phase-0-prereg-amendment-9.md:490",
+    "quote_b": "| 26 | P7's amended discharge: the verdict-independence half by S-P7 Q4's control and companions and \"one H1a conformance vector\" on the band-1 docket | `phase-0-prereg-amendment-6.md:43-57` | The wrapper half and its H1a vector move to Wrapping and renewal (A9.3); P7's type-separation half stays on the 30 Oct gate | G |",
+    "kind": "silent_change",
+    "explanation": "When `A9` removed wrappers from V1 (`A9.1:161`, `A9.3:239`), `A9.7` listed `phase-0-prereg-amendment-6.md:43-57` (row 26) and `phase-0-prereg-amendment-3.md` rows 13, 14, and 21, but omitted the foundational wrapper rules in `phase-0-prereg.md:339-369`, `phase-0-prereg.md:512`, `phase-0-prereg-amendment-1.md:235-253` (`P7`), and `phase-0-prereg-amendment-5.md:192-200` (`A5.5`).",
+    "confidence": "medium"
+  }
+]

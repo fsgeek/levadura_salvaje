@@ -1,0 +1,51 @@
+{
+ "model": "deepseek/deepseek-v4-pro",
+ "seconds": 39.9,
+ "response": {
+  "id": "gen-1793290704-pz6hsgk01fqxbEcuJksc",
+  "object": "chat.completion",
+  "created": 1793290704,
+  "model": "deepseek/deepseek-v4-pro",
+  "provider": "Azure",
+  "system_fingerprint": null,
+  "service_tier": null,
+  "choices": [
+   {
+    "index": 0,
+    "logprobs": null,
+    "finish_reason": "stop",
+    "native_finish_reason": "stop",
+    "message": {
+     "role": "assistant",
+     "content": "[\n  {\n    \"loc_a\": \"docs/phase-0-prereg-amendment-11.md:27-28\",\n    \"quote_a\": \"Neither registration re-read the checklist.\",\n    \"loc_b\": \"formal/p3-verification-profile/PROFILE.md:212-219\",\n    \"quote_b\": \"| A1 field (Ed25519 sense) | V1 analogue: ECDSA P-256 (rule O) | V1 analogue: ML-DSA-65 (rule R) | ...\",\n    \"kind\": \"wrong_citation\",\n    \"explanation\": \"Amendment 11 implies the checklist fields for P3 became stale because no one re-read them after the algorithm choice changed. However, the verification profile at formal/p3-verification-profile/PROFILE.md explicitly provides a mapping table for the A1 fields to the actual V1 algorithms. A11's description of the defect is therefore incorrect; the checklist was re-read and adapted.\",\n    \"confidence\": \"high\"\n  }\n]",
+     "refusal": null,
+     "reasoning": null
+    }
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 344968,
+   "completion_tokens": 212,
+   "total_tokens": 345180,
+   "cost": 0.65970084,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.65970084,
+    "upstream_inference_prompt_cost": 0.65888888,
+    "upstream_inference_completions_cost": 0.00081196
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  }
+ },
+ "arm": "narrow"
+}
