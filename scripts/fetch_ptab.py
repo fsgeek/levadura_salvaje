@@ -10,7 +10,10 @@ from ~/.config/credentials/uspto-api-key (0600) and never printed or logged.
 Stage "fitf" (2026-10-28): for each patent challenged in a final written decision and granted on or after
 2013-03-16, the application's first-inventor-to-file indicator and filing dates, to data/ptab/fitf.jsonl.
 
-Usage: uv run python scripts/fetch_ptab.py meta|pdf|fitf
+Stage "baseline" (2026-10-29): 100 utility patents per grant year 2014-2022 at seeded uniform random offsets
+in the applications search (predictions/2026-10-29-ptab-fitf-baseline-claude.md), to data/ptab/baseline.jsonl.
+
+Usage: uv run python scripts/fetch_ptab.py meta|pdf|fitf|baseline
 """
 
 import json
@@ -115,5 +118,27 @@ def fitf():
         time.sleep(PAUSE)
 
 
+def baseline():
+    import random
+    out = DIR / "baseline.jsonl"
+    done = {(x["year"], x["i"]) for x in map(json.loads, out.open())} if out.exists() else set()
+    search = "https://api.uspto.gov/api/v1/patent/applications/search"
+    for year in range(2014, 2023):
+        q = f"applicationMetaData.grantDate:[{year}-01-01 TO {year}-12-31] AND applicationMetaData.applicationTypeCode:UTL"
+        count = json.loads(get(f"{search}?{urllib.parse.urlencode({'q': q, 'limit': 1})}"))["count"]
+        offsets = random.Random(20261029 + year).sample(range(count), 100)
+        time.sleep(PAUSE * 2)
+        for i, off in enumerate(offsets):
+            if (year, i) in done:
+                continue
+            d = json.loads(get(f"{search}?{urllib.parse.urlencode({'q': q, 'limit': 1, 'offset': off})}"))
+            m = ((d.get("patentFileWrapperDataBag") or [{}])[0]).get("applicationMetaData", {})
+            with out.open("a") as f:
+                f.write(json.dumps({"year": year, "i": i, "offset": off, "count": count, "fitf": m.get("firstInventorToFileIndicator"),
+                                    "grant": m.get("grantDate"), "type": m.get("applicationTypeCode")}, sort_keys=True) + "\n")
+            time.sleep(PAUSE * 2)
+        print(f"baseline {year} done", flush=True)
+
+
 if __name__ == "__main__":
-    {"meta": meta, "pdf": pdf, "fitf": fitf}[sys.argv[1]]()
+    {"meta": meta, "pdf": pdf, "fitf": fitf, "baseline": baseline}[sys.argv[1]]()
