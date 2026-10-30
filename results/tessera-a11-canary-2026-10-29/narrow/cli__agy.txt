@@ -1,0 +1,74 @@
+[
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+    "quote_a": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `μ` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" | `μ` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated; `kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission |",
+    "loc_b": "formal/p8/ENCODING-V1.md:557-558",
+    "quote_b": "- The issuer obtains `S_kms` (attestation and possession) from KMS with `MessageType EXTERNAL_MU` only, sending\n  μ = SHAKE256(SHAKE256(pk, 64) ‖ 0x00 ‖ 0x00 ‖ F, 64), pk the raw 1952-byte key (RFC 9881 Appendix D).",
+    "kind": "silent_change",
+    "explanation": "A11.3 and A11.5 item 5 move KMS signing and μ computation from the issuer to service/signer-kms/ (with the issuer roles holding no KMS permission), but fail to list the frozen sentence in ENCODING-V1.md:557-558 (and its source in HYBRID-SUPPLEMENT.md:274-275) stating that the issuer obtains S_kms from KMS and sends μ.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+    "quote_a": "| `formal/p8/HYBRID-SUPPLEMENT.md:151-152, :173-174, :533` (K-R) | `μ` \"computed by the issuer\"; \"`kms:Sign` only for the issuer role\" | `μ` computed by the KMS-slot policy signer (`service/signer-kms/`) from an `F` it has validated; `kms:Sign` only for that signer's role, with the issuer roles holding no KMS permission |",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:61-65",
+    "quote_b": "- **External μ is a signer-side computation only, and it is the issuer's only path** (owner decision 6). AWS KMS refuses\n  `MessageType RAW` over 4096 bytes (observed 2026-10-13: \"Member must have length less than or equal to 4096\").\n  For one code path whatever the size, the issuer always computes\n  `μ = SHAKE256(SHAKE256(pk, 64) ‖ 0x00 ‖ 0x00 ‖ F, 64)` from the slot's own public key and the frame, and sends `μ`\n  with `MessageType EXTERNAL_MU`, signing algorithm `ML_DSA_SHAKE_256`, for **attestations and possession proofs",
+    "kind": "silent_change",
+    "explanation": "A11.3 amends HYBRID-SUPPLEMENT.md:151-152, :173-174, :533 so that service/signer-kms/ rather than the issuer computes μ and calls KMS Sign, but omits HYBRID-SUPPLEMENT.md:61-65 (and :524), the §1 owner-decision sentence that :153 cross-references stating that the issuer always computes and sends μ.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:147-150",
+    "quote_a": "5. **K-R's enforcement (`formal/p8/HYBRID-SUPPLEMENT.md:148-172, :533`): amended in wording, the assumption\n   unchanged.** (K-R) itself stands: the ML-DSA-65 key signs only V1 tagged strings, in pure mode with the empty\n   context, under EXTERNAL_MU, for no other protocol. What changes is who enforces it. The supplement names the\n   issuer as the computer of `μ` and the issuer role as the only `kms:Sign` principal.",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:173-174",
+    "quote_b": "- So (K-R) is an issuer-code and IAM assumption: the key policy grants `kms:Sign` only to the issuer role, and the\n  issuer code builds only V1 frames. It is not an HSM property. The operations runbook carries the key policy.",
+    "kind": "wrong_citation",
+    "explanation": "A11.5 item 5 cites HYBRID-SUPPLEMENT.md:148-172, :533 for the supplement's enforcement statement, omitting lines 173-174 where the supplement actually states that the key policy grants kms:Sign only to the issuer role (and A11.3:93 cites :151-152, :173-174, :533, cutting off line 153 where \"computed by the issuer\" appears).",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:91",
+    "quote_a": "| `phase-0-prereg-amendment-10.md:675` | \"as amended by rows 15 and 25\" | \"as amended by row 15\" (row 25 cut, E9 row 2) |",
+    "loc_b": "docs/phase-0-prereg-amendment-10.md:454-456",
+    "quote_b": "The author therefore adopted option (e), including option (a)'s clause\nand boundary (rows 15–16) and A10.4.1. If the listing is later cut for schedule reasons while A9.5's independent\nrelease boundary is established, (a) applies and the absence of new-key protection is stated (row 33).",
+    "kind": "silent_change",
+    "explanation": "Signed Amendment 10 adopted option (e) with A10.4.1 and rows 25-32 and 37-39, pre-authorizing a cut only \"for schedule reasons\" (row 33), whereas E9 row 2 (AUTHOR-RULINGS.md:9-12) cut A10.4.1 as \"an author scope decision, not an invocation of the schedule-slip cut order.\" A11.3 lists only the cross-reference at phase-0-prereg-amendment-10.md:675, omitting the registered sentences in A10 (:24-31, :454-456, :462-580, :752, :761-769, :773-775) that adopted option (e) and A10.4.1 as well as the remaining references to cutting the listing at :163-164, :675-676, and :771.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:92",
+    "quote_a": "| `phase-0-prereg-amendment-9.md:386-392`; `270ca49:docs/V1-PROFILE.md:1023-1037` | the boundary as the selected, deadline-qualified implementation, described through `prototype/policy-signer/` | *only if the author adopts §A11.5 item 2:* a named replacement under conditions (i)–(iv) |",
+    "loc_b": "docs/V1-PROFILE.md:1429-1435",
+    "quote_b": "   **Expanded (r2-F17):** for the hybrid, the final\n   custody implementation must have completed the deployed-slot pass-condition evidence by **21 Oct**; a choice\n   deferred to before 30 Oct is allowed only among implementations that already met that deadline, otherwise the\n   registered fallback is taken (A9.6 \"Deadline\"). **Closed 2026-10-19:** the dated record is in section 8\n   (\"Slot-2 custody record\"): GCP Cloud KMS HSM P-256 through the policy signer, chosen 2026-10-13, evidence complete\n   2026-10-14;",
+    "kind": "silent_change",
+    "explanation": "When A11.3 row 3 and A11.5 item 2 retrospectively relax the 21 Oct deadline-qualification requirement for the slot-2 policy signer, A11.3 lists V1-PROFILE.md:1023-1037 but omits V1-PROFILE.md:1429-1435 (§14.2 item 5), which independently states the same 21 Oct deadline-qualification rule and closes the item on the prototype policy signer's 2026-10-14 evidence.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:141-144",
+    "quote_a": "3. **The spike keys (`formal/p8/HYBRID-SUPPLEMENT.md` §11 item 6, lines 524-526): unchanged.** \"Both spike keys\n   are deleted after the re-capture verifies, once the review clears.\" The owner's deployment draft\n   (2026-10-27) reused them as production keys. That contradicted this commitment, and the draft is withdrawn.\n   Production uses new keys (`service/issuer/DEPLOY.md`), recorded in the external custody record before use.",
+    "loc_b": "docs/V1-PROFILE.md:1031-1032",
+    "quote_b": "  - **Public-key packet (immutable):** the v4 P-256 public-key packet body with creation time 1791946553\n    (2026-10-14T02:55:53Z), `gpg-sha256:b6e37f7c8120ca19cca86cc9617d4ec50b2875a799ee976d9d0253e01c7a077c`.",
+    "kind": "stale_referent",
+    "explanation": "While V1-PROFILE.md:1023-1030 qualified the Choice bullet's key-version identifier as historical evidence rather than production-key selection, the separate bullet at V1-PROFILE.md:1031-1032 still pins the deleted spike key's v4 packet body and fingerprint (creation time 1791946553, gpg-sha256:b6e37f7c...) as \"Public-key packet (immutable)\". A11.3 row 5 fixes only the §9 item 6 locator on line 1029 and A11.3 row 3 addresses only the prototype/policy-signer/ boundary (and only if item 2 is adopted), leaving lines 1031-1032 unamended when production uses new keys.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:148-152",
+    "quote_a": "   unchanged.** (K-R) itself stands: the ML-DSA-65 key signs only V1 tagged strings, in pure mode with the empty\n   context, under EXTERNAL_MU, for no other protocol. What changes is who enforces it. The supplement names the\n   issuer as the computer of `μ` and the issuer role as the only `kms:Sign` principal. In V1 as designed (deployment pending), a\n   dedicated policy signer validates the complete frame (tag, alg, key fingerprint, ε, `sign_by`, the signing stop)\n   *before* computing `μ`, and its role is the only `kms:Sign` principal (`service/signer-kms/`; key policy in",
+    "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:495",
+    "quote_b": "   - Stated limit: manifests carry no declared time, so the ε check does not apply to possession signing; C3 holds.",
+    "kind": "other",
+    "explanation": "(K-R) covers both attestation and manifest-possession frames (F ∈ Frm(attest) ∪ Frm(manifest), HYBRID-SUPPLEMENT.md:151) and only service/signer-kms/'s role holds kms:Sign, yet A11.5 item 5 states without qualification that the KMS policy signer validates ε before computing μ even though manifest frames carry no declared_issue_time.",
+    "confidence": "medium"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-11.md:59",
+    "quote_a": "   - the owner vectors: 223 tests, mutation-sensitive (PROFILE.md §6);",
+    "loc_b": "formal/p3-verification-profile/PROFILE.md:241-242",
+    "quote_b": "Each verifier check below was removed in a scratch copy of `tessera_verify`, and the module was run against that copy\n(`-k \"not lambda_package\"`, because the copy has no issuer tree). The unmutated copy: 222 passed, 1 skipped.",
+    "kind": "wrong_citation",
+    "explanation": "A11.2 item 2 cites PROFILE.md §6 for \"the owner vectors: 223 tests, mutation-sensitive\", whereas in PROFILE.md the owner vector files F2-F5 contain 123 vectors (223 passed, 1 skipped in §8 is the entire test_p3_profile.py suite including library, gate, bundle, and wheel-identity tests) and the mutation-sensitivity run in §6 has 222 passed, 1 skipped.",
+    "confidence": "medium"
+  }
+]

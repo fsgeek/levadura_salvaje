@@ -1,0 +1,56 @@
+[
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-2.md:299",
+    "quote_a": "**A receipt's anchor is the proof it ships with.** A shipped receipt\n  contains exactly one anchor proof (the OTS proof over its canonical\n  bytes) together with the anchor transaction's id",
+    "loc_b": "docs/phase-0-prereg-amendment-9.md:290",
+    "quote_b": "**Receipt anchor.** OTS stamps `SHA256(A_sig)`, tag `tessera-v1/receipt-anchor-sig`, which commits to both frames\n  and their exact detached signatures in manifest slot order",
+    "kind": "silent_change",
+    "explanation": "A9 replaces the canonical-byte anchor with a signature-inclusive anchor, but its change table lists the corresponding A1 and A7 sentences without listing this registered A2 sentence.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-1.md:444",
+    "quote_a": "`VALID_STRICT` requires both external evidences plus possession. A future\nverifier sees that at issue time, two channels with independent operational\nfailure modes asserted the same key authority, and the asserted keys were\ndemonstrably held.",
+    "loc_b": "docs/phase-0-prereg-amendment-9.md:143",
+    "quote_b": "DNSSEC (owner name D, evaluated at the snapshot's own anchored time) and the anchored git key assertion (full commit→tree→blob path) authenticated K for D, with the issuance window, at their evidence times.",
+    "kind": "silent_change",
+    "explanation": "A9 establishes authority at the channels' evidence times rather than at issue time. Its change table does not list A1's stronger issue-time assertion.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg.md:401",
+    "quote_a": "**Key compromise** — an attacker obtains signing capability outside normal\n  policy. *Mitigation:* KMS/GPG domain separation (§3.1) reduces correlated\n  compromise; OpenTimestamps constrains backdating; the §4.2 threat model and\n  TTL bound the local-key blast radius.",
+    "loc_b": "docs/phase-0-prereg-amendment-9.md:375",
+    "quote_b": "**Slot-2 custody (OWNER DECISION 2026-10-13).** The `gpg`-slot key is generated non-exportable in hardware outside\n  the issuing AWS account: a token on author-controlled hardware, or an HSM-backed key at a provider other than AWS.",
+    "kind": "stale_referent",
+    "explanation": "The original mitigation still points to §4.2's workstation commit-signing key and its TTL after A9 replaces local GPG service-key custody. A9's change table amends the original custody discussion at lines 292–305 but leaves this mitigation referring to the old key.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/V1-PROFILE.md:386",
+    "quote_a": "**Signature output.** Both OpenPGP adapters emit signatures that satisfy the rule-O policy of section 8 before\n  signing is final and before stamping.",
+    "loc_b": "docs/V1-PROFILE.md:1014",
+    "quote_b": "Hybrid (taken; see \"Branch taken\" below): `kms` is ML-DSA-65 (rule R), `gpg` is P-256 (rule O). One pair\n  algorithm id names both.",
+    "kind": "stale_referent",
+    "explanation": "The issuer duty still assumes two OpenPGP adapters producing rule-O signatures, although the selected hybrid has one raw rule-R signer. The duty is not qualified as applying only to the fallback.",
+    "confidence": "medium"
+  },
+  {
+    "loc_a": "formal/p8/PROOF.md:134",
+    "quote_a": "An OpenPGP signature as GnuPG emits it carries OpenPGP's own SHA-1 issuer fingerprint in a subpacket. Those\n    bytes are committed in `A_sig` like the rest, but no V1 check reads them.",
+    "loc_b": "docs/V1-PROFILE.md:1105",
+    "quote_b": "validation, in the hashed area: at most one type-16 subpacket, with exactly 8 data octets; at most one type-33\n    subpacket, with exactly 21 data octets whose first octet is `04` (v4 fingerprint); if both are present, the\n    type-16 value equals the last 8 octets of the type-33 fingerprint. Otherwise `INVALID / SIG_POLICY`.",
+    "kind": "stale_referent",
+    "explanation": "The profile requires reading fingerprint bytes to check their version and consistency with the issuer key ID. PROOF retains the broader assertion that no V1 check reads those bytes, rather than merely saying they confer no key-binding authority.",
+    "confidence": "high"
+  },
+  {
+    "loc_a": "docs/phase-0-prereg-amendment-2.md:109",
+    "quote_a": "**Wall time governs the\nattempt lifecycle:** the service waits through `declared + δ + S` before\ntreating an attempt as expired",
+    "loc_b": "docs/V1-SERVICE-RESOLUTIONS.md:23",
+    "quote_b": "A request not complete **24 hours** after acceptance ends as FAILED, with its reason.",
+    "kind": "other",
+    "explanation": "For a request whose issuance attempt starts at acceptance, the service resolution terminates it after 24 hours while A2 requires waiting through δ + S, retained by A9 as 96 hours. The texts do not reconcile the request deadline with the registered attempt lifecycle.",
+    "confidence": "medium"
+  }
+]

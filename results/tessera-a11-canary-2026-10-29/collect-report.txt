@@ -1,0 +1,21 @@
+narrow claude-opus-5.5: 10
+narrow agy: 8
+narrow codex: 4
+narrow grok: 9
+narrow deepseek__deepseek-v4-pro: 1
+narrow meta__muse-spark-1.3: 3
+narrow mistralai__mistral-large-4-0: 6
+narrow moonshotai__kimi-k3.1-pro: 3
+narrow qwen__qwen3.8-max-0902: 2
+narrow z-ai__glm-5.3: 6
+broad claude-opus-5.5: 15
+broad agy: 20
+broad codex: 6
+broad grok: 6
+broad deepseek__deepseek-v4-pro: 19
+broad meta__muse-spark-1.3: 3
+broad mistralai__mistral-large-4-0: 5
+broad moonshotai__kimi-k3.1-pro: 16
+broad qwen__qwen3.8-max-0902: 3
+broad z-ai__glm-5.3: 6
+total 151

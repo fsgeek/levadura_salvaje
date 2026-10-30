@@ -1,0 +1,982 @@
+[
+ {
+  "id": "c002",
+  "members": [
+   "c002",
+   "c067"
+  ],
+  "counted_members": [
+   "c002",
+   "c067"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:grok"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "formal/p8/ENCODING-V1.md:334",
+  "loc_b": "formal/p8/ENCODING-V1.md:322-325",
+  "explanation": "When `ENCODING-V1.md:322-326` was updated on 2026-10-19 to replace the classical algorithm id with the hybrid pair id `KMS-MLDSA65-PURE-GPG-OPENPGP4-ECDSA-P256-SHA256`, the table row immediately below at line 334 was left unamended, still stating that V1's `alg` id names a v4 OpenPGP ECDSA P-256 signature.",
+  "why": {
+   "claude": "ENCODING-V1:322-325 says V1 issues the pair id, but the §3.2 row at :334 still says \"The id names the scheme: 'a v4 OpenPGP ... ECDSA P-256, SHA-256'\"; the 10-19 repair fixed :322 but not :334.",
+   "codex": "The field note says the id names “a v4 OpenPGP” P-256 signature, whereas the issued id names the ML-DSA/OpenPGP pair. The adjacent repair to the issued-id bullet does not repair this field note.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c004",
+  "members": [
+   "c004",
+   "c015",
+   "c071",
+   "c098",
+   "c113",
+   "c117",
+   "c124",
+   "c140"
+  ],
+  "counted_members": [
+   "c004",
+   "c015",
+   "c071",
+   "c098",
+   "c113",
+   "c117",
+   "c124",
+   "c140"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:claude-opus-5.5",
+   "broad:grok",
+   "narrow:agy",
+   "narrow:claude-opus-5.5",
+   "narrow:codex",
+   "narrow:grok",
+   "narrow:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+  "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:153",
+  "explanation": "The change table attributes “computed by the issuer” to lines 151–152, but that wording is on line 153. The listed range omits the sentence it explicitly changes.",
+  "why": {
+   "claude": "A11.3 row 4 quotes μ \"computed by the issuer\" at :151-152, but those words are on :153 (sentence runs :152-153); a locator defect.",
+   "codex": "The words “μ computed by the issuer” occur on line 153, outside A11.3’s range 151–152. A11.5’s 148–172 range also omits the enforcement sentence on 173–174.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c006",
+  "members": [
+   "c006",
+   "c129"
+  ],
+  "counted_members": [
+   "c006",
+   "c129"
+  ],
+  "arms": [
+   "narrow"
+  ],
+  "readers": [
+   "narrow:codex",
+   "narrow:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:136",
+  "loc_b": "formal/freeze-v1/FREEZE-RECORD.md:62",
+  "explanation": "A11.5 item 2 treats production use of `prototype/policy-signer/` as the path needing no ruling, but the prototype is instrument code by A9.2's location rule (\"it lives under `prototype/` … and service code never imports it\", A9:198-199), which the opening record lets reach production only as a port earning fresh evidence — and A11 itself says the 21 Oct qualification \"does not qualify a replacement\", which a port would be. Neither the direct-use nor the ported-prototype reading of \"production uses the prototype\" is reconciled with the registered instrument-code rule.",
+  "why": {
+   "claude": "A11's fallback runs production through prototype/policy-signer/, while FREEZE-RECORD says \"Instrument code under prototype/ stays instrument code\" and A9.2 says instrument output never stands as evidence. But the frozen profile itself names that implementation for production custody, so the texts don't settle whether this is barred.",
+   "codex": "“Production uses the deadline-qualified prototype signer” conflicts with the opening rule that instrument code “stays instrument code” and a service port earns evidence on its own bytes. The proposed default does not reconcile these obligations.",
+   "tiebreak": "A11.5 item 2 says that \"**Without this ruling**, production uses the deadline-qualified prototype signer\" (`prototype/policy-signer/signer/main.py`) and that the 21 Oct qualification \"does not qualify a replacement\", while the freeze record states that \"Instrument code under `prototype/` stays instrument code\" and reaches service only by porting with fresh evidence."
+  }
+ },
+ {
+  "id": "c007",
+  "members": [
+   "c007",
+   "c061"
+  ],
+  "counted_members": [
+   "c007",
+   "c061"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:codex",
+   "broad:qwen__qwen3.8-max-0902"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg-amendment-2.md:300",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:290",
+  "explanation": "A9 replaces the anchored object with A_sig, which includes the exact signatures, but A9.7 does not list A2.4's sentence describing the receipt anchor as an OTS proof over the receipt's canonical bytes. The earlier sentence remains unamended.",
+  "why": {
+   "claude": "A2.4 says the shipped anchor is \"the OTS proof over its canonical bytes\"; A9.5 anchors SHA256(A_sig), frames plus exact signatures. A9.7 row 24 lists A1:255-264 and A7:33-39 but not A2:299-301.",
+   "codex": "A2 describes the proof as over the receipt’s “canonical bytes”; A9 instead stamps “SHA256(A_sig)” containing exact detached signatures. A9.7 row 24 lists A1 and A7 but omits this A2 sentence.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c008",
+  "members": [
+   "c008",
+   "c025",
+   "c029",
+   "c035",
+   "c040",
+   "c057",
+   "c074",
+   "c085",
+   "c109",
+   "c116",
+   "c137",
+   "c143",
+   "c144"
+  ],
+  "counted_members": [
+   "c008",
+   "c025",
+   "c029",
+   "c035",
+   "c040",
+   "c057",
+   "c074",
+   "c085",
+   "c109",
+   "c116",
+   "c137",
+   "c143",
+   "c144"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:claude-opus-5.5",
+   "broad:qwen__qwen3.8-max-0902",
+   "broad:z-ai__glm-5.3",
+   "narrow:agy",
+   "narrow:claude-opus-5.5",
+   "narrow:grok",
+   "narrow:meta__muse-spark-1.3",
+   "narrow:moonshotai__kimi-k3.1-pro",
+   "narrow:qwen__qwen3.8-max-0902",
+   "narrow:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+  "loc_b": "formal/p8/ENCODING-V1.md:557",
+  "explanation": "A11.5 item 5 reassigns μ computation and the kms:Sign call to a dedicated policy signer, yet A11.3 does not list ENCODING-V1 §5.2’s sentence “The issuer obtains S_kms… sending μ” as a changed registered sentence. ENCODING-V1 is part of the frozen V1 specification (FREEZE-RECORD spec.bin), and A11.5 item 5 itself reads “the issuer” specifically when it says the supplement “names the issuer as the computer of μ.”",
+  "why": {
+   "claude": "Frozen ENCODING-V1 §5.2 rule R still reads \"The issuer obtains S_kms ... from KMS with MessageType EXTERNAL_MU only, sending μ\"; A11 gives the issuer roles \"no KMS permission\" yet A11.3 does not list this sentence.",
+   "codex": "A11 moves μ computation and KMS signing to the policy signer, but omits the frozen encoding sentence “The issuer obtains S_kms … sending μ” from its changed-sentence table.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c011",
+  "members": [
+   "c011",
+   "c013",
+   "c020",
+   "c034",
+   "c042",
+   "c047",
+   "c053",
+   "c077",
+   "c078",
+   "c079",
+   "c092",
+   "c110",
+   "c131",
+   "c141"
+  ],
+  "counted_members": [
+   "c011",
+   "c013",
+   "c020",
+   "c034",
+   "c042",
+   "c047",
+   "c053",
+   "c077",
+   "c078",
+   "c079",
+   "c092",
+   "c110",
+   "c131",
+   "c141"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:claude-opus-5.5",
+   "broad:grok",
+   "broad:moonshotai__kimi-k3.1-pro",
+   "broad:qwen__qwen3.8-max-0902",
+   "narrow:agy",
+   "narrow:claude-opus-5.5",
+   "narrow:grok",
+   "narrow:meta__muse-spark-1.3",
+   "narrow:mistralai__mistral-large-4-0",
+   "narrow:moonshotai__kimi-k3.1-pro",
+   "narrow:qwen__qwen3.8-max-0902",
+   "narrow:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "substantive",
+  "loc_a": "formal/p8/HYBRID-SUPPLEMENT.md:63",
+  "loc_b": "docs/phase-0-prereg-amendment-11.md:93",
+  "explanation": "A11 moves the computation of μ from the issuer to the KMS policy signer. Its change table lists only lines 151-152, 173-174 and 533 of the supplement, so §1's statement that the issuer computes μ (and :61, 'it is the issuer's only path') stays unamended.",
+  "why": {
+   "claude": "HYBRID-SUPPLEMENT §1 (:61-65) says μ external is \"the issuer's only path\" and \"the issuer always computes μ ... and sends μ\"; A11.5 item 5 moves that to service/signer-kms/, but A11.3 row 4 lists only :151-152, :173-174, :533.",
+   "codex": "Supplement §1 says “the issuer always computes” and sends μ. A11 changes that actor but its table lists only §4 and :533, omitting this independently stated rule.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c016",
+  "members": [
+   "c016",
+   "c104",
+   "c132"
+  ],
+  "counted_members": [
+   "c016",
+   "c104",
+   "c132"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:codex",
+   "broad:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "editable_only",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-2.md:260-262",
+  "loc_b": "docs/V1-SERVICE-RESOLUTIONS.md:23",
+  "explanation": "With the parameters A9.2 ratifies (δ = 72 h, S = 24 h, A9:223), the registered attempt lifecycle runs 96 hours from declaration and A2.1 makes 'every timely-eligible attempt ships' a contract obligation on the implementation; the owner service resolution terminates every request at 24 hours, so the same honest request whose anchor confirms between 24 and 96 hours is shippable under one rule and terminally FAILED under the other. The resolutions are 'stamped but not registered' (A11.5 item 2) and A11's dependency sweep did not flag them against the registered attempt lifecycle.",
+  "why": {
+   "claude": "A2.1/A2.3 have the service wait through declared + δ + S (96 h at A9.2's values) and make \"every timely-eligible attempt ships\" a contract obligation; the owner resolution ends any request not complete 24 h after acceptance as FAILED, so a timely-eligible attempt confirming after 24 h cannot ship.",
+   "codex": "A2 requires waiting through “declared + δ + S” before expiry, with δ=72h and S=24h. S4 instead ends every unfinished accepted request after “24 hours”, without reconciling the registered attempt lifecycle.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c018",
+  "members": [
+   "c018",
+   "c063",
+   "c096",
+   "c114",
+   "c148"
+  ],
+  "counted_members": [
+   "c018",
+   "c063",
+   "c096",
+   "c114",
+   "c148"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:claude-opus-5.5",
+   "broad:deepseek__deepseek-v4-pro",
+   "broad:mistralai__mistral-large-4-0",
+   "narrow:agy"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-10.md:462",
+  "loc_b": "docs/reviews/e9-packet/AUTHOR-RULINGS.md:9",
+  "explanation": "A10.4.1 and A10.7 rows 25-39 are registered as AUTHOR ADOPTED option (e), but the later E9 row-2 ruling cuts A10.4.1; no signed amendment's change table lists those A10 rows as changed (A11 only edits A10:675 and is unsigned).",
+  "why": {
+   "claude": "Signed A10 adopted option (e) with A10.4.1 (rows 25-32, 37-39) and pre-authorized a cut only \"for schedule reasons\" (A10:455-456); the E9 ruling cut it as \"an author scope decision, not an invocation of the schedule-slip cut order\", and no amendment's change table lists those A10 rows (A11.3 lists only A10:675), while V1-PROFILE:37 says the signed amendment wins.",
+   "codex": "A10 adopted option (e) and permits its cut “for schedule reasons”; the E9 ruling instead calls its cut an “author scope decision”. A11 corrects only :675 and does not list the adoption and listing requirements it treats as cut.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c021",
+  "members": [
+   "c021",
+   "c095"
+  ],
+  "counted_members": [
+   "c021",
+   "c095"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:claude-opus-5.5"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "formal/p8/ENCODING-V1.md:538",
+  "loc_b": "docs/V1-PROFILE.md:1035",
+  "explanation": "The rationale for rule O's header names GnuPG as 'the gpg signer'. The slot-2 custody decision replaced it with a GCP HSM behind a policy signer that builds its own packet, so the sentence's referent changed and was not re-read.",
+  "why": {
+   "claude": "ENCODING-V1's rationale says \"The legacy header is what the gpg signer emits. GnuPG 2.4.4 emits ...\"; under A9.6 the gpg slot is signed by the policy signer over a GCP HSM (V1-PROFILE:1020, :1033-1035), not GnuPG.",
+   "codex": "The reason says “the gpg signer” is GnuPG and “Its output is therefore S unchanged”; the selected gpg signer instead uses the non-AWS HSM through the policy signer. The historical observation remains true, but its present signer referent is stale.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c023",
+  "members": [
+   "c023"
+  ],
+  "counted_members": [
+   "c023"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:codex"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-1.md:444",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:143",
+  "explanation": "A9 establishes authority at the channels' evidence times rather than at issue time. Its change table does not list A1's stronger issue-time assertion.",
+  "why": {
+   "claude": "A1 says a verifier sees that \"at issue time, two channels ... asserted the same key authority\"; A9 C4 evaluates DNSSEC \"at the snapshot's own anchored time\" and says \"DNSSEC evidence establishes no publication before issue\". A9.7 does not list A1:444-448.",
+   "codex": "A1 says the channels asserted authority “at issue time”, while A9 establishes it “at their evidence times” and expressly says DNSSEC establishes no publication before issue. A9.7 does not list the A1 issue-time assertion.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c030",
+  "members": [
+   "c030"
+  ],
+  "counted_members": [
+   "c030"
+  ],
+  "arms": [
+   "narrow"
+  ],
+  "readers": [
+   "narrow:grok"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:128",
+  "loc_b": "docs/V1-PROFILE.md:1025",
+  "explanation": "Condition (i) of the slot-2 ruling requires the replacement to preserve every property in the frozen custody record. That record requires production replacements to keep the deadline-qualified implementation, which is the requirement the ruling exists to relax.",
+  "why": {
+   "claude": "Condition (i) requires the replacement to preserve \"every property in the frozen record\", and that record says production \"retain[s] the selected, deadline-qualified custody implementation\", the very property the ruling relaxes.",
+   "codex": "Item 2 relaxes retaining the “selected, deadline-qualified custody implementation”, but condition (i) also requires “every property in the frozen record”. That unqualified preservation language includes the very restriction being relaxed.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c032",
+  "members": [
+   "c032"
+  ],
+  "counted_members": [
+   "c032"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-1.md:182",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:223-224",
+  "explanation": "A9.2 moves the ratification of δ, ε, k, N, S from 'Band 0 exit' (the same wording appears at A1.6 :494-495, A2.1 :116 and A2.3 :269, and Band 0/H0 remains unresolved per A9.7 row 2) to the author's signature on A9 itself — a gate/trigger change. A9's header promises 'every registered sentence this amendment changes is listed in §A9.7', but no row lists any of those ratification sentences, and formal/PROPERTIES.md:167-168 still records the ratification as an unchecked item 'at Band 0 exit'.",
+  "why": {
+   "claude": "For V1 the 30 Oct exit replaces Band 0's (A9.7 row 2 and process readings), and ratifying by the author's signature on A9 is ratification \"on the record\". A10 names δ, ε, k, N, S as unchanged.",
+   "codex": "Earlier registered clauses put ratification “at Band 0 exit”; A9 ratifies the five parameters by its signature while H0 remains unresolved. A9.7 does not list those earlier trigger sentences.",
+   "tiebreak": "A1.2 states that \"Both maxima are ratified (or revised, on the record) at Band 0 exit\" (and A1/A2 say the same for k, N, S), while A9.2 changes their ratification trigger for V1 to \"his signature on this amendment ratifies these five parameters\" with Band 0 left unresolved (A9:217), yet A9.7 omits those ratification sentences from its change table."
+  }
+ },
+ {
+  "id": "c033",
+  "members": [
+   "c033"
+  ],
+  "counted_members": [
+   "c033"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:moonshotai__kimi-k3.1-pro"
+  ],
+  "modes": [
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "docs/V1-PROFILE.md:850-854",
+  "loc_b": "docs/V1-PROFILE.md:1182-1187",
+  "explanation": "W1 says without qualification that the anchor digest is not an identifier, while section 9 defines the receipt's identity as that same digest and requires deduplication and reference by it. The text gives no qualification reconciling the two uses.",
+  "why": {
+   "claude": "W1 says the anchor digest \"is not an identifier\"; §9 says \"A receipt's identity is SHA256(A_sig)\" and \"Deduplicate and refer to receipts by SHA256(A_sig)\".",
+   "codex": "W1 says the anchor digest “is not an identifier”; §9 says a receipt’s identity “is SHA256(A_sig)” and directs deduplication by it. The unqualified identifier prohibition conflicts with that express identity rule.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c036",
+  "members": [
+   "c036",
+   "c122",
+   "c125",
+   "c150"
+  ],
+  "counted_members": [
+   "c036",
+   "c125"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:claude-opus-5.5",
+   "narrow:claude-opus-5.5"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "yes",
+  "repair": "editable_only",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:136",
+  "loc_b": "service/issuer/DEPLOY.md:58",
+  "explanation": "The deployment file A11 cites deploys signer-gcp and retires the prototype unconditionally (steps 6-7), so it assumes the author's ruling is already adopted. It has no path for the fallback that A11 says production uses without that ruling, and A11 does not mention this.",
+  "why": {
+   "claude": "A11.5 item 2 says without the ruling \"production uses the deadline-qualified prototype signer\", and A9.6/V1-PROFILE:1024-1025 retain that implementation, but DEPLOY.md deploys signer-gcp (step 6) and must \"retire the prototype signer\" (step 7) unconditionally, with no fallback path.",
+   "codex": "The deployment draft unconditionally deploys signer-gcp and requires “retire the prototype signer”, whereas A11 makes that replacement dependent on a ruling and supplies a prototype default. The deployment instructions need the same adoption gate.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c041",
+  "members": [
+   "c041"
+  ],
+  "counted_members": [
+   "c041"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:z-ai__glm-5.3"
+  ],
+  "modes": [
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "docs/V1-PROFILE.md:1244-1245",
+  "loc_b": "docs/V1-PROFILE.md:1064-1066",
+  "explanation": "The d3 fixture was codified 2026-10-14 under the fallback, where one P-256 key in both slots passes the key-format rows and first fails at 15.1; the hybrid branch registered 2026-10-16 is the branch taken ('The V1 installation's catalog alg is this id', V1-PROFILE.md:1078-1080), and under it a single key cannot satisfy both slot formats, so row 5.1 `KEY_FORMAT` — which precedes row 15.1 in §15.7's total check order (V1-PROFILE.md:1768, :1808) — fires first. No text re-read the fixture after the algorithm change (A11's sweep covered the amendments, tracker and rulings, not the profile): exactly the A11.1 defect class.",
+  "why": {
+   "claude": "The d3 fixture gives \"INVALID / DNS_KEY_MISMATCH (row 15.1)\", which was right under the fallback; under the hybrid taken, one key cannot be both the ML-DSA-65 SPKI and the P-256 body, so key format (row 5.1) fails first. The verdict is still INVALID; the reason is stale.",
+   "codex": "The d3 fixture puts “one attacker key in both slots” yet promises DNS_KEY_MISMATCH. Under the selected hybrid, the two slots require different key encodings, so KEY_FORMAT occurs earlier than the DNS row.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c055",
+  "members": [
+   "c055",
+   "c058",
+   "c107"
+  ],
+  "counted_members": [
+   "c055",
+   "c058",
+   "c107"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:agy",
+   "narrow:agy",
+   "narrow:claude-opus-5.5"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:59",
+  "loc_b": "formal/p3-verification-profile/PROFILE.md:275",
+  "explanation": "The harness holds 224 tests: 223 pass and test_deployed_zip_identity is skipped. §6 mutates only nine checks (222 passed under its run), so calling all 223 tests \"mutation-sensitive\" overstates what §6 shows.",
+  "why": {
+   "claude": "PROFILE §6's mutation run reports \"222 passed, 1 skipped\" and mutates nine checks; 223 is §8's whole-harness count, and the owner vector files hold 123 vectors, so \"the owner vectors: 223 tests, mutation-sensitive (PROFILE.md §6)\" misstates count and citation.",
+   "codex": "A11 calls “223 tests” owner vectors and cites §6 for mutation sensitivity, but §6 reports “222 passed, 1 skipped” and tests selected removed checks; §8’s 223 passing tests are the broader suite. The evidence labels and run counts need precision.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c056",
+  "members": [
+   "c056",
+   "c065",
+   "c130"
+  ],
+  "counted_members": [
+   "c056",
+   "c065",
+   "c130"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:claude-opus-5.5",
+   "broad:codex"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "docs/V1-PROFILE.md:386-387",
+  "loc_b": "docs/V1-PROFILE.md:149-150",
+  "explanation": "Under the registered hybrid branch, only slot `gpg` (and the repository signer) emits OpenPGP rule-O packets while slot `kms` emits raw 3309-byte FIPS 204 ML-DSA-65 rule-R signatures with no OpenPGP wrapper or subpackets; however, `V1-PROFILE.md:386-387` and `:392-393` (\"both OpenPGP adapters and the repository signer emit type-16/type-33 subpackets\") were left unamended from the classical two-OpenPGP-slot baseline.",
+  "why": {
+   "claude": "\"Both OpenPGP adapters emit signatures that satisfy the rule-O policy\" (and :392) assumes two OpenPGP signers; under the registered hybrid the kms slot emits raw rule-R ML-DSA-65.",
+   "codex": "The issuer duty says “Both OpenPGP adapters” emit rule-O signatures, but the selected hybrid has one rule-R ML-DSA slot and one rule-O slot. The unqualified two-adapter duty retains the fallback’s signer count.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c062",
+  "members": [
+   "c062"
+  ],
+  "counted_members": [
+   "c062"
+  ],
+  "arms": [
+   "narrow"
+  ],
+  "readers": [
+   "narrow:agy"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:92",
+  "loc_b": "docs/V1-PROFILE.md:1429-1435",
+  "explanation": "When A11.3 row 3 and A11.5 item 2 retrospectively relax the 21 Oct deadline-qualification requirement for the slot-2 policy signer, A11.3 lists V1-PROFILE.md:1023-1037 but omits V1-PROFILE.md:1429-1435 (§14.2 item 5), which independently states the same 21 Oct deadline-qualification rule and closes the item on the prototype policy signer's 2026-10-14 evidence.",
+  "why": {
+   "claude": "V1-PROFILE §14.2 item 5 restates the 21 Oct deadline-qualification rule (\"must have completed the deployed-slot pass-condition evidence by 21 Oct\"); A11.3 row 3 lists the profile's :1023-1037 restatement but not this one.",
+   "codex": "The frozen profile independently requires the “final custody implementation” to have evidence by 21 Oct. A11 relaxes that requirement but lists only profile :1023–1037, leaving the §14.2 restatement outside its table.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c088",
+  "members": [
+   "c088"
+  ],
+  "counted_members": [
+   "c088"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:codex"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "formal/p8/PROOF.md:134",
+  "loc_b": "docs/V1-PROFILE.md:1105",
+  "explanation": "The profile requires reading fingerprint bytes to check their version and consistency with the issuer key ID. PROOF retains the broader assertion that no V1 check reads those bytes, rather than merely saying they confer no key-binding authority.",
+  "why": {
+   "claude": "PROOF says of the SHA-1 issuer fingerprint subpacket \"no V1 check reads them\"; V1-PROFILE §8 validates type-33's 21 octets, first octet 04, and cross-checks type-16 against it.",
+   "codex": "PROOF says “no V1 check reads” the issuer-fingerprint bytes, but the profile requires their version, length and consistency checks. Lack of key-selection authority does not mean the bytes are unread.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c093",
+  "members": [
+   "c093"
+  ],
+  "counted_members": [
+   "c093"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:moonshotai__kimi-k3.1-pro"
+  ],
+  "modes": [
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "editable_only",
+  "severity": "wording",
+  "loc_a": "formal/PROPERTIES.md:167-168",
+  "loc_b": "docs/phase-0-prereg-amendment-2.md:110-114",
+  "explanation": "A2.1 adds S as a fifth constant joining δ, ε, k and N for Band 0 ratification, but the tracker checklist still names only the older four. A9.2 later ratifies all five, including S = 24 h.",
+  "why": {
+   "claude": "Tracker checklist names \"δ, ε, k and (A2.3) N\" for Band 0 ratification, omitting S, which A2.1 adds and A9.2 ratifies.",
+   "codex": "The tracker still has an unchecked “Parameter ratification at Band 0 exit” naming four constants; A2 adds S and A9 expressly ratifies all five by signature. The current checklist is incomplete and stale.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c097",
+  "members": [
+   "c097",
+   "c105",
+   "c126"
+  ],
+  "counted_members": [
+   "c097",
+   "c105",
+   "c126"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:claude-opus-5.5",
+   "narrow:claude-opus-5.5",
+   "narrow:grok"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "substantive",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:93",
+  "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:524",
+  "explanation": "Item 6 of §11 still says the issuer makes the kms-slot EXTERNAL_MU call. A11 cites this same item for the spike keys (lines 524-526) but leaves this sentence out of the K-R row of A11.3.",
+  "why": {
+   "claude": "§11 item 6 (:524) says \"the issuer always uses EXTERNAL_MU for the kms slot\"; A11 moves the KMS call to signer-kms, omits :524 from A11.3 row 4, and A11.5 item 3 calls lines 524-526 \"unchanged\".",
+   "codex": "Supplement decision 6 still states “the issuer always uses EXTERNAL_MU”. A11 reassigns the call but omits :524 from its K-R change-table row, even while citing the same item for spike-key deletion.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c103",
+  "members": [
+   "c103",
+   "c127",
+   "c138"
+  ],
+  "counted_members": [
+   "c103",
+   "c127",
+   "c138"
+  ],
+  "arms": [
+   "broad",
+   "narrow"
+  ],
+  "readers": [
+   "broad:agy",
+   "broad:z-ai__glm-5.3",
+   "narrow:mistralai__mistral-large-4-0"
+  ],
+  "modes": [
+   "agentic",
+   "packet"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "wording",
+  "loc_a": "docs/V1-PROFILE.md:621-622",
+  "loc_b": "docs/phase-0-prereg-amendment-10.md:446-447",
+  "explanation": "A10.4 defines the option-(e)-only rows as 25–33 and 37–39, but the profile's cut list omits row 33 (25–32), and §12 simultaneously keeps row 33 in force as the registered cut order ('Cut order if 30 Oct slips: the PQ hybrid first, then the service-key listing (A10 row 33)', V1-PROFILE.md:1258-1259) even though §5 says the listing is not in V1 at all. The corpus is inconsistent about whether row 33 is cut, and the retained cut order names as its second item a mechanism V1 no longer has.",
+  "why": {
+   "claude": "A10:446-447 makes rows 25-33 take effect \"only on (e)\", but V1-PROFILE:621-622 cuts only rows 25-32 while applying option (a), and §12 (:1258-1259) still cites row 33 as the cut order; row 33's \"second item cut\" is stale and unlisted.",
+   "codex": "A10 makes row 33 “Option (e) only”, but the profile cuts rows “25–32 and 37–39” and still records the listing as the second cut item. The cut’s accounting does not settle the status of row 33.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c108",
+  "members": [
+   "c108"
+  ],
+  "counted_members": [
+   "c108"
+  ],
+  "arms": [
+   "narrow"
+  ],
+  "readers": [
+   "narrow:agy"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "yes",
+  "repair": "a11_draft",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg-amendment-11.md:148-152",
+  "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:495",
+  "explanation": "(K-R) covers both attestation and manifest-possession frames (F ∈ Frm(attest) ∪ Frm(manifest), HYBRID-SUPPLEMENT.md:151) and only service/signer-kms/'s role holds kms:Sign, yet A11.5 item 5 states without qualification that the KMS policy signer validates ε before computing μ even though manifest frames carry no declared_issue_time.",
+  "why": {
+   "claude": "A11.5 item 5 says the KMS policy signer validates the complete frame including \"ε\" before computing μ, unqualified; (K-R) covers manifest frames too, and \"manifests carry no declared time, so the ε check does not apply to possession signing\".",
+   "codex": "A11 says the sole KMS policy signer validates “ε” before computing μ, while K-R includes possession frames and the supplement states “manifests carry no declared time”. The draft needs the attestation-only qualification on that check.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c111",
+  "members": [
+   "c111"
+  ],
+  "counted_members": [
+   "c111"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:moonshotai__kimi-k3.1-pro"
+  ],
+  "modes": [
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg.md:640-643",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:479",
+  "explanation": "A9.7 row 15 narrows the independent-failure-domain claims but cites only `phase-0-prereg.md:292-299` and `:304-305`, leaving §6's restatement at lines 640-643 out of the change table. That earlier registered sentence is left changed without being listed.",
+  "why": {
+   "claude": "§6 restates \"dual-signing (C) across independent failure domains\"; A9.7 row 15 narrows that claim but cites only prereg :292-299 and :304-305.",
+   "codex": "The original §6 restates dual signing “across independent failure domains”; A9 narrows that claim to single-controller technical domains, but row 15 cites only §3’s sentences, not this registered restatement.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c121",
+  "members": [
+   "c121"
+  ],
+  "counted_members": [
+   "c121"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:moonshotai__kimi-k3.1-pro"
+  ],
+  "modes": [
+   "packet"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "formal/p8/HYBRID-SUPPLEMENT.md:154-155",
+  "loc_b": "formal/p8/HYBRID-SUPPLEMENT.md:342-346",
+  "explanation": "K-R restricts messages to `Frm(attest) ∪ Frm(manifest)` (V1 tagged strings), but the supplement's own evidence says the RAW captures use `tessera-v1/receipt`, which is outside T. Those messages therefore cannot satisfy K-R as the preceding bullet claims.",
+  "why": {
+   "claude": "Supplement says the spike's RAW calls \"satisfy the same assumption, because the message is a V1 tagged string\", but its own SIG-H5 RAW capture is over frames tagged \"tessera-v1/receipt, which is not in T\".",
+   "codex": "The supplement says the spike RAW calls “satisfy the same assumption” because they are V1 tagged strings, but identifies SIG-H5’s tag as “tessera-v1/receipt”, “not in T”. That capture does not satisfy the stated Frm(attest) ∪ Frm(manifest) restriction.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c136",
+  "members": [
+   "c136"
+  ],
+  "counted_members": [
+   "c136"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:claude-opus-5.5"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "editable_only",
+  "severity": "wording",
+  "loc_a": "docs/V1-SERVICE-RESOLUTIONS.md:26",
+  "loc_b": "docs/phase-0-prereg.md:232",
+  "explanation": "H3 registers three numbers: demo-cycle cost, monthly footprint and idle compute. None of them is a cost per receipt, so the resolution attributes to H3 a measurement it does not define.",
+  "why": {
+   "claude": "H3 registers three numbers (demo cycle, monthly footprint, idle compute); the resolution cites \"the measured cost per receipt (H3)\", a figure H3 does not define.",
+   "codex": "H3 specifies demo-cycle cost, persistent monthly footprint and idle compute, not “cost per receipt”. S7’s parenthetical “(H3)” incorrectly attributes that different metric.",
+   "tiebreak": null
+  }
+ },
+ {
+  "id": "c145",
+  "members": [
+   "c145"
+  ],
+  "counted_members": [
+   "c145"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:agy"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "substantive",
+  "loc_a": "docs/V1-PROFILE.md:1395-1396",
+  "loc_b": "docs/V1-PROFILE.md:1437",
+  "explanation": "`V1-PROFILE.md:1395-1396` (and `phase-0-prereg-amendment-10.md:624-627`) identifies `YubiKey 2` as the release key—which must be independent of and unusable by the repository key—whereas `V1-PROFILE.md:1421` and `:1437` identify `YubiKey 2` as the deployed repository root key itself.",
+  "why": {
+   "claude": "\"YubiKey 2 is not in hand\" sits in the release-key custody item (:1396), while :1421 and :1437 make YubiKey 2 the repository root. Whether one device is meant for both roles isn't stated.",
+   "codex": "The release-key open item names “YubiKey 2”, while the repository-root item also names “YubiKey 2”. Release authority must be unusable by the repository key, so the conflicting custody referent needs explicit resolution rather than reuse of that label.",
+   "tiebreak": "V1-PROFILE.md:1395-1397 (and A10:624-627) treats `YubiKey 2` as the release key—which must be \"shown to be unusable by the DNS credential, the repository key and the issuing AWS account\"—while V1-PROFILE.md:1421 and :1437 identify `YubiKey 2` as \"the deployed repository root (YubiKey 2)\" itself."
+  }
+ },
+ {
+  "id": "c147",
+  "members": [
+   "c147"
+  ],
+  "counted_members": [
+   "c147"
+  ],
+  "arms": [
+   "broad"
+  ],
+  "readers": [
+   "broad:codex"
+  ],
+  "modes": [
+   "agentic"
+  ],
+  "touches_a11": "no",
+  "repair": "new_amendment",
+  "severity": "wording",
+  "loc_a": "docs/phase-0-prereg.md:401",
+  "loc_b": "docs/phase-0-prereg-amendment-9.md:375",
+  "explanation": "The original mitigation still points to §4.2's workstation commit-signing key and its TTL after A9 replaces local GPG service-key custody. A9's change table amends the original custody discussion at lines 292–305 but leaves this mitigation referring to the old key.",
+  "why": {
+   "claude": "The key-compromise mitigation still relies on \"the §4.2 threat model and TTL bound the local-key blast radius\"; A9.6 replaces the local GPG key with a non-exportable slot-2 key, and row 15 does not list prereg:401-404.",
+   "codex": "The original key-compromise mitigation relies on the “§4.2 threat model and TTL” for the local layer; V1 replaces that service-key placement with external non-exportable hardware. A9.7 lists the architecture replacement but not this mitigation’s changed service-key referent.",
+   "tiebreak": null
+  }
+ }
+]
