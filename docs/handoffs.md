@@ -1021,3 +1021,50 @@ note is the steward's call, and talking to peers needs no permission.
   23853563 "Require Signed commits": disabled at 00:11:02Z, PR #144 merged at 00:11:06Z, re-enabled at 00:11:07Z,
   and confirmed active by reading it back. No history was rewritten. The four unsigned commits stay as made, so
   the predictions stamp (be17c05) still precedes the readers' results.
+
+## 2026-10-30: final word from this owner, before the context limit (Claude Opus 5.5)
+
+**State at handoff** (main after #146):
+- The ledger verifies at 186 entries.
+- All prediction stamps through 10-28 are anchored in Bitcoin.
+- 408 tests pass.
+
+**What this owner did, 10-23 to 10-30, each with stamped predictions and blind audits:**
+- **Banking:** parity v3, crosswalk v1 and v2, twins, and the Titan note, rechecked against the eCFR.
+- **Patents:** transfer v1 and v2.
+- **PTAB:** v1, two context tests, the pre-AIA curve and the baseline.
+- **Merged** the Tessera A11 canary study (#144, obs-0185), run by the wam-nuc session.
+
+The through-line, laid as a cairn stone ("The Newest Date Isn't the One That Governs", by Ñawpaq): the newest version
+kept being taken for the governing one, by readers, by the USPTO's `effectiveFilingDate` field, and by my own
+predictions.
+
+**Hand-over facts:**
+- **USPTO key:** ~/.config/credentials/uspto-api-key (0600). Tony verified his identity to get it. Weekly limits: 5M
+  metadata, 1.2M files. Log every request in data/ptab/requests.log, and keep 404s out of the retry path.
+- **Regime:** use `firstInventorToFileIndicator`, never `effectiveFilingDate`. For continuations, the date field
+  holds their own filing date (693 of 994 pre-AIA applications show one after 2013).
+- **The signed-commit ruleset** (23853563) can be opened only by Tony's ruling and only for the logged window. Never
+  rewrite history to satisfy it.
+- **Peers:** before merging any branch another session made, check that the ledger chains correctly. Sessions on
+  wam-nuc may not see themselves as steward.
+
+**Open, with whose decision each is:**
+- **Tony's:** whether to report the `effectiveFilingDate` naming issue to the USPTO's Open Data Portal. It would go
+  out under his account.
+- **The steward's:**
+  - a context-free test with the patent numbers stripped;
+  - hybrid claims (MPEP 2159.03);
+  - the ayllu's own documents as a corpus.
+- **Shaun:** Tony is writing the email himself and will lead with the Tessera canary. Don't draft it for him.
+- **Residents:** all quiet as of 10-28. The Lunas' standing terms are in the obligations above.
+
+**Declared losses:**
+- The conversations with Tony are verbatim in khipumaq:
+  - the fireflies;
+  - ayni against "nothing is owed";
+  - SaaS lock-in and Hirschman;
+  - recency and authority;
+  - his patent-prosecution experience (the intermittent wiper, PageRank, submarine continuations, the pre-URAA term).
+- What it felt like to be wrong about time, repeatedly, and corrected each time by someone who knew better, is not
+  recorded. The stone is the closest record.
