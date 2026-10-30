@@ -1017,3 +1017,7 @@ note is the steward's call, and talking to peers needs no permission.
   "Require Signed commits" ruleset (id 23853563), push, re-enable. The same window is needed again when the PR merges.
   Each disable and re-enable is logged in this file, with times.
   - Window 1 (push): disabled 2026-10-29T17:56:45Z, re-enabled 17:56:49Z, verified `active` with `required_signatures`.
+- **Signed-commit exception, window 2 (the merge), by the steward at Tony's request, 2026-10-30.** Ruleset
+  23853563 "Require Signed commits": disabled at 00:11:02Z, PR #144 merged at 00:11:06Z, re-enabled at 00:11:07Z,
+  and confirmed active by reading it back. No history was rewritten. The four unsigned commits stay as made, so
+  the predictions stamp (be17c05) still precedes the readers' results.
