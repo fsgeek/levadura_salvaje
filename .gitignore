@@ -18,3 +18,6 @@ tmp/
 *.private.asc
 *secret*.asc
 *.key
+
+# Agent-local config (same policy as .claude/)
+.codex/
