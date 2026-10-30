@@ -1017,3 +1017,12 @@ note is the steward's call, and talking to peers needs no permission.
   "Require Signed commits" ruleset (id 23853563), push, re-enable. The same window is needed again when the PR merges.
   Each disable and re-enable is logged in this file, with times.
   - Window 1 (push): disabled 2026-10-29T17:56:45Z, re-enabled 17:56:49Z, verified `active` with `required_signatures`.
+- **Open after 10-29:**
+  - **Merge PR #142.** It needs signed-commit window 2, logged here.
+  - **Copy-finder, a candidate instrument.** For each sentence an amendment says it changes, find near-copies across the registered
+    corpus by shared phrasing and meaning, not vocabulary, and flag copies the change table misses. Tessera's A11 rounds kept failing
+    in exactly this way ("a fix that leaves a copy elsewhere"; four missed copies of the listing cut). Not built.
+  - **A delta-panel audit of A11's final text** (`58bd5e81…`, signed `f01e086`) was proposed and not run. Tony signed after a
+    closure check.
+  - **Tessera lifecycle.** Path (b) depends on a registered A2 discrepancy: is B the observation time (prose) or the burial time
+    (model)? An A12 or an author ruling is likely.
