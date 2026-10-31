@@ -60,6 +60,24 @@ Candidate predictions, to size before stamping:
 2. Naming the authority reduces that rate.
 3. Over the sixteen months, its triage improves: rising precision on flags it promotes.
 
+## Handles attest the materials, not the conclusion
+
+From Tony's route to the Radiant (10-31): Hamut'ay instances don't keep tool outputs in
+context. So each handle commits to the source bytes at its date (git and OTS, or Tessera
+later). That makes substitution checkable. An auditor compares the investigator's stated
+basis with the attested bytes. A handle that only names a conclusion couldn't be checked
+this way.
+
+## Lineage to cite
+
+- **Truth maintenance systems:** Doyle's TMS (1979), de Kleer's ATMS (1986). They recorded the
+  justification for each belief, did dependency-directed backtracking, and kept every
+  consistent context at once. That is "explore and backtrack without losing what was explored",
+  for symbolic reasoners.
+- **What they never had:** evidence too large to hold, cheap and fallible instruments, attested
+  sources, heterogeneous investigators, and world time on the evidence.
+- **To compare:** Sol's literature search (not yet seen).
+
 ## Open before stamping
 
 - **Carrier model.** Haiku, Luna, or another? The paper's model-dependence says validate the
