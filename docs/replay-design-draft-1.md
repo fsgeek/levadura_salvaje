@@ -109,6 +109,35 @@ this way.
   applicability (which copy governs, for whom). Graphiti has world time, so three clocks
   aren't new; the entity axis is.
 
+## Changes from reading the prior art (10-31)
+
+A subagent read Agent Zero Memory, LEDGER, and Graphiti's paper and docs in full. The steward
+checked the claims below against the source text.
+1. **The citation lock binds to source bytes.**
+   - Agent Zero's lock is C ⊆ O ⊆ M: opened *memory* items, whose evidence pointer may resolve
+     "through intermediate summary records" (§3.1). Nothing measures it.
+   - Ours logs every handle dereference.
+   - Substitution, defined operationally: a claim whose citation chain ends in the agent's own
+     state, not in a handle opened that step. Scored at closure, by arm.
+2. **The handle key carries applicability.** `section@date@issuer`.
+   - Graphiti invalidates contradictions and "consistently prioritizes new information" (§2.2.3),
+     so the newest wins.
+   - Agent Zero lists coexisting valid versions as future work (§7).
+   - Plant concurrent-validity cases. Score "governs for entity X" apart from "superseded".
+3. **Attested time, not inferred.** Graphiti's `t_valid` is LLM-inferred. Ours comes from the eCFR
+   and the instruments. Score the dates the agent writes against them.
+4. **A deterministic diff log of every state rewrite.**
+   - Curation policy is measured from the diffs: what was dropped, and whether its handle
+     survived.
+   - Any LLM coding is a separate, inferred layer, checked for stability across repeated runs.
+     LEDGER (§6) left this unmeasured.
+   - Repeated runs are the default.
+5. **The append-only arm must be under real pressure.**
+   - Zep's DMR result: full context wins when history fits.
+   - Zep's single-session-assistant drop is the loss of the agent's own earlier output.
+   - Check that 16 months of flags overflow or degrade the append-only arm. Probe closure on the
+     agent's own earlier conclusions.
+
 ## Open before stamping
 
 - **Carrier model.** Haiku, Luna, or another? The paper's model-dependence says validate the
