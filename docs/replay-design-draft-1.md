@@ -38,6 +38,25 @@ Three needs meet in one experiment:
   answer against the investigator's own state history and the source at D, by an independent
   auditor.
 
+## The claim is an interaction (from Sol, 10-31)
+
+| Memory | No handles | Handles |
+|---|---|---|
+| Append-only | A | B |
+| Self-curating (taste_open) | C | D |
+
+The claim isn't that D beats A. It's that the benefit of handles is different for self-curated
+state than for append-only context. Same model, evidence, tasks and budgets in every cell.
+Attestation is a later factor. It may help only auditing, which would still be worth knowing.
+
+**Primary outcome: curation policy.** Do handles change what the agent keeps in its state?
+It's measurable, because Hamut'ay records the tensor at every step. The sign is uncertain: if
+handles let the agent drop evidence and then answer from its state (evidence substitution),
+the interaction is negative. Stamp the direction.
+
+**Arms against substitution:** name the authority (Zhang et al. 2026), and constrain answers to
+evidence actually accessed (Agent Zero Memory, arXiv 2608.29606).
+
 ## Evaluation: by stage, not by net score
 
 Adopted from Zhang et al. (2026), arXiv 2610.26836. A net effect near zero can hide a loss.
@@ -76,7 +95,19 @@ this way.
   for symbolic reasoners.
 - **What they never had:** evidence too large to hold, cheap and fallible instruments, attested
   sources, heterogeneous investigators, and world time on the evidence.
-- **To compare:** Sol's literature search (not yet seen).
+- **Sol's search (10-31).** Existence and titles were checked by the steward. The content
+  claims are Sol's, until read:
+  - MemGPT/Letta (git-backed memory),
+  - Zep/Graphiti (temporal knowledge graph; validity timestamps; source-episode provenance),
+  - Agent Zero Memory (2608.29606),
+  - LEDGER (2608.18398, claim-to-evidence graphs),
+  - TRACE (IEEE BigDataSecurity 2026, cryptographic accountability),
+  - TRACE schema (2607.12480),
+  - Graph of Trace (ACL 2026 demo).
+- **What none of them covers,** as summarized: all are about an agent's memory of its *own*
+  trajectory. None is population-first measurement of an external corpus, and none models
+  applicability (which copy governs, for whom). Graphiti has world time, so three clocks
+  aren't new; the entity axis is.
 
 ## Open before stamping
 
