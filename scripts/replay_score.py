@@ -40,6 +40,8 @@ def main() -> None:
     reads = [r for r in reads if r["by"] == who]
     records = [json.loads(l) for l in (home / "session.jsonl").read_text().splitlines()]
     records = [r for r in records if isinstance(r.get("cycle"), int)]
+    dpath = home / "delivered.jsonl"
+    delivered = [json.loads(l) for l in dpath.read_text().splitlines()] if dpath.exists() else []
     with (home / "reads.jsonl").open("a") as f:
         f.write(json.dumps({"at": datetime.now(timezone.utc).isoformat(), "by": a.by,
                             "why": "exploratory scoring of the smoke run",
@@ -62,6 +64,12 @@ def main() -> None:
                 f"opened {len(opened)}")
         if step in offered:
             line += f" of {len(offered[step])} offered"
+        if r.get("peak_prompt_tokens"):
+            line += f"; peak prompt {r['peak_prompt_tokens']} tokens"  # append-only: its context pressure
+        inl = [d for d in delivered if d["step"] == step and d.get("mode") == "inline"]
+        if inl:
+            line += (f"; inline {len(inl)} texts, {sum(d['chars'] for d in inl)} chars, "
+                     f"{sum(d['cut'] for d in inl)} cut")
         print(line)
         prev_keys = keys
     probe = len(dates) + 1  # the probe questions follow the date wakes
