@@ -56,3 +56,15 @@ holds. Next steps:
 - Ask the same question of other agencies' twins (OCC, FDIC, NCUA).
 
 **Cost.** About 4 s mechanical. Ten Claude subagent readings, no OpenRouter spend.
+
+## Note, 2026-11-01: one pair was two different rules
+
+Found while building the eCFR replay (docs/replay-design-draft-1.md). Pairing by section number
+put § 226.43 (the Board's appraisal rule for higher-priced mortgage loans) beside § 1026.43 (the
+CFPB's ability-to-repay rule). They are different rules that share a number. The CFPB's appraisal
+rule is § 1026.35(c). The lens flagged the pair as diverged (ratio 0.07). Both blind readers
+caught it, as audit item 21: A said "entirely different content under the same section number",
+B "different provisions sharing a section number". Neither judged it stale, so **the 24 stale
+twins are unaffected.** It is the audit layer catching an instrument's error, but this scorecard
+should have said so. Among the 6 diverged pairs below ratio 0.3, it is the only one of its kind.
+The lesson carried into the replay: a locator is not an identity.
