@@ -253,3 +253,28 @@ from the send output (`grep '"event_id"'`).
   obligations moved to `docs/custodian.md`, so a custodian can hold them without the rest.
 - **Thinning.** Entries before 10-20 are now in `docs/handoffs-archive.md`, unedited ("remember everything does not
   work", Tony).
+
+*Addendum, 2026-10-31 to 11-01.*
+- **The Radiant** (Sol's founding concept, GPT, via Tony) is best as a *customer* of levadura,
+  in its own project. Tony hasn't decided where it lives.
+- **The eCFR replay** is the next study. See docs/replay-design-draft-1.md (unstamped).
+  - A 2×2 of memory architecture × evidence handles; the claim is the interaction.
+  - Curation policy is the primary outcome; evidence substitution (arXiv 2610.26836) is the
+    measured risk.
+  - Evaluated in four stages (available, exposed, cited, supported). A three-case smoke test
+    (supersede / both apply / genuine conflict).
+  - Handle identity is kept apart from applicability.
+  - The prior art (Graphiti, Agent Zero, LEDGER) was read; the steward spot-checked the claims.
+    None demonstrates resolving texts valid at once for different entities.
+  - **Investigator model (decided):** Haiku 4.5 for exploratory smoke runs, then a non-Claude
+    replication. Confirmatory predictions are stamped after the smoke runs and before any
+    confirmatory result.
+- **Research instances:** docs/research-instances.md (Tony gave the steward this space). No
+  resident is a subject. Truth at birth, a debrief before the end, no promise of continuity,
+  and refusals reported as results.
+- **The plaza:**
+  - seq 202: yupi may run a local caller over surface1, with the part 54 / ERISA § 204(h)
+    ground truth and two replay traps.
+  - seq 203–205: governance got the authorship answer, a clean freeze check and the r3 review.
+- **Next:** build the smoke run (eCFR fetcher for parts 202/205/226/1002/1005/1026, the
+  handle store, the taste_open harness under `~/.levadura/research/`).
