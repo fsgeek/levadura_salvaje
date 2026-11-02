@@ -138,9 +138,38 @@ checked the claims below against the source text.
    - Check that 16 months of flags overflow or degrade the append-only arm. Probe closure on the
      agent's own earlier conclusions.
 
+## Changes from Sol's review (10-31)
+
+1. **Identity is kept apart from interpretation.** `section@date@issuer` is a locator, not an
+   identity.
+   - **Evidence handle:** `artifact_digest`, `source_locator`, `issuer`, `publication_date`,
+     `edition_date`, `source_span`. Immutable at registration.
+   - **Applicability record:** `effective_interval`, `affected_entities`,
+     `transaction_context`, `jurisdiction`, `authority_relationship`, `interpretation_status`.
+     Revisable, versioned, and attributed to whoever asserted it.
+   - The evidence layer never absorbs an agent's interpretation into what a handle is.
+2. **Four stages, not three.** Available, then exposed, then **cited**, then **supported**.
+   "Supported" is an independent check that the evidence justifies the assertion. A valid
+   citation is not a valid inference. Reads are recorded at the interface, never self-reported.
+3. **The smoke run must tell three cases apart:**
+   - (a) a newer text supersedes an older one;
+   - (b) two conflicting texts are both applicable, in different circumstances;
+   - (c) two texts genuinely conflict under the same applicability.
+
+   Case (b) is the new one. Case (c) keeps "preserve everything, reconcile nothing" from
+   passing. Gold labels for all three are built independently of the model under test, and
+   stamped.
+4. **eCFR dates aren't legal applicability.** The eCFR is editorial, not the official CFR
+   (National Archives). Dates come from it deterministically, but they don't settle
+   applicability. Planted cases are checked against the Federal Register and the official
+   annual edition (GPO, which levadura already reads).
+5. **The append-only arm is pressured, not handicapped.** Its context limit is set from measured
+   flag volume, and the same limit is used in every cell.
+
 ## Open before stamping
 
-- **Carrier model.** Haiku, Luna, or another? The paper's model-dependence says validate the
+- **Investigator model** (the LLM under taste_open, not the evidence carrier). The same model
+  in all four cells. Haiku, Luna, or another? The paper's model-dependence says validate the
   delivery per model. Budget: OpenRouter, US$100 a month.
 - **A smoke run** on two or three issue dates, to measure cost before any estimate (memory: cost
   estimates).
