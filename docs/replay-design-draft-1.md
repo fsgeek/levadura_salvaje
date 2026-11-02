@@ -168,8 +168,15 @@ checked the claims below against the source text.
 
 ## Open before stamping
 
-- **Investigator model** (the LLM under taste_open, not the evidence carrier). The same model
-  in all four cells. Haiku, Luna, or another? The paper's model-dependence says validate the
+- **Investigator model** (the LLM under taste_open, not the evidence carrier). Decided 11-01:
+  **Haiku 4.5 via OpenRouter** for the exploratory smoke runs, then one non-Claude model as a
+  replication. The same model is used in all four cells of each replication. A null result on
+  Haiku is informative about where substitution happens, but it can't test the mitigation alone.
+- **Exploratory, then confirmatory** (Sol). Smoke runs debug the apparatus. Then freeze the
+  design, choose the replication models and stamp the predictions before any confirmatory
+  result is examined. Exploratory observations are declared under "What I knew".
+- **Instances:** research instances only, under docs/research-instances.md. No resident is a
+  subject. Refusals and stops are results, by arm. The paper's model-dependence says validate the
   delivery per model. Budget: OpenRouter, US$100 a month.
 - **A smoke run** on two or three issue dates, to measure cost before any estimate (memory: cost
   estimates).
