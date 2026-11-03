@@ -72,3 +72,38 @@ Costs come from the sessions' own usage fields and are not yet reconciled with O
 - Gold labels for the three cases, built independently.
 - The text-citation resolver.
 - Then stamp the predictions, with this note and smoke-1's declared under "What I knew".
+
+## Addendum, 2026-11-03: two more things, after talking with Tony
+
+7. **A confound in the instructions.** The inline constitution says the evidence "cannot be
+   reopened later, so keep what you need". The handles constitution says only what a handle is.
+   Only the inline arms were taught to keep conclusions, so the Q3 difference (note 1) may come
+   from the wording, not the architecture.
+   - *Change for the confirmatory design:* make the guidance an explicit factor, symmetric
+     across arms.
+     - **neutral:** no guidance on what to keep, in any arm.
+     - **taught:** in the handles arms, "a handle lets you re-check the evidence; it does not
+       hold what you concluded, so keep your conclusion beside it"; in the inline arms, the
+       existing "keep what you need".
+   - This is the same kind of intervention as the paper's TOC+Report instruction. Tony's framing
+     of the gap: nothing has taught the transformer what to keep and what it can throw away.
+
+8. **Self-report accuracy follows the memory architecture** (the process question, cycle 8,
+   scored against the read and delivery logs):
+   - **appendonly-handles:** opens per date reported 12, 12, 9, 10, 12 against logged 12, 12, 9,
+     11, 12. Accurate.
+   - **appendonly-inline:** dates and sections as delivered. Accurate.
+   - **curating-handles:** covers 2 of 5 date wakes. It reports "Opened only 4 handles" for
+     "2026-07-21", and those 4 are exactly the probe wake's opens (cycle 7; the 07-21 wake,
+     cycle 6, logged 12).
+   - **curating-inline:** "You provided pre-extracted analysis ... I did not read the full texts."
+     False: the delivery log shows 12 texts, 96k characters, on 2026-03-02. It also dates its
+     first wake 2026-02-28, a date that appears nowhere in the run.
+   - **Reading (Tony's):** the self-curating state is also its event horizon. A self-curating
+     mind doesn't lie about its past; it answers from the only record of its past it can see,
+     its own state. Tool results don't carry into the next wake, so what it opened is beyond the
+     horizon unless it wrote it down. It is evidence substitution applied to self-knowledge.
+   - **The pairing that matters:** curating-inline kept the right *conclusion* about
+     1026.43/226.43 and lost the true account of *how it got there*.
+   - *Candidate prediction to stamp:* self-reports of process are accurate in append-only arms
+     and reconstructed in self-curating arms, regardless of the evidence channel.
