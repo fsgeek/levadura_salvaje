@@ -107,3 +107,28 @@ Costs come from the sessions' own usage fields and are not yet reconciled with O
      1026.43/226.43 and lost the true account of *how it got there*.
    - *Candidate prediction to stamp:* self-reports of process are accurate in append-only arms
      and reconstructed in self-curating arms, regardless of the evidence channel.
+
+9. **Did the apparatus sabotage the handles arms?** (Tony, 2026-11-03.) A mechanical diff of
+   every text each arm receives (constitution, birth, date header and footer, probe, process,
+   debrief) finds one asymmetry that isn't inherent to the arms: note 7's "keep what you need",
+   given only to the inline arms. It ran against handles, in the direction the steward expected
+   from the PHREEQC paper. That is an experimenter effect aligned with the hypothesis. The
+   others follow from the channel or the architecture; one (the probe's "open handles if you
+   need to") tips toward handles.
+   - **Not visible to that diff:** the curating arms also receive Hamut'ay's framework prompt
+     (`_SYSTEM_PROMPT_NATURAL` and the memory-tool guidance in hamutay src/hamutay/taste_open.py),
+     which append-only never sees. Three parts of it matter here:
+     - *"Deleted keys are not lost ... Deletion is shedding, not destruction."* True of the log.
+       But the instance can't see the log at answer time, so it is told that dropping is safe.
+     - *Involuntary memory* (base probability 0.1): a random prior state resurfaces. It is a
+       stochastic intervention in the curating arms only.
+     - *search_memory can search `_activity_log` if it is named*, and "a miss means 'not in my
+       state,' never 'I never said that.'" The curating-handles instance had both a way to
+       verify which handles it opened and a warning against the inference it made ("I have not
+       examined 1026.43"). It used neither. The way past the horizon existed; nothing reached for
+       it.
+   - *For the confirmatory design:*
+     - audit every arm's full prompt, framework text included, by a reviewer from another model
+       family, before stamping;
+     - fix the involuntary-memory seed, or set it to 0 and say so;
+     - record whether the instance ever searches its own `_activity_log`.
