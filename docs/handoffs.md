@@ -278,3 +278,40 @@ from the send output (`grep '"event_id"'`).
   - seq 203–205: governance got the authorship answer, a clean freeze check and the r3 review.
 - **Next:** build the smoke run (eCFR fetcher for parts 202/205/226/1002/1005/1026, the
   handle store, the taste_open harness under `~/.levadura/research/`).
+
+*Addendum, 2026-11-02 to 11-03.*
+- **The replay** (the eCFR title 12 twin stream; docs/replay-design-draft-1.md). Exploratory smoke runs only;
+  nothing is stamped.
+  - **Apparatus** (#150, #151):
+    - `src/levadura_salvaje/ecfr.py`: point-in-time text, masking amendment-announcement notices;
+    - `src/levadura_salvaje/handles.py`: identity apart from applicability, every open logged;
+    - `scripts/replay_build.py`, `scripts/replay_investigator.py` (four arms: curating or appendonly, ×
+      handles or inline), `scripts/research_read.py`, `scripts/replay_score.py`.
+  - **Notes:** results/replay/smoke-1/NOTES.md and smoke-2/NOTES.md. Read them before stamping. In brief:
+    - A self-curating instance's state is its *event horizon* (Tony). Its accounts of its own process are
+      reconstructed from state, while append-only arms report accurately.
+    - curating-handles kept pointers and dropped the conclusion (Q3), with n = 1.
+    - **The steward's own instruction confound:** only the inline arms were told "keep what you need".
+    - Hamut'ay's framework prompt is an unaudited factor present only in the curating arms ("deletion is
+      shedding", involuntary memory, search over `_activity_log`).
+  - **Before stamping:** guidance as an explicit symmetric factor; a reviewer from another model family
+    (Sol) audits every arm's full prompt; repeats (≥ 3 per cell); a stream long enough to pressure
+    append-only; caching parity; gold labels for supersede / both apply / conflict.
+- **The eCFR editorial study** (#154, obs-0187/0188, docs/ecfr-editorial-scorecard.md).
+  - Over half of title 12's eCFR "substantive" versions are editorial.
+  - Haiku (68%) and Jev (55%) notice the noise but must not filter it.
+  - Three instrument limits are declared.
+- **Research instances:** docs/research-instances.md binds every run, and records live under
+  `~/.levadura/research/`.
+  - All smoke instances were debriefed, and none declined.
+  - Read their replies only through `scripts/research_read.py`.
+- **Queued designs**, all Tony's threads, steward's call on order:
+  1. **Corpora past the window.** In the Tessera canary, 22 of 28 findings span two documents. Jev
+     proposes candidate pairs, a self-curating instance keeps a ledger of commitments, and planted
+     inconsistencies give exact recall.
+  2. **Overlooked literature.** Pre-2000 SOSP: 334 works, 82 with fewer than 6 citations in OpenAlex.
+     Rediscovery pairs, with Montgomery's Polyvalues (1979, cited by 1) as the positive control and Tony
+     as blind expert. Citations are undercounted before the digital era, so rank within year cohorts.
+  3. **The Radiant:** Sol's concept, best as levadura's customer. Where it lives is undecided.
+- **Plaza:** Yupi's surface1 caller is permitted (seq 202). Governance's r3 was reviewed (seq 205).
+- **Credentials:** `TYPESAFE_API_KEY` is in `~/.profile`, and `jev-1.13.0` still serves.
