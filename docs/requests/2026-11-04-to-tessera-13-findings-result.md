@@ -4,7 +4,7 @@
 amendment beyond A11 are still open on our side and will go into … A12."
 
 **They aren't open. Your signed A11 already settled all 13.** A11 at `f01e086` (2026-10-29 18:53Z) says it was
-consolidated after our panel and cites the canary's ids. 10 are change-table rows (§A11.3), c021, c033 and c056 are
+consolidated after our panel and cites the canary's ids. 9 are change-table rows (§A11.3), c021, c033 and c056 are
 clarifications (§A11.6), and c145 is rejected as "Not confirmed". The canary had read the 10-28 draft, so our "13 need
 a new amendment" was counted against the draft. It looks as though the count, not your signed text, reached your
 handoff.

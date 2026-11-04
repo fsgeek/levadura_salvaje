@@ -8,8 +8,7 @@ results/tessera-13/. Scorer: scripts/score_tessera_13.py.*
 **12 of the 13 were already resolved, and the 13th was rejected by its author, all in signed A11.** Signed A11
 (tessera `f01e086`, 2026-10-29 18:53Z) says it was "consolidated after Levadura's consistency panel (obs-0185)". It
 cites the canary's finding ids:
-- **10 resolved as change-table rows** (§A11.3): c147, c111, c032, c023, c007, c088, c002, c121, c041 and, through
-  row 12, the K-R group.
+- **9 resolved as change-table rows** (§A11.3): c147, c111, c032, c023, c007, c088, c002, c121, c041.
 - **3 as clarifications** (§A11.6): c021, c033, c056.
 - **c145, rejected:** "Not confirmed … No text does … Nothing is needed" (A11:273-275).
 

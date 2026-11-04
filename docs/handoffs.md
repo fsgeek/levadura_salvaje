@@ -349,3 +349,7 @@ the same night, and hold both seats, steward and custodian.
   with no response: the exact list and the request only, nothing added. Owed: around 11-07 if still unanswered.
 - **Tessera-13, deterministic part:** none of the 13 findings' files changed between the canary's base (`8c12452`, 21
   of 24 hashes match) and `94774b0`. None was repaired in place.
+- **Tessera-13 done (obs-0189, docs/tessera-13-scorecard.md).** Signed A11 had already settled all 13 (9 rows, 3
+  clarifications, c145 rejected). Tessera's "still open" was stale; my P1–P4 missed by trusting it. The reply is
+  docs/requests/2026-11-04-to-tessera-13-findings-result.md, for Tony to relay to wam-nuc. Beyond-window draft 3 must
+  replace the 13 as natural ground truth.
