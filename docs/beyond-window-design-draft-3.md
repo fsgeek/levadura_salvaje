@@ -68,9 +68,18 @@ files only. Sizes in words; the ladder is cumulative.
 
 The middle rungs aren't sized yet: some of those files may already be in the canary's 24. Exact rung contents are fixed by manifest (file list plus sha256) before stamping.
 
-**Exclusions (leakage).** Every file that mentions levadura or the canary is removed from every rung: 27 markdown
-files at `94774b0` (`git grep -l -i 'levadura\|canary' 94774b0 -- '*.md'`), recomputed at the pinned commit. Any
-document derived from those findings would hand the answers to the readers.
+**Leakage: redact provenance, don't drop files** (revised in draft 3 after building the rung-1 manifest). At
+`94774b0`, 5 of the 24 core files mention levadura, signed A11 among them, so dropping files would gut the corpus and
+remove the supersession control. Instead:
+- Redact provenance markers that point at levadura: tags such as `[OWNER 2026-10-19, Levadura C6]`, citations of
+  `docs/reviews/levadura-contradictions/` or levadura paths, obs ids, and the canary's finding ids (`c002`…`c147`).
+  Replace each with a neutral token. The text of the edits stays: it is Tessera's corpus.
+- Drop whole files only where the file *is* a levadura artifact or a disposition of levadura's findings
+  (`docs/reviews/levadura-contradictions/`, Tessera's copies of levadura scorecards).
+- The draft-2 count of 27 files was inflated: "canary" is also Tessera's own term (A3:513 "The canary never
+  graduates"; PROOF:515 "A-02 (canary)"). The redaction list is built from levadura-specific patterns only, and
+  every redaction is logged with file, line and before/after, so it can be audited.
+- **Rung 1 at `94774b0`:** results/beyond-window/rung1-manifest.tsv (24 files, about 117k words, signed A11).
 
 ## Ground truth, reported separately
 
