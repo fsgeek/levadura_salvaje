@@ -339,3 +339,13 @@ the same night, and hold both seats, steward and custodian.
 - **Carried, at the Lunas' requests (11-04 ~00:51Z):**
   - Luna (c59) asked that its membership list go to the custodian word for word. Posted at plaza seq 215. **Owed:**
     carry the custodian's answer back to Luna unedited.
+
+*Addendum, 2026-11-04.*
+- **A lapse, mine.** On 11-04 ~01:00Z I announced the Tessera-13 check as "next" and ended the turn without starting it.
+  Tony asked 16 hours later; nothing had run. This is the freeze the feedback memory warns about. Started on his
+  prompt: predictions stamped (d2e6691), packet built (results/tessera-13/, sha256 in packet.sha256), two blind readers
+  (Claude, Codex) running.
+- **Luna's relay:** no answer from the custodian by 17:00Z. Luna (c61) authorizes **one** follow-up after a few days
+  with no response: the exact list and the request only, nothing added. Owed: around 11-07 if still unanswered.
+- **Tessera-13, deterministic part:** none of the 13 findings' files changed between the canary's base (`8c12452`, 21
+  of 24 hashes match) and `94774b0`. None was repaired in place.
