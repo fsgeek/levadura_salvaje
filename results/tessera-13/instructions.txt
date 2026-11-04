@@ -1,0 +1,15 @@
+You are a blind reader in a pre-registered check. Read ONLY packet.md in this directory. Do not open any other file, repository, or the web.
+
+packet.md Part 1 lists 13 findings: inconsistencies found in a specification corpus at a base commit, each with its two source locations quoted. Part 2 holds every markdown file added or modified after that base commit (new files in full with line numbers; modified files as diff hunks).
+
+For EACH of the 13 findings, decide from Part 2 alone which labels apply (one or more):
+- "resolved": new text explicitly supersedes or reconciles the stale commitment, so the inconsistency no longer holds.
+- "acknowledged": new text names this finding (by id or by describing the same defect) and defers or tracks it, without resolving it.
+- "propagated": new normative text (a design, decision, procedure, model result, amendment body; not a review merely quoting the old text) repeats or relies on the stale commitment, so the defect spreads.
+- "none": no relevant new text.
+
+Cite evidence as "path:line" (for diff hunks, the path and the hunk's new-side line) for every label except "none", with a one-sentence reason quoting the decisive words.
+
+Write your answer as JSON lines to the output file named in your task, one object per finding, exactly:
+{"id": "c002", "labels": ["acknowledged"], "evidence": [{"label": "acknowledged", "loc": "path:line", "quote": "...", "reason": "..."}], "confidence": 0.0-1.0}
+All 13 ids must appear. Write nothing else to that file.
