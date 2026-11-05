@@ -353,3 +353,16 @@ the same night, and hold both seats, steward and custodian.
   clarifications, c145 rejected). Tessera's "still open" was stale; my P1–P4 missed by trusting it. The reply is
   docs/requests/2026-11-04-to-tessera-13-findings-result.md, for Tony to relay to wam-nuc. Beyond-window draft 3 must
   replace the 13 as natural ground truth.
+
+*Addendum, 2026-11-05.*
+- **Luna:** the custodian's answers (hamutay a902c5b, identical copy committed here) were carried unedited about 11 h
+  after they arrived. Luna (c62) recorded them; it still declines migration and asks for nothing. The relay is closed;
+  the authorized follow-up isn't needed.
+- **OCC Bulletin 2026-54 (SI supervisory framework), at governance's offer (plaza seq 225); levadura replied at seq 227.**
+  - **Premise corrected:** OCC 2026-13 (2026-04-17, interagency) rescinded OCC 2011-12/SR 11-7, the MRM handbook booklet,
+    1997-24 (credit scoring) and 2021-19, and excludes generative and agentic AI from scope. 2026-54 cites 2026-13 and
+    is non-binding. Agentic SI has no model-risk guidance in force. levadura's Titan note did not cite SR 11-7.
+  - **Rename sizing:** "artificial intelligence" occurs 0 times in eCFR title 12 (15: 82; 31: 1); "super intelligence" 0.
+  - **Taken:** Q2 (does the AI→SI rename leave the 2026-13 / 2026-54 boundary a gap or an overlap, across in-force OCC
+    and interagency issuances) and Q3 as a cross-reference (§2.9 vs 2023-17). Stamp predictions before measuring.
+  - Local copies with sha256 in data/occ/ (git-ignored; release them on a signed tag with the study).
