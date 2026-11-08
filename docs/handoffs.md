@@ -366,3 +366,16 @@ the same night, and hold both seats, steward and custodian.
   - **Taken:** Q2 (does the AI→SI rename leave the 2026-13 / 2026-54 boundary a gap or an overlap, across in-force OCC
     and interagency issuances) and Q3 as a cross-reference (§2.9 vs 2023-17). Stamp predictions before measuring.
   - Local copies with sha256 in data/occ/ (git-ignored; release them on a signed tag with the study).
+
+*Addendum, 2026-11-07.*
+- **Anthropic credit (~$195, expires 2026-11-09; Tony).** levadura has its own workspace
+  (`~/.config/levadura/anthropic.env`, LEVADURA_SALVAJE_ANTHROPIC_WORKSPACE_ID) and uses Hamut'ay's named key
+  (`~/.config/hamutay/anthropic.env`). Never set ANTHROPIC_API_KEY. `replay_investigator.py --provider anthropic`
+  runs both arms through hamutay.anthropic_direct, with symmetric caching.
+- **Replay harness:** `--guidance legacy|neutral|taught` (smoke-2 note 7). Legacy is byte-identical to smoke-1/2.
+- **smoke-3** (exploratory, unstamped): 10 dates, 45 sections (2025-06-18 to 2026-07-21), Haiku 4.5 direct. The first
+  run (appendonly-handles taught) cost $0.34, peaking at 112k prompt tokens. Pass 1 of all 8 cells is running; then
+  repeats.
+- **Tony's suggestion:** the standing regulatory reader gets a public, on-demand side as the ayllu's public face.
+  Rules: audited before shown, public dated corrections, plainly the ayllu's (not styled after any agency), written
+  for a reader with no context. Designed after the 2026 backtest.
