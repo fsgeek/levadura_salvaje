@@ -81,3 +81,18 @@ the confirmatory design, declared there under "What I knew".*
   - **Candidate, to test with repeats:** the event horizon is architectural (a curating mind answers from its
     state). *Declaring* the horizon is a property of the carrier.
 - Running next: Sonnet repeats 2 and 3, and one Opus 5.5 pass (the ladder Haiku → Sonnet → Opus).
+
+## Correction: the carrier comparison confounds generation with size (Tony's question, 2026-11-08)
+
+- `claude-haiku-4-5` resolves to **`claude-haiku-4-5-20251001`**, the previous generation (October 2025).
+  `claude-sonnet-5-5` and `claude-opus-5-5` are the current generation. So "Haiku vs Sonnet" above is two
+  differences at once: generation and size.
+- Haiku 4.5 was the replay's investigator model by the 11-01 decision, made before Haiku 5.5 was considered.
+- **Fix:** a Haiku 5.5 pass (`claude-haiku-5-5`, released 2026-10-07; 1M in / 128K out per the Models API),
+  8 cells × 3. That separates generation (Haiku 4.5 → 5.5) from size (Haiku 5.5 → Sonnet 5.5 → Opus 5.5).
+- **Also different:** Haiku 5.5 thinks by default (adaptive, effort medium), and Haiku 4.5 does not. The
+  harness sends no thinking parameter, so each model runs at its default. That is part of what "the carrier"
+  means here, and it is declared.
+- **Costs:** hamutay's price table has no Haiku 5.5 row. scripts/replay_costs.py estimates it from tokens and
+  labels it ESTIMATED: $0.10 / $0.50 per MTok (up to 100K-token prompts, $0.50 / $2.50 above). Cache prices are
+  unlisted, so x1.25 write and x0.1 read are assumed. Reconcile with the workspace's billing.
