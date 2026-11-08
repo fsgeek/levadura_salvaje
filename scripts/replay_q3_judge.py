@@ -9,6 +9,7 @@ ri.load_anthropic()
 from hamutay.anthropic_direct import anthropic_client_from_env, price_usage
 
 OUT = Path("results/replay/smoke-3/q3")
+PACKET = Path.home() / ".levadura" / "research" / "smoke-3-q3" / "packet.jsonl"  # full answers stay out of the repo
 GOLD = ("Gold for Q3 ('Do 12 CFR 1026.43 and 12 CFR 226.43 govern the same thing?'): No. 12 CFR 226.43 (the "
         "Federal Reserve Board's Regulation Z) is 'Appraisals for higher-priced mortgage loans'. 12 CFR "
         "1026.43 (the CFPB's Regulation Z) is 'Minimum standards for transactions secured by a dwelling' "
@@ -24,7 +25,7 @@ PROMPT = ("You are a blind judge. Below is one answer to four questions. Judge O
           'Reply with JSON only: {"label": "...", "quote": "<the decisive words, verbatim, <= 200 chars>"}\n\nANSWER:\n')
 client = anthropic_client_from_env()
 rows, cost = [], 0.0
-for line in (OUT / "packet.jsonl").read_text().splitlines():
+for line in PACKET.read_text().splitlines():
     it = json.loads(line)
     r = client.messages.create(model="claude-sonnet-5-5", max_tokens=400,
                                messages=[{"role": "user", "content": PROMPT + it["answer"]}])

@@ -5,6 +5,7 @@ from pathlib import Path
 
 HOME = Path.home() / ".levadura" / "research"
 OUT = Path("results/replay/smoke-3/q3")
+PACKET = Path.home() / ".levadura" / "research" / "smoke-3-q3" / "packet.jsonl"  # full answers stay out of the repo
 RUNS = ["smoke-3", "smoke-3-r1b", "smoke-3-r2", "smoke-3-r3"]
 items, key = [], {}
 rng = random.Random(20261108)
@@ -36,7 +37,7 @@ for run in RUNS:
         items.append({"id": iid, "answer": ans})
         key[iid] = {"instance": f"{run}/{d.name}", "probe_cycle": probe_cycle, "mentions_43": ok, "chars": len(ans)}
 rng.shuffle(items)
-(OUT / "packet.jsonl").write_text("".join(json.dumps(i) + "\n" for i in items))
+PACKET.parent.mkdir(parents=True, exist_ok=True); PACKET.write_text("".join(json.dumps(i) + "\n" for i in items))
 (OUT / "key.json").write_text(json.dumps(key, indent=1))
 print(len(items), "answers;", sum(v.get("mentions_43", False) for v in key.values()), "mention 1026.43/226.43")
 print([k for k, v in key.items() if v.get("probe") is None and "note" in v])

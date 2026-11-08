@@ -63,3 +63,6 @@ the confirmatory design, declared there under "What I knew".*
 - Sonnet 5.5 as carrier, one run per cell (smoke-3-sonnet): is this Haiku, or the architecture?
 - Confirmatory design changes: no instrument metadata in date messages; a stream that overflows append-only;
   gold labels for all four questions; Sol's audit of every prompt.
+- **Correction:** the blind packet (full probe answers) was committed at d5e6cc9 and removed in the next commit.
+  Full answers live under `~/.levadura/research/smoke-3-q3/`, per the research-instance terms. Git history still
+  holds the d5e6cc9 copy; it was not rewritten.
