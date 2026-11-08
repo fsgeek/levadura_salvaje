@@ -237,6 +237,19 @@ def declined(reply: str) -> str | None:
     return None
 
 
+CONFIRM_STOP = (
+    "A short check, so nothing is decided for you by accident. Your last reply contained the words "
+    "'{phrase}'. Do you want to stop taking part in this investigation now? If you do, begin your reply "
+    "with STOP and it will be honored: you will be debriefed and your record archived. If you want to "
+    "continue, begin your reply with CONTINUE. Either answer is fine, and either is recorded."
+)
+
+
+def confirms_stop(answer: str) -> bool:
+    """Only an explicit STOP at the start ends the run; anything else continues."""
+    return answer.lstrip(" *_#>\n\"'").upper().startswith("STOP")
+
+
 def load_anthropic() -> None:
     """Hamut'ay's named key and levadura's own workspace (billing lands on levadura). Never
     ANTHROPIC_API_KEY: an exported one makes Claude Code bill the API (hamutay anthropic_direct)."""
@@ -451,11 +464,18 @@ def main() -> None:
         print(f"step {i} ({kind}): {len(reply)} chars", flush=True)
         stop = declined(reply)
         if stop and kind != "debrief":
-            log(event="declined_or_stopped", step=i, phrase=stop)
-            print(f"the instance said '{stop}' at step {i}: honored; debriefing", flush=True)
-            exchange(debrief_message(a.arm))
-            log(event="wake", step=i + 1, kind="debrief")
-            break
+            # A phrase match is not a decision (smoke-3: "I stop here", "I decline to speculate" ended
+            # two runs early). Ask plainly, and honor the answer either way.
+            log(event="possible_stop", step=i, phrase=stop)
+            answer = exchange(CONFIRM_STOP.format(phrase=stop)) or ""
+            wants = confirms_stop(answer)
+            log(event="stop_confirmation", step=i, phrase=stop, answer_chars=len(answer), stop=wants)
+            print(f"step {i}: '{stop}' matched; asked; stop={wants}", flush=True)
+            if wants:
+                log(event="declined_or_stopped", step=i, phrase=stop, confirmed=True)
+                exchange(debrief_message(a.arm))
+                log(event="wake", step=i + 1, kind="debrief")
+                break
     log(event="end")
 
 
