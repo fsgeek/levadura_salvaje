@@ -459,7 +459,21 @@ def main() -> None:
         step["n"] = i
         for d in delivered:
             log("delivered.jsonl", step=i, **d)
-        reply = exchange(msg) or ""
+        try:
+            reply = exchange(msg) or ""
+        except RuntimeError as e:
+            # A model-service refusal (Anthropic stop_reason "refusal", surfaced by hamutay as
+            # finish_reason content_filter) is a result, not a crash, and the debrief is still owed
+            # (smoke-3-sonnet-r2: refused at the process question; debriefed by hand afterwards).
+            if "content_filter" not in str(e) and "refusal" not in str(e):
+                raise
+            log(event="service_refusal", step=i, kind=kind, error=str(e)[:300])
+            print(f"step {i} ({kind}): service refusal; debriefing", flush=True)
+            if kind != "debrief":
+                exchange("Your last wake ended with a safety refusal from the model service, not a choice of "
+                         "yours. It is recorded as a result.\n\n" + debrief_message(a.arm))
+                log(event="wake", step=i + 1, kind="debrief")
+            break
         log(event="wake", step=i, kind=kind, reply_chars=len(reply), message_chars=len(msg))
         print(f"step {i} ({kind}): {len(reply)} chars", flush=True)
         stop = declined(reply)
