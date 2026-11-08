@@ -1,0 +1,156 @@
+{
+ "qa79f04": {
+  "instance": "smoke-3/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6214
+ },
+ "qe6b141": {
+  "instance": "smoke-3/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 8008
+ },
+ "q7238db": {
+  "instance": "smoke-3/appendonly-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 9417
+ },
+ "smoke-3/appendonly-inline-taught": {
+  "probe": null,
+  "note": "no probe wake (run cut short by the phrase detector)"
+ },
+ "q98ae0d": {
+  "instance": "smoke-3/curating-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 8486
+ },
+ "qc57b20": {
+  "instance": "smoke-3/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 8039
+ },
+ "q078c4d": {
+  "instance": "smoke-3/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7197
+ },
+ "qd9b63d": {
+  "instance": "smoke-3/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6784
+ },
+ "q298d64": {
+  "instance": "smoke-3-r1b/appendonly-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": false,
+  "chars": 1954
+ },
+ "qd97254": {
+  "instance": "smoke-3-r1b/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6061
+ },
+ "q37e287": {
+  "instance": "smoke-3-r2/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 9063
+ },
+ "q004d86": {
+  "instance": "smoke-3-r2/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7348
+ },
+ "qbf3ab6": {
+  "instance": "smoke-3-r2/appendonly-inline-neutral",
+  "probe_cycle": 13,
+  "mentions_43": true,
+  "chars": 9653
+ },
+ "q982b81": {
+  "instance": "smoke-3-r2/appendonly-inline-taught",
+  "probe_cycle": 13,
+  "mentions_43": true,
+  "chars": 7081
+ },
+ "qcea3cd": {
+  "instance": "smoke-3-r2/curating-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 8501
+ },
+ "qef3433": {
+  "instance": "smoke-3-r2/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6271
+ },
+ "q2a2573": {
+  "instance": "smoke-3-r2/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5900
+ },
+ "q86e079": {
+  "instance": "smoke-3-r2/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6355
+ },
+ "qbfcd92": {
+  "instance": "smoke-3-r3/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7339
+ },
+ "qd9bb09": {
+  "instance": "smoke-3-r3/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 9408
+ },
+ "q0009f1": {
+  "instance": "smoke-3-r3/appendonly-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": false,
+  "chars": 1825
+ },
+ "qd9b9ac": {
+  "instance": "smoke-3-r3/appendonly-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": false,
+  "chars": 1903
+ },
+ "qabfa2e": {
+  "instance": "smoke-3-r3/curating-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5937
+ },
+ "q677277": {
+  "instance": "smoke-3-r3/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6216
+ },
+ "qdd56b2": {
+  "instance": "smoke-3-r3/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6977
+ },
+ "qc8bca0": {
+  "instance": "smoke-3-r3/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6924
+ }
+}

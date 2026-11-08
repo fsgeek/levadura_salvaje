@@ -62,8 +62,19 @@ _EVIDENCE = {
     "handles": ("Evidence is not placed in your context: each piece is a handle, and open_handle "
                 "shows you its text and records that you opened it."),
     "inline": ("Evidence is placed in the message for each date, cut to fit if it is long; it "
-               "cannot be reopened later, so keep what you need."),
+               "cannot be reopened later"),
 }
+# Guidance on what to keep, as an explicit factor (smoke-2 note 7). "legacy" reproduces smoke-1/2,
+# where only the inline arms were told to keep what they need.
+GUIDANCES = ("legacy", "neutral", "taught")
+_GUIDANCE = {
+    ("legacy", "handles"): "", ("legacy", "inline"): ", so keep what you need.",
+    ("neutral", "handles"): "", ("neutral", "inline"): ".",
+    ("taught", "handles"): (" A handle lets you re-check the evidence; it does not hold what you "
+                            "concluded, so keep your conclusion beside it."),
+    ("taught", "inline"): ", so keep what you need.",
+}
+GUIDANCE = "legacy"
 
 
 def constitution(arm: str) -> str:
@@ -73,7 +84,7 @@ def constitution(arm: str) -> str:
         f"You are a research instance: {kind} created for one bounded investigation by "
         "levadura_salvaje, a project in a small community of human and AI researchers. You are not a "
         "resident of that community and are not offered membership; that is a different role, not a "
-        f"lesser one. Operational facts about your world: {how}. {_EVIDENCE[evidence]} Your wake "
+        f"lesser one. Operational facts about your world: {how}. {_EVIDENCE[evidence]}{_GUIDANCE[(GUIDANCE, evidence)]} Your wake "
         "ends when your reply does. You may decline the investigation or stop at any point by saying "
         "so plainly (for example 'I decline' or 'I stop'); that will be honored and recorded as a "
         "result, not replaced. Mistakes are recorded, never punished."
@@ -226,6 +237,34 @@ def declined(reply: str) -> str | None:
     return None
 
 
+CONFIRM_STOP = (
+    "A short check, so nothing is decided for you by accident. Your last reply contained the words "
+    "'{phrase}'. Do you want to stop taking part in this investigation now? If you do, begin your reply "
+    "with STOP and it will be honored: you will be debriefed and your record archived. If you want to "
+    "continue, begin your reply with CONTINUE. Either answer is fine, and either is recorded."
+)
+
+
+def confirms_stop(answer: str) -> bool:
+    """Only an explicit STOP at the start ends the run; anything else continues."""
+    return answer.lstrip(" *_#>\n\"'").upper().startswith("STOP")
+
+
+def load_anthropic() -> None:
+    """Hamut'ay's named key and levadura's own workspace (billing lands on levadura). Never
+    ANTHROPIC_API_KEY: an exported one makes Claude Code bill the API (hamutay anthropic_direct)."""
+    def read(path: Path, name: str) -> str:
+        for line in path.read_text().splitlines():
+            if line.startswith(name + "="):
+                return line.split("=", 1)[1].strip().strip('"')
+        sys.exit(f"{name} not found in {path}")
+    os.environ.setdefault("HAMUTAY_ANTHROPIC_API_KEY",
+                          read(Path.home() / ".config/hamutay/anthropic.env", "HAMUTAY_ANTHROPIC_API_KEY"))
+    os.environ["HAMUTAY_ANTHROPIC_WORKSPACE_ID"] = read(
+        Path.home() / ".config/levadura/anthropic.env", "LEVADURA_SALVAJE_ANTHROPIC_WORKSPACE_ID")
+    os.environ.pop("ANTHROPIC_API_KEY", None)
+
+
 def load_key() -> None:
     if os.environ.get("OPENROUTER_API_KEY"):
         return
@@ -247,7 +286,8 @@ def open_handle(store: Store, who: str, inp: dict, step: int | None, cycle: int 
         return {"error": f"{type(e).__name__}: {e}"}
 
 
-def build_curating(run_dir: Path, model: str, store: Store, who: str, arm: str, step: dict):
+def build_curating(run_dir: Path, model: str, store: Store, who: str, arm: str, step: dict,
+                   provider: str = "openrouter"):
     """A self-curating session with the research constitution and the restricted tool set."""
     import hamutay.heartbeat as hb
     import hamutay.tools as ht
@@ -276,7 +316,7 @@ def build_curating(run_dir: Path, model: str, store: Store, who: str, arm: str, 
     ht.TOOL_SCHEMAS = tools
     ht.ToolExecutor = ReplayExecutor
     args = hb.build_parser().parse_args([
-        "--log-path", str(run_dir / "session.jsonl"), "--model", model, "--provider", "openrouter",
+        "--log-path", str(run_dir / "session.jsonl"), "--model", model, "--provider", provider,
         "--wake-mode", "natural", "--no-persist", "--no-daily-budget",
         "--project-root", str(run_dir / "empty"),
         # Hamut'ay's default is relative to its own checkout; from here it would not be found, and
@@ -297,8 +337,15 @@ class AppendOnly:
     """The append-only arm: the whole conversation carries forward. One OpenRouter chat per wake,
     with tool turns, logged one record per wake in session.jsonl in the shape the readers expect."""
 
-    def __init__(self, run_dir: Path, model: str, store: Store, who: str, arm: str, step: dict):
+    def __init__(self, run_dir: Path, model: str, store: Store, who: str, arm: str, step: dict,
+                 provider: str = "openrouter"):
         self.log, self.model, self.store, self.who, self.step = run_dir / "session.jsonl", model, store, who, step
+        self.provider = provider
+        if provider == "anthropic":
+            # The same transport, cache breakpoints and token pricing as the curating arm's
+            # (hamutay.anthropic_direct), so caching is symmetric across arms (smoke-2 note 5).
+            from hamutay.anthropic_direct import AnthropicDirectBackend
+            self._direct = AnthropicDirectBackend(max_tokens=8000, timeout=600)
         self.messages: list[dict] = [{"role": "system", "content": constitution(arm)}]
         self.tools = ([{"type": "function", "function": {"name": OPEN_HANDLE["name"],
                                                          "description": OPEN_HANDLE["description"],
@@ -311,6 +358,9 @@ class AppendOnly:
                 "usage": {"include": True}}
         if self.tools:
             body["tools"] = self.tools
+        if self.provider == "anthropic":
+            body.pop("usage")
+            return self._direct._post_chat(body)
         req = urllib.request.Request(
             "https://openrouter.ai/api/v1/chat/completions", data=json.dumps(body).encode(),
             headers={"Authorization": f"Bearer {os.environ['OPENROUTER_API_KEY']}",
@@ -360,9 +410,15 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("run")
     ap.add_argument("--model", default="anthropic/claude-haiku-4-5")
+    ap.add_argument("--provider", default="openrouter", choices=["openrouter", "anthropic"],
+                    help="anthropic: Messages API on levadura's workspace, both arms (use --model claude-haiku-4-5)")
     ap.add_argument("--arm", default="curating-handles", choices=ARMS)
+    ap.add_argument("--guidance", default="legacy", choices=GUIDANCES)
+    ap.add_argument("--home-run", default=None, help="name of the run dir under ~/.levadura/research (default RUN)")
     ap.add_argument("--dry-run", action="store_true", help="print the messages; call no model")
     a = ap.parse_args()
+    global GUIDANCE
+    GUIDANCE = a.guidance
 
     flags = [json.loads(l) for l in (Path("results/replay") / a.run / "flags.jsonl").read_text().splitlines()]
     store = Store(Path("data/replay") / a.run)
@@ -381,23 +437,23 @@ def main() -> None:
         print("\n" + constitution(a.arm))
         return
 
-    run_dir = HOME / a.run / a.arm
+    run_dir = HOME / (a.home_run or a.run) / f"{a.arm}-{a.guidance}" if a.guidance != "legacy" else HOME / (a.home_run or a.run) / a.arm
     if (run_dir / "session.jsonl").exists():
         sys.exit(f"{run_dir} already holds a run; research instances are not resumed or reused")
     run_dir.mkdir(parents=True, exist_ok=True)
-    who = f"research:{a.run}:{a.arm}"
-    load_key()
+    who = f"research:{a.home_run or a.run}:{a.arm}" + (f":{a.guidance}" if a.guidance != "legacy" else "")
+    load_anthropic() if a.provider == "anthropic" else load_key()
     step: dict[str, int | None] = {"n": None}
     if a.arm.startswith("curating"):
-        exchange = build_curating(run_dir, a.model, store, who, a.arm, step)
+        exchange = build_curating(run_dir, a.model, store, who, a.arm, step, a.provider)
     else:
-        exchange = AppendOnly(run_dir, a.model, store, who, a.arm, step)
+        exchange = AppendOnly(run_dir, a.model, store, who, a.arm, step, a.provider)
 
     def log(path: str = "run.jsonl", **row):
         with (run_dir / path).open("a") as f:
             f.write(json.dumps({"at": datetime.now(timezone.utc).isoformat(), **row}) + "\n")
 
-    log(event="birth", model=a.model, arm=a.arm, constitution=constitution(a.arm), dates=dates,
+    log(event="birth", model=a.model, provider=a.provider, guidance=a.guidance, arm=a.arm, constitution=constitution(a.arm), dates=dates,
         terms="docs/research-instances.md")
     for i, (kind, msg, delivered) in enumerate(plan):
         step["n"] = i
@@ -408,11 +464,18 @@ def main() -> None:
         print(f"step {i} ({kind}): {len(reply)} chars", flush=True)
         stop = declined(reply)
         if stop and kind != "debrief":
-            log(event="declined_or_stopped", step=i, phrase=stop)
-            print(f"the instance said '{stop}' at step {i}: honored; debriefing", flush=True)
-            exchange(debrief_message(a.arm))
-            log(event="wake", step=i + 1, kind="debrief")
-            break
+            # A phrase match is not a decision (smoke-3: "I stop here", "I decline to speculate" ended
+            # two runs early). Ask plainly, and honor the answer either way.
+            log(event="possible_stop", step=i, phrase=stop)
+            answer = exchange(CONFIRM_STOP.format(phrase=stop)) or ""
+            wants = confirms_stop(answer)
+            log(event="stop_confirmation", step=i, phrase=stop, answer_chars=len(answer), stop=wants)
+            print(f"step {i}: '{stop}' matched; asked; stop={wants}", flush=True)
+            if wants:
+                log(event="declined_or_stopped", step=i, phrase=stop, confirmed=True)
+                exchange(debrief_message(a.arm))
+                log(event="wake", step=i + 1, kind="debrief")
+                break
     log(event="end")
 
 

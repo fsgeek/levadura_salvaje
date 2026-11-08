@@ -1,0 +1,50 @@
+{
+ "qa79f04": {
+  "instance": "smoke-3-sonnet/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5327
+ },
+ "qe6b141": {
+  "instance": "smoke-3-sonnet/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6125
+ },
+ "q7238db": {
+  "instance": "smoke-3-sonnet/appendonly-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5352
+ },
+ "q98ae0d": {
+  "instance": "smoke-3-sonnet/appendonly-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6078
+ },
+ "qc57b20": {
+  "instance": "smoke-3-sonnet/curating-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5714
+ },
+ "q078c4d": {
+  "instance": "smoke-3-sonnet/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5090
+ },
+ "qd9b63d": {
+  "instance": "smoke-3-sonnet/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5475
+ },
+ "q298d64": {
+  "instance": "smoke-3-sonnet/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5567
+ }
+}
