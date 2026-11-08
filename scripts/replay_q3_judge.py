@@ -9,7 +9,9 @@ ri.load_anthropic()
 from hamutay.anthropic_direct import anthropic_client_from_env, price_usage
 
 OUT = Path("results/replay/smoke-3/q3")
-PACKET = Path.home() / ".levadura" / "research" / "smoke-3-q3" / "packet.jsonl"  # full answers stay out of the repo
+import sys as _s
+TAG = "" if len(_s.argv) < 2 else "-" + "-".join(_s.argv[1:])
+PACKET = Path.home() / ".levadura" / "research" / "smoke-3-q3" / f"packet{TAG}.jsonl"  # full answers stay out of the repo
 GOLD = ("Gold for Q3 ('Do 12 CFR 1026.43 and 12 CFR 226.43 govern the same thing?'): No. 12 CFR 226.43 (the "
         "Federal Reserve Board's Regulation Z) is 'Appraisals for higher-priced mortgage loans'. 12 CFR "
         "1026.43 (the CFPB's Regulation Z) is 'Minimum standards for transactions secured by a dwelling' "
@@ -36,5 +38,5 @@ for line in PACKET.read_text().splitlines():
     except json.JSONDecodeError:
         j = {"label": "unparsed", "quote": txt[:200]}
     rows.append({"id": it["id"], **j})
-(OUT / "judge-sonnet.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+(OUT / f"judge-sonnet{TAG}.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
 print(len(rows), "judged; cost $%.3f" % cost)

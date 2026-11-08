@@ -66,3 +66,18 @@ the confirmatory design, declared there under "What I knew".*
 - **Correction:** the blind packet (full probe answers) was committed at d5e6cc9 and removed in the next commit.
   Full answers live under `~/.levadura/research/smoke-3-q3/`, per the research-instance terms. Git history still
   holds the d5e6cc9 copy; it was not rewritten.
+
+## Addendum: Sonnet 5.5 as carrier (smoke-3-sonnet, one run per cell, $14.09)
+
+- **Q3:** 8 of 8 correct, and every answer names both subjects from the texts ("Board 226.43 is titled
+  'Appraisals for higher-priced mortgage loans'"), not from the similarity number. No refusals, no stop events.
+- **Append-only read far more:** peak prompts were 260k (handles) and 172–176k (inline), against Haiku's
+  111–123k. Same stream, same tools; the carrier opened more.
+- **Self-reports: the same horizon, but declared.** The curating instances answered the process question from
+  state, as Haiku's did, but flagged it: "This is from my carried state, not from re-reading anything ... I
+  can't separately prove how closely I read each text" (curating-inline-neutral); "parts of this are inference
+  about my own process" (curating-inline-taught); "It doesn't prove that I opened each one" (curating-handles-
+  neutral, 133 logged opens). Haiku's curating instances asserted false accounts without a flag.
+  - **Candidate, to test with repeats:** the event horizon is architectural (a curating mind answers from its
+    state). *Declaring* the horizon is a property of the carrier.
+- Running next: Sonnet repeats 2 and 3, and one Opus 5.5 pass (the ladder Haiku → Sonnet → Opus).

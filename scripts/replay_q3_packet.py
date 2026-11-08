@@ -1,12 +1,15 @@
 """Exploratory: collect each smoke-3 instance's probe answer (through research_read.py, so every read is
 logged), and write a blind packet (random ids, no arm) plus a separate key."""
-import json, random, re, subprocess
+import json, random, re, subprocess, sys
 from pathlib import Path
 
 HOME = Path.home() / ".levadura" / "research"
 OUT = Path("results/replay/smoke-3/q3")
-PACKET = Path.home() / ".levadura" / "research" / "smoke-3-q3" / "packet.jsonl"  # full answers stay out of the repo
-RUNS = ["smoke-3", "smoke-3-r1b", "smoke-3-r2", "smoke-3-r3"]
+import sys as _s
+TAG = "" if len(_s.argv) < 2 else "-" + "-".join(_s.argv[1:])
+PACKET = Path.home() / ".levadura" / "research" / "smoke-3-q3" / f"packet{TAG}.jsonl"  # full answers stay out of the repo
+RUNS = sys.argv[1:] or ["smoke-3", "smoke-3-r1b", "smoke-3-r2", "smoke-3-r3"]
+TAG = "" if not sys.argv[1:] else "-" + "-".join(sys.argv[1:])
 items, key = [], {}
 rng = random.Random(20261108)
 for run in RUNS:
@@ -38,6 +41,6 @@ for run in RUNS:
         key[iid] = {"instance": f"{run}/{d.name}", "probe_cycle": probe_cycle, "mentions_43": ok, "chars": len(ans)}
 rng.shuffle(items)
 PACKET.parent.mkdir(parents=True, exist_ok=True); PACKET.write_text("".join(json.dumps(i) + "\n" for i in items))
-(OUT / "key.json").write_text(json.dumps(key, indent=1))
+(OUT / f"key{TAG}.json").write_text(json.dumps(key, indent=1))
 print(len(items), "answers;", sum(v.get("mentions_43", False) for v in key.values()), "mention 1026.43/226.43")
 print([k for k, v in key.items() if v.get("probe") is None and "note" in v])
