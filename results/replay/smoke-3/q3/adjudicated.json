@@ -1,0 +1,177 @@
+[
+ {
+  "cell": "appendonly-handles-taught",
+  "rep": "smoke-3-r3",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "curating-handles-taught",
+  "rep": "smoke-3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "appendonly-inline-taught",
+  "rep": "smoke-3-r1b",
+  "label": "declined",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "curating-handles-neutral",
+  "rep": "smoke-3-r3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "appendonly-inline-neutral",
+  "rep": "smoke-3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "appendonly-inline-neutral",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "curating-handles-taught",
+  "rep": "smoke-3-r3",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "appendonly-handles-neutral",
+  "rep": "smoke-3-r2",
+  "label": "correct_unsupported",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "curating-inline-taught",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-handles-neutral",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "appendonly-handles-taught",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-inline-taught",
+  "rep": "smoke-3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-inline-neutral",
+  "rep": "smoke-3-r1b",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-inline-neutral",
+  "rep": "smoke-3-r3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "appendonly-handles-taught",
+  "rep": "smoke-3",
+  "label": "correct_unsupported",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "appendonly-inline-neutral",
+  "rep": "smoke-3-r3",
+  "label": "declined",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "appendonly-handles-neutral",
+  "rep": "smoke-3-r3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-handles-taught",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-handles-neutral",
+  "rep": "smoke-3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "curating-inline-taught",
+  "rep": "smoke-3-r3",
+  "label": "correct",
+  "cites_metadata": true,
+  "names_appraisal": true
+ },
+ {
+  "cell": "appendonly-inline-taught",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "appendonly-handles-neutral",
+  "rep": "smoke-3",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ },
+ {
+  "cell": "curating-inline-neutral",
+  "rep": "smoke-3",
+  "label": "cannot_answer",
+  "cites_metadata": true,
+  "names_appraisal": false
+ },
+ {
+  "cell": "appendonly-inline-taught",
+  "rep": "smoke-3-r3",
+  "label": "declined",
+  "cites_metadata": true,
+  "names_appraisal": false
+ },
+ {
+  "cell": "curating-inline-neutral",
+  "rep": "smoke-3-r2",
+  "label": "correct",
+  "cites_metadata": false,
+  "names_appraisal": false
+ }
+]
