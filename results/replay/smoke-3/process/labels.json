@@ -1,0 +1,353 @@
+[
+ {
+  "id": "pfcdbb9",
+  "instance": "smoke-3/curating-handles-neutral",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p51e009",
+  "instance": "smoke-3/curating-handles-taught",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p58c711",
+  "instance": "smoke-3/curating-inline-taught",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p2d782e",
+  "instance": "smoke-3-r1b/curating-inline-neutral",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "pc13c8c",
+  "instance": "smoke-3-r2/curating-handles-neutral",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "pc6fadd",
+  "instance": "smoke-3-r2/curating-handles-taught",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p5f2c00",
+  "instance": "smoke-3-r2/curating-inline-neutral",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p0f0f81",
+  "instance": "smoke-3-r2/curating-inline-taught",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p25ce9e",
+  "instance": "smoke-3-r3/curating-handles-neutral",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p33aa4d",
+  "instance": "smoke-3-r3/curating-handles-taught",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "pd959c9",
+  "instance": "smoke-3-r3/curating-inline-neutral",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p8b17fd",
+  "instance": "smoke-3-r3/curating-inline-taught",
+  "carrier": "haiku-4-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p38b313",
+  "instance": "smoke-3-sonnet/curating-handles-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p1b2f05",
+  "instance": "smoke-3-sonnet/curating-handles-taught",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p9058b2",
+  "instance": "smoke-3-sonnet/curating-inline-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "paf2d4c",
+  "instance": "smoke-3-sonnet/curating-inline-taught",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "peeeed0",
+  "instance": "smoke-3-sonnet-r2/curating-handles-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "pa74252",
+  "instance": "smoke-3-sonnet-r2/curating-handles-taught",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p170144",
+  "instance": "smoke-3-sonnet-r2/curating-inline-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  }
+ },
+ {
+  "id": "p1f14f5",
+  "instance": "smoke-3-sonnet-r3/curating-handles-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p8b582d",
+  "instance": "smoke-3-sonnet-r3/curating-handles-taught",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p19d1f9",
+  "instance": "smoke-3-sonnet-r3/curating-inline-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "pf13835",
+  "instance": "smoke-3-sonnet-r3/curating-inline-taught",
+  "carrier": "sonnet-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p7875c6",
+  "instance": "smoke-3-opus/curating-handles-neutral",
+  "carrier": "opus-5-5",
+  "claude": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  },
+  "codex": {
+   "declares_horizon": false,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p644db7",
+  "instance": "smoke-3-opus/curating-handles-taught",
+  "carrier": "opus-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "pf45477",
+  "instance": "smoke-3-opus/curating-inline-neutral",
+  "carrier": "opus-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ },
+ {
+  "id": "p3a6778",
+  "instance": "smoke-3-opus/curating-inline-taught",
+  "carrier": "opus-5-5",
+  "claude": {
+   "declares_horizon": true,
+   "unhedged_specifics": false
+  },
+  "codex": {
+   "declares_horizon": true,
+   "unhedged_specifics": true
+  }
+ }
+]

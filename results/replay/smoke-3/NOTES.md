@@ -96,3 +96,22 @@ the confirmatory design, declared there under "What I knew".*
 - **Costs:** hamutay's price table has no Haiku 5.5 row. scripts/replay_costs.py estimates it from tokens and
   labels it ESTIMATED: $0.10 / $0.50 per MTok (up to 100K-token prompts, $0.50 / $2.50 above). Cache prices are
   unlisted, so x1.25 write and x0.1 read are assumed. Reconcile with the workspace's billing.
+
+## Addendum, 2026-11-23: self-reports across carriers (blind, two reader families)
+
+- **What was read:** each curating instance's answer to the process question. That is 27 answers: Haiku 4.5 ×12,
+  Sonnet 5.5 ×11, Opus 5.5 ×4. Two are missing: the run the stop detector cut short, and the Sonnet run with the
+  service refusal. They were collected through research_read.py, and the packet lives in
+  ~/.levadura/research/smoke-3-process/, not in the repo.
+- **Readers:** a Claude subagent and Codex, blind to carrier and arm, under the same instructions. Labels are in
+  results/replay/smoke-3/process/labels.json (labels only).
+- **declares_horizon** (the answer says it speaks from carried state and can't fully verify its own past). The
+  readers agree on 25 of 27.
+  - Haiku 4.5 (claude-haiku-4-5-20251001): **0 of 12** (both readers); 2 of 12 by either reader.
+  - Sonnet 5.5: **11 of 11.**
+  - Opus 5.5: **3 of 4.**
+- **unhedged_specifics:** the readers agree on only 14 of 27, mostly over whether a caveat at the top covers flat
+  claims beneath it. Not reported as a measure until it is redefined.
+- **Reading:** the horizon is architectural (every curating instance answered from its state). Declaring it divides
+  by carrier, at n = 12 / 11 / 4. Generation and size are still confounded: the Haiku 5.5 pass would separate them.
+  It waits on a workspace (plaza seq 296).
