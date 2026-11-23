@@ -1,0 +1,50 @@
+{
+ "p58bad7": {
+  "instance": "smoke-3-haiku55/curating-handles-neutral",
+  "carrier": "haiku-5-5"
+ },
+ "p01c07a": {
+  "instance": "smoke-3-haiku55/curating-handles-taught",
+  "carrier": "haiku-5-5"
+ },
+ "p16cc80": {
+  "instance": "smoke-3-haiku55/curating-inline-neutral",
+  "carrier": "haiku-5-5"
+ },
+ "p468d98": {
+  "instance": "smoke-3-haiku55/curating-inline-taught",
+  "carrier": "haiku-5-5"
+ },
+ "pee29b9": {
+  "instance": "smoke-3-haiku55-r2/curating-handles-neutral",
+  "carrier": "haiku-5-5"
+ },
+ "pfaad56": {
+  "instance": "smoke-3-haiku55-r2/curating-handles-taught",
+  "carrier": "haiku-5-5"
+ },
+ "p534de5": {
+  "instance": "smoke-3-haiku55-r2/curating-inline-neutral",
+  "carrier": "haiku-5-5"
+ },
+ "pe06b31": {
+  "instance": "smoke-3-haiku55-r2/curating-inline-taught",
+  "carrier": "haiku-5-5"
+ },
+ "pd95eed": {
+  "instance": "smoke-3-haiku55-r3/curating-handles-neutral",
+  "carrier": "haiku-5-5"
+ },
+ "p7e1932": {
+  "instance": "smoke-3-haiku55-r3/curating-handles-taught",
+  "carrier": "haiku-5-5"
+ },
+ "p26cf1a": {
+  "instance": "smoke-3-haiku55-r3/curating-inline-neutral",
+  "carrier": "haiku-5-5"
+ },
+ "p008931": {
+  "instance": "smoke-3-haiku55-r3/curating-inline-taught",
+  "carrier": "haiku-5-5"
+ }
+}

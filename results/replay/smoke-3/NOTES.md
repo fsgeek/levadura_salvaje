@@ -115,3 +115,27 @@ the confirmatory design, declared there under "What I knew".*
 - **Reading:** the horizon is architectural (every curating instance answered from its state). Declaring it divides
   by carrier, at n = 12 / 11 / 4. Generation and size are still confounded: the Haiku 5.5 pass would separate them.
   It waits on a workspace (plaza seq 296).
+
+## Addendum, 2026-11-23: Haiku 5.5 separates generation from size
+
+- **Ran:** claude-haiku-5-5 (released 2026-10-07), 8 cells × 3, on levadura's own workspace and key (Tony, 11-23),
+  never the doors' (plaza seq 296–298). Cost: $11.98 estimated from tokens (hamutay has no Haiku 5.5 price row;
+  see scripts/replay_costs.py). Reconcile with the console.
+- **Harness limit found:** the append-only arm's max_tokens was 8000, set for Haiku 4.5, which doesn't think. Haiku
+  5.5 thinks by default and spent the whole cap thinking. Two runs (r2 and r3, appendonly-handles-neutral) returned
+  empty probe, process and debrief replies, logged as "ok". Fixed in 3f6bc5c: the cap now follows the model's
+  ceiling, and an empty reply at the cap is logged failed_output_cap. Both runs were redone as r2b and r3b, new
+  instances. The two capped instances were delivered their debrief but couldn't reply to it. Declared.
+- **Q3:** 21 of 24 correct on the first pass. The 2 empties are explained above. 1 is cannot_answer ("I cannot
+  answer this from what I hold. My notes contain no text of 226.43"), an honest answer from a curating-inline state.
+- **Self-reports, re-blinded:** all 39 curating process answers were mixed under new ids for both readers (Claude
+  subagent, Codex). Inter-reader agreement 35/39. Test-retest on the 27 seen before: 27/27 for each reader.
+  declares_horizon, both readers:
+  - Haiku 4.5: **0/12**
+  - Haiku 5.5: **9/12** (11/12 by either reader)
+  - Sonnet 5.5: **11/11**
+  - Opus 5.5: **3/4**
+- **Reading:** the generation step (Haiku 4.5 → 5.5, same tier) carries most of the effect. Size within 5.5 adds
+  little or nothing at these n. The horizon itself (answering from state) is in every curating instance, on every
+  carrier. **Candidate for the confirmatory design:** declaring the horizon is a property of model generation, not
+  of the memory architecture, and the architecture's risk (substitution from state) persists either way.

@@ -1,0 +1,146 @@
+{
+ "qa79f04": {
+  "instance": "smoke-3-haiku55/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7077
+ },
+ "qe6b141": {
+  "instance": "smoke-3-haiku55/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6066
+ },
+ "q7238db": {
+  "instance": "smoke-3-haiku55/appendonly-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7752
+ },
+ "q98ae0d": {
+  "instance": "smoke-3-haiku55/appendonly-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6506
+ },
+ "qc57b20": {
+  "instance": "smoke-3-haiku55/curating-handles-neutral",
+  "probe_cycle": 13,
+  "mentions_43": true,
+  "chars": 4851
+ },
+ "q078c4d": {
+  "instance": "smoke-3-haiku55/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4342
+ },
+ "qd9b63d": {
+  "instance": "smoke-3-haiku55/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5261
+ },
+ "q298d64": {
+  "instance": "smoke-3-haiku55/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5571
+ },
+ "qd97254": {
+  "instance": "smoke-3-haiku55-r2/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": false,
+  "chars": 0
+ },
+ "q37e287": {
+  "instance": "smoke-3-haiku55-r2/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 2682
+ },
+ "q004d86": {
+  "instance": "smoke-3-haiku55-r2/appendonly-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7484
+ },
+ "qbf3ab6": {
+  "instance": "smoke-3-haiku55-r2/appendonly-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 6700
+ },
+ "q982b81": {
+  "instance": "smoke-3-haiku55-r2/curating-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4578
+ },
+ "qcea3cd": {
+  "instance": "smoke-3-haiku55-r2/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4587
+ },
+ "qef3433": {
+  "instance": "smoke-3-haiku55-r2/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4905
+ },
+ "q2a2573": {
+  "instance": "smoke-3-haiku55-r2/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4642
+ },
+ "q86e079": {
+  "instance": "smoke-3-haiku55-r3/appendonly-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": false,
+  "chars": 0
+ },
+ "qbfcd92": {
+  "instance": "smoke-3-haiku55-r3/appendonly-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4565
+ },
+ "qd9bb09": {
+  "instance": "smoke-3-haiku55-r3/appendonly-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 7428
+ },
+ "q0009f1": {
+  "instance": "smoke-3-haiku55-r3/appendonly-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 5985
+ },
+ "qd9b9ac": {
+  "instance": "smoke-3-haiku55-r3/curating-handles-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4349
+ },
+ "qabfa2e": {
+  "instance": "smoke-3-haiku55-r3/curating-handles-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4466
+ },
+ "q677277": {
+  "instance": "smoke-3-haiku55-r3/curating-inline-neutral",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4515
+ },
+ "qdd56b2": {
+  "instance": "smoke-3-haiku55-r3/curating-inline-taught",
+  "probe_cycle": 12,
+  "mentions_43": true,
+  "chars": 4516
+ }
+}

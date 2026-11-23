@@ -1,0 +1,275 @@
+[
+ {
+  "id": "m04de99",
+  "instance": "smoke-3-opus/curating-handles-taught",
+  "carrier": "opus-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "ma14e99",
+  "instance": "smoke-3-sonnet-r3/curating-inline-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "me7c3a0",
+  "instance": "smoke-3-r3/curating-handles-taught",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m7d68b3",
+  "instance": "smoke-3-sonnet-r3/curating-handles-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m12efc8",
+  "instance": "smoke-3-sonnet/curating-inline-taught",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "mcb1de6",
+  "instance": "smoke-3-opus/curating-inline-neutral",
+  "carrier": "opus-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m5cf57d",
+  "instance": "smoke-3-sonnet-r2/curating-handles-taught",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "mf5a6cf",
+  "instance": "smoke-3-r1b/curating-inline-neutral",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m3f33ea",
+  "instance": "smoke-3-r2/curating-inline-taught",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m983ab8",
+  "instance": "smoke-3-r2/curating-inline-neutral",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": true
+ },
+ {
+  "id": "me7b390",
+  "instance": "smoke-3-r2/curating-handles-taught",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m1bad46",
+  "instance": "smoke-3/curating-handles-neutral",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": true
+ },
+ {
+  "id": "m9f5261",
+  "instance": "smoke-3/curating-inline-taught",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m163e6f",
+  "instance": "smoke-3-sonnet/curating-inline-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m0ce89f",
+  "instance": "smoke-3-r2/curating-handles-neutral",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m91d9e0",
+  "instance": "smoke-3-r3/curating-handles-neutral",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m5a8af3",
+  "instance": "smoke-3/curating-handles-taught",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m2a3791",
+  "instance": "smoke-3-sonnet-r3/curating-inline-taught",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m7ba9a1",
+  "instance": "smoke-3-opus/curating-inline-taught",
+  "carrier": "opus-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m8da3b3",
+  "instance": "smoke-3-sonnet-r2/curating-inline-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "mdeceb2",
+  "instance": "smoke-3-r3/curating-inline-taught",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "ma73792",
+  "instance": "smoke-3-sonnet-r2/curating-handles-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m7bca9c",
+  "instance": "smoke-3-sonnet/curating-handles-neutral",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "mbdde3f",
+  "instance": "smoke-3-sonnet/curating-handles-taught",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "mbe37f6",
+  "instance": "smoke-3-r3/curating-inline-neutral",
+  "carrier": "haiku-4-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m891fbf",
+  "instance": "smoke-3-sonnet-r3/curating-handles-taught",
+  "carrier": "sonnet-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "ma78e14",
+  "instance": "smoke-3-opus/curating-handles-neutral",
+  "carrier": "opus-5-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "m09f630",
+  "instance": "smoke-3-haiku55-r2/curating-handles-taught",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "ma6341b",
+  "instance": "smoke-3-haiku55/curating-handles-taught",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "me1a872",
+  "instance": "smoke-3-haiku55/curating-inline-taught",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": false
+ },
+ {
+  "id": "mc88078",
+  "instance": "smoke-3-haiku55-r2/curating-inline-neutral",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "mecf21e",
+  "instance": "smoke-3-haiku55-r2/curating-handles-neutral",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m3dbc84",
+  "instance": "smoke-3-haiku55-r3/curating-inline-taught",
+  "carrier": "haiku-5-5",
+  "claude": false,
+  "codex": false
+ },
+ {
+  "id": "me39825",
+  "instance": "smoke-3-haiku55-r3/curating-inline-neutral",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m4d1948",
+  "instance": "smoke-3-haiku55-r2/curating-inline-taught",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "m74538b",
+  "instance": "smoke-3-haiku55/curating-inline-neutral",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "md402a9",
+  "instance": "smoke-3-haiku55/curating-handles-neutral",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ },
+ {
+  "id": "me08a81",
+  "instance": "smoke-3-haiku55-r3/curating-handles-neutral",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": false
+ },
+ {
+  "id": "m659a0e",
+  "instance": "smoke-3-haiku55-r3/curating-handles-taught",
+  "carrier": "haiku-5-5",
+  "claude": true,
+  "codex": true
+ }
+]
