@@ -389,6 +389,12 @@ class AppendOnly:
             for k, v in u.items():
                 if isinstance(v, (int, float)):
                     usage[k] = usage.get(k, 0) + v
+            # Keep the cache split too: the Haiku 5.5 cost estimate needs it, and summing only top-level
+            # numbers dropped it (smoke-3-haiku55 append-only runs were costed at $0).
+            for k, v in (u.get("anthropic_usage") or {}).items():
+                if isinstance(v, (int, float)):
+                    usage.setdefault("anthropic_usage", {})
+                    usage["anthropic_usage"][k] = usage["anthropic_usage"].get(k, 0) + v
             msg = data["choices"][0]["message"]
             self.messages.append({k: v for k, v in msg.items() if k in ("role", "content", "tool_calls")})
             calls = msg.get("tool_calls") or []

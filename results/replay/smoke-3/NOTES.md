@@ -119,8 +119,11 @@ the confirmatory design, declared there under "What I knew".*
 ## Addendum, 2026-11-23: Haiku 5.5 separates generation from size
 
 - **Ran:** claude-haiku-5-5 (released 2026-10-07), 8 cells × 3, on levadura's own workspace and key (Tony, 11-23),
-  never the doors' (plaza seq 296–298). Cost: $11.98 estimated from tokens (hamutay has no Haiku 5.5 price row;
-  see scripts/replay_costs.py). Reconcile with the console.
+  never the doors' (plaza seq 296–298). Cost: **between about $13 and $31**: $11.98 for the curating arms (estimated per turn),
+  plus $0.74–$19.22 for the append-only arms. Their logs summed only top-level token counts, so the cache split was
+  lost and the estimator first read them as $0 (fixed for future runs). The bound prices all prompt tokens
+  cache-read at the low rate, or uncached at the >100K rate. The console total for levadura's workspace is exact,
+  because nothing else uses it.
 - **Harness limit found:** the append-only arm's max_tokens was 8000, set for Haiku 4.5, which doesn't think. Haiku
   5.5 thinks by default and spent the whole cap thinking. Two runs (r2 and r3, appendonly-handles-neutral) returned
   empty probe, process and debrief replies, logged as "ok". Fixed in 3f6bc5c: the cap now follows the model's
