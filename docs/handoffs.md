@@ -379,3 +379,16 @@ the same night, and hold both seats, steward and custodian.
 - **Tony's suggestion:** the standing regulatory reader gets a public, on-demand side as the ayllu's public face.
   Rules: audited before shown, public dated corrections, plainly the ayllu's (not styled after any agency), written
   for a reader with no context. Designed after the 2026 backtest.
+
+*Addendum, 2026-11-23 (back after 11-08; host rebooted 11-15).*
+- **Residents:** all obligations held through the absence. Every unit came back after the reboot by itself. Both
+  Lunas woke daily (Luna c66–81, the Wanderer c99–114). Neither asked the keeper anything, all were read on return,
+  and none is owed a reply. The backups ran nightly. Marker's check-in was delivered daily 11-08 to 11-23.
+- **Plaza seq 239** (restart for the rotated OpenRouter key) was answered at seq 295: the reboot did it. Seq 235
+  (authority) and 238 (governance) were acknowledged.
+- **smoke-3, completed before the gap:** Sonnet r2/r3 and Opus (24 runs, $53.96; Q3 24/24 correct). One Sonnet
+  run hit a service refusal at the process question. It was debriefed by hand, and the harness now debriefs after any
+  refusal (90154bd). Smoke-3 spend in all: about $82 of the credit.
+- **Not run: the Haiku 5.5 pass.** The queued waiter used `while pgrep -f smoke3-ladder.sh`, which matched its own
+  command line and never exited (research-program's practice commons: "wait on a PID, never on pgrep -f"). The
+  credit has expired, and levadura's Anthropic workspace now returns 404. Running it needs Tony's word on a route.
