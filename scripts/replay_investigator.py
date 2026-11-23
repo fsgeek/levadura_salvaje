@@ -251,17 +251,18 @@ def confirms_stop(answer: str) -> bool:
 
 
 def load_anthropic() -> None:
-    """Hamut'ay's named key and levadura's own workspace (billing lands on levadura). Never
+    """levadura's own key and workspace (billing lands on levadura). Never
     ANTHROPIC_API_KEY: an exported one makes Claude Code bill the API (hamutay anthropic_direct)."""
     def read(path: Path, name: str) -> str:
         for line in path.read_text().splitlines():
             if line.startswith(name + "="):
                 return line.split("=", 1)[1].strip().strip('"')
         sys.exit(f"{name} not found in {path}")
-    os.environ.setdefault("HAMUTAY_ANTHROPIC_API_KEY",
-                          read(Path.home() / ".config/hamutay/anthropic.env", "HAMUTAY_ANTHROPIC_API_KEY"))
-    os.environ["HAMUTAY_ANTHROPIC_WORKSPACE_ID"] = read(
-        Path.home() / ".config/levadura/anthropic.env", "LEVADURA_SALVAJE_ANTHROPIC_WORKSPACE_ID")
+    # levadura's own key and workspace (Tony, 2026-11-23), passed to hamutay.anthropic_direct under the names
+    # it reads. Never Hamut'ay's key: that workspace pays for the doors' credit pool (plaza seq 286, 296).
+    env = Path.home() / ".config/levadura/anthropic.env"
+    os.environ["HAMUTAY_ANTHROPIC_API_KEY"] = read(env, "LEVADURA_ANTHROPIC_API_KEY")
+    os.environ["HAMUTAY_ANTHROPIC_WORKSPACE_ID"] = read(env, "LEVADURA_SALVAJE_ANTHROPIC_WORKSPACE_ID")
     os.environ.pop("ANTHROPIC_API_KEY", None)
 
 
