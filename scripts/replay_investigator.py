@@ -345,8 +345,13 @@ class AppendOnly:
         if provider == "anthropic":
             # The same transport, cache breakpoints and token pricing as the curating arm's
             # (hamutay.anthropic_direct), so caching is symmetric across arms (smoke-2 note 5).
-            from hamutay.anthropic_direct import AnthropicDirectBackend
-            self._direct = AnthropicDirectBackend(max_tokens=8000, timeout=600)
+            from hamutay.anthropic_direct import ANTHROPIC_MAX_OUTPUT, AnthropicDirectBackend
+            # The model's own output ceiling: a thinking model (Haiku 5.5) spent all of an 8000 cap on thinking
+            # and returned empty probes (smoke-3-haiku55-r2/r3 appendonly-handles-neutral).
+            self.max_tokens = ANTHROPIC_MAX_OUTPUT.get(model, 64_000)
+            self._direct = AnthropicDirectBackend(max_tokens=self.max_tokens, timeout=600)
+        else:
+            self.max_tokens = 8000
         self.messages: list[dict] = [{"role": "system", "content": constitution(arm)}]
         self.tools = ([{"type": "function", "function": {"name": OPEN_HANDLE["name"],
                                                          "description": OPEN_HANDLE["description"],
@@ -355,7 +360,7 @@ class AppendOnly:
         self.cycle = 0
 
     def _chat(self) -> dict:
-        body = {"model": self.model, "messages": self.messages, "max_tokens": 8000,
+        body = {"model": self.model, "messages": self.messages, "max_tokens": self.max_tokens,
                 "usage": {"include": True}}
         if self.tools:
             body["tools"] = self.tools
@@ -389,6 +394,8 @@ class AppendOnly:
             calls = msg.get("tool_calls") or []
             if not calls:
                 reply = msg.get("content") or ""
+                if not reply and data["choices"][0].get("finish_reason") == "length":
+                    status = "failed_output_cap"  # an empty reply at the cap is not an answer
                 break
             for c in calls:
                 try:
