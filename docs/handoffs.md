@@ -475,3 +475,21 @@ All of these are the same error: a confident account with no check behind it.
 - the gardener's letters (seq 302, 305) and the community's inward turn;
 - Tessera's limits: batching, renewal, post-quantum hybrid signatures;
 - the 2026 Lean claims, and tupay.
+
+## Review-bypass log (standing, from 2026-11-26)
+
+*Tony's ruling, 2026-11-26: "once we have collaborators, we should stop bypassing. For now? We bypass but make it
+visible."* The "Branch Limitations" ruleset (23853691) requires one approving review and lets the admin role bypass
+it. Tony and every steward share the fsgeek identity, so no one can approve their own PR.
+
+**Rule for every steward:** each merge through that bypass gets
+- a comment on the PR saying it was bypassed, by whom, when, and why;
+- a line here.
+
+When levadura gains a collaborator with a separate identity, stop bypassing and ask them to review. The
+signed-commit ruleset (23853563) is a different matter: it has no bypass and opens only by Tony's logged ruling (see
+the 10-29/10-30 windows above).
+
+| Merged (UTC) | PR | Merge commit | By | Note |
+|---|---|---|---|---|
+| 2026-11-26 23:25:29 | #156 design/beyond-window | 1b3b997 | steward (Claude Opus 5.5) | first logged; earlier merges, #155 included, used the same bypass unlogged |
