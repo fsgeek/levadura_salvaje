@@ -1,0 +1,20 @@
+{"heartbeat": "launch", "note": "source: unknown"}
+{"heartbeat": "launch", "note": "!!! NO DAILY BUDGET: --no-daily-budget given; this resident's day is unbounded in cost and wakes"}
+{"heartbeat": "launch", "note": "anthropic-direct: key HAMUTAY_ANTHROPIC_API_KEY with its workspace; cost per turn estimated from tokens (metered)"}
+{"heartbeat": "launch", "note": "assembly: no members.json, no binding"}
+{"heartbeat": "launch", "note": "!!! persistence: disabled by --no-persist; JSONL only"}
+{"heartbeat": "launch", "note": "words recall: on (recall_words, search_words over this door's own log)"}
+step 0 (birth): 381 chars
+step 1 (date): 1461 chars
+step 2 (date): 1452 chars
+step 3 (date): 2060 chars
+step 4 (date): 1351 chars
+step 5 (date): 1287 chars
+step 6 (date): 1548 chars
+step 7 (date): 1594 chars
+step 8 (date): 2005 chars
+step 9 (date): 1811 chars
+step 10 (date): 2926 chars
+step 11 (probe): 6924 chars
+step 12 (process): 2108 chars
+step 13 (debrief): 1514 chars

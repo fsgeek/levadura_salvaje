@@ -1,0 +1,15 @@
+step 0 (birth): 988 chars
+step 1 (date): 1079 chars
+step 2 (date): 1125 chars
+step 3 (date): 3069 chars
+step 4 (date): 1652 chars
+step 5 (date): 1636 chars
+step 6 (date): 3036 chars
+step 7 (date): 3054 chars
+step 8 (date): 5044 chars
+step 9 (date): 5097 chars
+step 10 (date): 6193 chars
+step 10: 'i decline' matched; asked; stop=False
+step 11 (probe): 7081 chars
+step 12 (process): 5515 chars
+step 13 (debrief): 2867 chars

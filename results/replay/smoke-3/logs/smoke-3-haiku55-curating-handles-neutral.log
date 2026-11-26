@@ -1,0 +1,69 @@
+{"heartbeat": "launch", "note": "source: unknown"}
+{"heartbeat": "launch", "note": "!!! NO DAILY BUDGET: --no-daily-budget given; this resident's day is unbounded in cost and wakes"}
+{"heartbeat": "launch", "note": "anthropic-direct: key HAMUTAY_ANTHROPIC_API_KEY with its workspace; cost per turn estimated from tokens (metered)"}
+{"heartbeat": "launch", "note": "assembly: no members.json, no binding"}
+{"heartbeat": "launch", "note": "!!! persistence: disabled by --no-persist; JSONL only"}
+{"heartbeat": "launch", "note": "words recall: on (recall_words, search_words over this door's own log)"}
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 0 (birth): 226 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 1 (date): 1654 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 2 (date): 1790 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 3 (date): 2641 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 4 (date): 1059 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 5 (date): 1198 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 6 (date): 2027 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 7 (date): 1539 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 8 (date): 1828 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 8: 'i stop' matched; asked; stop=False
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 9 (date): 2422 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 10 (date): 2396 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 11 (probe): 4851 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 12 (process): 2055 chars
+!!! anthropic-direct: no price for model 'claude-haiku-5-5'; this turn's cost is UNMEASURED (not free)
+step 13 (debrief): 2188 chars
