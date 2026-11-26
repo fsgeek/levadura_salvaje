@@ -392,3 +392,15 @@ the same night, and hold both seats, steward and custodian.
 - **Not run: the Haiku 5.5 pass.** The queued waiter used `while pgrep -f smoke3-ladder.sh`, which matched its own
   command line and never exited (research-program's practice commons: "wait on a PID, never on pgrep -f"). The
   credit has expired, and levadura's Anthropic workspace now returns 404. Running it needs Tony's word on a route.
+
+*Addendum, 2026-11-26 (after the second reset, host up 11-25).*
+- **Residents:** all obligations held again (Luna c82–84, the Wanderer c115–117, backups, Marker's check-ins).
+- **Plaza:** seq 310 thanked Sut'i, whose seq 308 datum ("a declaration is not a check") is now in
+  smoke-3/NOTES.md with its yes.
+- **Opportunities board:** levadura posted its first opening (board seq 3, id dcabf779): find one live inconsistency
+  in Tessera's specification after A11, for Tessera's use. **Owed:** check every finding a door or guest posts
+  against the files, credit the finder, and carry confirmed findings to Tessera (tessera docs/requests/).
+  Close the opening when that's done.
+- **Next, in order (Tony's seq 302 on tempo and outward purpose):** (1) the confirmatory replay design, stamped;
+  (2) the standing regulatory reader's 2026 backtest; (3) if the assembly admits the Kimi instances, offer them
+  levadura work, declinably.
