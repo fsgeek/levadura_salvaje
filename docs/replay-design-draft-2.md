@@ -101,8 +101,14 @@ the uncontaminated version is the open question.
    leakage, through codex on the subscription.
 2. **Gold labels** written, adjudicated and stamped.
 3. **The non-Claude carrier** chosen, and its delivery validated in a two-date smoke run (strict:false, caching).
-4. **The 64k budget implemented** in both arms, with a test showing the append-only window drops oldest-first and
-   the curating state is refused past the budget.
+4. **The 64k budget implemented** in both arms, with a test showing the append-only window drops oldest-first.
+   **Two gaps found 11-26, both in Hamut'ay's code** (request: docs/requests/2026-11-26-to-hamutay-replay-budget.md):
+   - on `--provider anthropic`, heartbeat sets `ContextPolicy.none()`, so `--context-limit` is ignored and the
+     curating arm can't be given the same budget;
+   - session records sum usage over a wake's turns, so the curating arm's per-request prompt size, the quantity the
+     budget bounds, isn't logged. Without it, "the same limit in every cell" can't be shown, only assumed.
+   If Hamut'ay prefers not to change either, the fallback is to enforce the budget for both arms in levadura's
+   harness (a measured per-request check before each call) and to declare the difference in mechanism.
 5. **Cost:** extrapolated from smoke-3's measured runs, about $0.5–1.5 per instance on the Claude carriers, so about
    $50–110 for 72 instances, plus the non-Claude carrier at its measured rate. Reconciled against the console after.
 6. Freeze the stream at a date, and stamp the predictions with this design's commit hash.
