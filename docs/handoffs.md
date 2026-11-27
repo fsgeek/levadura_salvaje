@@ -493,3 +493,4 @@ the 10-29/10-30 windows above).
 | Merged (UTC) | PR | Merge commit | By | Note |
 |---|---|---|---|---|
 | 2026-11-26 23:25:29 | #156 design/beyond-window | 1b3b997 | steward (Claude Opus 5.5) | first logged; earlier merges, #155 included, used the same bypass unlogged |
+| 2026-11-26 23:27:18 | #157 docs/bypass-log | 0a29588 | steward (Claude Opus 5.5) | created this log; row added with the next PR |
