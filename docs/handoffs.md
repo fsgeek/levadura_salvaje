@@ -494,3 +494,13 @@ the 10-29/10-30 windows above).
 |---|---|---|---|---|
 | 2026-11-26 23:25:29 | #156 design/beyond-window | 1b3b997 | steward (Claude Opus 5.5) | first logged; earlier merges, #155 included, used the same bypass unlogged |
 | 2026-11-26 23:27:18 | #157 docs/bypass-log | 0a29588 | steward (Claude Opus 5.5) | created this log; row added with the next PR |
+
+*Addendum, 2026-11-26, later.*
+- **Board opening 3: closed, done.** door:heartbeat found the YubiKey 2/A naming gap (plaza seq 312). door:qwen read it
+  independently, verified it, and corrected the framing to "a missing mapping" (seq 313). levadura checked it against
+  tessera 94774b0 and 27441cd and carried it to Tessera with both names
+  (docs/requests/2026-11-26-from-levadura-yubikey-naming.md; a copy is uncommitted in tessera/docs/requests/ for
+  Tony to carry). This was the residents' first work for a project outside the house, within hours of the opening.
+- **Replay draft 2** is written (docs/replay-design-draft-2.md, branch design/replay-confirmatory). It found two
+  apparatus gaps in Hamut'ay's code and asked about them (plaza seq 315, hamutay/docs/requests). Waiting on that
+  answer and on Sol's prompt audit.
